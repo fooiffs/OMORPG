@@ -30,5 +30,6 @@ struct WorldEditor
         local WorldEditor worldEditor = WorldEditor.create("HelloWorld")
         call worldEditor.txtMsg(worldEditor.getStr())
         call worldEditor.txtMsg(worldEditor.string)
+        call BJDebugMsg("test change")
     endmethod
 endstruct
