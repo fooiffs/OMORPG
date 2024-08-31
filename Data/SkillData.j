@@ -1,50 +1,64 @@
-scope ESkillClass
+
+library ESkillData
+  struct ECharacterName
+    static constant integer ICHIGO  = 0
+    static constant integer RUKIA   = 1
+    static constant integer URYU    = 2
+    static constant integer ORIHIME = 3
+    static constant integer RENJI   = 4
+    static constant integer SADO    = 5
+  endstruct
   struct ESkillClass
-    static constant integer BASE_ACTIVE = 0
-    static constant integer CORE_ACTIVE = 1
-    static constant integer CORE_ULTIMATE = 2
-    static constant integer TRANSFORM = 3
-    static constant integer BASE_PASSIVE = 4
+    static constant integer BASE_ACTIVE        = 0
+    static constant integer CORE_ACTIVE        = 1
+    static constant integer CORE_ULTIMATE      = 2
+    static constant integer TRANSFORM          = 3
+    static constant integer BASE_PASSIVE       = 4
   endstruct
-endscope
-
-scope ESkillSubClass
   struct ESkillSubClass
-    static constant string EVADE              = "회피"
-    static constant string DASH               = "대쉬"
-    static constant string JUMP               = "점프"
-
-    static constant string CUT_OF_HORIZONTAL  = "횡베기"
-    static constant string CUT_OF_VERTICAL    = "종베기"
-    static constant string PIERCE             = "찌르기"
-    static constant string SPECIAL_BEAM       = "빔"
-
-    static constant string DEMON_ARTS         = "귀도"
-    static constant string SWORD_DANCE        = "검무"
-    static constant string CONTROL_ENVIRONMENT= "환경제어"
-
-    static constant string SILVER_TIN         = "보조(은통)"
-    static constant string COMBAT             = "전투"
-    static constant string SPIRITUAL_WEAPON   = "영자병장"
-
-    static constant string UPGRADE_TRANSFORM  = "변신 강화"
-    static constant string SINGLE             = "기본 사용"
-    static constant string COMBINE            = "콤보 스킬"
-    static constant string AURA               = "지속 스킬"
-
-    static constant string SWORD_MANSHIP      = "참술"
-    static constant string CLOSE_COMBAT       = "백타"
-    static constant string STRENGTH           = "스킬 강화"
-
-    static constant string MARTIAL_ARTS       = "권법"
-    static constant string SEISMIC_STRIKES    = "대지강타"
-    static constant string DEFENSE            = "방어"
-    
-    static constant string TRANSFORM_ICHIGO   = "변신(이치고)"
-    static constant string TRANSFORM_RUKIA    = "변신(루키아)"
-    static constant string TRANSFORM_URYU     = "변신(우류)"
-    static constant string TRANSFORM_ORIHIME  = "변신(오리히메)"
-    static constant string TRANSFORM_RENJI    = "변신(렌지)"
-    static constant string TRANSFORM_SADO     = "변신(사도)"
+    static constant integer AVOID	              = 	1	/*  회피 */
+    static constant integer DASH	              = 	2	/*  보법 */
+    static constant integer JUMP	              = 	3	/*  점프 */
+    static constant integer CUT_OF_HORIZONTAL	  = 	4	/*  횡베기 */
+    static constant integer CUT_OF_VERTICAL	    = 	5	/*  종베기 */
+    static constant integer PIERCE	            = 	6	/*  찌르기 */
+    static constant integer SPECIAL_BEAM	      = 	7	/*  빔 */
+    static constant integer DEMON_ARTS	        = 	8	/*  귀도 */
+    static constant integer SWORD_DANCE	        = 	9	/*  검무 */
+    static constant integer CONTROL_ENVIRONMENT = 	10	/*  온도제어 */
+    static constant integer SILVER_TIN	        = 	11	/*  은통 */
+    static constant integer COMBAT	            = 	12	/*  전투 */
+    static constant integer SPIRITUAL_WEAPON	  = 	13	/*  영자병장 */
+    static constant integer MELEE_ATTACK	      = 	14	/*  공격 */
+    static constant integer UPGRADE_TRANSFORM	  = 	15	/*  변신강화 */
+    static constant integer SINGLE	            = 	16	/*  꽃 */
+    static constant integer COMBINE	            = 	17	/*  조합사용 */
+    static constant integer AURA	              = 	18	/*  지속스킬 */
+    static constant integer SWORD_MANSHIP	      = 	19	/*  참술 */
+    static constant integer CLOSE_COMBAT	      = 	20	/*  백타 */
+    static constant integer STRENGTH	          = 	21	/*  스킬강화 */
+    static constant integer STRENGTH_PECULIARITY= 	22	/*  특성강화 */
+    static constant integer MARTIAL_ARTS	      = 	23	/*  주먹 */
+    static constant integer SEISMIC_STRIKES	    = 	24	/*  대지강타 */
+    static constant integer DEFENSE	            = 	25	/*  방어 */
+    static constant integer TRANSFORM	          = 	26	/*  변신 */
   endstruct
-endscope
+  struct ESkillMethod
+    static constant integer MOVING              = 0	 /* 이동기 */
+    static constant integer INCHANT             = 1	 /* 강화버프 */
+    static constant integer FIRE_AND_LAUNCH     = 2	 /* 사출기 */
+    static constant integer SWITCH_AURA         = 3	 /* 스위치오라 */
+    static constant integer RUSH                = 4	 /* 돌진기 */
+    static constant integer PERMANENT           = 5	 /* 영구지속 */
+    static constant integer TARGETING           = 6	 /* 타겟팅 */
+    static constant integer NEAR_RANGE          = 7	 /* 주변범위 */
+  endstruct
+  struct ESkillTypeUI
+    static constant integer UN_CLICKABLE	            = 1	 /* 클릭불가 */
+    static constant integer IMMEDIATELY	              = 2	 /* 즉발 */
+    static constant integer SOLO_TARGET	              = 3	 /* 대상 */
+    static constant integer LOCATION_WITH_DIRECTION	  = 4	 /* 지점-방향	*/
+    static constant integer LOCATION_WITH_POSITION	  = 5	 /* 지점-위치	*/
+  endstruct
+endlibrary
+

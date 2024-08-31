@@ -2,3 +2,4 @@
 //! import "Data\Tile.j"
 //! import "Data\SkillData.j"
 //! import "Data\CharacterData.j"
+//! import "Data\SkillObject.j"
