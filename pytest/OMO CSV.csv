@@ -1,0 +1,343 @@
+﻿코드,대분류,중분류,소분류,"변신
+레벨",기능,형태,스킬이름,설명,사용값,변동값(스킬레벨),거리,∼거리,"시전시간
+(10ms)",∼시전시간 (10ms),"지속시간
+(10ms)",∼지속시간 (10ms),"쿨다운
+(10ms)","∼쿨다운
+(10ms)",데미지,∼데미지,범위,∼범위,소모마나,∼소모마나
+1,이치고,기본,보법,0,이동기,8,대쉬,앞으로 #Distance 거리만큼 빠르게 내달립니다.,#CastingTime/#Damage/#Distance/#Range/#Duration/#Mana/#CoolDown,~CastingTime/~Damage/~Distance/~Range/~Duration/~Mana/~CoolDown,100,,,,,,"19.9s
+9","-1.1s
+1",,,,,"10
+.1",1.1
+2,이치고,기본,보법,2,이동기,8,순보,앞으로 #Distance 거리만큼 순간적으로 내달립니다.,#CastingTime/#Damage/#Distance/#Range/#Duration/#Mana/#CoolDown,~CastingTime/~Damage/~Distance/~Range/~Duration/~Mana/~CoolDown,150,,,,,,"18.0s
+0","-1.0s
+0",,,,,"14
+.7",1.7
+3,이치고,기본,보법,5,이동기,8,니도,호로들의 이동 보법입니다.\n#Distance 거리만큼 순간적으로 내달립니다.,#CastingTime/#Damage/#Distance/#Range/#Duration/#Mana/#CoolDown,~CastingTime/~Damage/~Distance/~Range/~Duration/~Mana/~CoolDown,225,,,,,,"14.9s
+7","-0.8s
+3",,,,,"22
+.0",2.5
+4,이치고,기본,보법,8,이동기,8,소니도,아란칼들의 이동 보법입니다. \n#Distance 거리만큼 순간적으로 내달립니다.,#CastingTime/#Damage/#Distance/#Range/#Duration/#Mana/#CoolDown,~CastingTime/~Damage/~Distance/~Range/~Duration/~Mana/~CoolDown,300,,,,,,"12.0s
+3","-0.6s
+7",,,,,"30
+.3",3.3
+5,이치고,기본,보법,10,이동기,8,브링거 라이트,풀브링거의 고속 보법입니다. \n#Distance 거리만큼 순식간에 이동합니다.,#CastingTime/#Damage/#Distance/#Range/#Duration/#Mana/#CoolDown,~CastingTime/~Damage/~Distance/~Range/~Duration/~Mana/~CoolDown,350,,,,,,"10.0s
+4","-0.5s
+6",,,,,"34
+.9",3.9
+6,이치고,기본,회피,0,강화버프,이치고,방어,방어 자세를 취해 데미지를 감소시킵니다.\n#Duration초간 데미지 #Damage% 감소,#CastingTime/#Damage/#Range/#Duration/#Mana/#CoolDown,~CastingTime/~Damage/~Distance/~Range/~Duration/~Mana/~CoolDown,,,140,10,100,,1999,-111,30,,,,"10
+.1",1.1
+7,이치고,기본,회피,2,강화버프,이치고,회피,영압을 집중해 데미지를 감소시킵니다.\n#Duration초간 데미지 #Damage% 감소,#CastingTime/#Damage/#Range/#Duration/#Mana/#CoolDown,~CastingTime/~Damage/~Distance/~Range/~Duration/~Mana/~CoolDown,,,122,8,50,,1800,-100,100,,,,"14
+.7",1.7
+8,이치고,기본,회피,5,강화버프,이치고,천무연신,허공에 검을 휘둘러 공격을 방어합니다. \n#Duration초간 데미지 #Damage% 감소,#CastingTime/#Damage/#Range/#Duration/#Mana/#CoolDown,~CastingTime/~Damage/~Distance/~Range/~Duration/~Mana/~CoolDown,,,104,6,150,,1497,-83,50,,,,"22
+.0",2.5
+9,이치고,기본,빔,4,사출기,이치고,세로,일직선상으로 빔을 날려 #Distance거리에 #Damage% 데미지를 가합니다.,#CastingTime/#Damage/#Distance/#Range/#Duration/#Mana/#CoolDown,~CastingTime/~Damage/~Distance/~Range/~Duration/~Mana/~CoolDown,350,,,,,,2489,-100,249,15,150,,"64
+.3",12.9
+10,이치고,기본,빔,7,사출기,이치고,그랑 레이 세로,"왕허의 섬광, 피를 섞은 세로를 날려 #Distance거리에 #Damage% 데미지를 가합니다.",#CastingTime/#Damage/#Distance/#Range/#Duration/#Mana/#CoolDown,~CastingTime/~Damage/~Distance/~Range/~Duration/~Mana/~CoolDown,500,,,,,,4190,-168,484,29,150,,"96
+.4",19.3
+11,이치고,기본,빔,9,사출기,이치고,풀스크린 세로,강화된 세로를 날려 #Distance거리에 #Damage% 데미지를 가합니다.,#CastingTime/#Damage/#Distance/#Range/#Duration/#Mana/#CoolDown,~CastingTime/~Damage/~Distance/~Range/~Duration/~Mana/~CoolDown,600,,,,,,5777,-231,748,45,150,,"117
+.8",23.6
+12,이치고,기본,빔,11,사출기,이치고,원류파,해골 모양의 영압을 날려 #Distance거리에 #Damage% 데미지를 가합니다.,#CastingTime/#Damage/#Distance/#Range/#Duration/#Mana/#CoolDown,~CastingTime/~Damage/~Distance/~Range/~Duration/~Mana/~CoolDown,700,,,,,,7846,-314,1152,69,150,,"139
+.2",27.8
+13,이치고,핵심,점프,2,돌진기,이치고,지열붕격,"#Distance거리를 돌진한 후, 충격파로 #Range범위에 #Damage% 데미지를 가합니다.",#CastingTime/#Damage/#Distance/#Range/#Duration/#Mana/#CoolDown,~CastingTime/~Damage/~Distance/~Range/~Duration/~Mana/~CoolDown,250,,95,-5,,,1694,-68,158,10,,,"42
+.9",8.6
+14,이치고,핵심,점프,4,돌진기,이치고,선류참,"#Distance거리를 돌진한 후, 회전베기로 #Range범위에 #Damage% 데미지를 가합니다.",#CastingTime/#Damage/#Distance/#Range/#Duration/#Mana/#CoolDown,~CastingTime/~Damage/~Distance/~Range/~Duration/~Mana/~CoolDown,350,,95,-5,,,2489,-100,249,15,300,400,"64
+.3",12.9
+15,이치고,핵심,점프,7,돌진기,이치고,명선붕격,"#Distance거리를 돌진한 후, 소용돌이로 #Range범위에 #Damage% 데미지를 여러번 가합니다.",#CastingTime/#Damage/#Distance/#Range/#Duration/#Mana/#CoolDown,~CastingTime/~Damage/~Distance/~Range/~Duration/~Mana/~CoolDown,500,,95,-5,,,4190,-168,484,29,350,450,"96
+.4",19.3
+16,이치고,핵심,종베기,0,사출기,이치고,세로베기,검을 세로로 베어 #Distance거리에 #Damage% 데미지를 가합니다.,#CastingTime/#Damage/#Distance/#Range/#Duration/#Mana/#CoolDown,~CastingTime/~Damage/~Distance/~Range/~Duration/~Mana/~CoolDown,150,,,,,,1100,-44,100,6,150,,"21
+.5",4.3
+17,이치고,핵심,종베기,3,사출기,이치고,월아천충,거대한 참격을 날려 #Distance거리에 #Damage% 데미지를 가합니다.,#CastingTime/#Damage/#Distance/#Range/#Duration/#Mana/#CoolDown,~CastingTime/~Damage/~Distance/~Range/~Duration/~Mana/~CoolDown,300,,,,,,2063,-83,199,12,150,,"53
+.6",10.7
+18,이치고,핵심,종베기,6,사출기,이치고,월아십자충,월아천충을 십자가 모양으로 날려 #Distance거리에 #Damage% 데미지를 가합니다.,#CastingTime/#Damage/#Distance/#Range/#Duration/#Mana/#CoolDown,~CastingTime/~Damage/~Distance/~Range/~Duration/~Mana/~CoolDown,450,,,,,,3543,-142,388,23,150,,"85
+.7",17.1
+19,이치고,핵심 [必],종베기,11,사출기,이치고,무쌍의일섬,월아천충과 그랑레이세로를 융합해 날립니다.\n#Distance거리에 #Damage% 데미지를 가합니다.,#CastingTime/#Damage/#Distance/#Range/#Duration/#Mana/#CoolDown,~CastingTime/~Damage/~Distance/~Range/~Duration/~Mana/~CoolDown,700,,,,,,7846,-314,1152,69,150,,"139
+.2",27.8
+20,이치고,핵심,횡베기,0,사출기,이치고,가로베기,검을 가로로 베어 #Range범위에 #Damage% 데미지를 가합니다.,#CastingTime/#Damage/#Range/#Duration/#Mana/#CoolDown,~CastingTime/~Damage/~Distance/~Range/~Duration/~Mana/~CoolDown,,,,,,,1100,-44,100,6,150,,"21
+.5",4.3
+21,이치고,핵심,횡베기,2,사출기,이치고,공열섬,전방을 베어 순수한 검기로 공격합니다. \n#Range범위에 #Damage% 데미지를 가합니다.,#CastingTime/#Damage/#Range/#Duration/#Mana/#CoolDown,~CastingTime/~Damage/~Distance/~Range/~Duration/~Mana/~CoolDown,,,,,,,1694,-68,158,10,250,,"42
+.9",8.6
+22,이치고,핵심,횡베기,4,사출기,이치고,천쇄참월,거대한 참격을 날려 #Distance거리에 #Damage% 데미지를 가합니다.,#CastingTime/#Damage/#Distance/#Range/#Duration/#Mana/#CoolDown,~CastingTime/~Damage/~Distance/~Range/~Duration/~Mana/~CoolDown,350,,,,,,2489,-100,249,15,150,,"64
+.3",12.9
+23,이치고,핵심 [必],횡베기,7,사출기,이치고,검은월아천충,호로의 힘으로 월아천충을 쏘아냅니다.\n#Distance거리에 #Damage% 데미지를 가합니다.,#CastingTime/#Damage/#Distance/#Range/#Duration/#Mana/#CoolDown,~CastingTime/~Damage/~Distance/~Range/~Duration/~Mana/~CoolDown,500,,,,,,4190,-168,484,29,150,,"96
+.4",19.3
+24,이치고,핵심 [必],횡베기,12,사출기,이치고,무월,잠재능력을 모두 해방시켜 참격을 발사합니다.\n#Range범위에 #Damage% 데미지를 가합니다.,#CastingTime/#Damage/#Range/#Duration/#Mana/#CoolDown,~CastingTime/~Damage/~Distance/~Range/~Duration/~Mana/~CoolDown,,,,,,,9101,-364,1427,86,750,,"149
+.9",30
+25,이치고,핵심,찌르기,1,돌진기,이치고,찌르기,#Distance거리를 찌르며 돌진하며 #Damage% 데미지를 가합니다.,#CastingTime/#Damage/#Distance/#Range/#Duration/#Mana/#CoolDown,~CastingTime/~Damage/~Distance/~Range/~Duration/~Mana/~CoolDown,200,,95,-5,,,1375,-55,126,8,,,"32
+.2",6.4
+26,이치고,핵심,찌르기,10,돌진기,이치고,흑류아돌,검은 월아천충의 기운으로 #Distance거리를 돌진하며 #Damage% 데미지를 가합니다.,#CastingTime/#Damage/#Distance/#Range/#Duration/#Mana/#CoolDown,~CastingTime/~Damage/~Distance/~Range/~Duration/~Mana/~CoolDown,650,,95,-5,,,6744,-270,929,56,,,"128
+.5",25.7
+27,이치고,변신,변신,0,영구지속,이치고,폭주,"아드레날린을 상승시켜 빠르게 공격합니다.\n이속 +6%, 공속 +7%",#CastingTime/#Damage/#Range/#Duration/#Mana/#CoolDown,~CastingTime/~Damage/~Distance/~Range/~Duration/~Mana/~CoolDown,,,,,,,15,15,,,,,"0
+.2",0.2
+28,이치고,변신,변신,1,영구지속,이치고,시해,"아드레날린을 상승시켜 빠르게 공격합니다.\n이속 +13%, 공속 +15%",#CastingTime/#Damage/#Range/#Duration/#Mana/#CoolDown,~CastingTime/~Damage/~Distance/~Range/~Duration/~Mana/~CoolDown,,,,,,,15,15,,,,,"0
+.4",0.4
+29,이치고,변신,변신,2,영구지속,이치고,만해,"아드레날린을 상승시켜 빠르게 공격합니다.\n이속 +20%, 공속 +30%",#CastingTime/#Damage/#Range/#Duration/#Mana/#CoolDown,~CastingTime/~Damage/~Distance/~Range/~Duration/~Mana/~CoolDown,,,,,,,15,15,,,,,"0
+.8",0.8
+30,이치고,변신,변신,3,영구지속,이치고,호로화,"아드레날린을 상승시켜 빠르게 공격합니다.\n이속 +27%, 공속 +45%",#CastingTime/#Damage/#Range/#Duration/#Mana/#CoolDown,~CastingTime/~Damage/~Distance/~Range/~Duration/~Mana/~CoolDown,,,,,,,15,15,,,,,"1
+.2",1.2
+31,이치고,변신,변신,4,영구지속,이치고,호로화 시해,"아드레날린을 상승시켜 빠르게 공격합니다.\n이속 +34%, 공속 +60%",#CastingTime/#Damage/#Range/#Duration/#Mana/#CoolDown,~CastingTime/~Damage/~Distance/~Range/~Duration/~Mana/~CoolDown,,,,,,,15,15,,,,,"1
+.6",1.6
+32,이치고,변신,변신,5,영구지속,이치고,호로화 만해 (각성호로화),"아드레날린을 상승시켜 빠르게 공격합니다.\n이속 +41%, 공속 +75%",#CastingTime/#Damage/#Range/#Duration/#Mana/#CoolDown,~CastingTime/~Damage/~Distance/~Range/~Duration/~Mana/~CoolDown,,,,,,,15,15,,,,,"2
+.0",2
+33,이치고,변신,변신,6,영구지속,이치고,종해,"아드레날린을 상승시켜 빠르게 공격합니다.\n이속 +48%, 공속 +90%",#CastingTime/#Damage/#Range/#Duration/#Mana/#CoolDown,~CastingTime/~Damage/~Distance/~Range/~Duration/~Mana/~CoolDown,,,,,,,15,15,,,,,"2
+.4",2.4
+34,이치고,변신,변신,7,영구지속,이치고,무월,"아드레날린을 상승시켜 빠르게 공격합니다.\n이속 -50%, 공속 +140%",#CastingTime/#Damage/#Range/#Duration/#Mana/#CoolDown,~CastingTime/~Damage/~Distance/~Range/~Duration/~Mana/~CoolDown,,,,,,,15,15,,,,,"5
+.6",5.6
+35,이치고,변신,변신,8,영구지속,이치고,스컬 클래드,"아드레날린을 상승시켜 빠르게 공격합니다.\n이속 +55%, 공속 +105%",#CastingTime/#Damage/#Range/#Duration/#Mana/#CoolDown,~CastingTime/~Damage/~Distance/~Range/~Duration/~Mana/~CoolDown,,,,,,,15,15,,,,,"2
+.8",2.8
+36,이치고,변신,변신,9,영구지속,이치고,풀브링,"아드레날린을 상승시켜 빠르게 공격합니다.\n이속 +62%, 공속 +120%",#CastingTime/#Damage/#Range/#Duration/#Mana/#CoolDown,~CastingTime/~Damage/~Distance/~Range/~Duration/~Mana/~CoolDown,,,,,,,15,15,,,,,"3
+.2",3.2
+37,이치고,변신,변신,10,영구지속,이치고,풀브링 시해,"아드레날린을 상승시켜 빠르게 공격합니다.\n이속 +69%, 공속 +135%",#CastingTime/#Damage/#Range/#Duration/#Mana/#CoolDown,~CastingTime/~Damage/~Distance/~Range/~Duration/~Mana/~CoolDown,,,,,,,15,15,,,,,"3
+.6",3.6
+38,이치고,변신,변신,11,영구지속,이치고,풀브링 만해,"아드레날린을 상승시켜 빠르게 공격합니다.\n이속 +76%, 공속 +150%",#CastingTime/#Damage/#Range/#Duration/#Mana/#CoolDown,~CastingTime/~Damage/~Distance/~Range/~Duration/~Mana/~CoolDown,,,,,,,15,15,,,,,"4
+.0",4
+39,이치고,변신,변신,12,영구지속,이치고,진참월,"아드레날린을 상승시켜 빠르게 공격합니다.\n이속 +83%, 공속 +165%",#CastingTime/#Damage/#Range/#Duration/#Mana/#CoolDown,~CastingTime/~Damage/~Distance/~Range/~Duration/~Mana/~CoolDown,,,,,,,15,15,,,,,"4
+.4",4.4
+40,이치고,변신,변신,13,영구지속,이치고,진참월 호로화,"아드레날린을 상승시켜 빠르게 공격합니다.\n이속 +90%, 공속 +180%",#CastingTime/#Damage/#Range/#Duration/#Mana/#CoolDown,~CastingTime/~Damage/~Distance/~Range/~Duration/~Mana/~CoolDown,,,,,,,15,15,,,,,"4
+.8",4.8
+41,이치고,변신,변신,14,영구지속,이치고,진참월 만해,"아드레날린을 상승시켜 빠르게 공격합니다.\n이속 +100%, 공속 +200%",#CastingTime/#Damage/#Range/#Duration/#Mana/#CoolDown,~CastingTime/~Damage/~Distance/~Range/~Duration/~Mana/~CoolDown,,,,,,,15,15,,,,,"5
+.2",5.2
+42,이치고,패시브,스킬 강화,1,영구지속,이치고,검압,기술에 영압을 추가하여 데미지를 준다.\n핵심 기술에 영력 #Damage%의 추가데미지,#CastingTime/#Damage/#Range/#Duration,~CastingTime/~Damage/~Distance/~Range/~Duration,,,,,,,,,1,10,,,,
+43,이치고,패시브,스킬 강화,8,영구지속,이치고,블루트베네,퀸시 특유의 방어술. 영자를 핏속에 흘려넣어 방어력을 비약적으로 상승시킨다. \n모든 받는 피해 #Damage%만큼 감소,#CastingTime/#Damage/#Range/#Duration,~CastingTime/~Damage/~Distance/~Range/~Duration,,,,,,,,,1,10,,,,
+44,루키아,기본,귀도,0,타겟팅,이치고,파괴술 1. 충,"손 끝에서 영압을 쏘아 대상에게 #Damage%의 피해를 줍니다.\n추가로, 2초간 25% 느려지게 만듭니다.",#CastingTime/#Damage/#Distance/#Range/#Duration/#Mana/#CoolDown,~CastingTime/~Damage/~Distance/~Range/~Duration/~Mana/~CoolDown,350,,95,5,200,,1100,-44,100,6,,,"21
+.5",4.3
+45,루키아,기본,귀도,1,타겟팅,이치고,파괴술 4. 백뢰,손 끝에서 번개를 쏘아 대상에게 #Damage%의 피해와 0.6초 스턴을 가합니다.,#CastingTime/#Damage/#Distance/#Range/#Duration/#Mana/#CoolDown,~CastingTime/~Damage/~Distance/~Range/~Duration/~Mana/~CoolDown,400,,95,5,60,,1375,-55,126,8,,,"32
+.2",6.4
+46,루키아,기본,귀도,3,타겟팅,이치고,파괴술 31 적화포,"불꽃을 쏘아 #Damage%의 피해를 줍니다.\n추가로, 최대체력 0.8%의 데미지를 입힙니다.",#CastingTime/#Damage/#Distance/#Range/#Duration/#Mana/#CoolDown,~CastingTime/~Damage/~Distance/~Range/~Duration/~Mana/~CoolDown,500,,95,5,,,2063,-83,199,12,,,"53
+.6",10.7
+47,루키아,기본,귀도,3,타겟팅,이치고,파괴술 33 창화추,"푸른 불꽃을 쏘아 #Damage%의 피해를 줍니다.\n추가로, 현재체력 2%의 데미지를 입힙니다.",#CastingTime/#Damage/#Distance/#Range/#Duration/#Mana/#CoolDown,~CastingTime/~Damage/~Distance/~Range/~Duration/~Mana/~CoolDown,500,,95,5,,,2063,-83,199,12,,,"53
+.6",10.7
+48,루키아,기본,귀도,7,타겟팅,이치고,파괴술 73 쌍련창화추,"양 손에서 푸른 불꽃을 쏘아 #Damage%의 피해를 줍니다.\n추가로, 잃은 체력의 6%의 데미지를 입힙니다.",#CastingTime/#Damage/#Distance/#Range/#Duration/#Mana/#CoolDown,~CastingTime/~Damage/~Distance/~Range/~Duration/~Mana/~CoolDown,700,,95,5,,,4190,-168,484,29,,,"96
+.4",19.3
+49,루키아,기본,귀도,0,타겟팅,이치고,주박술 1 새,상대에게 수갑을 채워 #Damage%의 데미지를 가하고 0.65초 속박합니다.,#CastingTime/#Damage/#Distance/#Range/#Duration/#Mana/#CoolDown,~CastingTime/~Damage/~Distance/~Range/~Duration/~Mana/~CoolDown,350,,95,5,65,,1100,-44,100,6,,,"21
+.5",4.3
+50,루키아,기본,귀도,1,타겟팅,이치고,주박술 4 저승,상대에게 #Damage%의 데미지를 가하고 1.0초 속박합니다.,#CastingTime/#Damage/#Distance/#Range/#Duration/#Mana/#CoolDown,~CastingTime/~Damage/~Distance/~Range/~Duration/~Mana/~CoolDown,400,,95,5,100,,1375,-55,126,8,,,"32
+.2",6.4
+51,루키아,기본,귀도,6,타겟팅,이치고,주박술 61 육장광뇌,상대에게 판떼기 6개를 박아 #Damage%의 데미지와 5초 속박합니다.,#CastingTime/#Damage/#Distance/#Range/#Duration/#Mana/#CoolDown,~CastingTime/~Damage/~Distance/~Range/~Duration/~Mana/~CoolDown,650,,95,5,500,,3543,-142,388,23,,,"85
+.7",17.1
+52,루키아,기본,귀도,8,타겟팅,이치고,주박술 81. 단공,"영압으로 구성된 투명하고 거대한 벽을 생성하여, 주변 #Range범위의 공격을 3.3초간 막습니다.",#CastingTime/#Damage/#Distance/#Range/#Duration/#Mana/#CoolDown,~CastingTime/~Damage/~Distance/~Range/~Duration/~Mana/~CoolDown,750,,95,5,330,,4930,-197,602,36,,,"107
+.1",21.4
+53,루키아,핵심,검무,0,주변범위,이치고,"기본의 춤, 백묘",검을 들고 아름다운 춤을 추어 주변에 데미지를 가합니다.,#CastingTime/#Damage/#Range/#Duration,~CastingTime/~Damage/~Distance/~Range/~Duration,,,,,,,,,,,200,,,
+54,루키아,핵심,검무,1,주변범위,이치고,"시작의 춤, 월백",주변을 속박시키고 표식을 생성합니다.,#CastingTime/#Damage/#Range/#Duration,~CastingTime/~Damage/~Distance/~Range/~Duration,,,,,,,,,,,200,,,
+55,루키아,핵심,검무,2,주변범위,이치고,"다음의 춤, 백련","춤을 추고, 주변에 있는 표식 및 방해효과를 폭발시켜 데미지를 가합니다.",#CastingTime/#Damage/#Range/#Duration,~CastingTime/~Damage/~Distance/~Range/~Duration,,,,,,,,,,,200,,,
+56,루키아,핵심,검무,3,사출기,이치고,"세번째 춤, 백도","일직선상으로 냉기를 뿜어, #Distance거리에 #Damage% 데미지를 가합니다.",#CastingTime/#Damage/#Distance/#Range/#Duration/#Mana/#CoolDown,~CastingTime/~Damage/~Distance/~Range/~Duration/~Mana/~CoolDown,300,,,,,,2063,-83,199,12,150,,"53
+.6",10.7
+57,루키아,핵심,검무,4,주변범위,이치고,"기쁨의 춤, 고백","주변에 적용된 표식 및 효과를 드러내고, 추가데미지를 가합니다.",#CastingTime/#Damage/#Range/#Duration,~CastingTime/~Damage/~Distance/~Range/~Duration,,,,,,,,,,,200,,,
+58,루키아,핵심,검무,5,주변범위,이치고,"슬픔의 춤, 탄백",주변에 적용된 표식 혹은 효과를 한번 더 적용하여 추가 피해를 입힙니다.,#CastingTime/#Damage/#Range/#Duration,~CastingTime/~Damage/~Distance/~Range/~Duration,,,,,,,,,,,200,,,
+59,루키아,핵심,검무,6,주변범위,이치고,"질풍의 춤, 백풍","춤추듯 지상에 내리며 강렬한 바람을 일으켜, 명중한 적 모두에게 절대 대미지를 주고 동상 상태로 만든다.",#CastingTime/#Damage/#Range/#Duration,~CastingTime/~Damage/~Distance/~Range/~Duration,,,,,,,,,,,200,,,
+60,루키아,핵심,검무,7,주변범위,이치고,"표현의 춤, 자백",주변에 적용된 표식의 지속시간을 2배로 적용하고 빙결상태로 만듭니다.,#CastingTime/#Damage/#Range/#Duration,~CastingTime/~Damage/~Distance/~Range/~Duration,,,,,,,,,,,200,,,
+61,루키아,핵심 [必],검무,8,주변범위,이치고,"분노의 춤, 백화",분노의 춤으로 주변을 밀쳐내고 경직시킵니다.,#CastingTime/#Damage/#Range/#Duration,~CastingTime/~Damage/~Distance/~Range/~Duration,,,,,,,,,,,200,,,
+62,루키아,핵심 [必],검무,9,주변범위,이치고,"새하얀 춤, 설백",강력한 냉기를 뿜어 주변에 적용된 표식 및 효과를 폭발시키고 다시 적용합니다.,#CastingTime/#Damage/#Range/#Duration,~CastingTime/~Damage/~Distance/~Range/~Duration,,,,,,,,,,,200,,,
+63,루키아,핵심,온도제어,3,주변범위,이치고,영하 18도,주변 적을 베고 빙결,#CastingTime/#Damage/#Range/#Duration/#Mana/#CoolDown,~CastingTime/~Damage/~Distance/~Range/~Duration/~CoolDown,,,2,2,2,2,15,15,,,200,,"6
+.0",
+64,루키아,핵심,온도제어,5,주변범위,이치고,영하 50도,주변에 지진을 일으킴,#CastingTime/#Damage/#Range/#Duration/#Mana/#CoolDown,~CastingTime/~Damage/~Distance/~Range/~Duration/~CoolDown,,,3,3,3,3,20,20,,,300,,"10
+.0",
+65,루키아,핵심 [必],온도제어,7,주변범위,이치고,영하 273.15(절대영도),모두 얼림.,#CastingTime/#Damage/#Range/#Duration/#Mana/#CoolDown,~CastingTime/~Damage/~Distance/~Range/~Duration/~CoolDown,,,4,4,4,4,28,28,,,400,,"14
+.0",
+66,루키아,변신,변신,0,영구지속,이치고,냉정,침착하고 정확하게 공격합니다.\n본인 공속 +8%,#CastingTime/#Damage/#Range/#Duration,~CastingTime/~Damage/~Distance/~Range/~Duration,,,,,,,,,,,,,,
+67,루키아,변신,변신,1,영구지속,이치고,수백설 Lv1,"침착하고 정확하게 공격합니다.\n적-7%, 아군 +8%",#CastingTime/#Damage/#Range/#Duration,~CastingTime/~Damage/~Distance/~Range/~Duration,,,,,,,,,,,,,,
+68,루키아,변신,변신,2,영구지속,이치고,수백설 Lv2,"침착하고 정확하게 공격합니다.\n적-9%, 아군 +11%",#CastingTime/#Damage/#Range/#Duration,~CastingTime/~Damage/~Distance/~Range/~Duration,,,,,,,,,,,,,,
+69,루키아,변신,변신,3,영구지속,이치고,수백설 Lv3,"침착하고 정확하게 공격합니다.\n적-11%, 아군 +14%",#CastingTime/#Damage/#Range/#Duration,~CastingTime/~Damage/~Distance/~Range/~Duration,,,,,,,,,,,,,,
+70,루키아,변신,변신,4,영구지속,이치고,백하벌 Lv1,"침착하고 정확하게 공격합니다.\n적-13%, 아군 +17%",#CastingTime/#Damage/#Range/#Duration,~CastingTime/~Damage/~Distance/~Range/~Duration,,,,,,,,,,,,,,
+71,루키아,변신,변신,5,영구지속,이치고,백하벌 Lv2,"침착하고 정확하게 공격합니다.\n적-15%, 아군 +20%",#CastingTime/#Damage/#Range/#Duration,~CastingTime/~Damage/~Distance/~Range/~Duration,,,,,,,,,,,,,,
+72,루키아,변신,변신,6,영구지속,이치고,백하벌 Lv3,"침착하고 정확하게 공격합니다.\n적-17%, 아군 +23%",#CastingTime/#Damage/#Range/#Duration,~CastingTime/~Damage/~Distance/~Range/~Duration,,,,,,,,,,,,,,
+73,루키아,변신,변신,7,영구지속,이치고,다크 Lv1,"침착하고 정확하게 공격합니다.\n적-19%, 아군 +26%",#CastingTime/#Damage/#Range/#Duration,~CastingTime/~Damage/~Distance/~Range/~Duration,,,,,,,,,,,,,,
+74,루키아,변신,변신,8,영구지속,이치고,다크 Lv2,"침착하고 정확하게 공격합니다.\n적-21%, 아군 +29%",#CastingTime/#Damage/#Range/#Duration,~CastingTime/~Damage/~Distance/~Range/~Duration,,,,,,,,,,,,,,
+75,루키아,변신,변신,9,영구지속,이치고,다크 Lv3,"침착하고 정확하게 공격합니다.\n적-25%, 아군 +35%",#CastingTime/#Damage/#Range/#Duration,~CastingTime/~Damage/~Distance/~Range/~Duration,,,,,,,,,,,,,,
+76,우류,기본,보법,0,이동기,8,대쉬,앞으로 #Distance 거리만큼 빠르게 내달립니다.,#CastingTime/#Damage/#Distance/#Range/#Duration/#Mana/#CoolDown,~CastingTime/~Damage/~Distance/~Range/~Duration/~Mana/~CoolDown,100,,,,,,"19.9s
+9","-1.1s
+1",,,,,"10
+.1",1.1
+77,우류,기본,보법,4,이동기,8,비염각,퀸시들의 고동 보법입니다. \n#Distance 거리만큼 고속으로 내달립니다.,#CastingTime/#Damage/#Distance/#Range/#Duration/#Mana/#CoolDown,~CastingTime/~Damage/~Distance/~Range/~Duration/~Mana/~CoolDown,200,,,,,,"16.0s
+1","-0.8s
+9",,,,,"20
+.2",2.2
+78,우류,기본,보법,9,이동기,8,그리마니엘,퀸시의 폴슈텐디히입니다. \n#Distance 거리만큼 초고속으로 이동합니다.,#CastingTime/#Damage/#Distance/#Range/#Duration/#Mana/#CoolDown,~CastingTime/~Damage/~Distance/~Range/~Duration/~Mana/~CoolDown,325,,,,,,"10.9s
+9","-0.6s
+1",,,,,"32
+.6",3.6
+79,우류,패시브,영자병장,1,스위치오라,이치고,호작,공격시 영압을 소모하여 추가데미지를 가합니다.,#CastingTime/#Damage/#Range/#Duration,~CastingTime/~Damage/~Distance/~Range/~Duration,,,,,,,,,,,,,,
+80,우류,패시브,영자병장,3,스위치오라,이치고,산령수투,더 나은 무기를 통해 더 강력한 데미지를 줍니다.,#CastingTime/#Damage/#Range/#Duration,~CastingTime/~Damage/~Distance/~Range/~Duration,,,,,,,,,,,,,,
+81,우류,패시브,영자병장,6,스위치오라,이치고,은령호작,더 나은 무기를 통해 더 강력한 데미지를 줍니다.,#CastingTime/#Damage/#Range/#Duration,~CastingTime/~Damage/~Distance/~Range/~Duration,,,,,,,,,,,,,,
+82,우류,패시브,영자병장,9,스위치오라,이치고,산령수투(해방),더 나은 무기를 통해 더 강력한 데미지를 줍니다.,#CastingTime/#Damage/#Range/#Duration,~CastingTime/~Damage/~Distance/~Range/~Duration,,,,,,,,,,,,,,
+83,우류,핵심,전투,0,사출기,이치고,하일리히 프파일,빛의 화살을 발사하여 #Distance거리에 #Damage% 데미지를 가합니다.,#CastingTime/#Damage/#Distance/#Range/#Duration/#Mana/#CoolDown,~CastingTime/~Damage/~Distance/~Range/~Duration/~Mana/~CoolDown,150,,,,,,1100,-44,100,6,150,,"21
+.5",4.3
+84,우류,핵심,전투,2,사출기,이치고,리히트 레겐,넓은 범위에 화살을 쏘아 #Range범위에 #Damage% 데미지를 가합니다.,#CastingTime/#Damage/#Range/#Duration/#Mana/#CoolDown,~CastingTime/~Damage/~Distance/~Range/~Duration/~Mana/~CoolDown,,,,,,,1694,-68,158,10,250,,"42
+.9",8.6
+85,우류,핵심,전투,3,사출기,이치고,섬광 화살,"섬광 화살을 발사하여 #Distance거리에 #Damage% 데미지를 가하고, 실명 상태로 만듭니다.",#CastingTime/#Damage/#Distance/#Range/#Duration/#Mana/#CoolDown,~CastingTime/~Damage/~Distance/~Range/~Duration/~Mana/~CoolDown,300,,,,,,2063,-83,199,12,150,,"53
+.6",10.7
+86,우류,핵심,전투,5,돌진기,이치고,천공의 일격,빛의 화살을 발사하며 #Distance거리를 이동하고 #Damage% 데미지를 가합니다.,#CastingTime/#Damage/#Distance/#Range/#Duration/#Mana/#CoolDown,~CastingTime/~Damage/~Distance/~Range/~Duration/~Mana/~CoolDown,400,,95,-5,,,2979,-119,311,19,,,"75
+.0",15
+87,우류,핵심,전투,7,사출기,이치고,천청의 빛,"거대한 화살을 쏘아 #Distance거리에 #Damage% 데미지를 가하고, 능력을 저하시킵니다.",#CastingTime/#Damage/#Distance/#Range/#Duration/#Mana/#CoolDown,~CastingTime/~Damage/~Distance/~Range/~Duration/~Mana/~CoolDown,500,,,,,,4190,-168,484,29,150,,"96
+.4",19.3
+88,우류,핵심 [必],전투,9,주변범위,이치고,빛의 방패,"빛으로 된 방패를 만들어 공격을 방어하고, 방패는 점점 강화되어 폭발하여 빛 화살로 변환되어 공격합니다.",#CastingTime/#Damage/#Range/#Duration,~CastingTime/~Damage/~Distance/~Range/~Duration,,,,,,,,,,,,,,
+89,우류,핵심,은통,2,타겟팅,이치고,짜이헨,"마법진으로 #Damage를 가하고, 상대를 1.5초간 속박합니다.",#CastingTime/#Damage/#Distance/#Range/#Duration/#Mana/#CoolDown,~CastingTime/~Damage/~Distance/~Range/~Duration/~Mana/~CoolDown,450,,95,5,150,,1694,-68,158,10,,,"42
+.9",8.6
+90,우류,핵심,은통,3,타겟팅,이치고,그리츠,"은통을 던져 5갈래 벽으로 #Damage를 가하고, 상대를 1.2초간 제압합니다.",#CastingTime/#Damage/#Distance/#Range/#Duration/#Mana/#CoolDown,~CastingTime/~Damage/~Distance/~Range/~Duration/~Mana/~CoolDown,500,,95,5,,,2063,-83,199,12,,,"53
+.6",10.7
+91,우류,핵심,은통,4,타겟팅,이치고,하이젠,"은통을 던져, 상대를 2초간 속박하고, #Damage%+최대체력 0.3%의 데미지를 가합니다.",#CastingTime/#Damage/#Distance/#Range/#Duration/#Mana/#CoolDown,~CastingTime/~Damage/~Distance/~Range/~Duration/~Mana/~CoolDown,550,,95,5,,,2489,-100,249,15,,,"64
+.3",12.9
+92,우류,핵심,은통,6,타겟팅,이치고,슈프렝거,"퀸시 크로스 모양의 진으로 상대를 3초간 속박하고, 고농축 영자를 폭발시켜 \n#Damage%+현재체력 2.3%의 데미지를 가합니다.",#CastingTime/#Damage/#Distance/#Range/#Duration/#Mana/#CoolDown,~CastingTime/~Damage/~Distance/~Range/~Duration/~Mana/~CoolDown,650,,95,5,,,3543,-142,388,23,,,"85
+.7",17.1
+93,우류,핵심 [必],은통,8,타겟팅,이치고,겔트슈랑크,"젤레슈나이더의 고밀도 영자로 상대를 4초간 속박하고, 농축 영자를 폭발시켜 \n#Damage% + 잃은 체력 4.7%의 데미지를 가합니다.",#CastingTime/#Damage/#Distance/#Range/#Duration/#Mana/#CoolDown,~CastingTime/~Damage/~Distance/~Range/~Duration/~Mana/~CoolDown,750,,95,5,,,4930,-197,602,36,,,"107
+.1",21.4
+94,우류,패시브,변신 강화,3,영구지속,이치고,영자의 예속,"변신 중에 주변 영압 흡수하여, 마나 소모를 감소합니다. 변신 자체 마나소모 -3~-30%",#CastingTime/#Damage/#Range/#Duration,~CastingTime/~Damage/~Distance/~Range/~Duration,,,,,,,,,,,,,,
+95,우류,패시브,변신 강화,6,영구지속,이치고,영자조작,"변신 중에 주변의 영자를 조작하여, 자신에게 유리한 효과를 가져옵니다. 변신 쿨 -5~-50%",#CastingTime/#Damage/#Range/#Duration,~CastingTime/~Damage/~Distance/~Range/~Duration,,,,,,,,,,,,,,
+96,우류,패시브,변신 강화,8,영구지속,이치고,블루트 아르테리에,변신 중에 동맥에 영자를 주입하여 공격적인 형태를 취합니다. 공속 5~50%,#CastingTime/#Damage/#Range/#Duration,~CastingTime/~Damage/~Distance/~Range/~Duration,,,,,,,,,,,,,,
+97,우류,패시브,변신 강화,10,영구지속,이치고,슈리프트 - 완전반립,변신 중에 방해 효과를 반사합니다. 5~50%,#CastingTime/#Damage/#Range/#Duration,~CastingTime/~Damage/~Distance/~Range/~Duration,,,,,,,,,,,,,,
+98,우류,변신,변신,0,영구지속,이치고,항복,"자신을 내려놓고, 모든 것을 받아들입니다.",#CastingTime/#Damage/#Range/#Duration,~CastingTime/~Damage/~Distance/~Range/~Duration,,,,,,,,,,,,,,
+99,우류,변신,변신,1,영구지속,이치고,난장천괴 1,"영자를 꼬아 자신을 강제로 조종합니다. 모든 방해효과에 면역이되며, 영자만 남아있다면 계속 움직일 수 있습니다.",#CastingTime/#Damage/#Range/#Duration,~CastingTime/~Damage/~Distance/~Range/~Duration,,,,,,,,,,,,,,
+100,우류,변신,변신,2,영구지속,이치고,난장천괴 2,"영자를 꼬아 자신을 강제로 조종합니다. 모든 방해효과에 면역이되며, 영자만 남아있다면 계속 움직일 수 있습니다.",#CastingTime/#Damage/#Range/#Duration,~CastingTime/~Damage/~Distance/~Range/~Duration,,,,,,,,,,,,,,
+101,우류,변신,변신,3,영구지속,이치고,난장천괴 3,"영자를 꼬아 자신을 강제로 조종합니다. 모든 방해효과에 면역이되며, 영자만 남아있다면 계속 움직일 수 있습니다.",#CastingTime/#Damage/#Range/#Duration,~CastingTime/~Damage/~Distance/~Range/~Duration,,,,,,,,,,,,,,
+102,우류,변신,변신,4,영구지속,이치고,렛트슈틸 1,일시적으로 퀸시 정수에 도달 각성합니다. 1레벨 이상 '패시브'들의 레벨이 상승합니다. 1/7/10레벨에 +1/+2/+3,#CastingTime/#Damage/#Range/#Duration,~CastingTime/~Damage/~Distance/~Range/~Duration,,,,,,,,,,,,,,
+103,우류,변신,변신,5,영구지속,이치고,렛트슈틸 2,일시적으로 퀸시 정수에 도달 각성합니다. 1레벨 이상 '패시브'들의 레벨이 상승합니다. 1/7/10레벨에 +1/+2/+3,#CastingTime/#Damage/#Range/#Duration,~CastingTime/~Damage/~Distance/~Range/~Duration,,,,,,,,,,,,,,
+104,우류,변신,변신,6,영구지속,이치고,렛트슈틸 3,일시적으로 퀸시 정수에 도달 각성합니다. 1레벨 이상 '패시브'들의 레벨이 상승합니다. 1/7/10레벨에 +1/+2/+3,#CastingTime/#Damage/#Range/#Duration,~CastingTime/~Damage/~Distance/~Range/~Duration,,,,,,,,,,,,,,
+105,우류,변신,변신,7,영구지속,이치고,폴슈텐디히 1,퀸시의 힘을 끌어올려 몸에 두르고 싸웁니다.,#CastingTime/#Damage/#Range/#Duration,~CastingTime/~Damage/~Distance/~Range/~Duration,,,,,,,,,,,,,,
+106,우류,변신,변신,8,영구지속,이치고,폴슈텐디히 2,퀸시의 힘을 끌어올려 몸에 두르고 싸웁니다.,#CastingTime/#Damage/#Range/#Duration,~CastingTime/~Damage/~Distance/~Range/~Duration,,,,,,,,,,,,,,
+107,우류,변신,변신,9,영구지속,이치고,폴슈텐디히 3,퀸시의 힘을 끌어올려 몸에 두르고 싸웁니다.,#CastingTime/#Damage/#Range/#Duration,~CastingTime/~Damage/~Distance/~Range/~Duration,,,,,,,,,,,,,,
+108,오리히메,기본,공격,0,사출기,이치고,발차기,상대를 발로 차버립니다. #Range범위에 #Damage% 데미지를 가합니다.,#CastingTime/#Damage/#Range/#Duration/#Mana/#CoolDown,~CastingTime/~Damage/~Distance/~Range/~Duration/~Mana/~CoolDown,,,,,,,1100,-44,100,6,150,,"21
+.5",4.3
+109,오리히메,기본,공격,1,사출기,이치고,가라테,가라테 기술로 공격하여 #Damage% 데미지를 가합니다.,#CastingTime/#Damage/#Distance/#Range/#Duration/#Mana/#CoolDown,~CastingTime/~Damage/~Distance/~Range/~Duration/~Mana/~CoolDown,200,,,,,,1375,-55,126,8,150,,"32
+.2",6.4
+110,오리히메,기본,공격,5,스위치오라,이치고,히로인,"주변에 여성이 자신 뿐일 때, 스킬들의 거리 +5%",#CastingTime/#Damage/#Range/#Duration,~CastingTime/~Damage/~Distance/~Range/~Duration,,,,,,,,,,,,,,
+111,오리히메,기본,변신 강화,3,영구지속,이치고,변신페널티,변신시 이속페널티 감소 5~50%,#CastingTime/#Damage/#Range/#Duration,~CastingTime/~Damage/~Distance/~Range/~Duration,,,,,,,,,,,,,,
+112,오리히메,기본,변신 강화,6,영구지속,이치고,마나회복,변신시 최대마나 즉시회복 2~20%,#CastingTime/#Damage/#Range/#Duration,~CastingTime/~Damage/~Distance/~Range/~Duration,,,,,,,,,,,,,,
+113,오리히메,기본,변신 강화,9,영구지속,이치고,사상마련,"평소에도 변신 상태와 같은 마음으로, 쉽게 몰입합니다.",#CastingTime/#Damage/#Range/#Duration,~CastingTime/~Damage/~Distance/~Range/~Duration,,,,,,,,,,,,,,
+114,오리히메,핵심,꽃,0,타겟팅,이치고,츠바키(동백),효과: 만개 - 최대 체력의 0.5-5% 데미지,#CastingTime/#Damage/#Distance/#Range/#Duration/#Mana/#CoolDown,~CastingTime/~Damage/~Distance/~Range/~Duration/~Mana/~CoolDown,350,,95,5,,,1100,-44,100,6,,,"21
+.5",4.3
+115,오리히메,핵심,꽃,1,타겟팅,이치고,슌오우(벚꽃),효과: 시듦 - 잃.체 0.2-2% x 3회,#CastingTime/#Damage/#Distance/#Range/#Duration/#Mana/#CoolDown,~CastingTime/~Damage/~Distance/~Range/~Duration/~Mana/~CoolDown,400,,95,5,,,1375,-55,126,8,,,"32
+.2",6.4
+116,오리히메,핵심,꽃,1,타겟팅,이치고,아야메(붓꽃),"효과: 낙화 - 공격속도 -5~-50%, 2초",#CastingTime/#Damage/#Distance/#Range/#Duration/#Mana/#CoolDown,~CastingTime/~Damage/~Distance/~Range/~Duration/~Mana/~CoolDown,400,,95,5,,,1375,-55,126,8,,,"32
+.2",6.4
+117,오리히메,핵심,꽃,2,타겟팅,이치고,히나기쿠(국화),"효과: 뿌리 - 이동속도 -5~-50%, 2초",#CastingTime/#Damage/#Distance/#Range/#Duration/#Mana/#CoolDown,~CastingTime/~Damage/~Distance/~Range/~Duration/~Mana/~CoolDown,450,,95,5,,,1694,-68,158,10,,,"42
+.9",8.6
+118,오리히메,핵심,꽃,2,타겟팅,이치고,바이곤(매화),효과: 꽃가루 - 도트데미지 (최대체력x0.1-1%) x 3회,#CastingTime/#Damage/#Distance/#Range/#Duration/#Mana/#CoolDown,~CastingTime/~Damage/~Distance/~Range/~Duration/~Mana/~CoolDown,450,,95,5,,,1694,-68,158,10,,,"42
+.9",8.6
+119,오리히메,핵심,꽃,2,타겟팅,이치고,리리(백합),"효과: 꽃망울 - 공격력감소(중첩시 공격불가) 5-50%, 2초",#CastingTime/#Damage/#Distance/#Range/#Duration/#Mana/#CoolDown,~CastingTime/~Damage/~Distance/~Range/~Duration/~Mana/~CoolDown,450,,95,5,,,1694,-68,158,10,,,"42
+.9",8.6
+120,오리히메,핵심,조합 사용,1,주변범위,이치고,쌍천귀순,"재생 : 체력회복 1%+잃5%, 1~10회x1초",#CastingTime/#Damage/#Range/#Duration,~CastingTime/~Damage/~Distance/~Range/~Duration,,,,,,,,,,,,,,
+121,오리히메,핵심,조합 사용,2,주변범위,이치고,삼천결순,방어 : 받는 데미지 감소 30% 1~10초,#CastingTime/#Damage/#Range/#Duration,~CastingTime/~Damage/~Distance/~Range/~Duration,,,,,,,,,,,,,,
+122,오리히메,핵심,조합 사용,4,주변범위,이치고,사천항순,"더블캐스팅 필요, 삼천결순+츠바키. 데미지 감소 +31-40% + 데미지 반사 1회",#CastingTime/#Damage/#Range/#Duration,~CastingTime/~Damage/~Distance/~Range/~Duration,,,,,,,,,,,,,,
+123,오리히메,핵심 [必],조합 사용,6,주변범위,이치고,오천비순,"더블캐스팅 필요, 삼천결순 + 쌍천귀순, 데미지 감소 41-50% + 체력 회복",#CastingTime/#Damage/#Range/#Duration,~CastingTime/~Damage/~Distance/~Range/~Duration,,,,,,,,,,,,,,
+124,오리히메,핵심 [必],조합 사용,8,주변범위,이치고,육천절순,"트리플캐스팅 필요,  '삼천결순' - '쌍천귀순' - '고천참순'으로 발동. 범위 안 적 체력 감소 5-50% (일반몹)",#CastingTime/#Damage/#Range/#Duration,~CastingTime/~Damage/~Distance/~Range/~Duration,,,,,,,,,,,,,,
+125,오리히메,변신,특성 강화,4,영구지속,이치고,사상의거절,주변 쿨다운 감소 1-10%,#CastingTime/#Damage/#Range/#Duration,~CastingTime/~Damage/~Distance/~Range/~Duration,,,,,,,,,,,,,,
+126,오리히메,변신,특성 강화,6,영구지속,이치고,더블캐스팅,"스킬 콤보로 변경, 모든 스킬 효과 +5~50%",#CastingTime/#Damage/#Range/#Duration,~CastingTime/~Damage/~Distance/~Range/~Duration,,,,,,,,,,,,,,
+127,오리히메,변신,특성 강화,8,영구지속,이치고,트리플캐스팅,"스킬 트리플콤보로 변경, 모든 스킬 효과 +5~50% (합연산)",#CastingTime/#Damage/#Range/#Duration,~CastingTime/~Damage/~Distance/~Range/~Duration,,,,,,,,,,,,,,
+128,오리히메,변신,변신,0,영구지속,이치고,헌신,"다른 사람을 위해 희생하고, 정신을 집중하여 마나를 모읍니다. 이속 -10%",#CastingTime/#Damage/#Range/#Duration,~CastingTime/~Damage/~Distance/~Range/~Duration,,,,,,,,,,,,,,
+129,오리히메,변신,변신,1,영구지속,이치고,희생,"다른 사람을 위해 희생하고, 정신을 집중하여 마나를 모읍니다. 이속 -20%",#CastingTime/#Damage/#Range/#Duration,~CastingTime/~Damage/~Distance/~Range/~Duration,,,,,,,,,,,,,,
+130,오리히메,변신,변신,2,영구지속,이치고,존중,"다른 사람을 위해 희생하고, 정신을 집중하여 마나를 모읍니다. 이속 -30%",#CastingTime/#Damage/#Range/#Duration,~CastingTime/~Damage/~Distance/~Range/~Duration,,,,,,,,,,,,,,
+131,오리히메,변신,변신,3,영구지속,이치고,용서,"다른 사람을 위해 희생하고, 정신을 집중하여 마나를 모읍니다. 이속 -40%",#CastingTime/#Damage/#Range/#Duration,~CastingTime/~Damage/~Distance/~Range/~Duration,,,,,,,,,,,,,,
+132,오리히메,변신,변신,4,영구지속,이치고,배려,"다른 사람을 위해 희생하고, 정신을 집중하여 마나를 모읍니다. 이속 -50%",#CastingTime/#Damage/#Range/#Duration,~CastingTime/~Damage/~Distance/~Range/~Duration,,,,,,,,,,,,,,
+133,오리히메,변신,변신,5,영구지속,이치고,사랑,"다른 사람을 위해 희생하고, 정신을 집중하여 마나를 모읍니다. 이속 -60%",#CastingTime/#Damage/#Range/#Duration,~CastingTime/~Damage/~Distance/~Range/~Duration,,,,,,,,,,,,,,
+134,오리히메,변신,변신,6,영구지속,이치고,수용,"다른 사람을 위해 희생하고, 정신을 집중하여 마나를 모읍니다. 이속 -70%",#CastingTime/#Damage/#Range/#Duration,~CastingTime/~Damage/~Distance/~Range/~Duration,,,,,,,,,,,,,,
+135,오리히메,변신,변신,7,영구지속,이치고,감사,"다른 사람을 위해 희생하고, 정신을 집중하여 마나를 모읍니다. 이속 -80%",#CastingTime/#Damage/#Range/#Duration,~CastingTime/~Damage/~Distance/~Range/~Duration,,,,,,,,,,,,,,
+136,오리히메,변신,변신,8,영구지속,이치고,애정,"다른 사람을 위해 희생하고, 정신을 집중하여 마나를 모읍니다. 이속 -90%",#CastingTime/#Damage/#Range/#Duration,~CastingTime/~Damage/~Distance/~Range/~Duration,,,,,,,,,,,,,,
+137,오리히메,변신,변신,9,영구지속,,축복,"다른 사람을 위해 희생하고, 정신을 집중하여 마나를 모읍니다. 이속 -99%",#CastingTime/#Damage/#Range/#Duration,~CastingTime/~Damage/~Distance/~Range/~Duration,,,,,,,,,,,,,,
+138,렌지,기본,보법,0,이동기,8,대쉬,앞으로 #Distance 거리만큼 빠르게 내달립니다.,#CastingTime/#Damage/#Distance/#Range/#Duration/#Mana/#CoolDown,~CastingTime/~Damage/~Distance/~Range/~Duration/~Mana/~CoolDown,100,,,,,,"19.9s
+9","-1.1s
+1",,,,,"10
+.1",1.1
+139,렌지,기본,보법,2,이동기,8,순보,사신들의 이동 보법입니다. \n#Distance 거리만큼 순간적으로 이동합니다.,#CastingTime/#Damage/#Distance/#Range/#Duration/#Mana/#CoolDown,~CastingTime/~Damage/~Distance/~Range/~Duration/~Mana/~CoolDown,150,,,,,,"18.0s
+0","-1.0s
+0",,,,,"14
+.7",1.7
+140,렌지,기본,백타,0,타겟팅,이치고,박치기,적을 붙잡아 박치기를 하여 #Damage%의 데미지와 0.4초간 기절시킵니다.,#CastingTime/#Damage/#Distance/#Range/#Duration/#Mana/#CoolDown,~CastingTime/~Damage/~Distance/~Range/~Duration/~Mana/~CoolDown,350,,95,5,,,1100,-44,100,6,,,"21
+.5",4.3
+141,렌지,기본,백타,1,타겟팅,이치고,일골,한쪽 주먹으로 강력한 타격을 가하여 #Damage% + 최대체력 0.4%의 데미지를 가합니다.,#CastingTime/#Damage/#Distance/#Range/#Duration/#Mana/#CoolDown,~CastingTime/~Damage/~Distance/~Range/~Duration/~Mana/~CoolDown,400,,95,5,,,1375,-55,126,8,,,"32
+.2",6.4
+142,렌지,기본,백타,2,타겟팅,이치고,철장,손바닥으로 적을 때려부수어 #Damage% + 현재체력 1.5%의 데미지를 가합니다.,#CastingTime/#Damage/#Distance/#Range/#Duration/#Mana/#CoolDown,~CastingTime/~Damage/~Distance/~Range/~Duration/~Mana/~CoolDown,450,,95,5,,,1694,-68,158,10,,,"42
+.9",8.6
+143,렌지,기본,백타,3,타겟팅,이치고,풍차,회전 발끝차기로 #Damage% + 잃은체력 1.5%의 데미지를 가합니다.,#CastingTime/#Damage/#Distance/#Range/#Duration/#Mana/#CoolDown,~CastingTime/~Damage/~Distance/~Range/~Duration/~Mana/~CoolDown,500,,95,5,,,2063,-83,199,12,,,"53
+.6",10.7
+144,렌지,기본,백타,5,타겟팅,이치고,쌍골,양쪽 주먹으로 강력한 타격을 가하여 #Damage% + 최대체력 1.5%의 데미지를 가합니다.,#CastingTime/#Damage/#Distance/#Range/#Duration/#Mana/#CoolDown,~CastingTime/~Damage/~Distance/~Range/~Duration/~Mana/~CoolDown,600,,95,5,,,2979,-119,311,19,,,"75
+.0",15
+145,렌지,기본,백타,6,타겟팅,이치고,적시,손발을 걸어 적의 행동을 제한합니다. \n#Damage%의 데미지를 가하고 5초간 공격력을 50% 감소시킵니다.,#CastingTime/#Damage/#Distance/#Range/#Duration/#Mana/#CoolDown,~CastingTime/~Damage/~Distance/~Range/~Duration/~Mana/~CoolDown,650,,95,5,,,3543,-142,388,23,,,"85
+.7",17.1
+146,렌지,기본,백타,7,강화버프,이치고,반귀상쇄,상대방에 귀도에 역회전을 걸어 공격을 방어합니다. \n#Duration초간 데미지 #Damage% 감소,#CastingTime/#Damage/#Range/#Duration/#Mana/#CoolDown,~CastingTime/~Damage/~Distance/~Range/~Duration/~Mana/~CoolDown,,,86,4,200,,1298,-72,50,,,,"27
+.1",3.1
+147,렌지,기본,백타,9,강화버프,이치고,츼사코,"상대방의 공격을 방어하고, 되돌려줍니다. \n#Duration초간 데미지 #Damage% 감소",#CastingTime/#Damage/#Range/#Duration/#Mana/#CoolDown,~CastingTime/~Damage/~Distance/~Range/~Duration/~Mana/~CoolDown,,,68,2,500,,1099,-61,20,,,,"32
+.6",3.6
+148,렌지,기본,백타,10,타겟팅,이치고,뇌왕권,초고속 주먹의 러쉬를 하여 추가로 65% 공격력 x 7회의 공격을 합니다.,#CastingTime/#Damage/#Distance/#Range/#Duration/#Mana/#CoolDown,~CastingTime/~Damage/~Distance/~Range/~Duration/~Mana/~CoolDown,850,,95,5,,,6744,-270,929,56,,,"128
+.5",25.7
+149,렌지,핵심,참술,1,사출기,이치고,슌센벤,"세 번 채찍질하여, #Distance거리에 #Damage% 데미지를 가하고 넉백시킵니다.",#CastingTime/#Damage/#Distance/#Range/#Duration/#Mana/#CoolDown,~CastingTime/~Damage/~Distance/~Range/~Duration/~Mana/~CoolDown,200,,,,,,1375,-55,126,8,150,,"32
+.2",6.4
+150,렌지,핵심,참술,3,이동기,8,센코,빠르게 돌진하여 경로상 적을 모두 베어냅니다.,#CastingTime/#Damage/#Range/#Duration,~CastingTime/~Damage/~Distance/~Range/~Duration,,,,,,,,,,,,,,
+151,렌지,핵심,참술,4,타겟팅,이치고,쇼센가,땅에 심은 칼이 대상 아래에서 나와 #Damage%의 데미지와 1.6초간 공중으로 띄웁니다.,#CastingTime/#Damage/#Distance/#Range/#Duration/#Mana/#CoolDown,~CastingTime/~Damage/~Distance/~Range/~Duration/~Mana/~CoolDown,550,,95,5,,,2489,-100,249,15,,,"64
+.3",12.9
+152,렌지,핵심,참술,5,사출기,이치고,츠키사시,앞으로 쭉 찔러 #Distance거리에 #Damage% 데미지와 스턴을 가합니다.,#CastingTime/#Damage/#Distance/#Range/#Duration/#Mana/#CoolDown,~CastingTime/~Damage/~Distance/~Range/~Duration/~Mana/~CoolDown,400,,,,,,2979,-119,311,19,150,,"75
+.0",15
+153,렌지,핵심,참술,7,사출기,이치고,히가 센코,"여러 번 강하게 채찍질하여, #Distance거리에 #Damage% 데미지를 가합니다.",#CastingTime/#Damage/#Distance/#Range/#Duration/#Mana/#CoolDown,~CastingTime/~Damage/~Distance/~Range/~Duration/~Mana/~CoolDown,500,,,,,,4190,-168,484,29,150,,"96
+.4",19.3
+154,렌지,핵심 [必],참술,8,사출기,이치고,가진토츠,"부서진 칼날을 내리쳐 #Distance거리에 #Damage% 데미지를 가하고, 출혈에 빠뜨립니다.\n조각당 데미지 +5%",#CastingTime/#Damage/#Distance/#Range/#Duration/#Mana/#CoolDown,~CastingTime/~Damage/~Distance/~Range/~Duration/~Mana/~CoolDown,550,,,,,,4930,-197,602,36,150,,"107
+.1",21.4
+155,렌지,핵심,참술,0,사출기,이치고,사미환,전방에 검을 휘둘러 #Distance거리에 #Damage% 데미지를 가합니다.\n조각을 남깁니다.,#CastingTime/#Damage/#Distance/#Range/#Duration/#Mana/#CoolDown,~CastingTime/~Damage/~Distance/~Range/~Duration/~Mana/~CoolDown,150,,,,,,1100,-44,100,6,150,,"21
+.5",4.3
+156,렌지,핵심,참술,2,사출기,이치고,비아절교,주변 조각을 쏘아붙여 #Damage% 데미지를 가합니다.\n조각당 데미지 +5%,#CastingTime/#Damage/#Distance/#Range/#Duration/#Mana/#CoolDown,~CastingTime/~Damage/~Distance/~Range/~Duration/~Mana/~CoolDown,250,,,,,,1694,-68,158,10,150,,"42
+.9",8.6
+157,렌지,핵심,참술,4,타겟팅,이치고,비골대포,영압덩어리를 발사하여 #Damage%의 데미지를 가하고 상대를 밀어냅니다.\n그 후 2.5초간 50% 둔화를 가합니다.,#CastingTime/#Damage/#Distance/#Range/#Duration/#Mana/#CoolDown,~CastingTime/~Damage/~Distance/~Range/~Duration/~Mana/~CoolDown,550,,95,5,,,2489,-100,249,15,,,"64
+.3",12.9
+158,렌지,핵심,참술,5,사출기,이치고,우치 오로시,사미환을 길게 늘려 #Range범위에 #Damage% 데미지를 가합니다.,#CastingTime/#Damage/#Range/#Duration/#Mana/#CoolDown,~CastingTime/~Damage/~Distance/~Range/~Duration/~Mana/~CoolDown,,,,,,,2979,-119,311,19,400,,"75
+.0",15
+159,렌지,핵심,참술,6,타겟팅,이치고,시아철포,상대에게 꽂은 검에서 영압을 발사하여 #Damage%의 데미지를 가합니다.\n그 후 상대를 불태워 2초간 최대체력 2%의 데미지를 가합니다.,#CastingTime/#Damage/#Distance/#Range/#Duration/#Mana/#CoolDown,~CastingTime/~Damage/~Distance/~Range/~Duration/~Mana/~CoolDown,650,,95,5,,,3543,-142,388,23,,,"85
+.7",17.1
+160,렌지,핵심,참술,7,사출기,이치고,히가 호코,사미환을 #Range범위에 #Damage% 데미지를 여러 번 가합니다.,#CastingTime/#Damage/#Range/#Duration/#Mana/#CoolDown,~CastingTime/~Damage/~Distance/~Range/~Duration/~Mana/~CoolDown,,,,,,,4190,-168,484,29,500,,"96
+.4",19.3
+161,렌지,핵심 [必],참술,9,타겟팅,이치고,메코진,비비왕이 지정된 상대를 물어뜯어 #Damage%의 데미지와 3초간 공중에 띄웁니다. \n그 후 5회 연속 물어뜯어 각각 85%의 데미지를 가합니다.,#CastingTime/#Damage/#Distance/#Range/#Duration/#Mana/#CoolDown,~CastingTime/~Damage/~Distance/~Range/~Duration/~Mana/~CoolDown,800,,95,5,,,5777,-231,748,45,,,"117
+.8",23.6
+162,렌지,패시브,변신 강화,1,영구지속,이치고,비비왕 - 내려찍기,슬로우 추가 +5%~50%,#CastingTime/#Damage/#Range/#Duration,~CastingTime/~Damage/~Distance/~Range/~Duration,,,,,,,,,,,,,,
+163,렌지,패시브,변신 강화,4,영구지속,,비비왕 - 쥐어짜기,"슬로우→스턴, 5~50%",#CastingTime/#Damage/#Range/#Duration,~CastingTime/~Damage/~Distance/~Range/~Duration,,,,,,,,,,,,,,
+164,렌지,패시브,변신 강화,7,영구지속,,쌍왕 - 사루노,"스킬 사용시, '비비왕' 혹은 '오로치왕' 추가적용 각 +3%",#CastingTime/#Damage/#Range/#Duration,~CastingTime/~Damage/~Distance/~Range/~Duration,,,,,,,,,,,,,,
+165,렌지,패시브,변신 강화,9,영구지속,,쌍왕 - 헤비노,비비왕'과 '오로치왕' 사용시 다른스킬(한 개) 쿨 -2%,#CastingTime/#Damage/#Range/#Duration,~CastingTime/~Damage/~Distance/~Range/~Duration,,,,,,,,,,,,,,
+166,렌지,변신,변신,0,영구지속,이치고,분노,"분노하여 더 강한 공격을 합니다. 이속 +6%, 뎀 +4%",#CastingTime/#Damage/#Range/#Duration,~CastingTime/~Damage/~Distance/~Range/~Duration,,,,,,,,,,,,,,
+167,렌지,변신,변신,1,영구지속,이치고,시해1,"사미환 해방. 이속 +13%, 뎀 +8%",#CastingTime/#Damage/#Range/#Duration,~CastingTime/~Damage/~Distance/~Range/~Duration,,,,,,,,,,,,,,
+168,렌지,변신,변신,2,영구지속,이치고,시해2,"사미환 해방. 이속 +20%, 뎀 +16%",#CastingTime/#Damage/#Range/#Duration,~CastingTime/~Damage/~Distance/~Range/~Duration,,,,,,,,,,,,,,
+169,렌지,변신,변신,3,영구지속,이치고,시해3,"사미환 해방. 이속 +27%, 뎀 +24%",#CastingTime/#Damage/#Range/#Duration,~CastingTime/~Damage/~Distance/~Range/~Duration,,,,,,,,,,,,,,
+170,렌지,변신,변신,4,영구지속,이치고,만해1,"비비왕 해방. 이속 +34%, 뎀 +32%",#CastingTime/#Damage/#Range/#Duration,~CastingTime/~Damage/~Distance/~Range/~Duration,,,,,,,,,,,,,,
+171,렌지,변신,변신,5,영구지속,이치고,만해2,"오로치왕 해방. 이속 +41%, 뎀 +40%",#CastingTime/#Damage/#Range/#Duration,~CastingTime/~Damage/~Distance/~Range/~Duration,,,,,,,,,,,,,,
+172,렌지,변신,변신,6,영구지속,이치고,만해3,"오로치왕 해방. 이속 +48%, 뎀 +48%",#CastingTime/#Damage/#Range/#Duration,~CastingTime/~Damage/~Distance/~Range/~Duration,,,,,,,,,,,,,,
+173,렌지,변신,변신,7,영구지속,이치고,진만해1,"쌍왕 해방. 이속 +55%, 뎀 +56%",#CastingTime/#Damage/#Range/#Duration,~CastingTime/~Damage/~Distance/~Range/~Duration,,,,,,,,,,,,,,
+174,렌지,변신,변신,8,영구지속,이치고,진만해2,"쌍왕 해방. 이속 +62%, 뎀 +64%",#CastingTime/#Damage/#Range/#Duration,~CastingTime/~Damage/~Distance/~Range/~Duration,,,,,,,,,,,,,,
+175,렌지,변신,변신,9,영구지속,이치고,진만해3,"쌍왕 해방. 이속 +69%, 뎀 +72%",#CastingTime/#Damage/#Range/#Duration,~CastingTime/~Damage/~Distance/~Range/~Duration,,,,,,,,,,,,,,
+176,사도,기본,보법,0,이동기,8,대쉬,앞으로 #Distance 거리만큼 빠르게 내달립니다.,#CastingTime/#Damage/#Distance/#Range/#Duration/#Mana/#CoolDown,~CastingTime/~Damage/~Distance/~Range/~Duration/~Mana/~CoolDown,100,,,,,,"19.9s
+9","-1.1s
+1",,,,,"10
+.1",1.1
+177,사도,기본,보법,10,이동기,8,브링거 라이트,풀브링거의 고속 보법입니다. \n#Distance 거리만큼 순식간에 이동합니다.,#CastingTime/#Damage/#Distance/#Range/#Duration/#Mana/#CoolDown,~CastingTime/~Damage/~Distance/~Range/~Duration/~Mana/~CoolDown,350,,,,,,"10.0s
+4","-0.5s
+6",,,,,"34
+.9",3.9
+178,사도,기본,방어,0,강화버프,이치고,방어,방어 자세를 취해 데미지를 감소시킵니다.\n#Duration초간 데미지 #Damage% 감소,#CastingTime/#Damage/#Range/#Duration/#Mana/#CoolDown,~CastingTime/~Damage/~Distance/~Range/~Duration/~Mana/~CoolDown,,,140,10,100,,1999,-111,30,,,,"10
+.1",1.1
+179,사도,기본,방어,2,주변범위,이치고,불안정한 땅,"다져진 땅을 불안정하게 만들어, 상대를 혼란시켜 데미지를 감소시킵니다.",#CastingTime/#Damage/#Range/#Duration,~CastingTime/~Damage/~Distance/~Range/~Duration,,,,,,,,,,,,,,
+180,사도,기본,방어,4,돌진기,이치고,거인의돌진,#Distance거리를 찌르며 돌진하며 #Damage% 데미지를 가합니다. \n이후 일정시간동안 방어력과 이동속도가 증가합니다.,#CastingTime/#Damage/#Distance/#Range/#Duration/#Mana/#CoolDown,~CastingTime/~Damage/~Distance/~Range/~Duration/~Mana/~CoolDown,350,,95,-5,500,,2489,-100,249,15,,,"64
+.3",12.9
+181,사도,기본,방어,6,주변범위,이치고,역천지명,"일정 시간 동안 무적 상태가 되며, 스킬 사용 중 주변 적들에게 지속적으로 데미지를 가합니다. 스킬 종료 시 범위 내 적들을 공중으로 띄워 밀쳐냅니다.",#CastingTime/#Damage/#Range/#Duration,~CastingTime/~Damage/~Distance/~Range/~Duration,,,,,,,,,,,,,,
+182,사도,기본,방어,8,주변범위,이치고,무신의 분노,"일정 시간 동안 받는 데미지가 감소되며, 주변에 지속적으로 데미지를 가합니다.  또한 공격을 받을 때마다 공격력이 증가합니다.",#CastingTime/#Damage/#Range/#Duration,~CastingTime/~Damage/~Distance/~Range/~Duration,,,,,,,,,,,,,,
+183,사도,핵심,권법,0,사출기,이치고,엘 디렉토,영압을 담은 주먹으로 #Distance거리에 #Damage% 데미지를 가합니다.,#CastingTime/#Damage/#Distance/#Range/#Duration/#Mana/#CoolDown,~CastingTime/~Damage/~Distance/~Range/~Duration/~Mana/~CoolDown,150,,,,,,1100,-44,100,6,150,,"21
+.5",4.3
+184,사도,핵심,권법,2,타겟팅,이치고,어스 그랩,상대에게 #Damage%의 데미지를 가하고 자신의 앞으로 끌어당깁니다.,#CastingTime/#Damage/#Distance/#Range/#Duration/#Mana/#CoolDown,~CastingTime/~Damage/~Distance/~Range/~Duration/~Mana/~CoolDown,450,,95,5,,,1694,-68,158,10,,,"42
+.9",8.6
+185,사도,핵심,권법,4,타겟팅,이치고,어션 그래스프,상대를 붙잡아 #Damage% + 최대체력 0.3%의 데미지를 가하고 2초간 속박합니다.,#CastingTime/#Damage/#Distance/#Range/#Duration/#Mana/#CoolDown,~CastingTime/~Damage/~Distance/~Range/~Duration/~Mana/~CoolDown,550,,95,5,,,2489,-100,249,15,,,"64
+.3",12.9
+186,사도,핵심,권법,6,사출기,이치고,악마의숨결,"악마의 힘으로 #Distance거리에 #Damage% 데미지를 가하고, 둔화시킵니다.",#CastingTime/#Damage/#Distance/#Range/#Duration/#Mana/#CoolDown,~CastingTime/~Damage/~Distance/~Range/~Duration/~Mana/~CoolDown,450,,,,,,3543,-142,388,23,150,,"85
+.7",17.1
+187,사도,핵심 [必],권법,8,사출기,이치고,라 무에르테,"강한 영압으로 급소를 정확히 공격해, #Distance거리에 #Damage% 데미지를 가합니다.",#CastingTime/#Damage/#Distance/#Range/#Duration/#Mana/#CoolDown,~CastingTime/~Damage/~Distance/~Range/~Duration/~Mana/~CoolDown,550,,,,,,4930,-197,602,36,150,,"107
+.1",21.4
+188,사도,핵심,대지강타,1,주변범위,이치고,슬래머,지면을 강타하여 지진을 일으켜 적들을 둔화시킵니다.,#CastingTime/#Damage/#Range/#Duration,~CastingTime/~Damage/~Distance/~Range/~Duration,,,,,,,,,,,,,,
+189,사도,핵심,대지강타,3,주변범위,이치고,그루아 티라르,지면에 손을 박은 다음 그대로 땅을 들어 메치는 기술.,#CastingTime/#Damage/#Range/#Duration,~CastingTime/~Damage/~Distance/~Range/~Duration,,,,,,,,,,,,,,
+190,사도,핵심,대지강타,5,주변범위,이치고,디스트럭시온,대지를 내리치며 범위 내 적들에게 데미지를 입히고 넘어뜨립니다.,#CastingTime/#Damage/#Range/#Duration,~CastingTime/~Damage/~Distance/~Range/~Duration,,,,,,,,,,,,,,
+191,사도,핵심,대지강타,7,주변범위,이치고,엘레멘토,대지를 움직여 산사태를 일으켜 적들에게 데미지를 입힙니다.,#CastingTime/#Damage/#Range/#Duration,~CastingTime/~Damage/~Distance/~Range/~Duration,,,,,,,,,,,,,,
+192,사도,핵심 [必],대지강타,9,사출기,이치고,천지의포효,대지를 밟아 가르고 산을 던져 #Range범위에 #Damage% 데미지를 가합니다.,#CastingTime/#Damage/#Range/#Duration/#Mana/#CoolDown,~CastingTime/~Damage/~Distance/~Range/~Duration/~Mana/~CoolDown,,,,,,,5777,-231,748,45,600,,"117
+.8",23.6
+193,사도,패시브,스킬 강화,2,영구지속,클릭불가,급소파악,공격 혹은 스킬 사용시 데미지를 증가시킵니다. 110% (최대 160%)/ 4% (최대 40%),#CastingTime/#Damage/#Range/#Duration,~CastingTime/~Damage/~Distance/~Range/~Duration,,,,,,,,,,,,,,
+194,사도,패시브,스킬 강화,6,영구지속,클릭불가,패턴파악,같은 대상으로 지정시 스킬/공격당 데미지 증가 +2% (1렙 중첩 1 - 최대10회),#CastingTime/#Damage/#Range/#Duration,~CastingTime/~Damage/~Distance/~Range/~Duration,,,,,,,,,,,,,,
+195,사도,패시브,스킬 강화,9,영구지속,클릭불가,요새화,같은 자리에 서있으면 방어력 증가 3% (1렙 중첩 1 - 최대10회) / 최종스택시 주변도발,#CastingTime/#Damage/#Range/#Duration,~CastingTime/~Damage/~Distance/~Range/~Duration,,,,,,,,,,,,,,
+196,사도,변신,변신,0,영구지속,클릭불가,방어,"방어 태세에 들어가, 방어를 증가시킵니다. 본인 방어 +4%",#CastingTime/#Damage/#Range/#Duration,~CastingTime/~Damage/~Distance/~Range/~Duration,,,,,,,,,,,,,,
+197,사도,변신,변신,1,영구지속,클릭불가,거인의 오른팔 Lv1,"거인의 오른팔을 이용해 적을 두렵게 하며 자신의 방어를 증가시킵니다. 적 방어 -1%, 본인 +8%",#CastingTime/#Damage/#Range/#Duration,~CastingTime/~Damage/~Distance/~Range/~Duration,,,,,,,,,,,,,,
+198,사도,변신,변신,2,영구지속,클릭불가,거인의 오른팔 Lv2,"거인의 오른팔을 이용해 적을 두렵게 하며 자신의 방어를 증가시킵니다. 적 방어 -4%, 본인 +12%",#CastingTime/#Damage/#Range/#Duration,~CastingTime/~Damage/~Distance/~Range/~Duration,,,,,,,,,,,,,,
+199,사도,변신,변신,3,영구지속,클릭불가,거인의 오른팔 Lv3,"거인의 오른팔을 이용해 적을 두렵게 하며 자신의 방어를 증가시킵니다. 적 방어 -7%, 본인 +16%",#CastingTime/#Damage/#Range/#Duration,~CastingTime/~Damage/~Distance/~Range/~Duration,,,,,,,,,,,,,,
+200,사도,변신,변신,4,영구지속,클릭불가,거인의 오른팔(브라소 데레차 데 히간테) Lv1,"거인의 오른팔을 이용해 적을 더욱 두렵게 하며 자신의 방어를 증가시킵니다. 적 방어 -10%, 본인 +20%",#CastingTime/#Damage/#Range/#Duration,~CastingTime/~Damage/~Distance/~Range/~Duration,,,,,,,,,,,,,,
+201,사도,변신,변신,5,영구지속,클릭불가,거인의 오른팔(브라소 데레차 데 히간테) Lv2,"거인의 오른팔을 이용해 적을 더욱 두렵게 하며 자신의 방어를 증가시킵니다. 적 방어 -13%, 본인 +24%",#CastingTime/#Damage/#Range/#Duration,~CastingTime/~Damage/~Distance/~Range/~Duration,,,,,,,,,,,,,,
+202,사도,변신,변신,6,영구지속,클릭불가,거인의 오른팔(브라소 데레차 데 히간테) Lv3,"거인의 오른팔을 이용해 적을 더욱 두렵게 하며 자신의 방어를 증가시킵니다. 적 방어 -16%, 본인 +28%",#CastingTime/#Damage/#Range/#Duration,~CastingTime/~Damage/~Distance/~Range/~Duration,,,,,,,,,,,,,,
+203,사도,변신,변신,7,영구지속,클릭불가,악마의 왼팔(브라소 이스케르다 델 디아블로) Lv1,"악마의 왼팔을 이용해 적을 매우 두렵게 하며 자신의 방어를 증가시킵니다. 적 방어 -19%, 본인 +32%",#CastingTime/#Damage/#Range/#Duration,~CastingTime/~Damage/~Distance/~Range/~Duration,,,,,,,,,,,,,,
+204,사도,변신,변신,8,영구지속,클릭불가,악마의 왼팔(브라소 이스케르다 델 디아블로) Lv2,"악마의 왼팔을 이용해 적을 매우 두렵게 하며 자신의 방어를 증가시킵니다. 적 방어 -22%, 본인 +36%",#CastingTime/#Damage/#Range/#Duration,~CastingTime/~Damage/~Distance/~Range/~Duration,,,,,,,,,,,,,,
+205,사도,변신,변신,9,영구지속,클릭불가,악마의 왼팔(브라소 이스케르다 델 디아블로) Lv3,"악마의 왼팔을 이용해 적을 매우 두렵게 하며 자신의 방어를 증가시킵니다. 적 방어 -25%, 본인 +40%",#CastingTime/#Damage/#Range/#Duration,~CastingTime/~Damage/~Distance/~Range/~Duration,,,,,,,,,,,,,,
