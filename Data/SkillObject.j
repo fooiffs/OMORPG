@@ -1,6 +1,8 @@
 library SkillObject initializer init
 // 추가한 시간: 24.08.31 03:08:00
-
+  globals
+    hashtable udg_hash = InitHashtable()
+  endglobals
   private function init takes nothing returns nothing
     call SaveStr(udg_hash, StringHash("SkillObject"), 1, "대쉬//앞으로 #Distance 거리만큼 빠르게 내달립니다.")
     call SaveStr(udg_hash, StringHash("SkillObject"), 2, "순보//앞으로 #Distance 거리만큼 순간적으로 내달립니다.")

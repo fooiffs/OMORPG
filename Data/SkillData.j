@@ -1,5 +1,4 @@
-
-library ESkillData
+scope ESkillData
   struct ECharacterName
     static constant integer ICHIGO  = 0
     static constant integer RUKIA   = 1
@@ -60,5 +59,5 @@ library ESkillData
     static constant integer LOCATION_WITH_DIRECTION	  = 4	 /* 지점-방향	*/
     static constant integer LOCATION_WITH_POSITION	  = 5	 /* 지점-위치	*/
   endstruct
-endlibrary
+endscope
 

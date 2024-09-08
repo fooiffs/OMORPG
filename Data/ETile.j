@@ -1,7 +1,7 @@
 // [출처] 워크래프트 내의 모든 타일셋 id (워크래프트3 리포지드 유즈맵 포럼 [W3UMF]) | 작성자 동동주
 // Tile.SUMMER_DIRT_ROUGH 같은 방법으로 사용할 수 있습니다.
 // 푸잎 - 안쓰는 타일은 굳이 저장할 필요 없지만 바이트단위로 먹으니 그냥 리스트로 남겨둠.
-scope ETile
+library ETile
   struct ETile
     static constant integer BLIGHT = -1 /* 커스텀 사용 */
     
@@ -220,4 +220,4 @@ scope ETile
     static constant integer CLIFF_VFALL_DIRT = 'cQc2'
     static constant integer CLIFF_VFALL_GRASS = 'cQc1'
   endstruct
-endscope
+endlibrary

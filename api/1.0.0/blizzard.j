@@ -8242,7 +8242,7 @@ function MeleeStartingUnitsHuman takes player whichPlayer, location startLoc, bo
     local unit     townHall = null
 
     if (doPreload) then
-        call Preloader( "scripts\HumanMelee.pld" )
+        call Preloader( "scripts\\HumanMelee.pld" )
     endif
 
     set nearestMine = MeleeFindNearestMine(startLoc, bj_MELEE_MINE_SEARCH_RADIUS)
@@ -8316,7 +8316,7 @@ function MeleeStartingUnitsOrc takes player whichPlayer, location startLoc, bool
     local real     peonY
 
     if (doPreload) then
-        call Preloader( "scripts\OrcMelee.pld" )
+        call Preloader( "scripts\\OrcMelee.pld" )
     endif
 
     set nearestMine = MeleeFindNearestMine(startLoc, bj_MELEE_MINE_SEARCH_RADIUS)
@@ -8391,7 +8391,7 @@ function MeleeStartingUnitsUndead takes player whichPlayer, location startLoc, b
     local real     ghoulY
 
     if (doPreload) then
-        call Preloader( "scripts\UndeadMelee.pld" )
+        call Preloader( "scripts\\UndeadMelee.pld" )
     endif
 
     set nearestMine = MeleeFindNearestMine(startLoc, bj_MELEE_MINE_SEARCH_RADIUS)
@@ -8476,7 +8476,7 @@ function MeleeStartingUnitsNightElf takes player whichPlayer, location startLoc,
     local unit     tree
 
     if (doPreload) then
-        call Preloader( "scripts\NightElfMelee.pld" )
+        call Preloader( "scripts\\NightElfMelee.pld" )
     endif
 
     set nearestMine = MeleeFindNearestMine(startLoc, bj_MELEE_MINE_SEARCH_RADIUS)
@@ -8572,7 +8572,7 @@ function MeleeStartingUnits takes nothing returns nothing
     local location indexStartLoc
     local race     indexRace
 
-    call Preloader( "scripts\SharedMelee.pld" )
+    call Preloader( "scripts\\SharedMelee.pld" )
 
     set index = 0
     loop
