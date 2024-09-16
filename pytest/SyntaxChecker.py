@@ -1,60 +1,79 @@
-# 오류 구문을 체크합니다.
-# 1. J파일을 저장합니다.
-# 2. common.j, blizzard.j에 맞춰 문법을 검사합니다.
-# 3. 맵을 불러와 지도-시험을 진행합니다. (is_map_test를 True 설정시)
-# 4. 오류가 있을 시, 오류를 출력합니다. (혹은 is_print를 True 설정시)
+# 파이썬을 이용해, 오류 구문 검사 및 지도 시험을 실행합니다.
+# 경로 지정 및 각종 설정이 필요합니다.
 
+
+# 기본 경로 지정을 위해 사용
 import os
+# 파워쉘 사용을 위해 사용
 import subprocess
+# 시간 대기를 위해 사용
 import time
 
-# print 유무
+
+# 실행될 때, 디버그용 메시지를 표시합니다. 오류가 나면 하나하나 찾아보기 위함.
 is_print = False
 
-# 메인 경로
-base_path = '"' + os.path.dirname(os.path.abspath(os.path.dirname(os.path.abspath(os.path.dirname(__file__)))))
-if is_print: print(base_path)
-
-# 맵 - 디버그 체크 유무, 시험 유무, 경로
-is_debug = True
+# 지도 시험 (F9) 유무 - 그냥 저장만 하고 컴파일 오류만 확인하려면 False로 두세요.
 is_map_test = True
+
+# 컴파일 시간 후 대기 시간(초) - 각자 맵에 맞춰서 적당히 처리하세요.
+wait_time = 3
+
+# 메인 경로 - 파이썬 파일 위치를 기반으로, 상상위 경로를 지정합니다. 직접 지정해도 됩니다.
+base_path = '"' + os.path.dirname(os.path.abspath(os.path.dirname(os.path.abspath(os.path.dirname(__file__)))))
+
+# 맵 이름 in 메인 경로 - 특징에 따라, 끝에 쌍따옴표, 외따옴표 처리해주세요 → "'
+# map_path = base_path + '\\My Map.w3x"'
 map_path = base_path + '\\OMO 240810.w3x"'
-if is_print: print(map_path)
 
-# helper 경로
-helper_path = '"C:\\Program Files\\Warcraft\\JassNative Editor v2.2\\jasshelper\\vexorianjasshelper.exe"'
-if is_print: print(helper_path)
-
-# j 파일 경로 - 최근꺼 아무거나
-j_path = base_path + '\\Script\\pytest\\11.j"'
-# j_path = base_path + '\\Script\\GitAdder.j"'
-if is_print: print(j_path)
-
-# common, blizzard 경로
-# common_path = '\"C:\\Program Files\\Warcraft\\JassNative Editor v2.2\\jasshelper\\logs\\common.j\"'
+# common, blizzard 경로 (메인 경로 외일 경우 "전체 경로" 작성) 
 common_path = base_path + '\\Script\\api\\1.0.0\\common.j"'
-# blizzard_path = '\"C:\\Program Files\\Warcraft\\JassNative Editor v2.2\\jasshelper\\logs\\Blizzard.j\"'
 blizzard_path = base_path + '\\Script\\api\\1.0.0\\blizzard.j"'
-if is_print:
-    print(common_path)
-    print(blizzard_path)
 
-if is_debug:
-    command = f".{helper_path} --debug {common_path} {blizzard_path} {j_path} {map_path}"
-else:
-    command = f".{helper_path} {common_path} {blizzard_path} {j_path} {map_path}"
+# Jass helper 경로 : 본인은 Vexorian Jass Helper 사용 (보통 JN Editor에 맵 저장할때 쓰는거)
+helper_path = '"C:\\Program Files\\Warcraft\\JassNative Editor v2.2\\jasshelper\\vexorianjasshelper.exe"'
 
+# 지도 시험에 사용할 프로그램 경로
+program_path = '"C:\\Program Files\\Warcraft\\JNLoader.exe"'
+
+# 옵션 (참고/아는거만 쓰세요: --debug --nopreprocessor --nooptimize --scriptonly --warcity --zinconly --macromode --about --showerrors clijasshelper.exe)
+addtional_option = '--debug --nooptimize'
+# 보통은 --debug만 추가/제거하면 될거에요.
+
+
+### 이하 자동 실행 ###
+# 기본 저장
+command = f".{helper_path} {addtional_option} {common_path} {blizzard_path} {map_path}"
 if is_print: print(command)
 subprocess.run(["powershell", command])
 
+# 생성된 j 파일을 이용해 문법 비교
+input_j_path = base_path + '\\Script\\logs\\inputwar3map.j"'
+output_j_path = base_path + '\\Script\\logs\\output.j"'
+addtional_option += ' --scriptonly'
+if is_print: print("input_j_path: " + input_j_path + ".")
+if is_print: print("output_j_path: " + output_j_path+ ".")
+
+# 파워쉘 이용해 문법 체크 실행 (명령어 지정, 명령어 표시, 실제 명령 실행 in 파워쉘)
+command = f".{helper_path} {addtional_option} {common_path} {blizzard_path} {input_j_path} {output_j_path}"
+if is_print: print(command)
+subprocess.run(["powershell", command])
+
+# 지도 시험 (F9 - On 일 경우에만)
 if ( is_map_test ):
-    time.sleep(5)
-    
-    # 프로그램 경로
-    program_path = '"C:\\Program Files\\Warcraft\\JNLoader.exe"'
-    if is_print: print(program_path)
+    # 시간 대기
+    time.sleep(wait_time)
 
     command = f".{program_path} -window -loadfile {map_path}"
     if is_print: print(command)
-
     subprocess.run(["powershell", command])
+
+# 생성된 임시 폴더 삭제 - 경로는 바뀔 수 있음.
+time.sleep(1)
+command = 'Remove-Item –path ' + base_path + '\\Script\\backups\" -Recurse'
+if is_print: print(command)
+subprocess.run(["powershell", command])
+
+command = 'Remove-Item –path ' + base_path + '\\Script\\logs\" -Recurse'
+if is_print: print(command)
+subprocess.run(["powershell", command])
