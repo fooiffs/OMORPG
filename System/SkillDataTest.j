@@ -1,4 +1,4 @@
-//! loaddata "Data\OMOSLK3.slk"
+//! loaddata "Data\OMOSLK16.slk"
 scope temp initializer init
     globals
         SkillData array publicSkillData
@@ -6,7 +6,7 @@ scope temp initializer init
     endglobals
         
     struct SkillData
-        string	Character
+        string Character
         string TypeMain
         string TypeTree
         string RequireLevel
@@ -96,6 +96,7 @@ scope temp initializer init
 
         set index = index + 1
         endloop
+        temp
     endfunction
     private function init takes nothing returns nothing
         call BJDebugMsg("Start")
