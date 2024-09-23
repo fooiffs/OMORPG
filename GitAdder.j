@@ -1,8 +1,7 @@
 //! import "Data\Enums\ETile.j"
 //! import "Data\Enums\SkillData.j"
-
-//! import "Data\InitializeObjects\SkillObject.j"
-
+//! import "Data\InitializeObjects\DataBaseSkill.j"
+//! loaddata "Data\SkillData.slk"
 //! import "System\Skills.j"
 //! import "System\Hunting.j"
-//! import "System\SkillDataTest.j"
+//! import "Data\SkillDataStr.j"
