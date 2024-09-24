@@ -208,15 +208,15 @@ struct SkillResource extends IResource
   endmethod
 
   // static 가공 왼쪽으로 몇자리, 소숫점 표시, 추가 문자열
-  private static method ProcessI2S takes integer input, boolean isRoundUp, integer cutLength, integer insertDotPos returns string
+  private static method ProcessI2S takes integer input, boolean isRoundUp, integer cutLength, boolean hasDot returns string
     if ( isRoundUp ) then
       set input = input + 5
     endif
     set cutLength = StringLength(I2S(input)) - cutLength
-    if ( insertDotPos <= 0 ) then
-      return SubString(I2S(input),0,cutLength)
+    if ( hasDot ) then
+      return JNStringInsert(SubString(I2S(input),0,cutLength), cutLength-1, ".")
     else
-      return JNStringInsert(SubString(I2S(input),0,cutLength), cutLength-insertDotPos, ".")
+      return SubString(I2S(input),0,cutLength)
     endif
   endmethod
 
@@ -225,18 +225,18 @@ struct SkillResource extends IResource
       // => "#Distance거리를 찌르며 돌진하며 #Damage% 데미지를 가합니다."
 
     if ( JNStringContains(tempString, "#Damage%") ) and ( not displayAsPercentage ) then
-      set tempString = JNStringReplace(tempString, "#Damage%", ProcessI2S(this.lastDamage*this.owner.Stats[EStatType.AttackPower], true, 2, 0))
+      set tempString = JNStringReplace(tempString, "#Damage%", ProcessI2S(this.lastDamage*this.owner.Stats[EStatType.AttackPower], true, 2, false))
         // => 300거리를 찌르며, 1273 데미지를 가합니다.
     endif
 
-    set tempString = JNStringReplace(tempString, "#CastingTime", ProcessI2S(this.lastCastingTime, true, 2, 1)+"초")
+    set tempString = JNStringReplace(tempString, "#CastingTime", ProcessI2S(this.lastCastingTime, true, 2, true)+"초")
     set tempString = JNStringReplace(tempString, "#Damage", I2S(this.lastDamage))
       // => 300거리를 찌르며, 100% 데미지를 가합니다. (기본)
     set tempString = JNStringReplace(tempString, "#Distance", I2S(this.lastDistance))
     set tempString = JNStringReplace(tempString, "#Range", I2S(this.lastRange))
-    set tempString = JNStringReplace(tempString, "#Duration", ProcessI2S(this.lastDuration, true, 2, 1) + "초")
-    set tempString = JNStringReplace(tempString, "#Mana", ProcessI2S(this.lastCostMana, true, 1, 0))
-    set tempString = JNStringReplace(tempString, "#CoolDown", ProcessI2S(this.lastCooldownTime, true, 2, 1)+"초")
+    set tempString = JNStringReplace(tempString, "#Duration", ProcessI2S(this.lastDuration, true, 2, true)+"초")
+    set tempString = JNStringReplace(tempString, "#Mana", ProcessI2S(this.lastCostMana, true, 1, false))
+    set tempString = JNStringReplace(tempString, "#CoolDown", ProcessI2S(this.lastCooldownTime, true, 2, true)+"초")
     return tempString
   endmethod
   static method GetInfoRequire takes integer playerId, integer skillId, integer currentLevel returns string
@@ -250,52 +250,84 @@ struct SkillResource extends IResource
       set tempString = SkillData[skillId].ValueUse
       if ( JNStringContains(tempString, "#Mana") ) then
         if ( JNStringContains(tempString, "#CoolDown") ) then
-          return "마나소모 " + ProcessI2S(SkillData[skillId].CostMana, true, 1, 0) +", 쿨다운 " + ProcessI2S(SkillData[skillId].CoolTime, true, 1, 1) + "초"
+          return "마나소모 " + ProcessI2S(SkillData[skillId].CostMana, true, 1, false) +", 쿨다운 " + ProcessI2S(SkillData[skillId].CoolTime, true, 1, true) + "초"
         else
-          return "마나소모 " + ProcessI2S(SkillData[skillId].CostMana, true, 1, 0)
+          return "마나소모 " + ProcessI2S(SkillData[skillId].CostMana, true, 1, false)
         endif
       elseif ( JNStringContains(tempString, "#CoolDown") ) then
-        return "쿨다운 " + ProcessI2S(SkillData[skillId].CoolTime, true, 1, 1) + "초"
+        return "쿨다운 " + ProcessI2S(SkillData[skillId].CoolTime, true, 1, true) + "초"
       else
         return "오류/GIR/" +I2S(playerId) + "/" + I2S(skillId) + "/" + I2S(currentLevel) + "/" + tempString
       endif
     endif
   endmethod
-  method GetInfoNextLevel takes nothing returns string
-    .
-    다음레벨(1P) : 마나소모 +2, 쿨다운 -1초
-    최대 레벨입니다.
-    .ValueChange =>
-
-
-    IF(ISBLANK(INDEX($L286:$Y286,MATCH($O$6,$L$6:$Y$6,0))),"","~CastingTime"),
-IF(ISBLANK(INDEX($L286:$Y286,MATCH($U$6,$L$6:$Y$6,0))),"","~Damage"),
-IF(ISBLANK(INDEX($L286:$Y286,MATCH($M$6,$L$6:$Y$6,0))),"","~Distance"),
-IF(ISBLANK(INDEX($L286:$Y286,MATCH($W$6,$L$6:$Y$6,0))),"","~Range"),
-IF(ISBLANK(INDEX($L286:$Y286,MATCH($Q$6,$L$6:$Y$6,0))),"","~Duration"),
-IF(ISBLANK(INDEX($L286:$Y286,MATCH($Y$6,$L$6:$Y$6,0))),"","~Mana"),
-IF(ISBLANK(INDEX($L286:$Y286,MATCH($S$6,$L$6:$Y$6,0))),"","~CoolDown")))
-
-    if ( currentLevel == 0 ) then
-      if ( PlayerData[playerId].character.changeLevel < SkillData[skillId].RequireLevel ) then
-        return "변신레벨 " + I2S(SkillData[skillId].RequireLevel) + " 이상 필요"
-      else
-        return "습득이 가능합니다"
-      endif
+  static method StringAdder takes string head returns string
+    if ( head == "" ) then
+      return " : "
     else
-      set tempString = SkillData[skillId].ValueUse
-      if ( JNStringContains(tempString, "#Mana") ) then
-        if ( JNStringContains(tempString, "#CoolDown") ) then
-          return "마나소모 " + ProcessI2S(SkillData[skillId].CostMana, true, 1, 0) +", 쿨다운 " + ProcessI2S(SkillData[skillId].CoolTime, true, 1, 1) + "초"
-        else
-          return "마나소모 " + ProcessI2S(SkillData[skillId].CostMana, true, 1, 0)
-        endif
-      elseif ( JNStringContains(tempString, "#CoolDown") ) then
-        return "쿨다운 " + ProcessI2S(SkillData[skillId].CoolTime, true, 1, 1) + "초"
-      else
-        return "오류/GIR/" +I2S(playerId) + "/" + I2S(skillId) + "/" + I2S(currentLevel) + "/" + tempString
-      endif
+      return head + ", "
     endif
+  endmethod
+  private static method AddSignal takes integer input, integer cutLength, boolean hasDot returns string
+    set cutLength = StringLength(I2S(input)) - cutLength
+    if ( hasDot ) then
+      if ( input < 0 ) then
+        return "-" + JNStringInsert(SubString(I2S(input),0,cutLength), cutLength-1, ".")
+      else
+        return "+" + JNStringInsert(SubString(I2S(input),0,cutLength), cutLength-1, ".")
+      endif
+
+    elseif ( input < 0 ) then
+      return "-" + SubString(I2S(input),0,cutLength)
+    else
+      return SubString(I2S(input),0,cutLength)
+    endif
+  endmethod
+  private static method ConvertLevelToPoint takes integer skillLevel returns integer
+    if ( skillLevel <= 1 ) then
+      return 0
+    elseif ( skillLevel <= 6 ) then
+      return 1
+    elseif ( skillLevel <= 9 ) then
+      return 2
+    elseif ( skillLevel == 10 ) then
+      return 3
+    endif
+    return 999
+  endmethod
+  static method GetInfoNextLevel takes integer skillId, integer currentLevel returns string
+    local string getString = SkillData[skillId].ValueChange
+    set tempString = ""
+    if ( 1 <= currentLevel and currentLevel <= 10 ) then
+      if ( JNStringContains(getString, "~") ) then
+        if ( JNStringContains(getString, "~CastingTime") ) then
+          set tempString = StringAdder(tempString) + "시전시간 " + AddSignal(SkillData[skillId].CastingTimeAdd, 2, true) + "초"
+        endif
+        if ( JNStringContains(getString, "~Damage") ) then
+          set tempString = StringAdder(tempString) + "데미지 " + AddSignal(SkillData[skillId].DamageAdd, 0, false)
+          if ( JNStringContains(SkillData[skillId].Detail, "#Damage%") ) then
+            set tempString = tempString + "%"
+          endif
+        endif
+        if ( JNStringContains(getString, "~Distance") ) then
+          set tempString = StringAdder(tempString) + "거리 " + AddSignal(SkillData[skillId].DistanceAdd, 0, false)
+        endif
+        if ( JNStringContains(getString, "~Range") ) then
+          set tempString = StringAdder(tempString) + "범위 " + AddSignal(SkillData[skillId].RangeAdd, 0, false)
+        endif
+        if ( JNStringContains(getString, "~Duration") ) then
+          set tempString = StringAdder(tempString) + "지속시간 " + AddSignal(SkillData[skillId].DurationAdd, 2, true) + "초"
+        endif
+        if ( JNStringContains(getString, "~Mana") ) then
+          set tempString = StringAdder(tempString) + "마나소모 " + AddSignal(SkillData[skillId].CostManaAdd, 0, true)
+        endif
+        if ( JNStringContains(getString, "~CoolDown") ) then
+          set tempString = StringAdder(tempString) + "쿨다운 " + AddSignal(SkillData[skillId].CoolTimeAdd, 2, true) + "초"
+        endif
+      endif
+      set tempString = "다음레벨(" + I2S(ConvertLevelToPoint(currentLevel+1)) + "P)" + tempString
+    endif
+    return tempString
   endmethod
 endstruct
 scope tempValue initializer Init

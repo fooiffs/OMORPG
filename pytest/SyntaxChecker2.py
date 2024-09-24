@@ -9,7 +9,7 @@ import time
 is_print = False
 
 # 지도 시험 (F9) 유무 - 그냥 저장만 하고 컴파일 오류만 확인하려면 False로 두세요.
-is_map_test = True
+is_map_test = False
 
 # 컴파일 시간 후 대기 시간(초) - 각자 맵에 맞춰서 적당히 처리하세요.
 wait_time = 3
