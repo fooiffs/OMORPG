@@ -1,8 +1,8 @@
-library Test initializer Init
+scope TestScope initializer Init
   private function delayedInit takes nothing returns nothing
     local integer index = 1
     local string tempString = ""
-    call BJDebugMsg("Start2")
+    // call BJDebugMsg("Start2")
 
     loop
       exitwhen ( MAX_SKILL_COUNT <= index )
@@ -27,8 +27,8 @@ library Test initializer Init
       if ( SkillData[index].CastingTime+SkillData[index].CastingTimeAdd != 0 ) then
           set tempString = tempString + I2S(SkillData[index].CastingTime) + "~" + I2S(SkillData[index].CastingTimeAdd) + "/"
       endif
-      if ( SkillData[index].Duration+SkillData[index].DutationAdd != 0 ) then
-          set tempString = tempString + I2S(SkillData[index].Duration) + "~" + I2S(SkillData[index].DutationAdd) + "/"
+      if ( SkillData[index].Duration+SkillData[index].DurationAdd != 0 ) then
+          set tempString = tempString + I2S(SkillData[index].Duration) + "~" + I2S(SkillData[index].DurationAdd) + "/"
       endif
       if ( SkillData[index].CoolTime+SkillData[index].CoolTimeAdd != 0 ) then
           set tempString = tempString + I2S(SkillData[index].CoolTime) + "~" + I2S(SkillData[index].CoolTimeAdd) + "/"
@@ -43,7 +43,7 @@ library Test initializer Init
           set tempString = tempString + I2S(SkillData[index].CostMana) + "~" + I2S(SkillData[index].CostManaAdd) + "."
       endif
       
-      call DisplayTimedTextToPlayer(GetLocalPlayer(), 0., 0., 7., "No." + I2S(index) + " = " + tempString)
+    //   call DisplayTimedTextToPlayer(GetLocalPlayer(), 0., 0., 7., "No." + I2S(index) + " = " + tempString)
 
       set index = index + 1
     endloop
@@ -52,4 +52,4 @@ library Test initializer Init
       call BJDebugMsg("Start")
       call TimerStart(CreateTimer(), .1, false, function delayedInit)
   endfunction
-endlibrary
+endscope
