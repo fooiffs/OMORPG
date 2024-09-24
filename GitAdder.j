@@ -7,3 +7,4 @@
 //! import "System\Hunting.j"
 //! import "System\IResource.j"
 //! import "System\TestScope.j"
+//! import "System\PushKey.j"

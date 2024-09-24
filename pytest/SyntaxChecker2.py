@@ -19,7 +19,7 @@ base_path = '"' + os.path.dirname(os.path.abspath(os.path.dirname(os.path.abspat
 if is_print: print(base_path)
 
 # 맵 이름 in 메인 경로 - 특징에 따라, 끝에 쌍따옴표, 외따옴표 처리해주세요 → "'
-map_path = base_path + '\\OMO 240810.w3x"'
+map_path = base_path + '\\OMO 240924.w3x"'
 
 # common, blizzard 경로 (메인 경로 외일 경우 "전체 경로" 작성) 
 common_path = base_path + '\\Script\\api\\1.0.0\\common.j"'
