@@ -12,7 +12,6 @@ library DataBase
     constant integer MAX_OPTION_MENU_COUNT = 28+1
     constant integer MAX_SKILL_SLOT = 8+1
     
-    private PlayerData array privatePlayerData [MAX_PLAYER_COUNT]
     private SkillData array privateSkillData [MAX_SKILL_COUNT]
     private StatData array privateStatData [MAX_STAT_COUNT]
   endglobals
@@ -92,31 +91,13 @@ library DataBase
     endmethod
     static method operator [] takes integer input returns thistype
       if ( input <= 0 or MAX_STAT_COUNT <= input ) then
-        call BJDebugMsg("오류9-3B, 스텟(" + I2S(input) + ")는 설정값("+I2S(MAX_STAT_COUNT)+")보다 큽니다.")
+        call BJDebugMsg("오류9-3B, 스텟(" + I2S(input) + ")는 설정값(1~"+I2S(MAX_STAT_COUNT)+")을 벗어납니다")
         return 0
       elseif ( privateStatData[input] == 0 ) then
           set privateStatData[input] = create()
           set privateStatData[input].lastName = GetName(input)
       endif
       return privateStatData[input]
-    endmethod
-  endstruct
-  struct PlayerData
-    integer id
-    boolean isPlaying
-    CharacterResource character
-    OptionResource array options[28]
-
-    static method operator [] takes integer input returns thistype
-      if ( input <= 0 or MAX_PLAYER_COUNT <= input ) then
-        call BJDebugMsg("오류9-2B, 플레이어(" + I2S(input) + ")는 설정값("+I2S(MAX_PLAYER_COUNT)+")보다 큽니다.")
-        return 0
-      elseif ( privatePlayerData[input] == 0 ) then
-        set privatePlayerData[input] = create()
-        set privatePlayerData[input].id = input
-        set privatePlayerData[input].isPlaying = true
-      endif
-      return privatePlayerData[input]
     endmethod
   endstruct
   struct SkillData
@@ -148,18 +129,18 @@ library DataBase
 
     static method operator [] takes integer input returns thistype
       if ( input <= 0 or MAX_SKILL_COUNT <= input ) then
-        call BJDebugMsg("오류9-1B, 스킬(" + I2S(input) + ")는 설정값("+I2S(MAX_SKILL_COUNT)+")보다 큽니다.")
+        call BJDebugMsg("오류/SkillData[" + I2S(input) + "]는 설정 범위(1~"+I2S(MAX_SKILL_COUNT-1)+")를 벗어납니다.")
         return 0
       elseif ( privateSkillData[input] == 0 ) then
-        call BJDebugMsg("오류9-1A, 스킬(" + I2S(input) + ")는 설정되지 않았습니다.")
+        call BJDebugMsg("오류/SkillData[" + I2S(input) + "]는 설정되지 않았습니다.")
         return 0
       else
         return privateSkillData[input]
       endif
     endmethod
     static method getFromKey takes integer input returns thistype
-      if ( MAX_SKILL_COUNT <= input ) then
-        call BJDebugMsg("오류8, [생성] 스킬(" + I2S(input) + ")는 설정값("+I2S(MAX_SKILL_COUNT)+")보다 큽니다.")
+      if ( input <= 0 or MAX_SKILL_COUNT <= input ) then
+        call BJDebugMsg("오류/GFK/스킬(" + I2S(input) + ")는 설정 범위(1~"+I2S(MAX_SKILL_COUNT-1)+")를 벗어납니다.")
         return 0
       elseif ( privateSkillData[input] == 0 ) then
         set privateSkillData[input] = create()

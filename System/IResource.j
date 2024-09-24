@@ -6,27 +6,49 @@ native EXSetAbilityDataString takes ability abil, integer level, integer data_ty
 globals
   constant integer ABILITY_DATA_ART               = 204 //아이콘 경로 string     ('aart')    // +
 endglobals
+
 interface IResource
   // EMainType mainTypeId /* => this.getType() == (method).typeid */
   integer value
   
-  // static method create takes nothing /* 굳이 없어도 되는듯. 있어도 오류 검사 안함 */
+  static method create takes nothing /* 굳이 없어도 되는듯. 있어도 오류 검사 안함 */
   // method GetValue takes nothing returns integer
   // method SetValue takes integer newValue returns nothing
   // method AddValue takes integer addValue returns nothing
 endinterface
-struct StatResource extends IResource
-  // super.value => 이 스텟의 실제 값.
-  private CharacterResource owner
-  private integer subTypeId = 0
-  private integer addValue = 0
-  static method Create takes CharacterResource inputCharacter, integer inputSubTypeId returns StatResource
-    local StatResource this = IResource.create(StatResource.typeid)
-    set this.owner = inputCharacter
-    set this.subTypeId = inputSubTypeId
-    return this
+
+struct PlayerResource extends IResource
+  boolean isPlaying
+  CharacterResource character
+  OptionResource array options[MAX_OPTION_MENU_COUNT]
+
+  private static PlayerResource array privatePlayerResource [MAX_PLAYER_COUNT]
+
+  static method operator [] takes integer input returns thistype
+    if ( input <= 0 or MAX_PLAYER_COUNT <= input ) then
+      call BJDebugMsg("오류/P.R[" + I2S(input) + "]는 설정 범위(1~"+I2S(MAX_PLAYER_COUNT-1)+")를 벗어납니다.")
+      return 0
+    elseif ( privatePlayerResource[input] == 0 ) then
+      call BJDebugMsg("오류/P.R[" + I2S(input) + "]는 설정되지 않았습니다.")
+      return 0
+    endif
+    return privatePlayerResource[input]
+  endmethod
+
+  static method onInit takes nothing returns nothing
+    local integer loopA = 1
+    loop
+      if ( GetPlayerController(Player(loopA-1)) == MAP_CONTROL_USER ) and ( GetPlayerSlotState(Player(loopA-1)) == PLAYER_SLOT_STATE_PLAYING ) then
+        set privatePlayerResource[loopA] = IResource.create(PlayerResource.typeid)
+        set privatePlayerResource[loopA].value = loopA
+        set privatePlayerResource[loopA].isPlaying = true
+      endif
+      exitwhen MAX_PLAYER_COUNT-1 <= loopA
+      set loopA = loopA + 1
+    endloop
   endmethod
 endstruct
+
 struct CharacterResource extends IResource
   // super.value => 이 캐릭터의 Player id 1~32
   unit Unit
@@ -41,18 +63,31 @@ struct CharacterResource extends IResource
     set this.Unit = u
     set this.value = GetPlayerId(GetOwningPlayer(u))+1
     loop
-      call BJDebugMsg("999")
-      set this.Skills[loopA] = SkillResource.Create(this, loopA, 0, 0)
+      set this.Skills[loopA] = SkillResource.Create(this, loopA, loopA*2, 1)
       exitwhen MAX_SKILL_SLOT <= loopA
       set loopA = loopA + 1
     endloop
     set loopA = 1
     loop
-      call BJDebugMsg("999-2")
       set this.Stats[loopA] = StatResource.Create(this, loopA)
       exitwhen MAX_STAT_COUNT <= loopA
       set loopA = loopA + 1
     endloop
+    return this
+  endmethod
+endstruct
+
+struct StatResource extends IResource
+  // super.value => 이 스텟의 실제 값.
+  private CharacterResource owner
+  private integer subTypeId = 0
+  private integer addValue = 0
+  
+  static method Create takes CharacterResource inputCharacter, integer inputSubTypeId returns StatResource
+    local StatResource this = IResource.create(thistype.typeid)
+    // local StatResource this = IResource.create(StatResource.typeid)
+    set this.owner = inputCharacter
+    set this.subTypeId = inputSubTypeId
     return this
   endmethod
 endstruct
@@ -76,7 +111,7 @@ struct SkillResource extends IResource
 
   // id = value
   method ChangeIcon takes integer playerId, integer slot, string iconPath returns nothing
-    call EXSetAbilityDataString(EXGetUnitAbilityByIndex(PlayerData[playerId].character.Unit, slot), 1, ABILITY_DATA_ART, iconPath)
+    call EXSetAbilityDataString(EXGetUnitAbilityByIndex(PlayerResource[playerId].character.Unit, slot), 1, ABILITY_DATA_ART, iconPath)
   endmethod
   method InitValues takes nothing returns nothing
     set tempString = SkillData[this.value].Detail
@@ -163,7 +198,7 @@ struct SkillResource extends IResource
     set this.level = newLevel
     call UpdateValues()
   endmethod
-  static method Create takes CharacterResource inputCharacter, integer slot, integer id, integer level returns SkillResource
+  static method Create takes CharacterResource inputCharacter, integer slot, integer id, integer level returns thistype
     local SkillResource this = IResource.create(SkillResource.typeid)
     set this.owner = inputCharacter
     set this.slot = slot
@@ -241,7 +276,7 @@ struct SkillResource extends IResource
   endmethod
   static method GetInfoRequire takes integer playerId, integer skillId, integer currentLevel returns string
     if ( currentLevel == 0 ) then
-      if ( PlayerData[playerId].character.changeLevel < SkillData[skillId].RequireLevel ) then
+      if ( PlayerResource[playerId].character.changeLevel < SkillData[skillId].RequireLevel ) then
         return "변신레벨 " + I2S(SkillData[skillId].RequireLevel) + " 이상 필요"
       else
         return "습득이 가능합니다"
@@ -261,26 +296,36 @@ struct SkillResource extends IResource
       endif
     endif
   endmethod
-  static method StringAdder takes string head returns string
+  static method AddCommaIfFilled takes string head returns string
     if ( head == "" ) then
       return " : "
     else
       return head + ", "
     endif
   endmethod
+  static method AddZeroIfShort takes integer inputLength, boolean isNegative returns string
+    if ( isNegative ) then
+      set inputLength = inputLength - 1
+    endif
+    if ( inputLength <= 2 ) then
+      return "0."
+    else
+      return "."
+    endif
+  endmethod
+  static method AddSignalIfPositive takes boolean isPositive returns string
+    if ( isPositive ) then
+      return "+"
+    else
+      return ""
+    endif
+  endmethod
   private static method AddSignal takes integer input, integer cutLength, boolean hasDot returns string
     set cutLength = StringLength(I2S(input)) - cutLength
     if ( hasDot ) then
-      if ( input < 0 ) then
-        return "-" + JNStringInsert(SubString(I2S(input),0,cutLength), cutLength-1, ".")
-      else
-        return "+" + JNStringInsert(SubString(I2S(input),0,cutLength), cutLength-1, ".")
-      endif
-
-    elseif ( input < 0 ) then
-      return "-" + SubString(I2S(input),0,cutLength)
+      return AddSignalIfPositive(0 <= input) + JNStringInsert(SubString(I2S(input),0,cutLength), cutLength-1, AddZeroIfShort(cutLength, input < 0))
     else
-      return SubString(I2S(input),0,cutLength)
+      return AddSignalIfPositive(0 <= input) + SubString(I2S(input),0,cutLength)
     endif
   endmethod
   private static method ConvertLevelToPoint takes integer skillLevel returns integer
@@ -301,28 +346,28 @@ struct SkillResource extends IResource
     if ( 1 <= currentLevel and currentLevel <= 10 ) then
       if ( JNStringContains(getString, "~") ) then
         if ( JNStringContains(getString, "~CastingTime") ) then
-          set tempString = StringAdder(tempString) + "시전시간 " + AddSignal(SkillData[skillId].CastingTimeAdd, 2, true) + "초"
+          set tempString = AddCommaIfFilled(tempString) + "시전시간 " + AddSignal(SkillData[skillId].CastingTimeAdd, 1, true) + "초"
         endif
         if ( JNStringContains(getString, "~Damage") ) then
-          set tempString = StringAdder(tempString) + "데미지 " + AddSignal(SkillData[skillId].DamageAdd, 0, false)
+          set tempString = AddCommaIfFilled(tempString) + "데미지 " + AddSignal(SkillData[skillId].DamageAdd, 0, false)
           if ( JNStringContains(SkillData[skillId].Detail, "#Damage%") ) then
             set tempString = tempString + "%"
           endif
         endif
         if ( JNStringContains(getString, "~Distance") ) then
-          set tempString = StringAdder(tempString) + "거리 " + AddSignal(SkillData[skillId].DistanceAdd, 0, false)
+          set tempString = AddCommaIfFilled(tempString) + "거리 " + AddSignal(SkillData[skillId].DistanceAdd, 0, false)
         endif
         if ( JNStringContains(getString, "~Range") ) then
-          set tempString = StringAdder(tempString) + "범위 " + AddSignal(SkillData[skillId].RangeAdd, 0, false)
+          set tempString = AddCommaIfFilled(tempString) + "범위 " + AddSignal(SkillData[skillId].RangeAdd, 0, false)
         endif
         if ( JNStringContains(getString, "~Duration") ) then
-          set tempString = StringAdder(tempString) + "지속시간 " + AddSignal(SkillData[skillId].DurationAdd, 2, true) + "초"
+          set tempString = AddCommaIfFilled(tempString) + "지속시간 " + AddSignal(SkillData[skillId].DurationAdd, 1, true) + "초"
         endif
         if ( JNStringContains(getString, "~Mana") ) then
-          set tempString = StringAdder(tempString) + "마나소모 " + AddSignal(SkillData[skillId].CostManaAdd, 0, true)
+          set tempString = AddCommaIfFilled(tempString) + "마나소모 " + AddSignal(SkillData[skillId].CostManaAdd, 0, true)
         endif
         if ( JNStringContains(getString, "~CoolDown") ) then
-          set tempString = StringAdder(tempString) + "쿨다운 " + AddSignal(SkillData[skillId].CoolTimeAdd, 2, true) + "초"
+          set tempString = AddCommaIfFilled(tempString) + "쿨다운 " + AddSignal(SkillData[skillId].CoolTimeAdd, 1, true) + "초"
         endif
       endif
       set tempString = "다음레벨(" + I2S(ConvertLevelToPoint(currentLevel+1)) + "P)" + tempString
@@ -330,20 +375,3 @@ struct SkillResource extends IResource
     return tempString
   endmethod
 endstruct
-scope tempValue initializer Init
-
-  private function DelayedInit takes nothing returns nothing
-    call BJDebugMsg("1.1")
-    set bj_lastCreatedUnit = CreateUnit(Player(0), 'hfoo', 0, 0, 0)
-    call BJDebugMsg("1.2")
-    set PlayerData[1].character = CharacterResource.Create(bj_lastCreatedUnit) /* 9-1B 오류 18개 */
-    call BJDebugMsg("1.3")
-    set PlayerData[1].character.Skills[1] = SkillResource.Create(PlayerData[1].character, 1, 9, 1)
-    call BJDebugMsg("1.4")
-
-    call BJDebugMsg(PlayerData[1].character.Skills[1].GetNameWithRank(7) + "\n and " + SkillResource.GetInfoRequire(1, 9, 2))
-  endfunction
-  private function Init takes nothing returns nothing
-    call TimerStart(CreateTimer(), 0.5, false, function DelayedInit)
-  endfunction
-endscope

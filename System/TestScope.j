@@ -1,5 +1,15 @@
 scope TestScope initializer Init
-  private function delayedInit takes nothing returns nothing
+  private function DelayedInit2 takes nothing returns nothing
+    local PlayerResource tempPlayer = PlayerResource[1]
+    set bj_lastCreatedUnit = CreateUnit(Player(0), 'hfoo', 0, 0, 0)
+    set PlayerResource[1].character = CharacterResource.Create(bj_lastCreatedUnit)
+    // set PlayerResource[1].character.Skills[1] = SkillResource.Create(PlayerResource[1].character, 1, 9, 1)
+
+    call BJDebugMsg(PlayerResource[1].character.Skills[1].GetNameWithRank(7) /*
+    */+ "\n and " + SkillResource.GetInfoRequire(1, 9, 2) /*
+    */+ "\n and " + SkillResource.GetInfoNextLevel(16, 2))
+  endfunction
+  private function DelayedInit takes nothing returns nothing
     local integer index = 1
     local string tempString = ""
     // call BJDebugMsg("Start2")
@@ -50,6 +60,7 @@ scope TestScope initializer Init
   endfunction
   private function Init takes nothing returns nothing
       call BJDebugMsg("Start")
-      call TimerStart(CreateTimer(), .1, false, function delayedInit)
+      call TimerStart(CreateTimer(), .5, false, function DelayedInit)
+      call TimerStart(CreateTimer(), 1., false, function DelayedInit2)
   endfunction
 endscope
