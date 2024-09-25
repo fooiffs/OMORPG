@@ -2,6 +2,7 @@ native EXGetAbilityDataInteger takes ability abil, integer level, integer data_t
 native EXGetUnitAbility takes unit u, integer abilcode returns ability
 native EXSetAbilityDataInteger takes ability abil, integer level, integer data_type, integer value returns boolean
 native EXGetAbilityDataReal takes ability abil, integer level, integer data_type returns real
+native EXSetAbilityDataReal takes ability abil, integer level, integer data_type, real value returns boolean
 scope TestScope initializer Init
   globals
     constant integer JN_OSKEY_B                             = $42
@@ -20,14 +21,51 @@ scope TestScope initializer Init
   private function JNGetUnitAbilityUIs takes unit whichUnit, integer abilId returns real
     return EXGetAbilityDataReal(EXGetUnitAbility(whichUnit, abilId), 1, ABILITY_DATA_DATA_C)
   endfunction
+  private function JNSetUnitAbilityUIs takes unit whichUnit, integer abilId, real newValue returns nothing
+    call EXSetAbilityDataReal(EXGetUnitAbility(whichUnit, abilId), 1, ABILITY_DATA_DATA_C, newValue)
+  endfunction
   private function JNSetUnitAbilityHotkey takes unit whichUnit, integer abilId, integer newKey returns nothing
     call EXSetAbilityDataInteger(EXGetUnitAbility(whichUnit, abilId), 1, ABILITY_DATA_HOTKET, newKey)
   endfunction
   
+  private function DelayedInit4 takes nothing returns nothing
+    local unit tempUnit = udg_hero[1]
+    local integer index = 1
+    if ( tempUnit != null ) then
+      if ( count == 0 ) then
+        loop
+          exitwhen ( MAX_SKILL_SLOT <= index )
+          if ( not UnitAddAbility(tempUnit, SlotData[index].SkillCode) ) then
+            call BJDebugMsg("AddAbility[" + I2S(index) + "] = false")
+          endif
+          set index = index + 1
+        endloop
+        // call BJDebugMsg("1 - ori ui: " + R2S(JNGetUnitAbilityUIs(tempUnit, SlotData[index].SkillCode)))
+      elseif ( count == 1 ) then
+        // call JNSetUnitAbilityUIs(tempUnit, SlotData[1].SkillCode, 1.0)
+        // call BJDebugMsg("2 - new ui: " + R2S(JNGetUnitAbilityUIs(tempUnit, SlotData[index].SkillCode)))
+      elseif ( count == 2 ) then
+        if ( IssueImmediateOrderById(tempUnit, SlotData[1].OrderID) ) then
+          call BJDebugMsg("3 - Slot[" + I2S(1) + "], " + I2S(SlotData[1].OrderID) + " = true ")
+        else
+          call BJDebugMsg("3 - Slot[" + I2S(1) + "], " + I2S(SlotData[1].OrderID) + " = false ")
+        endif
+      elseif ( count <= 5 ) then
+        set index = GetRandomInt(1, MAX_SKILL_SLOT-1)
+        if ( IssueImmediateOrderById(tempUnit, SlotData[index].OrderID) ) then
+          call BJDebugMsg("Slot[" + I2S(index) + "], " + I2S(SlotData[index].OrderID) + " = true ")
+        else
+          call BJDebugMsg("Slot[" + I2S(index) + "], " + I2S(SlotData[index].OrderID) + " = false ")
+        endif
+        call BJDebugMsg("1 - ori ui: " + R2S(JNGetUnitAbilityUIs(tempUnit, SlotData[index].SkillCode)))
+      endif
+      set count = count + 1
+    endif
+  endfunction
   private function DelayedInit3 takes nothing returns nothing
     local unit tempUnit = udg_hero[1]
     if ( tempUnit == null ) then
-      call BJDebugMsg("Hotkey null")
+      call BJDebugMsg("Hotkey null") 
     else
       if ( count == 0 ) then
         call BJDebugMsg("Hotkey-C = " + I2S(JN_OSKEY_C))
@@ -120,8 +158,9 @@ scope TestScope initializer Init
   endfunction
   private function Init takes nothing returns nothing
       call BJDebugMsg("Start")
-      call TimerStart(CreateTimer(), .5, false, function DelayedInit)
-      call TimerStart(CreateTimer(), 1., false, function DelayedInit2)
-      call TimerStart(CreateTimer(), 1., true, function DelayedInit3)
+      // call TimerStart(CreateTimer(), .5, false, function DelayedInit)
+      // call TimerStart(CreateTimer(), 1., false, function DelayedInit2)
+      // call TimerStart(CreateTimer(), 1., true, function DelayedInit3)
+      // call TimerStart(CreateTimer(), 1., true, function DelayedInit4)
   endfunction
 endscope

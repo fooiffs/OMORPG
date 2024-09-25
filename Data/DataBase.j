@@ -14,6 +14,7 @@ library DataBase
     
     private SkillData array privateSkillData [MAX_SKILL_COUNT]
     private StatData array privateStatData [MAX_STAT_COUNT]
+    private SlotData array privateSkillSlotData [MAX_SKILL_SLOT]
   endglobals
   struct OptionResource
   endstruct
@@ -146,6 +147,53 @@ library DataBase
         set privateSkillData[input] = create()
       endif
       return privateSkillData[input]
+    endmethod
+  endstruct
+  
+  struct SlotData
+    integer SkillCode
+    integer SmartCode
+    integer SelfHotkeyID
+    integer OrderID
+    static method operator [] takes integer input returns thistype
+      if ( input <= 0 or MAX_SKILL_SLOT <= input ) then
+        call BJDebugMsg("오류/SkillSlotData[" + I2S(input) + "]는 설정 범위(1~"+I2S(MAX_SKILL_SLOT-1)+")를 벗어납니다.")
+        return 0
+      elseif ( privateSkillSlotData[input] == 0 ) then
+        call BJDebugMsg("오류/SkillSlotData[" + I2S(input) + "]는 설정되지 않았습니다.")
+        return 0
+      else
+        return privateSkillSlotData[input]
+      endif
+    endmethod
+    static method Create takes integer skillId, integer smartId, integer hotkeyId, integer orderId returns thistype
+      local thistype this = thistype.create()
+      set this.SkillCode = skillId
+      set this.SmartCode = smartId
+      set this.SelfHotkeyID = hotkeyId
+      set this.OrderID = orderId
+      return this
+    endmethod
+    static method onInit takes nothing returns nothing
+      static if false then
+        No Code Smart	Hotkey OrderId
+        1	A000	A008	81(Q)	852529/absorb
+        2	A001	A009	87(W)	852662/acidbomb
+        3	A002	A00A	69(E)	852185/acolyteharvest
+        4	A003	A00B	82(R)	852131/ambush
+        5	A004	A00C	90(Z)	852490/ancestralspirit
+        6	A005	A00D	88(X)	852491/ancestralspirittarget
+        7	A006	A00E	67(C)	852217/animatedead
+        8	A007	A00F	86(V)	852186/antimagicshell
+      endif
+      set privateSkillSlotData[1] = SlotData.Create('A000', 'A008', 81, 852529)
+      set privateSkillSlotData[2] = SlotData.Create('A001', 'A009', 87, 852662)
+      set privateSkillSlotData[3] = SlotData.Create('A002', 'A00A', 69, 852185)
+      set privateSkillSlotData[4] = SlotData.Create('A003', 'A00B', 82, 852131)
+      set privateSkillSlotData[5] = SlotData.Create('A004', 'A00C', 90, 852490)
+      set privateSkillSlotData[6] = SlotData.Create('A005', 'A00D', 88, 852491)
+      set privateSkillSlotData[7] = SlotData.Create('A006', 'A00E', 67, 852217)
+      set privateSkillSlotData[8] = SlotData.Create('A007', 'A00F', 86, 852186)
     endmethod
   endstruct
 endlibrary
