@@ -47,12 +47,12 @@ if ( is_map_test ):
     subprocess.run(["powershell", command])
 
     # 시간 대기
-    time.sleep(wait_time)
+    # time.sleep(wait_time)
 
-    # 지도 시험 (F9 - On 일 경우에만)
-    command = f".{program_path} -window -loadfile {map_path}"
-    if is_print: print(command)
-    subprocess.run(["powershell", command])
+    # # 지도 시험 (F9 - On 일 경우에만)
+    # command = f".{program_path} -window -loadfile {map_path}"
+    # if is_print: print(command)
+    # subprocess.run(["powershell", command])
 
 else:
     output_j_path = base_path + '\\Script\\logs\\outputs.j"'

@@ -12,7 +12,7 @@ scope TestScope initializer Init
     constant integer ABILITY_DATA_DATA_C            = 110 // real       ('....')
   endglobals
   private function JNGetUnitAbilityHotkey takes unit whichUnit, integer abilId returns integer
-    return EXGetAbilityDataInteger(EXGetUnitAbility(whichUnit, abilId), 1, ABILITY_DATA_DATA_C)
+    return EXGetAbilityDataInteger(EXGetUnitAbility(whichUnit, abilId), 1, ABILITY_DATA_HOTKET)
   endfunction
   private function JNGetUnitAbilityTargets takes unit whichUnit, integer abilId returns real
     return EXGetAbilityDataReal(EXGetUnitAbility(whichUnit, abilId), 1, ABILITY_DATA_DATA_B)
@@ -21,7 +21,7 @@ scope TestScope initializer Init
     return EXGetAbilityDataReal(EXGetUnitAbility(whichUnit, abilId), 1, ABILITY_DATA_DATA_C)
   endfunction
   private function JNSetUnitAbilityHotkey takes unit whichUnit, integer abilId, integer newKey returns nothing
-    call EXSetAbilityDataInteger(EXGetUnitAbility(whichUnit, abilId), 1, ABILITY_DATA_DATA_C, newKey)
+    call EXSetAbilityDataInteger(EXGetUnitAbility(whichUnit, abilId), 1, ABILITY_DATA_HOTKET, newKey)
   endfunction
   
   private function DelayedInit3 takes nothing returns nothing
@@ -31,19 +31,27 @@ scope TestScope initializer Init
     else
       if ( count == 0 ) then
         call BJDebugMsg("Hotkey-C = " + I2S(JN_OSKEY_C))
-        set udg_hero[2] = CreateUnit(Player(0), GetUnitTypeId(tempUnit), GetWidgetX(tempUnit), GetWidgetY(tempUnit), GetUnitFacing(tempUnit))
+        // set udg_hero[2] = CreateUnit(Player(0), GetUnitTypeId(tempUnit), GetWidgetX(tempUnit), GetWidgetY(tempUnit), GetUnitFacing(tempUnit))
       elseif ( count == 1 ) then
-        // call JNSetUnitAbilityHotkey(tempUnit, 'A000', JN_OSKEY_B)
+        call JNSetUnitAbilityHotkey(tempUnit, 'A000', JN_OSKEY_B)
+        call JNSetUnitAbilityHotkey(tempUnit, 'A002', JN_OSKEY_C)
         call BJDebugMsg("Hotkey-BB = " + I2S(JN_OSKEY_B))
       elseif ( count == 2 ) then
         // call BJDebugMsg("Hotkey-Local = " + I2S(GetLocalizedHotkey("B")))
       else
+        if ( IssueImmediateOrder(tempUnit, "spellbook") ) then
+          call BJDebugMsg("spellbook true")
+        elseif ( IssueImmediateOrder(tempUnit, "acidbomb") ) then
+          call BJDebugMsg("acidbomb true")
+        else
+          call BJDebugMsg("all false")
+        endif
+      // else
         call ForceUIKeyBJ(GetOwningPlayer(tempUnit), "B")
       endif
       set count = count + 1
       if ( count <= 5 ) then
-        call BJDebugMsg("Targets" + I2S(count) +" = " + R2S(JNGetUnitAbilityTargets(tempUnit, 'A000')) )
-        call BJDebugMsg("UIs" + I2S(count) +" = " + R2S(JNGetUnitAbilityUIs(tempUnit, 'A000')) )
+        call BJDebugMsg("Hotkeys" + I2S(count) +" = " + I2S(JNGetUnitAbilityHotkey(tempUnit, 'A000')) +","+ I2S(JNGetUnitAbilityHotkey(tempUnit, 'A002')) )
       endif
     endif
     set tempUnit = null
