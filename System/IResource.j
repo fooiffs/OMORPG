@@ -11,13 +11,33 @@ interface IResource
   // EMainType mainTypeId /* => this.getType() == (method).typeid */
   integer value
   
-  static method create takes nothing /* 굳이 없어도 되는듯. 있어도 오류 검사 안함 */
-  // method GetValue takes nothing returns integer
-  // method SetValue takes integer newValue returns nothing
-  // method AddValue takes integer addValue returns nothing
+  static method create takes nothing
 endinterface
 
+struct OptionResource extends IResource
+  // super.value => 이 옵션의 값
+  boolean isBooleanType
+
+  static method Create takes integer value, boolean isBoolType returns thistype
+    local OptionResource this = IResource.create(OptionResource.typeid)
+    set this.value = value
+    set this.isBooleanType = isBoolType
+    return this
+  endmethod
+  method Click takes integer input returns nothing
+    if ( this.isBooleanType ) then
+      if ( this.value == 0 ) then
+        set this.value = 1
+      else
+        set this.value = 0
+      endif
+    else
+      set this.value = this.value + input
+    endif
+  endmethod
+endstruct
 struct PlayerResource extends IResource
+  // super.value => 이 플레이어의 id 값 1~12
   boolean isPlaying
   CharacterResource character
   OptionResource array options[MAX_OPTION_MENU_COUNT]
@@ -110,10 +130,10 @@ struct SlotResource extends IResource
   private integer lastCooldownTime = 0
 
   // id = value
-  method ChangeIcon takes integer playerId, integer slot, string iconPath returns nothing
-    // 스킬의 아이콘이 아닌, 슬롯의 아이콘
-
-    // call EXSetAbilityDataString(EXGetUnitAbilityByIndex(PlayerResource[playerId].character.Unit, slot), 1, ABILITY_DATA_ART, iconPath)
+  static method ChangeIcon takes integer playerId, integer slot, string iconPath returns nothing
+    if ( GetLocalPlayer() == Player(playerId-1) ) then
+      call MenuQuickSlot.ChangeSlotIcon(slot, true, iconPath)
+    endif
   endmethod
   method InitValues takes nothing returns nothing
     set tempString = SkillData[this.value].Detail
@@ -198,11 +218,60 @@ struct SlotResource extends IResource
       call UpdateValues()
     endif
   endmethod
+  private function JNSetUnitAbilityTargets takes unit whichUnit, integer abilId returns real
+    return EXGetAbilityDataReal(EXGetUnitAbility(whichUnit, abilId), 1, ABILITY_DATA_DATA_B)
+  endfunction
+  
+  
+  private method ChangeTargetingUI takes integer input returns nothing
+    static if false then
+      struct ESkillTypeUI
+        static constant integer UN_CLICKABLE	            = 1	 /* 클릭불가 */
+        static constant integer IMMEDIATELY	              = 2	 /* 즉발 */
+        static constant integer SOLO_TARGET	              = 3	 /* 대상형 */
+        static constant integer LOCATION_WITH_DIRECTION	  = 4	 /* 방향형	*/
+        static constant integer LOCATION_WITH_RANGE	      = 5	 /* 범위형	*/
+        /* { '클릭불가': 1, '즉발': 2, '대상형': 3, '방향형': 4, '범위형': 5 } */
+        109 : 목표물 종류 - 0 즉시 , 1 유닛 타겟 , 2 지점 타겟 , 3 유닛 또는 지점
+
+    endif
+    local boolean isSmartMode = ( PlayerResource[playerId].option[EHotkeyMenu.SubMenuSmartMode].value == 1 )
+    if ( input == ESkillTypeUI.UN_CLICKABLE ) then
+    
+      call EXSetAbilityDataReal(EXGetUnitAbility(this.owner.Unit, SkillData[this.slot].GetSkillCode(isSmartMode)), 1, ABILITY_DATA_DATA_B, 0)
+    elseif ( input == ESkillTypeUI.IMMEDIATELY ) then
+    elseif ( input == ESkillTypeUI.SOLO_TARGET ) then
+    elseif ( input == ESkillTypeUI.LOCATION_WITH_DIRECTION ) then
+    elseif ( input == ESkillTypeUI.LOCATION_WITH_RANGE ) then
+    else
+      call BJDebugMsg("오류/S.R.CTUI[" + I2S(input) + "]는 설정 범위(1~5)를 벗어납니다.")
+      return
+    endif
+    if ( 
+    
+    // UI 형태 변경
+    // call EXSetAbilityDataString(EXGetUnitAbilityByIndex(this.owner.Unit, this.slot-1), 1, ABILITY_DATA_ART, SkillData[this.value].IconPath)
+  endmethod
+  private method ChangeObjectData takes nothing returns nothing
+    // UI 형태 변경
+    call ChangeTargetingUI(SkillData[this.value].TypeUI)
+    
+      // 시전거리 변경(대상형, 위치형)
+      call ChangeObjectRange(SkillData[this.value].)
+    
+
+    // - 형태/시전거리/시전시간/쿨다운/소모마나
+
+
+    // 아이콘 변경
+    // call EXSetAbilityDataString(EXGetUnitAbilityByIndex(this.owner.Unit, this.slot-1), 1, ABILITY_DATA_ART, SkillData[this.value].IconPath)
+  endmethod
   method ChangeBaseID takes integer id, integer level returns nothing
     set this.value = id
     call ChangeIcon(this.owner.value, this.slot, SkillData[this.value].IconPath)
     call InitValues()
     call ChangeLevel(level)
+    call ChangeObjectData()
   endmethod
   static method Create takes CharacterResource inputCharacter, integer slot, integer id, integer level returns thistype
     local SlotResource this = IResource.create(SlotResource.typeid)

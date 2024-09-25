@@ -4,51 +4,64 @@ scope Option initializer Init
       public integer array Frame_SettingBackdrop
     endglobals
   
-      private function Setting takes integer no, string text, real size, real x, real y returns integer
-        set Frame_Setting[no] = DzCreateFrameByTagName("TEXT", "", Frame_SettingBackdrop[1], "", no)
-        if ( size != 0. ) then
-          call DzFrameSetFont(Frame_Setting[no], "Fonts\\DFHeiMd.ttf", size, 1)
-        endif
-        call DzFrameSetPoint(Frame_Setting[no], JN_FRAMEPOINT_LEFT, Frame_SettingBackdrop[0], JN_FRAMEPOINT_TOPLEFT, .02+x, -.015-.025 * y)
-        call DzFrameSetText(Frame_Setting[no], text)
-  //call BJDebugMsg(I2S(no) + "=" + text)
-        return no+1
-      endfunction
-      private function SettingButton takes integer i, integer frame2, string text, code funcHandle returns integer
-        set Frame_Setting[i] = DzCreateFrameByTagName("GLUETEXTBUTTON", "", Frame_SettingBackdrop[1], "ScriptDialogButton", 0)
-        call DzFrameSetSize(Frame_Setting[i], .085, 0.03)
-        call DzFrameSetPoint(Frame_Setting[i], JN_FRAMEPOINT_LEFT, frame2, JN_FRAMEPOINT_LEFT, .1, 0.)
-        call DzFrameSetText(Frame_Setting[i], text)
-        call DzFrameSetScriptByCode(Frame_Setting[i], JN_FRAMEEVENT_MOUSE_UP, funcHandle, false)
-        return i + 1
-      endfunction
-      private function SettingClick takes nothing returns nothing
-        local integer f = DzGetTriggerUIEventFrame()
-        local player p = DzGetTriggerUIEventPlayer()
-        call BJDebugMsg("player: " + GetPlayerName(p) + " clicked Setting")
-      endfunction
-      private function SettingSave takes nothing returns nothing
-        local integer f = DzGetTriggerUIEventFrame()
-        local player p = DzGetTriggerUIEventPlayer()
-        call BJDebugMsg("player: " + GetPlayerName(p) + " click save server")
-      endfunction
-      private function SettingClose takes nothing returns nothing
-        if ( GetLocalPlayer() == DzGetTriggerUIEventPlayer() ) then
-          call DzFrameShow(Frame_SettingBackdrop[0], false)
-        endif
-      endfunction
-      private function SettingHotKey takes integer i, integer frame, real x, real y, string text, code funcHandle returns integer
-        set Frame_Setting[i] = DzCreateFrameByTagName("GLUETEXTBUTTON", "", Frame_SettingBackdrop[1], "ScriptDialogButton", 0)
-        call DzFrameSetSize(Frame_Setting[i], .02667, .02667)
-        call DzFrameSetPoint(Frame_Setting[i], JN_FRAMEPOINT_LEFT, frame, JN_FRAMEPOINT_LEFT, .1 + x, y)
-        call DzFrameSetText(Frame_Setting[i], text)
-        return i+1
-      endfunction
-      private function SettingHotKeyClick takes nothing returns nothing
-        local integer f = DzGetTriggerUIEventFrame()
-        local player p = DzGetTriggerUIEventPlayer()
-        call DisplayTimedTextToPlayer(GetLocalPlayer(),0.,0.,7.,"player: " + GetPlayerName(p) + " clicked HotKey Setting - " + I2S(f))
-      endfunction
+    private function Setting takes integer no, string text, real size, real x, real y returns integer
+      set Frame_Setting[no] = DzCreateFrameByTagName("TEXT", "", Frame_SettingBackdrop[1], "", no)
+      if ( size != 0. ) then
+        call DzFrameSetFont(Frame_Setting[no], "Fonts\\DFHeiMd.ttf", size, 1)
+      endif
+      call DzFrameSetPoint(Frame_Setting[no], JN_FRAMEPOINT_LEFT, Frame_SettingBackdrop[0], JN_FRAMEPOINT_TOPLEFT, .02+x, -.015-.025 * y)
+      call DzFrameSetText(Frame_Setting[no], text)
+//call BJDebugMsg(I2S(no) + "=" + text)
+      return no+1
+    endfunction
+    private function LoadNumber takes integer frame returns integer
+      return LoadInteger(hash, StringHash("F2I"), frame)
+    endfunction
+    private function SaveNumber takes integer frame, integer number returns nothing
+      call SaveInteger(hash, StringHash("F2I"), frame, number)
+    endfunction
+    private function SettingButton takes integer i, integer number, string text, code funcHandle returns integer
+      set Frame_Setting[i] = DzCreateFrameByTagName("GLUETEXTBUTTON", "", Frame_SettingBackdrop[1], "ScriptDialogButton", 0)
+      call SaveNumber(Frame_Setting[i], number)
+      call DzFrameSetSize(Frame_Setting[i], .085, 0.03)
+      call DzFrameSetPoint(Frame_Setting[i], JN_FRAMEPOINT_LEFT, Frame_Setting[number], JN_FRAMEPOINT_LEFT, .1, 0.)
+      call DzFrameSetText(Frame_Setting[i], text)
+      call DzFrameSetScriptByCode(Frame_Setting[i], JN_FRAMEEVENT_MOUSE_UP, funcHandle, false)
+      return i + 1
+    endfunction
+    private function SettingClick takes nothing returns nothing
+      local integer f = DzGetTriggerUIEventFrame()
+      local player p = DzGetTriggerUIEventPlayer()
+      call BJDebugMsg("player: " + GetPlayerName(p) + " clicked Setting")
+      call PlayerResource.options[LoadNumber(f)].Click(10)
+    endfunction
+    private function SettingSave takes nothing returns nothing
+      local integer f = DzGetTriggerUIEventFrame()
+      local player p = DzGetTriggerUIEventPlayer()
+      call PlayerResource.options[7].Click(-1)
+
+      call BJDebugMsg("player: " + GetPlayerName(p) + " click save server : " + I2S(PlayerResource.options[7].value))
+    endfunction
+    private function SettingClose takes nothing returns nothing
+      if ( GetLocalPlayer() == DzGetTriggerUIEventPlayer() ) then
+        call DzFrameShow(Frame_SettingBackdrop[0], false)
+      endif
+    endfunction
+    private function SettingHotKey takes integer i, integer number, integer frame, real x, real y, string text, code funcHandle returns integer
+      set Frame_Setting[i] = DzCreateFrameByTagName("GLUETEXTBUTTON", "", Frame_SettingBackdrop[1], "ScriptDialogButton", 0)
+      call SaveNumber(Frame_Setting[i], number)
+      call DzFrameSetSize(Frame_Setting[i], .02667, .02667)
+      call DzFrameSetPoint(Frame_Setting[i], JN_FRAMEPOINT_LEFT, frame, JN_FRAMEPOINT_LEFT, .1 + x, y)
+      call DzFrameSetText(Frame_Setting[i], text)
+      return i + 1
+    endfunction
+    private function SettingHotKeyClick takes nothing returns nothing
+      local integer f = DzGetTriggerUIEventFrame()
+      local player p = DzGetTriggerUIEventPlayer()
+
+      call PlayerResource.options[LoadNumber(f)].Click(0)
+      call DisplayTimedTextToPlayer(GetLocalPlayer(),0.,0.,7.,"player: " + GetPlayerName(p) + " clicked HotKey Setting - " + I2S(f))
+    endfunction
   
     private function CreateSetting takes nothing returns nothing
      local integer i = 0
@@ -70,12 +83,12 @@ scope Option initializer Init
       call DzFrameSetText(Frame_Setting[0], "|cfffed312설정")
       call DzFrameSetFont(Frame_Setting[0], "Fonts\\DFHeiMd.ttf", .020, 1)
       
-      set i = Setting(1 , "미니 정보창", .016, 0., 1.)
-      set i = Setting(i, "이펙트(개인)", .016, 0., 2.)
-      set i = Setting(i, "이펙트(방장)", .016, 0., 3.)
-      set i = Setting(i, "시야 설정", .016, 0., 4.)
-      set i = Setting(i, "시야 고정", .016, 0., 5.)
-      set i = Setting(i, "단축키 표시", .016, 0., 6.)
+      set i = Setting(1, HotkeyData[1].Name, .016, 0., 1.)
+      set i = Setting(i, HotkeyData[2].Name, .016, 0., 2.)
+      set i = Setting(i, HotkeyData[3].Name, .016, 0., 3.)
+      set i = Setting(i, HotkeyData[4].Name, .016, 0., 4.)
+      set i = Setting(i, HotkeyData[5].Name, .016, 0., 5.)
+      set i = Setting(i, HotkeyData[6].Name, .016, 0., 6.)
       
       set i = Setting(i, "|cfffed312단축키 설정", 0.015, -.01, 7.)
       set i = Setting(i, "스킬1~8", .024, 0., 8.)
@@ -98,12 +111,12 @@ scope Option initializer Init
       call DzFrameSetScriptByCode(Frame_Setting[i], JN_FRAMEEVENT_MOUSE_UP, function SettingClose, false)
       set i = i + 1
       
-      set i = SettingButton(i, Frame_Setting[1], "|cfffed312ON |cffffffff/ |c004f4f4fOFF", function SettingClick)
-      set i = SettingButton(i, Frame_Setting[2], "|cfffed312기본 |cffffffff/ |c004f4f4f최소화", function SettingClick)
-      set i = SettingButton(i, Frame_Setting[3], "|c004f4f4fON |cffffffff/ |cfffed312OFF", function SettingClick)
-      set i = SettingButton(i, Frame_Setting[4], "|cfffed312150", function SettingClick)
-      set i = SettingButton(i, Frame_Setting[5], "|c004f4f4fON |cffffffff/ |cfffed312OFF", function SettingClick)
-      set i = SettingButton(i, Frame_Setting[6], "|cfffed312ON |cffffffff/ |c004f4f4fOFF", function SettingClick)
+      set i = SettingButton(i, 1, "|cfffed312ON |cffffffff/ |c004f4f4fOFF", function SettingClick)
+      set i = SettingButton(i, 2, "|cfffed312기본 |cffffffff/ |c004f4f4f최소화", function SettingClick)
+      set i = SettingButton(i, 3, "|c004f4f4fON |cffffffff/ |cfffed312OFF", function SettingClick)
+      set i = SettingButton(i, 4, "|cfffed312150", function SettingClick)
+      set i = SettingButton(i, 5, "|c004f4f4fON |cffffffff/ |cfffed312OFF", function SettingClick)
+      set i = SettingButton(i, 6, "|cfffed312ON |cffffffff/ |c004f4f4fOFF", function SettingClick)
       
       set i = SettingHotKey(i, Frame_Setting[8], 0., 0.01, MenuQuickSlot_BaseHotKey(8), function SettingHotKeyClick)
       set i = SettingHotKey(i, Frame_Setting[8], 0.02, 0.01, MenuQuickSlot_BaseHotKey(9), function SettingHotKeyClick)

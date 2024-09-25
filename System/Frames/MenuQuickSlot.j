@@ -1,4 +1,16 @@
 scope MenuQuickSlot initializer Init
+  public function ChangeSlotIcon takes integer slot, boolean isSkill, string TexturePath returns nothing
+    //아이콘 텍스처 설정
+    if ( isSkill and 0 < slot and slot < MAX_SKILL_SLOT ) then
+      call DzFrameSetTexture(Frame_ButtonsBackDrop[slot+7], TexturePath, 0)
+    elseif ( not isSkill and 0 < slot and slot <= 7 ) then
+      call DzFrameSetTexture(Frame_ButtonsBackDrop[slot], TexturePath, 0)
+    elseif ( isSkill ) then
+      call BJDebugMsg("오류/슬롯["+I2S(slot)+"]변경/스킬")
+    else
+      call BJDebugMsg("오류/슬롯["+I2S(slot)+"]변경/아이템")
+    endif
+  endfunction
   public function AddReg takes integer P, integer MenuNo, integer Hotkey returns nothing
     local string s = ""
     local integer i = 0
@@ -111,60 +123,60 @@ scope MenuQuickSlot initializer Init
     //call BJDebugMsg("no"+I2S(MenuNo)+"="+I2S(frame))
   endfunction
   private function CreateSkillFrameButton takes integer types, real x, real y, string IconTexture returns nothing
-      set Frame_Buttons[types]=DzCreateFrameByTagName("BUTTON", "", Frame_Main, "ScoreScreenTabButtonTemplate", 0)
-      
-      //call SaveInteger(hash, types, )
-      //xx번째 메뉴 - yy번째 (스킬/메뉴/아이템) / 클릭한 플레이어 id - 클릭/누를시 받아옴.
-      
-      //BUTTON(버튼) 타입의 버튼을 ScoreScreenTabButtonTemplate스타일(마우스를 대면 빛이나는 스타일)로 생성
-      //부모 프레임은 Frame_Main로 설정
-      call DzFrameSetAbsolutePoint(Frame_Buttons[types], JN_FRAMEPOINT_BOTTOMLEFT, x, y)
-      //왼쪽 아래 정렬로 x, y축으로 이동
-      call DzFrameSetSize(Frame_Buttons[types], 0.025, 0.025)
-      
-      set Frame_ButtonsBackDrop[types]=DzCreateFrameByTagName("BACKDROP", "", Frame_Buttons[types], "", 0)
-      //버튼에 표시할 아이콘을 BACKDROP(배경 이미지) 타입으로 생성
-      //부모 프레임은 아까 생성한 버튼으로 설정
-      call DzFrameSetAllPoints(Frame_ButtonsBackDrop[types], Frame_Buttons[types])
-      //아이콘의 위치, 크기를 아까 생성한 버튼과 같게 함.
-      call DzFrameSetTexture(Frame_ButtonsBackDrop[types], IconTexture, 0)
-      //아이콘 텍스처 설정
-      
-      call DzFrameSetScriptByCode(Frame_Buttons[types], JN_FRAMEEVENT_MOUSE_UP, function Select_ButtonClick, false)
-      //버튼을 클릭하면 function ClickItemButton 함수 실행
-      //false는 비동기화.
-      call MakeHotKey(Frame_Buttons[types], types)
+    set Frame_Buttons[types]=DzCreateFrameByTagName("BUTTON", "", Frame_Main, "ScoreScreenTabButtonTemplate", 0)
+    
+    //call SaveInteger(hash, types, )
+    //xx번째 메뉴 - yy번째 (스킬/메뉴/아이템) / 클릭한 플레이어 id - 클릭/누를시 받아옴.
+    
+    //BUTTON(버튼) 타입의 버튼을 ScoreScreenTabButtonTemplate스타일(마우스를 대면 빛이나는 스타일)로 생성
+    //부모 프레임은 Frame_Main로 설정
+    call DzFrameSetAbsolutePoint(Frame_Buttons[types], JN_FRAMEPOINT_BOTTOMLEFT, x, y)
+    //왼쪽 아래 정렬로 x, y축으로 이동
+    call DzFrameSetSize(Frame_Buttons[types], 0.025, 0.025)
+    
+    set Frame_ButtonsBackDrop[types]=DzCreateFrameByTagName("BACKDROP", "", Frame_Buttons[types], "", 0)
+    //버튼에 표시할 아이콘을 BACKDROP(배경 이미지) 타입으로 생성
+    //부모 프레임은 아까 생성한 버튼으로 설정
+    call DzFrameSetAllPoints(Frame_ButtonsBackDrop[types], Frame_Buttons[types])
+    //아이콘의 위치, 크기를 아까 생성한 버튼과 같게 함.
+    call DzFrameSetTexture(Frame_ButtonsBackDrop[types], IconTexture, 0)
+    //아이콘 텍스처 설정
+    
+    call DzFrameSetScriptByCode(Frame_Buttons[types], JN_FRAMEEVENT_MOUSE_UP, function Select_ButtonClick, false)
+    //버튼을 클릭하면 function ClickItemButton 함수 실행
+    //false는 비동기화.
+    call MakeHotKey(Frame_Buttons[types], types)
   endfunction
   private function CreateItemFrameButton takes integer types, real x, real y returns nothing
-      set Frame_Buttons[types]=DzCreateFrameByTagName("BUTTON", "", Frame_Main, "ScoreScreenTabButtonTemplate", 0)
-      call DzFrameSetAbsolutePoint(Frame_Buttons[types], JN_FRAMEPOINT_BOTTOMLEFT, x, y)
-      call DzFrameSetSize(Frame_Buttons[types], 0.0235, 0.0235)
-      
-      set Frame_ButtonsBackDrop[types]=DzCreateFrameByTagName("BACKDROP", "", Frame_Buttons[types], "", 0)
-      call DzFrameSetAllPoints(Frame_ButtonsBackDrop[types], Frame_Buttons[types])
-      call DzFrameSetTexture(Frame_ButtonsBackDrop[types], "Inven_Empty.blp", 0)
-      
-      call DzFrameSetScriptByCode(Frame_Buttons[types], JN_FRAMEEVENT_MOUSE_UP, function Select_ButtonClick, false)
-      call MakeHotKey(Frame_Buttons[types], types)
+    set Frame_Buttons[types]=DzCreateFrameByTagName("BUTTON", "", Frame_Main, "ScoreScreenTabButtonTemplate", 0)
+    call DzFrameSetAbsolutePoint(Frame_Buttons[types], JN_FRAMEPOINT_BOTTOMLEFT, x, y)
+    call DzFrameSetSize(Frame_Buttons[types], 0.0235, 0.0235)
+    
+    set Frame_ButtonsBackDrop[types]=DzCreateFrameByTagName("BACKDROP", "", Frame_Buttons[types], "", 0)
+    call DzFrameSetAllPoints(Frame_ButtonsBackDrop[types], Frame_Buttons[types])
+    call DzFrameSetTexture(Frame_ButtonsBackDrop[types], "Inven_Empty.blp", 0)
+    
+    call DzFrameSetScriptByCode(Frame_Buttons[types], JN_FRAMEEVENT_MOUSE_UP, function Select_ButtonClick, false)
+    call MakeHotKey(Frame_Buttons[types], types)
   endfunction
   //call AddReg(P, MenuNo, Hotkey)
   private function CreateMenuFrameButton takes integer types, real x, real y, real w, real h, string IconTexture returns nothing
-      set Frame_Buttons[types]=DzCreateFrameByTagName("BUTTON", "", Frame_Main, "ScoreScreenTabButtonTemplate", 0)
-      //set Frame_Buttons[types] = DzCreateFrameByTagName("GLUETEXTBUTTON", "", Frame_Main, "ScoreScreenTabButtonTemplate", 0)
-      call DzFrameSetAbsolutePoint(Frame_Buttons[types], JN_FRAMEPOINT_BOTTOMLEFT, x, y)
-      //call DzFrameSetText(Frame_Buttons[types], text)
-      call DzFrameSetSize(Frame_Buttons[types], w, h)
+    set Frame_Buttons[types]=DzCreateFrameByTagName("BUTTON", "", Frame_Main, "ScoreScreenTabButtonTemplate", 0)
+    //set Frame_Buttons[types] = DzCreateFrameByTagName("GLUETEXTBUTTON", "", Frame_Main, "ScoreScreenTabButtonTemplate", 0)
+    call DzFrameSetAbsolutePoint(Frame_Buttons[types], JN_FRAMEPOINT_BOTTOMLEFT, x, y)
+    //call DzFrameSetText(Frame_Buttons[types], text)
+    call DzFrameSetSize(Frame_Buttons[types], w, h)
 //call BJDebugMsg(I2S(types) + " // " + IconTexture)
-      call DzFrameSetScriptByCode(Frame_Buttons[types], JN_FRAMEEVENT_MOUSE_UP, function Select_ButtonClick, false)
-      
-      //배경
-      set Frame_ButtonsBackDrop[types]=DzCreateFrameByTagName("BACKDROP", "", Frame_Buttons[types], "", 0)
-      call DzFrameSetAllPoints(Frame_ButtonsBackDrop[types], Frame_Buttons[types])
-      call DzFrameSetTexture(Frame_ButtonsBackDrop[types], IconTexture, 0)
-      call MakeHotKey(Frame_Buttons[types], types)
+    call DzFrameSetScriptByCode(Frame_Buttons[types], JN_FRAMEEVENT_MOUSE_UP, function Select_ButtonClick, false)
+    
+    //배경
+    set Frame_ButtonsBackDrop[types]=DzCreateFrameByTagName("BACKDROP", "", Frame_Buttons[types], "", 0)
+    call DzFrameSetAllPoints(Frame_ButtonsBackDrop[types], Frame_Buttons[types])
+    call DzFrameSetTexture(Frame_ButtonsBackDrop[types], IconTexture, 0)
+    call MakeHotKey(Frame_Buttons[types], types)
   endfunction
   private function Init takes nothing returns nothing
-   local integer i = 1
+    local integer i = 1
     /* 퀵슬롯 of 아이템 */
     loop
       call CreateItemFrameButton(i, .4215+(i*.025), .03)
