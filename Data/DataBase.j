@@ -1,4 +1,4 @@
-library DataBase
+library DataBase requires PushKey, EHotkeyMenu
 // 추가한 시간: 24.08.31 03:08:00
 // 추가한 시간: 24.09.16 13:30:00
 // 추가한 시간: 24.09.23 10:35:00+
@@ -9,12 +9,13 @@ library DataBase
     constant integer MAX_CHARACTER_COUNT = 6+1
     constant integer MAX_STAT_COUNT = 32+1
     constant integer MAX_SKILL_COUNT = 205+1      /* 배열 1 시작, +1 */
-    constant integer MAX_OPTION_MENU_COUNT = 28+1
+    constant integer MAX_OPTION_MENU_COUNT = 30+1
     constant integer MAX_SKILL_SLOT = 8+1
     
     private SkillData array privateSkillData [MAX_SKILL_COUNT]
     private StatData array privateStatData [MAX_STAT_COUNT]
     private SlotData array privateSkillSlotData [MAX_SKILL_SLOT]
+    private HotkeyData array privateHotkeyData [MAX_OPTION_MENU_COUNT]
   endglobals
   struct OptionResource
   endstruct
@@ -151,9 +152,9 @@ library DataBase
   endstruct
   
   struct SlotData
-    integer SkillCode
-    integer SmartCode
-    integer SelfHotkeyID
+    private integer SkillCode
+    private integer SmartCode
+    private integer SelfHotkeyID
     integer OrderID
     static method operator [] takes integer input returns thistype
       if ( input <= 0 or MAX_SKILL_SLOT <= input ) then
@@ -194,6 +195,70 @@ library DataBase
       set privateSkillSlotData[6] = SlotData.Create('A005', 'A00D', 68, 852491)
       set privateSkillSlotData[7] = SlotData.Create('A006', 'A00E', 70, 852217)
       set privateSkillSlotData[8] = SlotData.Create('A007', 'A00F', 71, 852186)
+    endmethod
+    method GetSkillCode takes boolean isSmart returns integer
+      if ( isSmart ) then
+        return SmartCode
+      else
+        return SkillCode
+      endif
+    endmethod
+  endstruct
+
+  struct HotkeyData
+    string Name
+    boolean IsBoolType
+    integer BaseValue
+    
+    static method operator [] takes integer input returns thistype
+      if ( input <= 0 or MAX_OPTION_MENU_COUNT <= input ) then
+        call BJDebugMsg("오류/HotKey[" + I2S(input) + "]는 설정 범위(1~"+I2S(MAX_OPTION_MENU_COUNT-1)+")를 벗어납니다.")
+        return 0
+      elseif ( privateHotkeyData[input] == 0 ) then
+        call BJDebugMsg("오류/HotKey[" + I2S(input) + "]는 설정되지 않았습니다.")
+        return 0
+      else
+        return privateHotkeyData[input]
+      endif
+    endmethod
+    static method Create takes string name, boolean bool, integer value returns thistype
+      local thistype this = thistype.create()
+      set this.Name = name
+      set this.IsBoolType = bool
+      set this.BaseValue = value
+      return this
+    endmethod
+    static method onInit takes nothing returns nothing
+      set privateHotkeyData[EHotkeyMenu.Main1MiniInfo] = HotkeyData.Create("미니 정보창", true, 1)
+      set privateHotkeyData[EHotkeyMenu.Main2SimpleEffect] = HotkeyData.Create("이펙트(개인)", true, 1)
+      set privateHotkeyData[EHotkeyMenu.Main3GlobalEffect] = HotkeyData.Create("이펙트(방장)", true, 0)
+      set privateHotkeyData[EHotkeyMenu.Main4FeildOfView] = HotkeyData.Create("시야 설정", false, 150)
+      set privateHotkeyData[EHotkeyMenu.Main5HoldFieldOfView] = HotkeyData.Create("시야 고정", true, 0)
+      set privateHotkeyData[EHotkeyMenu.Main6ViewHotkeys] = HotkeyData.Create("단축키 표시", true, 1)
+      set privateHotkeyData[EHotkeyMenu.Main7ServerSaveLeft] = HotkeyData.Create("서버저장", false, 2)
+      set privateHotkeyData[EHotkeyMenu.SkillSlot1] = HotkeyData.Create("스킬슬롯1", false, PushKey_H2I("Q"))
+      set privateHotkeyData[EHotkeyMenu.SkillSlot2] = HotkeyData.Create("스킬슬롯2", false, PushKey_H2I("W"))
+      set privateHotkeyData[EHotkeyMenu.SkillSlot3] = HotkeyData.Create("스킬슬롯3", false, PushKey_H2I("E"))
+      set privateHotkeyData[EHotkeyMenu.SkillSlot4] = HotkeyData.Create("스킬슬롯4", false, PushKey_H2I("R"))
+      set privateHotkeyData[EHotkeyMenu.SkillSlot5] = HotkeyData.Create("스킬슬롯5", false, PushKey_H2I("T"))
+      set privateHotkeyData[EHotkeyMenu.SkillSlot6] = HotkeyData.Create("스킬슬롯6", false, PushKey_H2I("D"))
+      set privateHotkeyData[EHotkeyMenu.SkillSlot7] = HotkeyData.Create("스킬슬롯7", false, PushKey_H2I("F"))
+      set privateHotkeyData[EHotkeyMenu.SkillSlot8] = HotkeyData.Create("스킬슬롯8", false, PushKey_H2I("G"))
+      set privateHotkeyData[EHotkeyMenu.ItemSlot1] = HotkeyData.Create("아이템슬롯1", false, PushKey_H2I("1"))
+      set privateHotkeyData[EHotkeyMenu.ItemSlot2] = HotkeyData.Create("아이템슬롯2", false, PushKey_H2I("2"))
+      set privateHotkeyData[EHotkeyMenu.ItemSlot3] = HotkeyData.Create("아이템슬롯3", false, PushKey_H2I("3"))
+      set privateHotkeyData[EHotkeyMenu.ItemSlot4] = HotkeyData.Create("아이템슬롯4", false, PushKey_H2I("4"))
+      set privateHotkeyData[EHotkeyMenu.ItemSlot5] = HotkeyData.Create("아이템슬롯5", false, PushKey_H2I("5"))
+      set privateHotkeyData[EHotkeyMenu.ItemSlot6] = HotkeyData.Create("아이템슬롯6", false, PushKey_H2I("6"))
+      set privateHotkeyData[EHotkeyMenu.ItemSlot7] = HotkeyData.Create("아이템슬롯7", false, PushKey_H2I("7"))
+      set privateHotkeyData[EHotkeyMenu.SubMenuKakaotalk] = HotkeyData.Create("카톡", false, PushKey_H2I("F6"))
+      set privateHotkeyData[EHotkeyMenu.SubMenuDiscord] = HotkeyData.Create("디코", false, PushKey_H2I("F7"))
+      set privateHotkeyData[EHotkeyMenu.SubMenuSetting] = HotkeyData.Create("설정", false, PushKey_H2I("F8"))
+      set privateHotkeyData[EHotkeyMenu.SubMenuAutoCombat] = HotkeyData.Create("자동사냥", false, PushKey_H2I("F5"))
+      set privateHotkeyData[EHotkeyMenu.SubMenuInventory] = HotkeyData.Create("인벤토리", false, PushKey_H2I("I"))
+      set privateHotkeyData[EHotkeyMenu.SubMenuStatus] = HotkeyData.Create("상태창", false, PushKey_H2I("S"))
+      set privateHotkeyData[EHotkeyMenu.SubMenuSkillTree] = HotkeyData.Create("스킬창", false, PushKey_H2I("T"))
+      set privateHotkeyData[EHotkeyMenu.SubMenuSmartMode] = HotkeyData.Create("스마트모드", true, 0)
     endmethod
   endstruct
 endlibrary
