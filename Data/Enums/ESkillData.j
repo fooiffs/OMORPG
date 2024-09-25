@@ -53,11 +53,12 @@ scope ESkillData
     static constant integer NEAR_RANGE          = 7	 /* 주변범위 */
   endstruct
   struct ESkillTypeUI
+    /* { '클릭불가': 1, '즉발': 2, '대상형': 3, '방향형': 4, '범위형': 5 } */
     static constant integer UN_CLICKABLE	            = 1	 /* 클릭불가 */
     static constant integer IMMEDIATELY	              = 2	 /* 즉발 */
-    static constant integer SOLO_TARGET	              = 3	 /* 대상 */
-    static constant integer LOCATION_WITH_DIRECTION	  = 4	 /* 지점-방향	*/
-    static constant integer LOCATION_WITH_POSITION	  = 5	 /* 지점-위치	*/
+    static constant integer SOLO_TARGET	              = 3	 /* 대상형 */
+    static constant integer LOCATION_WITH_DIRECTION	  = 4	 /* 방향형	*/
+    static constant integer LOCATION_WITH_RANGE	      = 5	 /* 범위형	*/
   endstruct
 endscope
 
