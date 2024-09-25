@@ -126,7 +126,7 @@ scope PortraitEditor initializer Init
 	public function Change takes nothing returns nothing
 		if ( initializered ) then
 			return
-    endif
-    call Change2(GetPortraitButtonHPText())
+		endif
+		call Change2(GetPortraitButtonHPText())
 	endfunction
 endscope

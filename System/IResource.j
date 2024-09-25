@@ -54,7 +54,7 @@ struct CharacterResource extends IResource
   unit Unit
   integer Level
   integer changeLevel
-  SkillResource array Skills[MAX_SKILL_SLOT]
+  SlotResource array Skills[MAX_SKILL_SLOT]
   StatResource array Stats[MAX_STAT_COUNT]
 
   static method Create takes unit u returns thistype
@@ -63,7 +63,7 @@ struct CharacterResource extends IResource
     set this.Unit = u
     set this.value = GetPlayerId(GetOwningPlayer(u))+1
     loop
-      set this.Skills[loopA] = SkillResource.Create(this, loopA, loopA*2, 1)
+      set this.Skills[loopA] = SlotResource.Create(this, loopA, loopA*2, 1)
       exitwhen MAX_SKILL_SLOT <= loopA
       set loopA = loopA + 1
     endloop
@@ -91,7 +91,7 @@ struct StatResource extends IResource
     return this
   endmethod
 endstruct
-struct SkillResource extends IResource
+struct SlotResource extends IResource
   // super.value => 이 스킬의 id 값 1~205
 
   private static string tempString = "" /* 인터페이스에 만들면 하위에 못쓰니 여기서 생성 */
@@ -111,7 +111,9 @@ struct SkillResource extends IResource
 
   // id = value
   method ChangeIcon takes integer playerId, integer slot, string iconPath returns nothing
-    call EXSetAbilityDataString(EXGetUnitAbilityByIndex(PlayerResource[playerId].character.Unit, slot), 1, ABILITY_DATA_ART, iconPath)
+    // 스킬의 아이콘이 아닌, 슬롯의 아이콘
+
+    // call EXSetAbilityDataString(EXGetUnitAbilityByIndex(PlayerResource[playerId].character.Unit, slot), 1, ABILITY_DATA_ART, iconPath)
   endmethod
   method InitValues takes nothing returns nothing
     set tempString = SkillData[this.value].Detail
@@ -121,9 +123,10 @@ struct SkillResource extends IResource
       else
         set .lastCastingTime = 0
       endif
-      if ( JNStringContains(tempString, "#Damage%") ) then
-        set .lastDamage = SkillData[this.value].Damage
-      elseif ( JNStringContains(tempString, "#Damage") ) then
+      // if ( JNStringContains(tempString, "#Damage%") ) then
+      //   set .lastDamage = SkillData[this.value].Damage
+      // else
+      if ( JNStringContains(tempString, "#Damage") ) then
         set .lastDamage = SkillData[this.value].Damage
       else
         set .lastDamage = 0
@@ -163,11 +166,6 @@ struct SkillResource extends IResource
       set .lastCooldownTime = 0
     endif
   endmethod
-  method ChangeBaseID takes integer id returns nothing
-    set this.value = id
-    call ChangeIcon(this.owner.value, this.slot, SkillData[this.value].IconPath)
-    call InitValues()
-  endmethod
   private method UpdateValues takes nothing returns nothing
     set tempString = SkillData[this.value].ValueChange
     if ( JNStringContains(tempString, "~") ) then
@@ -196,16 +194,21 @@ struct SkillResource extends IResource
   endmethod
   method ChangeLevel takes integer newLevel returns nothing
     set this.level = newLevel
-    call UpdateValues()
+    if ( 2 <= level ) then
+      call UpdateValues()
+    endif
+  endmethod
+  method ChangeBaseID takes integer id, integer level returns nothing
+    set this.value = id
+    call ChangeIcon(this.owner.value, this.slot, SkillData[this.value].IconPath)
+    call InitValues()
+    call ChangeLevel(level)
   endmethod
   static method Create takes CharacterResource inputCharacter, integer slot, integer id, integer level returns thistype
-    local SkillResource this = IResource.create(SkillResource.typeid)
+    local SlotResource this = IResource.create(SlotResource.typeid)
     set this.owner = inputCharacter
     set this.slot = slot
-    call ChangeBaseID(id)
-    if ( 2 <= level ) then
-      call ChangeLevel(level)
-    endif
+    call ChangeBaseID(id, level)
     return this
   endmethod
 
