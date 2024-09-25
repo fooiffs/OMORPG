@@ -28,77 +28,19 @@ scope TestScope initializer Init
     call EXSetAbilityDataInteger(EXGetUnitAbility(whichUnit, abilId), 1, ABILITY_DATA_HOTKET, newKey)
   endfunction
   
-  private function DelayedInit4 takes nothing returns nothing
-    local unit tempUnit = udg_hero[1]
-    local integer index = 1
-    if ( tempUnit != null ) then
-      if ( count == 0 ) then
-        loop
-          exitwhen ( MAX_SKILL_SLOT <= index )
-          if ( not UnitAddAbility(tempUnit, SlotData[index].SkillCode) ) then
-            call BJDebugMsg("AddAbility[" + I2S(index) + "] = false")
-          endif
-          set index = index + 1
-        endloop
-        // call BJDebugMsg("1 - ori ui: " + R2S(JNGetUnitAbilityUIs(tempUnit, SlotData[index].SkillCode)))
-      elseif ( count == 1 ) then
-        // call JNSetUnitAbilityUIs(tempUnit, SlotData[1].SkillCode, 1.0)
-        // call BJDebugMsg("2 - new ui: " + R2S(JNGetUnitAbilityUIs(tempUnit, SlotData[index].SkillCode)))
-      elseif ( count == 2 ) then
-        if ( IssueImmediateOrderById(tempUnit, SlotData[1].OrderID) ) then
-          call BJDebugMsg("3 - Slot[" + I2S(1) + "], " + I2S(SlotData[1].OrderID) + " = true ")
-        else
-          call BJDebugMsg("3 - Slot[" + I2S(1) + "], " + I2S(SlotData[1].OrderID) + " = false ")
-        endif
-      elseif ( count <= 5 ) then
-        set index = GetRandomInt(1, MAX_SKILL_SLOT-1)
-        if ( IssueImmediateOrderById(tempUnit, SlotData[index].OrderID) ) then
-          call BJDebugMsg("Slot[" + I2S(index) + "], " + I2S(SlotData[index].OrderID) + " = true ")
-        else
-          call BJDebugMsg("Slot[" + I2S(index) + "], " + I2S(SlotData[index].OrderID) + " = false ")
-        endif
-        call BJDebugMsg("1 - ori ui: " + R2S(JNGetUnitAbilityUIs(tempUnit, SlotData[index].SkillCode)))
-      endif
-      set count = count + 1
-    endif
-  endfunction
   private function DelayedInit3 takes nothing returns nothing
     local unit tempUnit = udg_hero[1]
     if ( tempUnit == null ) then
       call BJDebugMsg("Hotkey null") 
-    else
-      if ( count == 0 ) then
-        call BJDebugMsg("Hotkey-C = " + I2S(JN_OSKEY_C))
-        // set udg_hero[2] = CreateUnit(Player(0), GetUnitTypeId(tempUnit), GetWidgetX(tempUnit), GetWidgetY(tempUnit), GetUnitFacing(tempUnit))
-      elseif ( count == 1 ) then
-        call JNSetUnitAbilityHotkey(tempUnit, 'A000', JN_OSKEY_B)
-        call JNSetUnitAbilityHotkey(tempUnit, 'A002', JN_OSKEY_C)
-        call BJDebugMsg("Hotkey-BB = " + I2S(JN_OSKEY_B))
-      elseif ( count == 2 ) then
-        // call BJDebugMsg("Hotkey-Local = " + I2S(GetLocalizedHotkey("B")))
-      else
-        if ( IssueImmediateOrder(tempUnit, "spellbook") ) then
-          call BJDebugMsg("spellbook true")
-        elseif ( IssueImmediateOrder(tempUnit, "acidbomb") ) then
-          call BJDebugMsg("acidbomb true")
-        else
-          call BJDebugMsg("all false")
-        endif
-      // else
-        call ForceUIKeyBJ(GetOwningPlayer(tempUnit), "B")
-      endif
-      set count = count + 1
-      if ( count <= 5 ) then
-        call BJDebugMsg("Hotkeys" + I2S(count) +" = " + I2S(JNGetUnitAbilityHotkey(tempUnit, 'A000')) +","+ I2S(JNGetUnitAbilityHotkey(tempUnit, 'A002')) )
-      endif
+    elseif ( PlayerResource[1].character == null ) then
+      set PlayerResource[1].character = CharacterResource.Create(tempUnit)
     endif
     set tempUnit = null
 
   endfunction
   private function DelayedInit2 takes nothing returns nothing
     local PlayerResource tempPlayer = PlayerResource[1]
-    set bj_lastCreatedUnit = CreateUnit(Player(0), 'hfoo', 0, 0, 0)
-    set PlayerResource[1].character = CharacterResource.Create(bj_lastCreatedUnit)
+
     // set PlayerResource[1].character.Skills[1] = SkillResource.Create(PlayerResource[1].character, 1, 9, 1)
 
     /* call BJDebugMsg(PlayerResource[1].character.Skills[1].GetNameWithRank(7) /*
@@ -159,8 +101,8 @@ scope TestScope initializer Init
   private function Init takes nothing returns nothing
       call BJDebugMsg("Start")
       // call TimerStart(CreateTimer(), .5, false, function DelayedInit)
-      // call TimerStart(CreateTimer(), 1., false, function DelayedInit2)
-      // call TimerStart(CreateTimer(), 1., true, function DelayedInit3)
+      call TimerStart(CreateTimer(), 1., false, function DelayedInit2)
+      call TimerStart(CreateTimer(), 1., true, function DelayedInit3)
       // call TimerStart(CreateTimer(), 1., true, function DelayedInit4)
   endfunction
 endscope

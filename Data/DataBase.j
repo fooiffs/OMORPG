@@ -17,8 +17,6 @@ library DataBase requires PushKey, EHotkeyMenu
     private SlotData array privateSkillSlotData [MAX_SKILL_SLOT]
     private HotkeyData array privateHotkeyData [MAX_OPTION_MENU_COUNT]
   endglobals
-  struct OptionResource
-  endstruct
   struct StatData
     string lastName = ""
 

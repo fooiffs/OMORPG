@@ -33,14 +33,14 @@ scope Option initializer Init
       local integer f = DzGetTriggerUIEventFrame()
       local player p = DzGetTriggerUIEventPlayer()
       call BJDebugMsg("player: " + GetPlayerName(p) + " clicked Setting")
-      call PlayerResource.options[LoadNumber(f)].Click(10)
+      call PlayerResource[GetPlayerId(p)+1].options[LoadNumber(f)].Click(10)
     endfunction
     private function SettingSave takes nothing returns nothing
       local integer f = DzGetTriggerUIEventFrame()
       local player p = DzGetTriggerUIEventPlayer()
-      call PlayerResource.options[7].Click(-1)
+      call PlayerResource[GetPlayerId(p)+1].options[7].Click(-1)
 
-      call BJDebugMsg("player: " + GetPlayerName(p) + " click save server : " + I2S(PlayerResource.options[7].value))
+      call BJDebugMsg("player: " + GetPlayerName(p) + " click save server : " + I2S(PlayerResource[GetPlayerId(p)+1].options[7].value))
     endfunction
     private function SettingClose takes nothing returns nothing
       if ( GetLocalPlayer() == DzGetTriggerUIEventPlayer() ) then
@@ -59,7 +59,7 @@ scope Option initializer Init
       local integer f = DzGetTriggerUIEventFrame()
       local player p = DzGetTriggerUIEventPlayer()
 
-      call PlayerResource.options[LoadNumber(f)].Click(0)
+      call PlayerResource[GetPlayerId(p)+1].options[LoadNumber(f)].Click(0)
       call DisplayTimedTextToPlayer(GetLocalPlayer(),0.,0.,7.,"player: " + GetPlayerName(p) + " clicked HotKey Setting - " + I2S(f))
     endfunction
   
@@ -118,34 +118,34 @@ scope Option initializer Init
       set i = SettingButton(i, 5, "|c004f4f4fON |cffffffff/ |cfffed312OFF", function SettingClick)
       set i = SettingButton(i, 6, "|cfffed312ON |cffffffff/ |c004f4f4fOFF", function SettingClick)
       
-      set i = SettingHotKey(i, Frame_Setting[8], 0., 0.01, MenuQuickSlot_BaseHotKey(8), function SettingHotKeyClick)
-      set i = SettingHotKey(i, Frame_Setting[8], 0.02, 0.01, MenuQuickSlot_BaseHotKey(9), function SettingHotKeyClick)
-      set i = SettingHotKey(i, Frame_Setting[8], 0.04, 0.01, MenuQuickSlot_BaseHotKey(10), function SettingHotKeyClick)
-      set i = SettingHotKey(i, Frame_Setting[8], 0.06, 0.01, MenuQuickSlot_BaseHotKey(11), function SettingHotKeyClick)
-      set i = SettingHotKey(i, Frame_Setting[8], 0., -0.01, MenuQuickSlot_BaseHotKey(12), function SettingHotKeyClick)
-      set i = SettingHotKey(i, Frame_Setting[8], 0.02, -0.01, MenuQuickSlot_BaseHotKey(13), function SettingHotKeyClick)
-      set i = SettingHotKey(i, Frame_Setting[8], 0.04, -0.01, MenuQuickSlot_BaseHotKey(14), function SettingHotKeyClick)
-      set i = SettingHotKey(i, Frame_Setting[8], 0.06, -0.01, MenuQuickSlot_BaseHotKey(15), function SettingHotKeyClick)
+      set i = SettingHotKey(i, EHotkeyMenu.SkillSlot1, Frame_Setting[8], 0., 0.01, MenuQuickSlot_BaseHotKey(8), function SettingHotKeyClick)
+      set i = SettingHotKey(i, EHotkeyMenu.SkillSlot2, Frame_Setting[8], 0.02, 0.01, MenuQuickSlot_BaseHotKey(9), function SettingHotKeyClick)
+      set i = SettingHotKey(i, EHotkeyMenu.SkillSlot3, Frame_Setting[8], 0.04, 0.01, MenuQuickSlot_BaseHotKey(10), function SettingHotKeyClick)
+      set i = SettingHotKey(i, EHotkeyMenu.SkillSlot4, Frame_Setting[8], 0.06, 0.01, MenuQuickSlot_BaseHotKey(11), function SettingHotKeyClick)
+      set i = SettingHotKey(i, EHotkeyMenu.SkillSlot5, Frame_Setting[8], 0., -0.01, MenuQuickSlot_BaseHotKey(12), function SettingHotKeyClick)
+      set i = SettingHotKey(i, EHotkeyMenu.SkillSlot6, Frame_Setting[8], 0.02, -0.01, MenuQuickSlot_BaseHotKey(13), function SettingHotKeyClick)
+      set i = SettingHotKey(i, EHotkeyMenu.SkillSlot7, Frame_Setting[8], 0.04, -0.01, MenuQuickSlot_BaseHotKey(14), function SettingHotKeyClick)
+      set i = SettingHotKey(i, EHotkeyMenu.SkillSlot8, Frame_Setting[8], 0.06, -0.01, MenuQuickSlot_BaseHotKey(15), function SettingHotKeyClick)
   
-      set i = SettingHotKey(i, Frame_Setting[9], 0., 0.01, MenuQuickSlot_BaseHotKey(1), function SettingHotKeyClick)
-      set i = SettingHotKey(i, Frame_Setting[9], 0.02, 0.01, MenuQuickSlot_BaseHotKey(2), function SettingHotKeyClick)
-      set i = SettingHotKey(i, Frame_Setting[9], 0.04, 0.01, MenuQuickSlot_BaseHotKey(3), function SettingHotKeyClick)
-      set i = SettingHotKey(i, Frame_Setting[9], 0.06, 0.01, MenuQuickSlot_BaseHotKey(4), function SettingHotKeyClick)
-      set i = SettingHotKey(i, Frame_Setting[9], 0.01, -0.01, MenuQuickSlot_BaseHotKey(5), function SettingHotKeyClick)
-      set i = SettingHotKey(i, Frame_Setting[9], 0.03, -0.01, MenuQuickSlot_BaseHotKey(6), function SettingHotKeyClick)
-      set i = SettingHotKey(i, Frame_Setting[9], 0.05, -0.01, MenuQuickSlot_BaseHotKey(7), function SettingHotKeyClick)
+      set i = SettingHotKey(i, EHotkeyMenu.ItemSlot1, Frame_Setting[9], 0., 0.01, MenuQuickSlot_BaseHotKey(1), function SettingHotKeyClick)
+      set i = SettingHotKey(i, EHotkeyMenu.ItemSlot2, Frame_Setting[9], 0.02, 0.01, MenuQuickSlot_BaseHotKey(2), function SettingHotKeyClick)
+      set i = SettingHotKey(i, EHotkeyMenu.ItemSlot3, Frame_Setting[9], 0.04, 0.01, MenuQuickSlot_BaseHotKey(3), function SettingHotKeyClick)
+      set i = SettingHotKey(i, EHotkeyMenu.ItemSlot4, Frame_Setting[9], 0.06, 0.01, MenuQuickSlot_BaseHotKey(4), function SettingHotKeyClick)
+      set i = SettingHotKey(i, EHotkeyMenu.ItemSlot5, Frame_Setting[9], 0.01, -0.01, MenuQuickSlot_BaseHotKey(5), function SettingHotKeyClick)
+      set i = SettingHotKey(i, EHotkeyMenu.ItemSlot6, Frame_Setting[9], 0.03, -0.01, MenuQuickSlot_BaseHotKey(6), function SettingHotKeyClick)
+      set i = SettingHotKey(i, EHotkeyMenu.ItemSlot7, Frame_Setting[9], 0.05, -0.01, MenuQuickSlot_BaseHotKey(7), function SettingHotKeyClick)
       
-      set i = SettingHotKey(i, Frame_Setting[10], 0., 0., MenuQuickSlot_BaseHotKey(18), function SettingHotKeyClick)
-      set i = SettingHotKey(i, Frame_Setting[10], .03, 0., MenuQuickSlot_BaseHotKey(17), function SettingHotKeyClick)
-      set i = SettingHotKey(i, Frame_Setting[10], .06, 0., MenuQuickSlot_BaseHotKey(16), function SettingHotKeyClick)
+      set i = SettingHotKey(i, EHotkeyMenu.SubMenuKakaotalk, Frame_Setting[10], 0., 0., MenuQuickSlot_BaseHotKey(18), function SettingHotKeyClick)
+      set i = SettingHotKey(i, EHotkeyMenu.SubMenuDiscord, Frame_Setting[10], .03, 0., MenuQuickSlot_BaseHotKey(17), function SettingHotKeyClick)
+      set i = SettingHotKey(i, EHotkeyMenu.SubMenuSetting, Frame_Setting[10], .06, 0., MenuQuickSlot_BaseHotKey(16), function SettingHotKeyClick)
       
-      set i = SettingHotKey(i, Frame_Setting[11], 0.01, 0., MenuQuickSlot_BaseHotKey(19), function SettingHotKeyClick)
-      set i = SettingHotKey(i, Frame_Setting[11], 0.04, 0., MenuQuickSlot_BaseHotKey(20), function SettingHotKeyClick)
+      set i = SettingHotKey(i, EHotkeyMenu.SubMenuAutoCombat, Frame_Setting[11], 0.01, 0., MenuQuickSlot_BaseHotKey(19), function SettingHotKeyClick)
+      set i = SettingHotKey(i, EHotkeyMenu.SubMenuInventory, Frame_Setting[11], 0.04, 0., MenuQuickSlot_BaseHotKey(20), function SettingHotKeyClick)
       
-      set i = SettingHotKey(i, Frame_Setting[12], 0., 0., MenuQuickSlot_BaseHotKey(21), function SettingHotKeyClick)
-      set i = SettingHotKey(i, Frame_Setting[12], .03, 0., MenuQuickSlot_BaseHotKey(22), function SettingHotKeyClick)
-      set i = SettingHotKey(i, Frame_Setting[12], .06, 0., MenuQuickSlot_BaseHotKey(23), function SettingHotKeyClick)
-      
+      set i = SettingHotKey(i, EHotkeyMenu.SubMenuStatus, Frame_Setting[12], 0., 0., MenuQuickSlot_BaseHotKey(21), function SettingHotKeyClick)
+      set i = SettingHotKey(i, EHotkeyMenu.SubMenuSkillTree, Frame_Setting[12], .03, 0., MenuQuickSlot_BaseHotKey(22), function SettingHotKeyClick)
+      set i = SettingHotKey(i, EHotkeyMenu.SubMenuSmartMode, Frame_Setting[12], .06, 0., MenuQuickSlot_BaseHotKey(23), function SettingHotKeyClick)
+
       call DzFrameShow(Frame_SettingBackdrop[0], false)
     endfunction
     private function Init takes nothing returns nothing

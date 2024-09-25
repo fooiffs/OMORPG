@@ -2,6 +2,8 @@ native JNStringInsert takes string str, integer index, string val returns string
 native JNStringContains takes string str, string sub returns boolean
 native EXGetUnitAbilityByIndex takes unit u, integer index returns ability
 native EXSetAbilityDataString takes ability abil, integer level, integer data_type, string value returns boolean
+native EXSetAbilityState takes ability abil, integer state_type, real value returns boolean
+native EXSetAbilityDataInteger takes ability abil, integer level, integer data_type, integer value returns boolean
 
 globals
   constant integer ABILITY_DATA_ART               = 204 //아이콘 경로 string     ('aart')    // +
@@ -83,8 +85,8 @@ struct CharacterResource extends IResource
     set this.Unit = u
     set this.value = GetPlayerId(GetOwningPlayer(u))+1
     loop
-      set this.Skills[loopA] = SlotResource.Create(this, loopA, loopA*2, 1)
       exitwhen MAX_SKILL_SLOT <= loopA
+      set this.Skills[loopA] = SlotResource.Create(this, loopA, loopA*2, 1)
       set loopA = loopA + 1
     endloop
     set loopA = 1
@@ -132,7 +134,7 @@ struct SlotResource extends IResource
   // id = value
   static method ChangeIcon takes integer playerId, integer slot, string iconPath returns nothing
     if ( GetLocalPlayer() == Player(playerId-1) ) then
-      call MenuQuickSlot.ChangeSlotIcon(slot, true, iconPath)
+      call MenuQuickSlot_ChangeSlotIcon(slot, true, iconPath)
     endif
   endmethod
   method InitValues takes nothing returns nothing
@@ -218,66 +220,80 @@ struct SlotResource extends IResource
       call UpdateValues()
     endif
   endmethod
-  private function JNSetUnitAbilityTargets takes unit whichUnit, integer abilId returns real
-    return EXGetAbilityDataReal(EXGetUnitAbility(whichUnit, abilId), 1, ABILITY_DATA_DATA_B)
-  endfunction
-  
-  
-  private method ChangeTargetingUI takes integer input returns nothing
-    static if false then
-      struct ESkillTypeUI
-        static constant integer UN_CLICKABLE	            = 1	 /* 클릭불가 */
-        static constant integer IMMEDIATELY	              = 2	 /* 즉발 */
-        static constant integer SOLO_TARGET	              = 3	 /* 대상형 */
-        static constant integer LOCATION_WITH_DIRECTION	  = 4	 /* 방향형	*/
-        static constant integer LOCATION_WITH_RANGE	      = 5	 /* 범위형	*/
-        /* { '클릭불가': 1, '즉발': 2, '대상형': 3, '방향형': 4, '범위형': 5 } */
-        109 : 목표물 종류 - 0 즉시 , 1 유닛 타겟 , 2 지점 타겟 , 3 유닛 또는 지점
-
-    endif
-    local boolean isSmartMode = ( PlayerResource[playerId].option[EHotkeyMenu.SubMenuSmartMode].value == 1 )
-    if ( input == ESkillTypeUI.UN_CLICKABLE ) then
+  private method SetAiblityTagetingUIs takes ability abil, real dataB, real dataC returns nothing
+    // 목표물 종류(DATA_B, 109)를 변경 (1레벨)
+      // 즉시(0) , 유닛 타겟(1) , 지점 타겟(2) , 유닛 또는 지점(3)
+    // call EXSetAbilityState(abil, 109, dataB)
+    call EXSetAbilityDataReal(abil, 1, 109, dataC)
     
-      call EXSetAbilityDataReal(EXGetUnitAbility(this.owner.Unit, SkillData[this.slot].GetSkillCode(isSmartMode)), 1, ABILITY_DATA_DATA_B, 0)
+    // UI보기(DATA_C, 110)를 변경 (1레벨)
+      // 안보임(0) , 보임(1) , 타겟팅 이미지(2) , =1+2(3), = 피지컬 스펠(??)(4추정), 유니버설 스펠(면역무시)(8), 유니크 캐스트(여러마리-혼자시전)(16)
+    // call EXSetAbilityState(abil, 110, dataB)
+    call EXSetAbilityDataReal(abil, 1, 110, dataC)
+
+    // 사거리(107) : 생략, 기본값 500
+  endmethod
+  private method SetAiblityTagetingUIsWithRange takes ability abil, real dataB, real dataC, real area returns nothing
+    call SetAiblityTagetingUIs(abil, dataB, dataC)
+    
+    // 범위(AREA, 106)를 변경 (1레벨)
+    call EXSetAbilityDataReal(abil, 1, 106, area)
+  endmethod
+  
+  private method ChangeTargetingUI takes ability abil, integer input returns nothing
+    local boolean isSmartMode = ( PlayerResource[this.owner.value].options[EHotkeyMenu.SubMenuSmartMode].value == 1 )
+    if ( input == ESkillTypeUI.UN_CLICKABLE ) then
+      // 즉발, 숨김(단축키X)
+      call SetAiblityTagetingUIs(abil, 0, 0)
     elseif ( input == ESkillTypeUI.IMMEDIATELY ) then
+      // 즉발, 보임(단축키O)
+      call SetAiblityTagetingUIs(abil, 0, 1)
     elseif ( input == ESkillTypeUI.SOLO_TARGET ) then
+      // 유닛 타겟, 보임+타겟팅
+      call SetAiblityTagetingUIs(abil, 1, 3)
     elseif ( input == ESkillTypeUI.LOCATION_WITH_DIRECTION ) then
+      // 지점 타겟, 보임+타겟팅
+      call SetAiblityTagetingUIs(abil, 2, 3)
     elseif ( input == ESkillTypeUI.LOCATION_WITH_RANGE ) then
+      // 범위 타겟, 보임+타겟팅+범위
+      call SetAiblityTagetingUIsWithRange(abil, 2, 3, this.lastRange)
     else
       call BJDebugMsg("오류/S.R.CTUI[" + I2S(input) + "]는 설정 범위(1~5)를 벗어납니다.")
       return
     endif
-    if ( 
-    
-    // UI 형태 변경
-    // call EXSetAbilityDataString(EXGetUnitAbilityByIndex(this.owner.Unit, this.slot-1), 1, ABILITY_DATA_ART, SkillData[this.value].IconPath)
   endmethod
-  private method ChangeObjectData takes nothing returns nothing
+  private method ChangeObjectData takes ability abil returns nothing
     // UI 형태 변경
-    call ChangeTargetingUI(SkillData[this.value].TypeUI)
+    call ChangeTargetingUI(abil, SkillData[this.value].TypeUI)
     
-      // 시전거리 변경(대상형, 위치형)
-      call ChangeObjectRange(SkillData[this.value].)
+    // 캐스팅 시간(CAST, 101)를 변경 (1레벨) - 10ms, 1/100초
+    call EXSetAbilityDataReal(abil, 1, 101, this.lastCastingTime*0.01)
+
+    // 쿨다운 시간(COOL, 105)를 변경 (1레벨) - 10ms, 1800이면 18초
+    call EXSetAbilityDataReal(abil, 1, 101, this.lastCooldownTime*0.01)
+
+    // 소모마나(COST, 104)를 변경 (1레벨) - 소숫점 생략하니까 나누기 10
+    call EXSetAbilityDataInteger(abil, 1, 104, this.lastCostMana/10)
     
-
-    // - 형태/시전거리/시전시간/쿨다운/소모마나
-
-
-    // 아이콘 변경
-    // call EXSetAbilityDataString(EXGetUnitAbilityByIndex(this.owner.Unit, this.slot-1), 1, ABILITY_DATA_ART, SkillData[this.value].IconPath)
+    // 새로고침?
+    // call IncUnitAbilityLevel(유닛, '')
+    // call DecUnitAbilityLevel(유닛, '')
   endmethod
   method ChangeBaseID takes integer id, integer level returns nothing
     set this.value = id
+    set SkillData[this.value].IconPath = "ReplaceableTextures\\CommandButtons\\BTNReplay-Pause.blp"
     call ChangeIcon(this.owner.value, this.slot, SkillData[this.value].IconPath)
     call InitValues()
     call ChangeLevel(level)
-    call ChangeObjectData()
+    call ChangeObjectData(EXGetUnitAbility(this.owner.Unit, SlotData[this.slot].GetSkillCode(( PlayerResource[this.owner.value].options[EHotkeyMenu.SubMenuSmartMode].value == 1 ))))
   endmethod
   static method Create takes CharacterResource inputCharacter, integer slot, integer id, integer level returns thistype
     local SlotResource this = IResource.create(SlotResource.typeid)
     set this.owner = inputCharacter
     set this.slot = slot
     call ChangeBaseID(id, level)
+
+    call BJDebugMsg("생성/S.R.C[" + I2S(this.owner.value) + "][" + I2S(this.slot) + "],id=" + I2S(this.value) + ",lv=" + I2S(this.level))
     return this
   endmethod
 

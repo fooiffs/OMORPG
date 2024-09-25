@@ -1,5 +1,5 @@
 library SkillDataStr initializer Init
-// 추가한 시간: 24.09.25 19:34:22
+// 추가한 시간: 24.09.25 22:55:01
 
   private function Init takes nothing returns nothing
     set s__SkillData_Name[1]="대쉬"
