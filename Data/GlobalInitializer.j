@@ -8,6 +8,8 @@ scope GlobalInitializer
     constant integer MAX_SKILL_COUNT = 205 + 1 /* 배열 1 시작, +1 */
     constant integer MAX_OPTION_MENU_COUNT = 30 + 1 
     constant integer MAX_SKILL_SLOT = 8 + 1 
+    constant real XX = 1280. 
+    constant real YY = 1024. 
 
     // 지역 설정   
     private SkillData array privateSkillData[MAX_SKILL_COUNT] 
@@ -15,6 +17,14 @@ scope GlobalInitializer
     private SlotData array privateSkillSlotData[MAX_SKILL_SLOT] 
     private HotkeyData array privateHotkeyData[MAX_OPTION_MENU_COUNT] 
     private CharacterData array privateCharacterData[MAX_CHARACTER_COUNT] 
+
+    // 캐릭터
+    unit gg_unit_H005_0003 = null
+    unit gg_unit_H004_0007 = null
+    unit gg_unit_H003_0008 = null
+    unit gg_unit_H002_0009 = null
+    unit gg_unit_H001_0010 = null
+    unit gg_unit_H000_0011 = null
   endglobals 
   function IsEmpty takes string s returns boolean 
     return (s == "") or (s == null) 
@@ -29,7 +39,12 @@ scope GlobalInitializer
   function MsgAll takes string msg returns nothing 
     call DisplayTimedTextToPlayer(GetLocalPlayer(), 0, 0, 6., msg) 
   endfunction 
-
+  function Bufftt takes texttag t returns nothing 
+    call SetTextTagVelocity(t, 0., .009) 
+    call SetTextTagPermanent(t, false) 
+    call SetTextTagLifespan(t, 3.) 
+    call SetTextTagFadepoint(t, 1.) 
+  endfunction 
   
   struct StatData 
     string Name = "" 
@@ -268,6 +283,14 @@ scope GlobalInitializer
       return this 
     endmethod 
     static method onInit takes nothing returns nothing 
+      set gg_unit_H005_0003 = CreateUnit(Player(PLAYER_NEUTRAL_PASSIVE), 'H005', -9509.4, 5613.9, 243.624 )
+      set gg_unit_H004_0007 = CreateUnit(Player(PLAYER_NEUTRAL_PASSIVE), 'H004', -9421.7, 5478.0, 215.831 )
+      set gg_unit_H003_0008 = CreateUnit(Player(PLAYER_NEUTRAL_PASSIVE), 'H003', -9627.6, 5665.2, 264.367 )
+      set gg_unit_H002_0009 = CreateUnit(Player(PLAYER_NEUTRAL_PASSIVE), 'H002', -9756.4, 5654.7, 284.859 )
+      set gg_unit_H001_0010 = CreateUnit(Player(PLAYER_NEUTRAL_PASSIVE), 'H001', -9866.4, 5598.7, 304.534 )
+      set gg_unit_H000_0011 = CreateUnit(Player(PLAYER_NEUTRAL_PASSIVE), 'H000', -9949.1, 5460.4, 331.244 )
+
+
       set privateCharacterData[ECharacter.ICHIGO] = CharacterData.Create(gg_unit_H000_0011, 'H000', "쿠로사키 이치고'Ichigo Kurosaki'주인공. 유령을 보는 고교생.'카라쿠라 마을의 사신대행.'4'2'2'3'2'|cffff8000근접 물리 |cffd5d500[힘]'참백도(참월)'SkillTree_ichi_00.blp'SkillTree_ichi_05.blp'SkillTree_ichi_06.blp'SkillTree_ichi_11.blp'특성 스킬'검압 - 스킬 추가데미지'블루트베네 - 피격데미지 감소'월아천충'참격의 순간에 자신의 영압을 방출해 참격을 거대화.'강화시 데미지&범위 증가'천쇄참월'호로의 힘으로 월아천충을 쏘아낸다.'강화시 대상 출혈'무월'잠재능력을 모두 해방시켜 참격을 발사합니다.'강화시 출혈효과 폭발 추가데미지") 
       set privateCharacterData[ECharacter.RUKIA] = CharacterData.Create(gg_unit_H001_0010, 'H001', "쿠치키 루키아'Rukia Kuchiki'더블 주인공이자 여주인공.'학교 성적은 국어 빼고 최하위.'3'3'3'5'4'|cff0080c0근접 마법 |cffd5d500[기술]'귀도, 참백도(수백설)'SkillTree_rukia_00.blp'SkillTree_rukia_02.blp'SkillTree_rukia_03.blp'SkillTree_rukia_04.blp'특성 스킬'영하 18도 - 주변 적을 베고 빙결'변신류 - 적 공속 감소, 아군 공속 증가'시작의 춤, 월백'주변을 속박시키고 표식을 생성합니다.'표식을 생성하고, 다른 스킬로 추가효과 가능'다음의 춤, 백련'춤을 추고, 주변 방해효과 폭발시켜 데미지를 가함.'강화시 표식을 폭발시켜 추가데미지'세번째 춤, 백도'상대를 관통시켜 얼립니다.'일직선상으로 냉기를 뿜어내, 적에게 데미지를 가함.'강화시 오한에 걸린 적 관통") 
       set privateCharacterData[ECharacter.URYU] = CharacterData.Create(gg_unit_H002_0009, 'H002', "이시다 우류'Uryu Ishida'이치고와 같은 학교, 전교 석차 1위.'호로를 멸하는 퀸시의 후예.'5'0'1'2'3'|cffff8000원거리 물리 |cffd5d500[속도]'영자병장(은령호작)'SkillTree_Uryu_01.blp'SkillTree_Uryu_02.blp'SkillTree_Uryu_06.blp'SkillTree_Uryu_13.blp'특성스킬'은통 - 저장된 은통으로 마나회복 혹은 스킬사용 함.'산령수투 - 공격시 영압 소모해 추가데미지'하일리히 프파일'퀸시의 영자병장, 빛의 화살로 데미지를 가함.'강화시 추가데미지'리히트레겐'넓은 범위에 화살을 쏘아서 광역 공격을 함.'강화시 광역 대상 추가데미지'슈프렝거'퀸시 크로스 진에 농축 영자를 폭발시켜 속박&데미지.'강화시 속박대신 스턴") 

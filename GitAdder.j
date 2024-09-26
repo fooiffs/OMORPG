@@ -18,6 +18,11 @@
 //! import "Data\SkillDataStr.j"
 //! import "Data\IResources.j"
 
+//! import "System\MemoryInterferencer\Typecast.j"
+//! import "System\MemoryInterferencer\MemoryLib.j"
+//! import "System\MemoryInterferencer\EndGameHook.j"
+//! import "System\MemoryInterferencer\UnitNameChanger.j"
+
 //! import "System\Frames\StartSetting.j"
 //! import "System\Frames\MainFrame.j"
 //! import "System\Frames\SkillTree.j"
@@ -34,9 +39,20 @@
 //! import "System\Server\ServerSetup.j"
 //! import "System\Server\Time.j"
 //! import "System\Server\LoadAuto.j"
-//! import "System\Server\Load.j" /* need Select_NowSelect */
-//! import "System\Server\Save.j"
+//! import "System\Server\Load.j" /* need Select_NowSelect, UnitNameChanger_SetObjectName() */
+//! import "System\Server\Save.j" /* need UnitNameChanger_GetHeroProperNameIndex() */
+
+//! import "System\MemoryInterferencer\ClearCacher.j"
 
 //! import "System\Hunting.j"
+//! import "System\Enchant.j"
+//! import "System\Exit.j"
 //! import "Tests\TestScope.j"
 //! import "Tests\AddReg.j"
+
+//! import "Tests\ItemRandomEnchanter.j"
+//! import "Tests\UnitNameChange.j"
+
+// //! import "UnUse\HandleProfiler.j"
+// //! import "UnUse\ItemUIExample.j"
+// //! import "UnUse\NewTexttag.j"
