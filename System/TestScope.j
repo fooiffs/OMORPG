@@ -1,8 +1,3 @@
-native EXGetAbilityDataInteger takes ability abil, integer level, integer data_type returns integer
-native EXGetUnitAbility takes unit u, integer abilcode returns ability
-native EXSetAbilityDataInteger takes ability abil, integer level, integer data_type, integer value returns boolean
-native EXGetAbilityDataReal takes ability abil, integer level, integer data_type returns real
-native EXSetAbilityDataReal takes ability abil, integer level, integer data_type, real value returns boolean
 scope TestScope initializer Init
   globals
     constant integer JN_OSKEY_B                             = $42

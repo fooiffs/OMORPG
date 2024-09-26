@@ -1,45 +1,49 @@
 native JNStringInsert takes string str, integer index, string val returns string
 native JNStringContains takes string str, string sub returns boolean
 native EXGetUnitAbilityByIndex takes unit u, integer index returns ability
-native EXSetAbilityDataString takes ability abil, integer level, integer data_type, string value returns boolean
-native EXSetAbilityState takes ability abil, integer state_type, real value returns boolean
-native EXSetAbilityDataInteger takes ability abil, integer level, integer data_type, integer value returns boolean
+native EXSetAbilityDataString takes ability abil, integer level, integer data_type, string id returns boolean
+native EXSetAbilityState takes ability abil, integer state_type, real id returns boolean
+native EXSetAbilityDataInteger takes ability abil, integer level, integer data_type, integer id returns boolean
 
 globals
   constant integer ABILITY_DATA_ART               = 204 //아이콘 경로 string     ('aart')    // +
 endglobals
 
 interface IResource
-  // EMainType mainTypeId /* => this.getType() == (method).typeid */
-  integer value
+  // 자식 id는 this.getType() 혹은 (method).typeid로 가져올 수 있음. (1부터 시작은 아니고 현재 기준 19~25쯤 됨)
+  
+  // 자식의 id를 지정
+  integer id
   
   static method create takes nothing
 endinterface
 
 struct OptionResource extends IResource
-  // super.value => 이 옵션의 값
+  // super.id => 이 옵션의 값
   boolean isBooleanType
 
-  static method Create takes integer value, boolean isBoolType returns thistype
+  static method Create takes integer id, boolean isBoolType returns thistype
     local OptionResource this = IResource.create(OptionResource.typeid)
-    set this.value = value
+    set this.id = id
     set this.isBooleanType = isBoolType
+    call CountUnitsInGroup()
+    call BaseHotKey()
     return this
   endmethod
   method Click takes integer input returns nothing
     if ( this.isBooleanType ) then
-      if ( this.value == 0 ) then
-        set this.value = 1
+      if ( this.id == 0 ) then
+        set this.id = 1
       else
-        set this.value = 0
+        set this.id = 0
       endif
     else
-      set this.value = this.value + input
+      set this.id = this.id + input
     endif
   endmethod
 endstruct
 struct PlayerResource extends IResource
-  // super.value => 이 플레이어의 id 값 1~12
+  // super.id => 이 플레이어의 id 값 1~12
   boolean isPlaying
   CharacterResource character
   OptionResource array options[MAX_OPTION_MENU_COUNT]
@@ -62,7 +66,7 @@ struct PlayerResource extends IResource
     loop
       if ( GetPlayerController(Player(loopA-1)) == MAP_CONTROL_USER ) and ( GetPlayerSlotState(Player(loopA-1)) == PLAYER_SLOT_STATE_PLAYING ) then
         set privatePlayerResource[loopA] = IResource.create(PlayerResource.typeid)
-        set privatePlayerResource[loopA].value = loopA
+        set privatePlayerResource[loopA].id = loopA
         set privatePlayerResource[loopA].isPlaying = true
       endif
       exitwhen MAX_PLAYER_COUNT-1 <= loopA
@@ -72,7 +76,7 @@ struct PlayerResource extends IResource
 endstruct
 
 struct CharacterResource extends IResource
-  // super.value => 이 캐릭터의 Player id 1~32
+  // super.id => 이 캐릭터의 Player id 1~32
   unit Unit
   integer Level
   integer changeLevel
@@ -83,7 +87,7 @@ struct CharacterResource extends IResource
     local CharacterResource this = IResource.create(CharacterResource.typeid)
     local integer loopA = 1
     set this.Unit = u
-    set this.value = GetPlayerId(GetOwningPlayer(u))+1
+    set this.id = GetPlayerId(GetOwningPlayer(u))+1
     loop
       exitwhen MAX_SKILL_SLOT <= loopA
       set this.Skills[loopA] = SlotResource.Create(this, loopA, loopA*2, 1)
@@ -100,7 +104,7 @@ struct CharacterResource extends IResource
 endstruct
 
 struct StatResource extends IResource
-  // super.value => 이 스텟의 실제 값.
+  // super.id => 이 스텟의 실제 값.
   private CharacterResource owner
   private integer subTypeId = 0
   private integer addValue = 0
@@ -114,11 +118,11 @@ struct StatResource extends IResource
   endmethod
 endstruct
 struct SlotResource extends IResource
-  // super.value => 이 스킬의 id 값 1~205
+  // super.id => 이 스킬의 id 값 1~205
 
   private static string tempString = "" /* 인터페이스에 만들면 하위에 못쓰니 여기서 생성 */
 
-  // int id => this.value
+  // int id => this.id
 
   private CharacterResource owner
   private integer slot = 0
@@ -131,50 +135,50 @@ struct SlotResource extends IResource
   private integer lastCastingTime = 0
   private integer lastCooldownTime = 0
 
-  // id = value
+  // id = id
   static method ChangeIcon takes integer playerId, integer slot, string iconPath returns nothing
     if ( GetLocalPlayer() == Player(playerId-1) ) then
       call MenuQuickSlot_ChangeSlotIcon(slot, true, iconPath)
     endif
   endmethod
-  method InitValues takes nothing returns nothing
-    set tempString = SkillData[this.value].Detail
+  method Initids takes nothing returns nothing
+    set tempString = SkillData[this.id].Detail
     if ( JNStringContains(tempString, "#") ) then
       if ( JNStringContains(tempString, "#CastingTime") ) then
-        set .lastCastingTime = SkillData[this.value].CastingTime
+        set .lastCastingTime = SkillData[this.id].CastingTime
       else
         set .lastCastingTime = 0
       endif
       // if ( JNStringContains(tempString, "#Damage%") ) then
-      //   set .lastDamage = SkillData[this.value].Damage
+      //   set .lastDamage = SkillData[this.id].Damage
       // else
       if ( JNStringContains(tempString, "#Damage") ) then
-        set .lastDamage = SkillData[this.value].Damage
+        set .lastDamage = SkillData[this.id].Damage
       else
         set .lastDamage = 0
       endif
       if ( JNStringContains(tempString, "#Distance") ) then
-        set .lastDistance = SkillData[this.value].Distance
+        set .lastDistance = SkillData[this.id].Distance
       else
         set .lastDistance = 0
       endif
       if ( JNStringContains(tempString, "#Range") ) then
-        set .lastRange = SkillData[this.value].Range
+        set .lastRange = SkillData[this.id].Range
       else
         set .lastRange = 0
       endif
       if ( JNStringContains(tempString, "#Duration") ) then
-        set .lastDuration = SkillData[this.value].Duration
+        set .lastDuration = SkillData[this.id].Duration
       else
         set .lastDuration = 0
       endif
       if ( JNStringContains(tempString, "#Mana") ) then
-        set .lastCostMana = SkillData[this.value].CostMana
+        set .lastCostMana = SkillData[this.id].CostMana
       else
         set .lastCostMana = 0
       endif
       if ( JNStringContains(tempString, "#CoolDown") ) then
-        set .lastCooldownTime = SkillData[this.value].CoolTime
+        set .lastCooldownTime = SkillData[this.id].CoolTime
       else
         set .lastCooldownTime = 0
       endif
@@ -188,36 +192,36 @@ struct SlotResource extends IResource
       set .lastCooldownTime = 0
     endif
   endmethod
-  private method UpdateValues takes nothing returns nothing
-    set tempString = SkillData[this.value].ValueChange
+  private method Updateids takes nothing returns nothing
+    set tempString = SkillData[this.id].idChange
     if ( JNStringContains(tempString, "~") ) then
       if ( JNStringContains(tempString, "~CastingTime") ) then
-        set .lastCastingTime = SkillData[this.value].CastingTime + ( SkillData[this.value].CastingTimeAdd * (level-1) )
+        set .lastCastingTime = SkillData[this.id].CastingTime + ( SkillData[this.id].CastingTimeAdd * (level-1) )
       endif
       if ( JNStringContains(tempString, "~Damage") ) then
-        set .lastDamage = SkillData[this.value].Damage + ( SkillData[this.value].DamageAdd * (level-1) )
+        set .lastDamage = SkillData[this.id].Damage + ( SkillData[this.id].DamageAdd * (level-1) )
       endif
       if ( JNStringContains(tempString, "~Distance") ) then
-        set .lastDistance = SkillData[this.value].Distance + ( SkillData[this.value].DistanceAdd * (level-1) )
+        set .lastDistance = SkillData[this.id].Distance + ( SkillData[this.id].DistanceAdd * (level-1) )
       endif
       if ( JNStringContains(tempString, "~Range") ) then
-        set .lastRange = SkillData[this.value].Range + ( SkillData[this.value].RangeAdd * (level-1) )
+        set .lastRange = SkillData[this.id].Range + ( SkillData[this.id].RangeAdd * (level-1) )
       endif
       if ( JNStringContains(tempString, "~Duration") ) then
-        set .lastDuration = SkillData[this.value].Duration + ( SkillData[this.value].DurationAdd * (level-1) )
+        set .lastDuration = SkillData[this.id].Duration + ( SkillData[this.id].DurationAdd * (level-1) )
       endif
       if ( JNStringContains(tempString, "~Mana") ) then
-        set .lastCostMana = SkillData[this.value].CostMana + ( SkillData[this.value].CostManaAdd * (level-1) )
+        set .lastCostMana = SkillData[this.id].CostMana + ( SkillData[this.id].CostManaAdd * (level-1) )
       endif
       if ( JNStringContains(tempString, "~CoolDown") ) then
-        set .lastCooldownTime = SkillData[this.value].CoolTime + ( SkillData[this.value].CoolTimeAdd * (level-1) )
+        set .lastCooldownTime = SkillData[this.id].CoolTime + ( SkillData[this.id].CoolTimeAdd * (level-1) )
       endif
     endif
   endmethod
   method ChangeLevel takes integer newLevel returns nothing
     set this.level = newLevel
     if ( 2 <= level ) then
-      call UpdateValues()
+      call Updateids()
     endif
   endmethod
   private method SetAiblityTagetingUIs takes ability abil, real dataB, real dataC returns nothing
@@ -241,7 +245,7 @@ struct SlotResource extends IResource
   endmethod
   
   private method ChangeTargetingUI takes ability abil, integer input returns nothing
-    local boolean isSmartMode = ( PlayerResource[this.owner.value].options[EHotkeyMenu.SubMenuSmartMode].value == 1 )
+    local boolean isSmartMode = ( PlayerResource[this.owner.id].options[EHotkeyMenu.SubMenuSmartMode].id == 1 )
     if ( input == ESkillTypeUI.UN_CLICKABLE ) then
       // 즉발, 숨김(단축키X)
       call SetAiblityTagetingUIs(abil, 0, 0)
@@ -264,7 +268,7 @@ struct SlotResource extends IResource
   endmethod
   private method ChangeObjectData takes ability abil returns nothing
     // UI 형태 변경
-    call ChangeTargetingUI(abil, SkillData[this.value].TypeUI)
+    call ChangeTargetingUI(abil, SkillData[this.id].TypeUI)
     
     // 캐스팅 시간(CAST, 101)를 변경 (1레벨) - 10ms, 1/100초
     call EXSetAbilityDataReal(abil, 1, 101, this.lastCastingTime*0.01)
@@ -280,12 +284,12 @@ struct SlotResource extends IResource
     // call DecUnitAbilityLevel(유닛, '')
   endmethod
   method ChangeBaseID takes integer id, integer level returns nothing
-    set this.value = id
-    set SkillData[this.value].IconPath = "ReplaceableTextures\\CommandButtons\\BTNReplay-Pause.blp"
-    call ChangeIcon(this.owner.value, this.slot, SkillData[this.value].IconPath)
-    call InitValues()
+    set this.id = id
+    set SkillData[this.id].IconPath = "ReplaceableTextures\\CommandButtons\\BTNReplay-Pause.blp"
+    call ChangeIcon(this.owner.id, this.slot, SkillData[this.id].IconPath)
+    call Initids()
     call ChangeLevel(level)
-    call ChangeObjectData(EXGetUnitAbility(this.owner.Unit, SlotData[this.slot].GetSkillCode(( PlayerResource[this.owner.value].options[EHotkeyMenu.SubMenuSmartMode].value == 1 ))))
+    call ChangeObjectData(EXGetUnitAbility(this.owner.Unit, SlotData[this.slot].GetSkillCode(( PlayerResource[this.owner.id].options[EHotkeyMenu.SubMenuSmartMode].id == 1 ))))
   endmethod
   static method Create takes CharacterResource inputCharacter, integer slot, integer id, integer level returns thistype
     local SlotResource this = IResource.create(SlotResource.typeid)
@@ -293,7 +297,7 @@ struct SlotResource extends IResource
     set this.slot = slot
     call ChangeBaseID(id, level)
 
-    call BJDebugMsg("생성/S.R.C[" + I2S(this.owner.value) + "][" + I2S(this.slot) + "],id=" + I2S(this.value) + ",lv=" + I2S(this.level))
+    call BJDebugMsg("생성/S.R.C[" + I2S(this.owner.id) + "][" + I2S(this.slot) + "],id=" + I2S(this.id) + ",lv=" + I2S(this.level))
     return this
   endmethod
 
@@ -324,10 +328,10 @@ struct SlotResource extends IResource
     return " - Over Rank"
   endmethod
   method GetName takes nothing returns string
-    return SkillData[this.value].Name
+    return SkillData[this.id].Name
   endmethod
   method GetNameWithRank takes integer inputLevel returns string
-    return SkillData[this.value].Name + ConvertLevelToRank(inputLevel)
+    return SkillData[this.id].Name + ConvertLevelToRank(inputLevel)
   endmethod
 
   // static 가공 왼쪽으로 몇자리, 소숫점 표시, 추가 문자열
@@ -344,7 +348,7 @@ struct SlotResource extends IResource
   endmethod
 
   method GetDescription takes boolean displayAsPercentage returns string
-    set tempString = SkillData[this.value].Detail
+    set tempString = SkillData[this.id].Detail
       // => "#Distance거리를 찌르며 돌진하며 #Damage% 데미지를 가합니다."
 
     if ( JNStringContains(tempString, "#Damage%") ) and ( not displayAsPercentage ) then
@@ -370,7 +374,7 @@ struct SlotResource extends IResource
         return "습득이 가능합니다"
       endif
     else
-      set tempString = SkillData[skillId].ValueUse
+      set tempString = SkillData[skillId].idUse
       if ( JNStringContains(tempString, "#Mana") ) then
         if ( JNStringContains(tempString, "#CoolDown") ) then
           return "마나소모 " + ProcessI2S(SkillData[skillId].CostMana, true, 1, false) +", 쿨다운 " + ProcessI2S(SkillData[skillId].CoolTime, true, 1, true) + "초"
@@ -429,7 +433,7 @@ struct SlotResource extends IResource
     return 999
   endmethod
   static method GetInfoNextLevel takes integer skillId, integer currentLevel returns string
-    local string getString = SkillData[skillId].ValueChange
+    local string getString = SkillData[skillId].idChange
     set tempString = ""
     if ( 1 <= currentLevel and currentLevel <= 10 ) then
       if ( JNStringContains(getString, "~") ) then
