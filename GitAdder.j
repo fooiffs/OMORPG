@@ -1,7 +1,9 @@
 // database 관련 : enums가 가장 먼저 로드되어야 함. enums간에 순서는 상관 없음.
-//! import "Data\Native\DzAPIs.j"
-//! import "Data\Native\JNMics.j"
-//! import "Data\Native\JNServers.j"
+//! import "Native\DzAPIs.j"
+//! import "Native\JNMics.j"
+//! import "Native\JNServers.j"
+//! import "Native\JNUnits.j"
+//! import "Native\JNFrame.j"
 
 //! import "Data\Enums\ETile.j"
 //! import "Data\Enums\ECharacter.j"

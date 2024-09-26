@@ -1,4 +1,3 @@
-native JNObjectCharacterRemoveField takes string UserId, string Field returns nothing
   scope Save initializer Init
     globals
       private string array InvenData

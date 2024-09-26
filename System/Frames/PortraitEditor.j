@@ -1,4 +1,3 @@
-native JNProcCall takes integer callConv, integer address, hashtable params returns boolean
 /* 240925 신규 :체력/마력 텍스트 */
 
 scope PortraitEditor initializer Init

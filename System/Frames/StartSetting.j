@@ -81,7 +81,6 @@ scope StartSetting initializer Init
       call DzFrameSetAlpha(Frame_Buttons[19], 255)
       call MsgAll("ExpOff - " + GetPlayerName(DzGetTriggerUIEventPlayer()) + "/" + I2S(DzGetTriggerUIEventFrame()) + "/" + I2S(Frame_Buttons[19]))
     endfunction*/
-    native DzFrameGetName takes integer frame returns string
     private function Init takes nothing returns nothing
      local integer i = 0
      local trigger trg

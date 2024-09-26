@@ -1,52 +1,8 @@
-// DzAPISync.j
-native DzGetTriggerSyncPlayer takes nothing returns player
-native DzGetTriggerSyncData takes nothing returns string
-native DzSyncData takes string prefix, string data returns nothing
-native DzTriggerRegisterSyncData takes trigger trig, string prefix, boolean server returns nothing
-native DzTriggerRegisterSyncData takes trigger trig, string prefix, boolean server returns nothing
+native JNStringCount takes string str, string sub returns integer
+native DzFrameGetText takes integer frame returns string
+native DzFrameGetHeight takes integer frame returns real
 
-// DzAPIHardware.j
-globals
-  constant integer JN_OSKEY_BACKSPACE           = $08
-  constant integer JN_OSKEY_TAB               = $09
-  constant integer JN_OSKEY_RETURN            = $0D
-  constant integer JN_OSKEY_SHIFT             = $10
-  constant integer JN_OSKEY_CONTROL             = $11
-  constant integer JN_OSKEY_ALT               = $12
-  constant integer JN_OSKEY_CAPSLOCK            = $14
-  constant integer JN_OSKEY_SPACE             = $20
-  constant integer JN_OSKEY_SEPARATOR           = $6C
-  constant integer JN_OSKEY_RSHIFT            = $A1
-  constant integer JN_OSKEY_RCONTROL            = $A3
-  constant integer JN_OSKEY_RALT              = $A5
-  constant integer JN_OSKEY_OEM_1             = $BA
-  constant integer JN_OSKEY_OEM_PLUS            = $BB
-  constant integer JN_OSKEY_OEM_COMMA           = $BC
-  constant integer JN_OSKEY_OEM_MINUS           = $BD
-  constant integer JN_OSKEY_OEM_PERIOD          = $BE
-  constant integer JN_OSKEY_OEM_2             = $BF
-  constant integer JN_OSKEY_OEM_3             = $C0
-  constant integer JN_OSKEY_OEM_4             = $DB
-  constant integer JN_OSKEY_OEM_5             = $DC
-  constant integer JN_OSKEY_OEM_6             = $DD
-  constant integer JN_OSKEY_OEM_7             = $DE
-  
-  constant integer JN_MOUSE_BUTTON_TYPE_RIGHT = 2 /* 마우스 우클 0x3은 제대로 못잡음 */
-endglobals
-native DzGetTriggerKeyPlayer takes nothing returns player
-native DzGetTriggerKey takes nothing returns integer
-native DzTriggerRegisterKeyEventByCode takes trigger trig, integer key, integer status, boolean sync, code funcHandle returns nothing
-
-// /* trig: 말 그대로 이벤트 넣을 트리거 */
-// /* btn: 마우스 버튼을 선택. */
-// /* status: 0을 넣으면 버튼 땜, 1을 넣으면 버튼 누름. */
-// /* sync: false는 비동기화, true는 동기화이다. 비동기화는 반응속도가 매우매우매우 빠르지만 멀티 불가. */
-// /* 동기화는 반응속도는 보통이지만 멀티 가능 */
-// /* func, funcHandle: 뭔진 모르겠지만 null 값을 넣어도 무방함 */
-native DzTriggerRegisterMouseEventByCode takes trigger trig, integer btn, integer status, boolean sync, code funcHandle returns nothing
-
-
-// DzAPIFrameHandle.j
+  // DzAPIFrameHandle.j
 globals
   constant integer JN_FRAMEPOINT_TOPLEFT = 0
   constant integer JN_FRAMEPOINT_TOP = 1
@@ -101,7 +57,7 @@ native DzFrameGetParent takes integer frame returns integer
 native DzFrameSetUpdateCallback takes string func returns nothing
 native DzSimpleFontStringFindByName takes string name, integer id returns integer
 native DzFrameSetParent takes integer frame, integer parent returns nothing
-
+native DzFrameGetName takes integer frame returns string
 
 debug native DzSimpleTextureFindByName takes string name, integer id returns integer
 native DzFrameSetModel takes integer frame, string modelFile, integer modelType, integer flag returns nothing

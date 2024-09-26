@@ -161,9 +161,7 @@ scope SkillTree initializer Init
         return 0
       endif
     endfunction
-    native JNStringCount takes string str, string sub returns integer
-    native DzFrameGetText takes integer frame returns string
-    native DzFrameGetHeight takes integer frame returns real
+
     private constant function MaxRow2 takes integer i1, integer space returns real
       return .0272 + i1*.0068 - space *0.006
     endfunction

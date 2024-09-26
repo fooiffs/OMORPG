@@ -10,3 +10,4 @@ native JNObjectCharacterInit takes string MapId, string UserId, string SecretKey
 native JNServerTime takes string Format returns string
 
 native JNObjectCharacterServerConnectCheck takes nothing returns boolean
+native JNObjectCharacterRemoveField takes string UserId, string Field returns nothing
