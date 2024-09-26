@@ -37,7 +37,7 @@ addtional_option = '--debug --nooptimize'
 
 
 # 오류 없는 J파일 - 문법 비교용
-input_j_path = base_path + '\\Script\\pytest\\inputs.j"'
+input_j_path = base_path + '\\Reference\\inputs.j"'
 
 ### 이하 자동 실행 ###
 if ( is_map_test ):
@@ -71,3 +71,6 @@ subprocess.run(["powershell", command])
 command = 'Remove-Item –path ' + base_path + '\\Script\\logs\" -Recurse'
 if is_print: print(command)
 subprocess.run(["powershell", command])
+
+os.system('cls')
+quit()

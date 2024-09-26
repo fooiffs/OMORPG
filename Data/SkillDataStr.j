@@ -1,4 +1,4 @@
-library SkillDataStr initializer Init
+scope SkillDataStr initializer Init
 // 추가한 시간: 24.09.25 22:55:01
 
   private function Init takes nothing returns nothing
@@ -413,4 +413,4 @@ library SkillDataStr initializer Init
     set s__SkillData_Name[205]="악마의 왼팔(브라소 이스케르다 델 디아블로) Lv3"
     set s__SkillData_Detail[205]="악마의 왼팔을 이용해 적을 매우 두렵게 하며 자신의 방어를 증가시킵니다. 적 방어 -25%, 본인 +40%"
   endfunction
-endlibrary
+endscope

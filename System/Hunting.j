@@ -1,6 +1,6 @@
 function DebugEffect takes string modelPath, real x, real y returns nothing
   if ( x == 0. or y == 0. ) then
-    call BJDebugMsg("DebugEffect/ERROR 0")
+    call MsgAll("DebugEffect/ERROR 0")
   elseif ( modelPath == "1" ) then
     call AddSpecialEffect("units\\human\\Peasant\\Peasant.mdl", x, y)
   elseif ( modelPath == "2" ) then
@@ -10,7 +10,7 @@ function DebugEffect takes string modelPath, real x, real y returns nothing
   endif
 endfunction
 
-library Hunting initializer Init requires ETile
+scope Hunting initializer Init
   globals
     private region tempRegion = null
     private rect array PlayerRect
@@ -47,7 +47,7 @@ library Hunting initializer Init requires ETile
       call SaveReal(hash, StringHash("rectExitX"), num, GetRectCenterX(r))
       call SaveReal(hash, StringHash("rectExitY"), num, GetRectMaxY(r) + bj_CELLWIDTH)
     else
-      call BJDebugMsg("Hunting/Add/Exit error")
+      call MsgAll("Hunting/Add/Exit error")
     endif
     call RemoveRect(r)
   endfunction
@@ -190,7 +190,7 @@ library Hunting initializer Init requires ETile
     call SaveInteger(hash, GetHandleId(u), StringHash("pNumber"), pNumber)
     call SaveInteger(hash, pNumber, StringHash("mCount"), LoadInteger(hash, pNumber, StringHash("mCount"))+1)
     call TriggerRegisterUnitEvent(DyingTrigger, u, EVENT_UNIT_DEATH)
-    call BJDebugMsg("added : " + GetUnitName(u) + "/" + I2S(LoadInteger(hash, pNumber, StringHash("mCount"))) + " at " + I2S(GetHandleId(DyingTrigger)))
+    call MsgAll("added : " + GetUnitName(u) + "/" + I2S(LoadInteger(hash, pNumber, StringHash("mCount"))) + " at " + I2S(GetHandleId(DyingTrigger)))
   endfunction
   private function AngleToUnit takes real x, real y, unit unitB returns real
     return bj_RADTODEG * Atan2(GetWidgetY(unitB) - y, GetWidgetX(unitB) - x)
@@ -230,7 +230,7 @@ library Hunting initializer Init requires ETile
     local integer rectNumber = LoadInteger(hash, GetHandleId(GetTriggeringRegion()), StringHash("rectNumber"))
     local integer pNumber = GetPlayerId(GetOwningPlayer(GetEnteringUnit()))+1
     if ( rectNumber < 1 ) or ( pNumber < 1 ) then
-      call BJDebugMsg("Bug/Hunting/Action/enter value 0 : " + I2S(rectNumber) + "//" + I2S(pNumber))
+      call MsgAll("Bug/Hunting/Action/enter value 0 : " + I2S(rectNumber) + "//" + I2S(pNumber))
     else
       call ClearRectUnits(PlayerRect[pNumber])
       call SaveInteger(hash, pNumber, StringHash("rectNumber"), rectNumber)
@@ -250,14 +250,14 @@ library Hunting initializer Init requires ETile
     local real space = GetRectMinX(r2) - GetRectMaxX(r1)
     if ( r1 == null ) or ( r2 == null ) then
       if ( r1 == null ) and ( r2 == null ) then
-        call BJDebugMsg("Bug/Hunting/RectSetup/r1 r2 null")
+        call MsgAll("Bug/Hunting/RectSetup/r1 r2 null")
       elseif ( r1 == null ) then
-        call BJDebugMsg("Bug/Hunting/RectSetup/r1 null")
+        call MsgAll("Bug/Hunting/RectSetup/r1 null")
       else
-        call BJDebugMsg("Bug/Hunting/RectSetup/r2 null")
+        call MsgAll("Bug/Hunting/RectSetup/r2 null")
       endif
     elseif ( MAX_ROW != length/bj_CELLWIDTH ) or ( MAX_COL != (GetRectMaxY(r1) - GetRectMinY(r1))/bj_CELLWIDTH ) then
-      call BJDebugMsg("Bug/Hunting/RectSetup/MAX ROW/COL != " + R2SW(length/bj_CELLWIDTH,2,0) + "//" + R2SW((GetRectMaxY(r1) - GetRectMinY(r1))/bj_CELLWIDTH,2,0) )
+      call MsgAll("Bug/Hunting/RectSetup/MAX ROW/COL != " + R2SW(length/bj_CELLWIDTH,2,0) + "//" + R2SW((GetRectMaxY(r1) - GetRectMinY(r1))/bj_CELLWIDTH,2,0) )
     else
       set PlayerRect[1] = r1
       set PlayerRect[2] = r2
@@ -283,7 +283,7 @@ library Hunting initializer Init requires ETile
       call AddHeroXP(udg_hero[pNumber], 50, false)
       
     else
-      call BJDebugMsg("Hunting/Clear/ERROR 0")
+      call MsgAll("Hunting/Clear/ERROR 0")
     endif
   endfunction
   private function MonsterDying takes nothing returns nothing
@@ -294,7 +294,7 @@ library Hunting initializer Init requires ETile
     local integer currentWave = LoadInteger(hash, pNumber, StringHash("currentWave"))
     call SaveInteger(hash, pNumber, StringHash("mCount"), mCount)
     
-    call BJDebugMsg("pNumber:" + I2S(pNumber)+"/mCount:"+I2S(mCount)+"/rectNumber:"+I2S(rectNumber)+"/currentWave:"+I2S(currentWave))
+    call MsgAll("pNumber:" + I2S(pNumber)+"/mCount:"+I2S(mCount)+"/rectNumber:"+I2S(rectNumber)+"/currentWave:"+I2S(currentWave))
     if ( mCount <= 0 ) then
       if ( currentWave < EStageMaxWave(rectNumber) ) then   /* 웨이브 더있으면 웨이브 +1 후 다음 유닛 생성*/
         set currentWave = currentWave + 1
@@ -324,4 +324,4 @@ library Hunting initializer Init requires ETile
     set tempEnterTrigger = null
     //set DyingTrigger = null *해당이름 계속 사용하니 null 처리 안함*
   endfunction
-endlibrary
+endscope

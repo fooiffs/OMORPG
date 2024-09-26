@@ -1,21 +1,9 @@
 scope MenuQuickSlot initializer Init
-  public function ChangeSlotIcon takes integer slot, boolean isSkill, string TexturePath returns nothing
-    //아이콘 텍스처 설정
-    if ( isSkill and 0 < slot and slot < MAX_SKILL_SLOT ) then
-      call DzFrameSetTexture(Frame_ButtonsBackDrop[slot+7], TexturePath, 0)
-    elseif ( not isSkill and 0 < slot and slot <= 7 ) then
-      call DzFrameSetTexture(Frame_ButtonsBackDrop[slot], TexturePath, 0)
-    elseif ( isSkill ) then
-      call BJDebugMsg("오류/슬롯["+I2S(slot)+"]변경/스킬")
-    else
-      call BJDebugMsg("오류/슬롯["+I2S(slot)+"]변경/아이템")
-    endif
-  endfunction
   public function AddReg takes integer P, integer MenuNo, integer Hotkey returns nothing
     local string s = ""
     local integer i = 0
-    if ( PushKey_I2H(Hotkey) == "" ) then
-      call DisplayTimedTextToPlayer(Player(P-1),0,0,4.,"등록할 수 없는 단축키입니다. -" +I2S(Hotkey) + "=" + PushKey_I2H(Hotkey))
+    if ( EHotkeys.I2H(Hotkey) == "" ) then
+      call DisplayTimedTextToPlayer(Player(P-1),0,0,4.,"등록할 수 없는 단축키입니다. -" +I2S(Hotkey) + "=" + EHotkeys.I2H(Hotkey))
     else
       set s = I2S(F2IN(MenuNo)) + "번째 " + FI2S(F2IT(MenuNo)) + " 단축키: "
       
@@ -23,10 +11,10 @@ scope MenuQuickSlot initializer Init
       set i = LoadInteger(hash, P, MenuNo)
       if ( i != 0 ) then
         call SaveInteger(hash, P, MenuNo, 0)
-        set s = s + PushKey_I2H(i) +"→"+ PushKey_I2H(Hotkey) + " 변경 (기존 " + PushKey_I2H(i) + "단축키 삭제"
+        set s = s + EHotkeys.I2H(i) +"→"+ EHotkeys.I2H(Hotkey) + " 변경 (기존 " + EHotkeys.I2H(i) + "단축키 삭제"
         set i = LoadInteger(hash, P, Hotkey)
         if ( i != 0 ) then
-          set s = s + ", 기존 " + PushKey_I2H(Hotkey) + "단축키 " + I2S(F2IN(i)) + "번째 " + FI2S(F2IT(i)) + " 삭제)"
+          set s = s + ", 기존 " + EHotkeys.I2H(Hotkey) + "단축키 " + I2S(F2IN(i)) + "번째 " + FI2S(F2IT(i)) + " 삭제)"
           call SaveInteger(hash, P, Hotkey, 0)
         else
           set s = s + ")"
@@ -34,17 +22,17 @@ scope MenuQuickSlot initializer Init
       //변경
       else
       //등록
-        set s = s + PushKey_I2H(Hotkey) + " 등록"
+        set s = s + EHotkeys.I2H(Hotkey) + " 등록"
         set i = LoadInteger(hash, P, Hotkey)
         if ( i != 0 ) then
-          set s = s + " (기존 " + PushKey_I2H(Hotkey) + "단축키 " + I2S(F2IN(i)) + "번째 " + FI2S(F2IT(i)) + " 삭제)"
+          set s = s + " (기존 " + EHotkeys.I2H(Hotkey) + "단축키 " + I2S(F2IN(i)) + "번째 " + FI2S(F2IT(i)) + " 삭제)"
           call SaveInteger(hash, P, Hotkey, 0)
         endif
       endif
       call SaveInteger(hash, P, MenuNo, Hotkey)
       call SaveInteger(hash, P, Hotkey, MenuNo)
       if ( GetLocalPlayer() == Player(P-1) ) then
-        call DzFrameSetText(LoadInteger(hash, LoadInteger(hash, 0, MenuNo), StringHash("FUI_HotKey")), PushKey_I2H(Hotkey))
+        call DzFrameSetText(LoadInteger(hash, LoadInteger(hash, 0, MenuNo), StringHash("FUI_HotKey")), EHotkeys.I2H(Hotkey))
       endif
       call DisplayTimedTextToPlayer(Player(P-1),0,0,7.,s)
     endif
@@ -59,6 +47,11 @@ scope MenuQuickSlot initializer Init
     MenuNo에서 hotKey 반환되어야함 (기존거 삭제)*/
     
   endfunction
+  static if false then
+    // constant가 붙은 함수는 클릭이 되지 않기에 참조용
+    function MenuQuickSlot_BaseHotKey takes integer i returns nothing
+    endfunction
+  endif
   public constant function BaseHotKey takes integer MenuNo returns string
     if ( MenuNo == 1 ) then
       return "1"

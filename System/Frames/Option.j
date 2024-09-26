@@ -11,7 +11,6 @@ scope Option initializer Init
       endif
       call DzFrameSetPoint(Frame_Setting[no], JN_FRAMEPOINT_LEFT, Frame_SettingBackdrop[0], JN_FRAMEPOINT_TOPLEFT, .02+x, -.015-.025 * y)
       call DzFrameSetText(Frame_Setting[no], text)
-//call BJDebugMsg(I2S(no) + "=" + text)
       return no+1
     endfunction
     private function LoadNumber takes integer frame returns integer
@@ -32,7 +31,7 @@ scope Option initializer Init
     private function SettingClick takes nothing returns nothing
       local integer f = DzGetTriggerUIEventFrame()
       local player p = DzGetTriggerUIEventPlayer()
-      call BJDebugMsg("player: " + GetPlayerName(p) + " clicked Setting")
+      call MsgAll("player: " + GetPlayerName(p) + " clicked Setting")
       call PlayerResource[GetPlayerId(p)+1].options[LoadNumber(f)].Click(10)
     endfunction
     private function SettingSave takes nothing returns nothing
@@ -40,7 +39,7 @@ scope Option initializer Init
       local player p = DzGetTriggerUIEventPlayer()
       call PlayerResource[GetPlayerId(p)+1].options[7].Click(-1)
 
-      call BJDebugMsg("player: " + GetPlayerName(p) + " click save server : " + I2S(PlayerResource[GetPlayerId(p)+1].options[7].value))
+      call MsgAll("player: " + GetPlayerName(p) + " click save server : " + I2S(PlayerResource[GetPlayerId(p)+1].options[7].id))
     endfunction
     private function SettingClose takes nothing returns nothing
       if ( GetLocalPlayer() == DzGetTriggerUIEventPlayer() ) then

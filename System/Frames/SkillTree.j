@@ -102,7 +102,7 @@ scope SkillTree initializer Init
     endfunction
     private function ButtonClick takes nothing returns nothing
       //local integer f = DzGetTriggerUIEventFrame()
-      call BJDebugMsg("Clicked Player: " + GetPlayerName(DzGetTriggerUIEventPlayer()))
+      call MsgAll("Clicked Player: " + GetPlayerName(DzGetTriggerUIEventPlayer()))
       /*
       if ( F2It(f) == FRAME_TYPE_CHARACTER ) then
         set NowSelect[GetPlayerId(DzGetTriggerUIEventPlayer())+1] = F2In(f)
@@ -116,7 +116,7 @@ scope SkillTree initializer Init
     /*private function ButtonJustUp takes nothing returns nothing
         local integer f = DzGetTriggerUIEventFrame()
         if ( GetLocalPlayer() == DzGetTriggerUIEventPlayer() ) then
-          //call BJDebugMsg("Mouse Up: " + I2S(F2In(f)) + "번째 " + FI2S(F2It(f)))
+          //call MsgAll("Mouse Up: " + I2S(F2In(f)) + "번째 " + FI2S(F2It(f)))
           
           set f = 12+3*F2In(f)
           call DzFrameSetText(Frame_SelectText[21], JNStringSplit(SelectText(NowSelect[GetPlayerId(DzGetTriggerUIEventPlayer())+1]),"'",f))

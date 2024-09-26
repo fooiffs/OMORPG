@@ -62,7 +62,7 @@ scope StartSetting initializer Init
       call TimerStart(CreateTimer(), 0., false, function Exit)
     endfunction
     private function StopLoad takes nothing returns nothing
-      call BJDebugMsg(GetPlayerName(Player(7-8)))
+      call MsgAll(GetPlayerName(Player(7-8)))
     endfunction
     
     private function RemoveFrame takes integer frameID returns nothing
@@ -75,11 +75,11 @@ scope StartSetting initializer Init
     endfunction
     /*private function ExpOn takes nothing returns nothing
       call DzFrameSetAlpha(Frame_Buttons[19], 64)
-      call BJDebugMsg("ExpOn - " + GetPlayerName(DzGetTriggerUIEventPlayer()) + "/" + I2S(DzGetTriggerUIEventFrame()) + "/" + I2S(Frame_Buttons[19]))
+      call MsgAll("ExpOn - " + GetPlayerName(DzGetTriggerUIEventPlayer()) + "/" + I2S(DzGetTriggerUIEventFrame()) + "/" + I2S(Frame_Buttons[19]))
     endfunction
     private function ExpOff takes nothing returns nothing
       call DzFrameSetAlpha(Frame_Buttons[19], 255)
-      call BJDebugMsg("ExpOff - " + GetPlayerName(DzGetTriggerUIEventPlayer()) + "/" + I2S(DzGetTriggerUIEventFrame()) + "/" + I2S(Frame_Buttons[19]))
+      call MsgAll("ExpOff - " + GetPlayerName(DzGetTriggerUIEventPlayer()) + "/" + I2S(DzGetTriggerUIEventFrame()) + "/" + I2S(Frame_Buttons[19]))
     endfunction*/
     native DzFrameGetName takes integer frame returns string
     private function Init takes nothing returns nothing
@@ -186,7 +186,7 @@ scope StartSetting initializer Init
       /* 초상화 */
         /* 이동이 아닌 삭제시 갱신 안되는 오류 있지만 커스텀 HP/MP Text를 사용하니 무방 */
       call RemoveFrame(DzFrameGetPortrait()) 
-      // call BJDebugMsg("setted :: " + I2S(DzFrameGetPortrait()))
+      // call MsgAll("setted :: " + I2S(DzFrameGetPortrait()))
   
       /* toc 파일 임포트 /* 단축키 등록 프레임 */ */
       call DzLoadToc("ui\\command_ui.toc")

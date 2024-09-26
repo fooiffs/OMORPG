@@ -17,3 +17,6 @@ map_path = '"C:\\Program Files\\Warcraft\\New\\Breach\\OMO 240924.w3x"'
 command = f".{program_path} -window -loadfile {map_path}"
 if is_print: print(command)
 subprocess.run(["powershell", command])
+
+os.system('cls')
+quit()

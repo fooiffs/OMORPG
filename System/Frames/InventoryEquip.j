@@ -410,7 +410,6 @@ scope Equip initializer Init
           set InvenInfo[0] = JNStringSplit(s,"'",loopA)
           exitwhen ( InvenInfo[0] == "" ) or ( InvenInfo[0] == null )
           if ( SkipStr(SubString(InvenInfo[0],0,2)) > 0 ) then
-            //call BJDebugMsg(InvenInfo[0] + " = 1_InvenInfo[" + I2S(SkipStr(SubString(InvenInfo[0],0,2))) +"] = " + SubString(InvenInfo[0],3,StringLength(InvenInfo[0])))
             set InvenInfo[SkipStr(SubString(InvenInfo[0],0,2))] = SubString(InvenInfo[0],3,StringLength(InvenInfo[0]))
           elseif ( SkipStr(SubString(InvenInfo[0],0,2)) == -1 ) then
             if ( first ) then
@@ -879,8 +878,6 @@ scope Equip initializer Init
         set ClickNow[P] = 0
         call DzFrameShow(ClickView, false)
       endif
-      
-      //call BJDebugMsg(EXGetItemDataString(GetItemTypeId(t), 3) + "'" + LoadStr(hash, GetHandleId(t), StringHash("ItemAddData")))
     endfunction
     private function InventoryToolTip takes nothing returns nothing
       local integer int = 0
