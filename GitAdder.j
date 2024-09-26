@@ -1,10 +1,15 @@
 // database 관련 : enums가 가장 먼저 로드되어야 함. enums간에 순서는 상관 없음.
+//! import "Data\Native\DzAPIs.j"
+//! import "Data\Native\JNMics.j"
+//! import "Data\Native\JNServers.j"
+
 //! import "Data\Enums\ETile.j"
 //! import "Data\Enums\ECharacter.j"
 //! import "Data\Enums\EHotkeyMenu.j"
 //! import "Data\Enums\ESkillDatas.j"
 //! import "Data\Enums\EStatDatas.j"
 //! import "Data\Enums\EHotkeys.j"
+
 //! import "Data\GlobalInitializer.j"
 //! loaddata "Data\SkillData.slk"
 //! import "Data\SkillDataStr.j"
@@ -21,6 +26,14 @@
 //! import "System\Frames\InventoryEquip.j"
 //! import "System\Frames\Info.j"
 //! import "System\Frames\MiniInfo.j"
-//! import "System\Hunting.j"
+//! import "System\Frames\FrameGrid.j"
 
-//! import "TestScope.j"
+//! import "System\Server\ServerSetup.j"
+//! import "System\Server\Time.j"
+//! import "System\Server\LoadAuto.j"
+//! import "System\Server\Load.j" /* need Select_NowSelect */
+//! import "System\Server\Save.j"
+
+//! import "System\Hunting.j"
+//! import "Tests\TestScope.j"
+//! import "Tests\AddReg.j"
