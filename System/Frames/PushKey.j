@@ -7,49 +7,7 @@ scope PushKey initializer Init
     private boolean OX_Stats = false 
     private boolean OX_Skills1 = false 
     private boolean OX_Skills2 = false 
-  endglobals 
-  
-  constant function F2IN takes integer MenuNo returns integer 
-    //m번째 값이 아이템/스킬/메뉴의 n번째 값인지 반환 
-    if(MenuNo > 0) then 
-      if(MenuNo <= 7) then 
-        return MenuNo 
-      elseif(MenuNo <= 15) then 
-        return MenuNo - 7 
-      elseif(MenuNo <= 23) then 
-        return MenuNo - 15 
-      endif 
-    endif 
-    return 0 
-  endfunction 
-  constant function FI2S takes integer FRAME_TYPE returns string 
-    if(FRAME_TYPE == FRAME_TYPE_ITEM) then 
-      return "아이템" 
-    elseif(FRAME_TYPE == FRAME_TYPE_SKILL) then 
-      return "스킬" 
-    elseif(FRAME_TYPE == FRAME_TYPE_MENU) then 
-      return "메인메뉴" 
-    elseif(FRAME_TYPE == FRAME_TYPE_PRESKILL) then 
-      return "스킬 미리보기" 
-    elseif(FRAME_TYPE == FRAME_TYPE_CHARACTER) then 
-      return "캐릭터 선택" 
-    endif 
-    return "" 
-  endfunction 
-  constant function F2IT takes integer MenuNo returns integer 
-    //m번째 값이 아이템/스킬/메뉴인지 반환(1=FRAME_TYPE_ITEM/2=FRAME_TYPE_SKILL/3=FRAME_TYPE_MENU) 
-    if(MenuNo > 0) then 
-      if(MenuNo <= 7) then 
-        return FRAME_TYPE_ITEM 
-      elseif(MenuNo <= 15) then 
-        return FRAME_TYPE_SKILL 
-      elseif(MenuNo <= 23) then 
-        return FRAME_TYPE_MENU 
-      endif 
-    endif 
-    return 0 
-  endfunction 
-
+  endglobals
   private function ChatCheck takes nothing returns nothing 
     set ChatState[GetPlayerId(DzGetTriggerSyncPlayer()) + 1] = S2I(DzGetTriggerSyncData()) != 0 
     /* if ( ChatState[GetPlayerId(DzGetTriggerSyncPlayer())+1] ) then
@@ -107,13 +65,13 @@ scope PushKey initializer Init
           call DzSyncData("NowChat", I2S(JNMemoryGetByte(JNGetModuleHandle("Game.dll") + 0xD04FEC))) 
         endif 
       endif 
-    elseif(F2IN(LoadInteger(hash, P, Clicked)) > 0) then 
+    elseif(EMenus.F2IN(LoadInteger(hash, P, Clicked)) > 0) then 
       //off일때 - 단축키 작동             
-      call MsgAll(GetPlayerName(p) + " Click2: " + EHotkeys.I2H(Clicked) + " = " + I2S(LoadInteger(hash, P, Clicked)) + "번째 메뉴= " + I2S(F2IN(LoadInteger(hash, P, Clicked))) + "번째 " + FI2S(F2IT(LoadInteger(hash, P, Clicked)))) 
+      call MsgAll(GetPlayerName(p) + " Click2: " + EHotkeys.I2H(Clicked) + " = " + I2S(LoadInteger(hash, P, Clicked)) + "번째 메뉴= " + I2S(EMenus.F2IN(LoadInteger(hash, P, Clicked))) + "번째 " + EMenus.FI2S(EMenus.F2IT(LoadInteger(hash, P, Clicked)))) 
             
       set Clicked = LoadInteger(hash, P, Clicked) 
-      if(F2IT(Clicked) == FRAME_TYPE_MENU) then /* Open Local */
-        call MenuClick(F2IN(Clicked)) 
+      if(EMenus.F2IT(Clicked) == FRAME_TYPE_MENU) then /* Open Local */
+        call MenuClick(EMenus.F2IN(Clicked)) 
       else 
         //! Sync Global             
       endif 

@@ -9,7 +9,6 @@ scope Select initializer Init
       private integer array SelectCount
       
       private integer array Frame_SelectStars
-      private integer array Frame_SelectSkills
       
       private integer array SlotLv
       private integer array SlotPlayTime
@@ -24,44 +23,6 @@ scope Select initializer Init
       public real startXX = -9696.
       public real startYY = 4288.
     endglobals
-  
-    private constant function F2In takes integer frame returns integer
-    //아이템/스킬/메뉴의 n번째 값인지 반환
-      if ( frame == Frame_Buttons[1] or frame == Frame_Buttons[8] or frame == Frame_Buttons[16] or frame == Frame_SelectSkills[1] or frame == Frame_SelectBack[8] ) then
-        return 1
-      elseif ( frame == Frame_Buttons[2] or frame == Frame_Buttons[9] or frame == Frame_Buttons[17] or frame == Frame_SelectSkills[3] or frame == Frame_SelectBack[10] ) then
-        return 2
-      elseif ( frame == Frame_Buttons[3] or frame == Frame_Buttons[10] or frame == Frame_Buttons[18] or frame == Frame_SelectSkills[5] or frame == Frame_SelectBack[12] ) then
-        return 3
-      elseif ( frame == Frame_Buttons[4] or frame == Frame_Buttons[11] or frame == Frame_Buttons[19] or frame == Frame_SelectSkills[7] or frame == Frame_SelectBack[14] ) then
-        return 4
-      elseif ( frame == Frame_Buttons[5] or frame == Frame_Buttons[12] or frame == Frame_Buttons[20]                                  or frame == Frame_SelectBack[16]  ) then
-        return 5
-      elseif ( frame == Frame_Buttons[6] or frame == Frame_Buttons[13] or frame == Frame_Buttons[21]                                  or frame == Frame_SelectBack[18]  ) then
-        return 6
-      elseif ( frame == Frame_Buttons[7] or frame == Frame_Buttons[14] or frame == Frame_Buttons[22] ) then
-        return 7
-      elseif (                              frame == Frame_Buttons[15] or frame == Frame_Buttons[23] ) then
-        return 8
-      endif
-     return 0
-    endfunction
-    private constant function F2It takes integer frame returns integer
-    //아이템/스킬/메뉴인지 반환(1=FRAME_TYPE_ITEM/2=FRAME_TYPE_SKILL/3=FRAME_TYPE_MENU)
-      if ( frame == Frame_Buttons[1] or frame == Frame_Buttons[2] or frame == Frame_Buttons[3] or frame == Frame_Buttons[4] or frame == Frame_Buttons[5] or frame == Frame_Buttons[6] or frame == Frame_Buttons[7] ) then
-        return FRAME_TYPE_ITEM
-      elseif ( frame == Frame_Buttons[8] or frame == Frame_Buttons[9] or frame == Frame_Buttons[10] or frame == Frame_Buttons[11] or frame == Frame_Buttons[12] or frame == Frame_Buttons[13] or frame == Frame_Buttons[14] or frame == Frame_Buttons[15] ) then
-        return FRAME_TYPE_SKILL
-      elseif ( frame == Frame_Buttons[16] or frame == Frame_Buttons[17] or frame == Frame_Buttons[18] or frame == Frame_Buttons[19] or frame == Frame_Buttons[20] or frame == Frame_Buttons[21] or frame == Frame_Buttons[22] or frame == Frame_Buttons[23] ) then
-        return FRAME_TYPE_MENU
-      elseif ( frame == Frame_SelectSkills[1] or frame == Frame_SelectSkills[3] or frame == Frame_SelectSkills[5] or frame == Frame_SelectSkills[7] ) then
-        return FRAME_TYPE_PRESKILL
-      elseif ( frame == Frame_SelectBack[8] or frame == Frame_SelectBack[10] or frame == Frame_SelectBack[12] or frame == Frame_SelectBack[14] or frame == Frame_SelectBack[16] or frame == Frame_SelectBack[18] ) then
-        return FRAME_TYPE_CHARACTER
-      endif
-     return 0
-    endfunction
-  
     
     // 유닛 선택 해제 시 갱신 함수
     private function Deselected takes nothing returns nothing
@@ -179,19 +140,19 @@ scope Select initializer Init
     endfunction
     public function ButtonClick takes nothing returns nothing
       local integer f = DzGetTriggerUIEventFrame()
-      if ( F2It(f) == FRAME_TYPE_CHARACTER ) then
-        set NowSelect[GetPlayerId(DzGetTriggerUIEventPlayer())+1] = F2In(f)
+      if ( EMenus.F2It(f) == FRAME_TYPE_CHARACTER ) then
+        set NowSelect[GetPlayerId(DzGetTriggerUIEventPlayer())+1] = EMenus.F2In(f)
       endif
       if ( GetLocalPlayer() == DzGetTriggerUIEventPlayer() ) then
-        if ( F2It(f) == FRAME_TYPE_MENU ) then
-          call PushKey_MenuClick(F2In(f))
+        if ( EMenus.F2It(f) == FRAME_TYPE_MENU ) then
+          call PushKey_MenuClick(EMenus.F2In(f))
         else
           call StopSound(gg_snd_MouseClick1, false, false)
           call StartSound(gg_snd_MouseClick1)
         endif
         
-        if ( F2It(f) == FRAME_TYPE_CHARACTER ) then
-          call ViewInfo(CharacterData[F2In(f)].SelectDatas, ( 0 < S2I(JNStringSplit(JNStringSplit(LoadStr(hash, GetPlayerId(DzGetTriggerUIEventPlayer())+1, StringHash("Data")),"/",F2In(f)),"'",1)) ))
+        if ( EMenus.F2It(f) == FRAME_TYPE_CHARACTER ) then
+          call ViewInfo(CharacterData[EMenus.F2In(f)].SelectDatas, ( 0 < S2I(JNStringSplit(JNStringSplit(LoadStr(hash, GetPlayerId(DzGetTriggerUIEventPlayer())+1, StringHash("Data")),"/",EMenus.F2In(f)),"'",1)) ))
         endif
       endif
     endfunction
@@ -200,7 +161,7 @@ scope Select initializer Init
       local integer f = DzGetTriggerUIEventFrame()
       local integer nowSelectNum = NowSelect[GetPlayerId(DzGetTriggerUIEventPlayer())+1]
       if ( GetLocalPlayer() == DzGetTriggerUIEventPlayer() ) then
-        set f = 12+3*F2In(f)
+        set f = 12+3*EMenus.F2In(f)
         
         call DzFrameSetText(Frame_SelectText[16], "|cffd5d500"+JNStringSplit(CharacterData[nowSelectNum].SelectDatas,"'",f))
         call DzFrameSetText(Frame_SelectText[17], JNStringSplit(CharacterData[nowSelectNum].SelectDatas,"'",f+1))

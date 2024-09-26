@@ -11,6 +11,7 @@
 //! import "Data\Enums\ESkillDatas.j"
 //! import "Data\Enums\EStatDatas.j"
 //! import "Data\Enums\EHotkeys.j"
+//! import "Data\Enums\EMenus.j"
 
 //! import "Data\GlobalInitializer.j"
 //! loaddata "Data\SkillData.slk"

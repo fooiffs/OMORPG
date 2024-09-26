@@ -5,7 +5,7 @@ scope MenuQuickSlot initializer Init
     if ( EHotkeys.I2H(Hotkey) == "" ) then
       call DisplayTimedTextToPlayer(Player(P-1),0,0,4.,"등록할 수 없는 단축키입니다. -" +I2S(Hotkey) + "=" + EHotkeys.I2H(Hotkey))
     else
-      set s = I2S(F2IN(MenuNo)) + "번째 " + FI2S(F2IT(MenuNo)) + " 단축키: "
+      set s = I2S(EMenus.F2IN(MenuNo)) + "번째 " + EMenus.FI2S(EMenus.F2IT(MenuNo)) + " 단축키: "
       
       //기존 단축키 검사
       set i = LoadInteger(hash, P, MenuNo)
@@ -14,7 +14,7 @@ scope MenuQuickSlot initializer Init
         set s = s + EHotkeys.I2H(i) +"→"+ EHotkeys.I2H(Hotkey) + " 변경 (기존 " + EHotkeys.I2H(i) + "단축키 삭제"
         set i = LoadInteger(hash, P, Hotkey)
         if ( i != 0 ) then
-          set s = s + ", 기존 " + EHotkeys.I2H(Hotkey) + "단축키 " + I2S(F2IN(i)) + "번째 " + FI2S(F2IT(i)) + " 삭제)"
+          set s = s + ", 기존 " + EHotkeys.I2H(Hotkey) + "단축키 " + I2S(EMenus.F2IN(i)) + "번째 " + EMenus.FI2S(EMenus.F2IT(i)) + " 삭제)"
           call SaveInteger(hash, P, Hotkey, 0)
         else
           set s = s + ")"
@@ -25,7 +25,7 @@ scope MenuQuickSlot initializer Init
         set s = s + EHotkeys.I2H(Hotkey) + " 등록"
         set i = LoadInteger(hash, P, Hotkey)
         if ( i != 0 ) then
-          set s = s + " (기존 " + EHotkeys.I2H(Hotkey) + "단축키 " + I2S(F2IN(i)) + "번째 " + FI2S(F2IT(i)) + " 삭제)"
+          set s = s + " (기존 " + EHotkeys.I2H(Hotkey) + "단축키 " + I2S(EMenus.F2IN(i)) + "번째 " + EMenus.FI2S(EMenus.F2IT(i)) + " 삭제)"
           call SaveInteger(hash, P, Hotkey, 0)
         endif
       endif

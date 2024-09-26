@@ -60,7 +60,6 @@ scope IResources
     integer playerId
     integer Level
     integer changeLevel
-    private integer id
     SlotResource array Skills[MAX_SKILL_SLOT]
     StatResource array Stats[MAX_STAT_COUNT]
 
@@ -91,7 +90,7 @@ scope IResources
     private integer baseValue = 0
     private integer addValue = 0
     
-    static method Create takes CharacterResource inputCharacter, integer inputSubTypeId returns StatResource
+    static method Create takes CharacterResource inputCharacter, integer inputSubTypeId returns thistype
       local StatResource this = IResource.create(thistype.typeid)
       set this.owner = inputCharacter
       set this.id = inputSubTypeId

@@ -9,12 +9,6 @@ scope StartSetting initializer Init
       integer array Frame_ButtonsBackDrop       //아이템/스킬/메뉴 버튼 배경 아이콘
       integer array Frame_ButtonsText           //아이템/스킬/메뉴 버튼 내용
       
-      constant integer FRAME_TYPE_ITEM = 1
-      constant integer FRAME_TYPE_SKILL = 2
-      constant integer FRAME_TYPE_MENU = 3
-      constant integer FRAME_TYPE_PRESKILL = 4
-      constant integer FRAME_TYPE_CHARACTER = 5
-      
       integer array Frame_Info
       integer array Frame_InfoValue
       

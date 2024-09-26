@@ -1,7 +1,6 @@
 scope SkillTree initializer Init
     globals
       private integer SkillTreeNow
-      private integer array SkillTreeButton
       public integer array SkillTreeBackdrop
       private integer array SkillTreeText
       private integer array SkillTreePopup
@@ -12,36 +11,8 @@ scope SkillTree initializer Init
       private integer array SkillTree2Popup
       
       public integer array Info
+      private trigger skillTreeTrigger = CreateTrigger()
     endglobals
-  
-    private constant function SkillData takes integer i1, integer i2 returns string
-      if ( i1 == 1 ) then
-        if ( i2 == 1 ) then
-          return "세로베기"
-        elseif ( i2 == 2 ) then
-          return "가로베기"
-        elseif ( i2 == 3 ) then
-          return "공열섬"
-        elseif ( i2 == 4 ) then
-          return "찌르기"
-        elseif ( i2 == 5 ) then
-          return "월아천충"
-        elseif ( i2 == 6 ) then
-          return "천쇄참월"
-        elseif ( i2 == 7 ) then
-          return "월아십자충"
-        elseif ( i2 == 8 ) then
-          return "검은 월아천충"
-        elseif ( i2 == 9 ) then
-          return "무쌍의 일섬"
-        elseif ( i2 == 10 ) then
-          return "흑류아돌"
-        elseif ( i2 == 11 ) then
-          return "무월"
-        endif
-      endif
-      return ""
-    endfunction
     private constant function SkillorInfo takes integer no, integer arr returns integer
       if ( no == 1 ) then
         return SkillTreeBackdrop[arr]
@@ -100,65 +71,24 @@ scope SkillTree initializer Init
       call DzFrameSetPoint(SkillTreeBackdrop[i], JN_FRAMEPOINT_LEFT, SkillTreeNow, JN_FRAMEPOINT_TOPLEFT, x, y)
       call DzFrameSetSize(SkillTreeBackdrop[i], size+.02, 0.005)
     endfunction
-    private function ButtonClick takes nothing returns nothing
-      //local integer f = DzGetTriggerUIEventFrame()
-      call MsgAll("Clicked Player: " + GetPlayerName(DzGetTriggerUIEventPlayer()))
-      /*
-      if ( F2It(f) == FRAME_TYPE_CHARACTER ) then
-        set NowSelect[GetPlayerId(DzGetTriggerUIEventPlayer())+1] = F2In(f)
-      endif
-      if ( GetLocalPlayer() == DzGetTriggerUIEventPlayer() ) then
-        if ( F2It(f) == FRAME_TYPE_MENU ) then
-          call StopSound(gg_snd_BigButtonClick, false, false)
-            call StartSound(gg_snd_BigButtonClick)
-            */
+    private function SkillTreeSync takes nothing returns nothing
+      local player clickedPlayer = DzGetTriggerSyncPlayer()
+      local integer syncData = S2I(DzGetTriggerSyncData())
+      call MsgAll("(동기화)플레이어 " + GetPlayerName(clickedPlayer) + ", (스킬트리) 클릭, " + I2S(syncData))
     endfunction
-    /*private function ButtonJustUp takes nothing returns nothing
-        local integer f = DzGetTriggerUIEventFrame()
+    private function SkillTreeClick takes nothing returns nothing
+      local integer f = DzGetTriggerUIEventFrame()
+      local integer playerId = GetPlayerId(DzGetTriggerUIEventPlayer()) + 1
+      local integer clickedNumber = ESkillTree.f2I(f)
+      call MsgAll("플레이어 " + GetPlayerName(Player(playerId-1)) + ", "+I2S(EMenus.F2It(f))+"(스킬트리) 클릭, " + I2S(clickedNumber))
+      if ( 0 < clickedNumber ) then
         if ( GetLocalPlayer() == DzGetTriggerUIEventPlayer() ) then
-          //call MsgAll("Mouse Up: " + I2S(F2In(f)) + "번째 " + FI2S(F2It(f)))
-          
-          set f = 12+3*F2In(f)
-          call DzFrameSetText(Frame_SelectText[21], JNStringSplit(SelectText(NowSelect[GetPlayerId(DzGetTriggerUIEventPlayer())+1]),"'",f))
-          call DzFrameSetText(Frame_SelectText[22], JNStringSplit(SelectText(NowSelect[GetPlayerId(DzGetTriggerUIEventPlayer())+1]),"'",f+1))
-          call DzFrameSetText(Frame_SelectText[23], JNStringSplit(SelectText(NowSelect[GetPlayerId(DzGetTriggerUIEventPlayer())+1]),"'",f+2))
-          
-          call DzFrameShow(Frame_SelectBack[15], true)
-          
-          //call DzFrameShow(Frame_SelectBack[1], true)
+          call StopSound(gg_snd_BigButtonClick, false, false)
+          call StartSound(gg_snd_BigButtonClick)
+
+          call DzSyncData("TreeSync", I2S(clickedNumber))
+          // => SkillTreeSync()
         endif
-      endfunction
-      private function ButtonJustDown takes nothing returns nothing
-        local integer f = DzGetTriggerUIEventFrame()
-        if ( GetLocalPlayer() == DzGetTriggerUIEventPlayer() ) then
-          call DzFrameShow(Frame_SelectBack[15], false)
-        endif
-      endfunction*/
-    private constant function f2I takes integer f returns integer
-      if ( f == SkillTreeButton[1] ) then
-        return 1
-      elseif ( f == SkillTreeButton[2] ) then
-        return 2
-      elseif ( f == SkillTreeButton[3] ) then
-        return 3
-      elseif ( f == SkillTreeButton[4] ) then
-        return 4
-      elseif ( f == SkillTreeButton[5] ) then
-        return 5
-      elseif ( f == SkillTreeButton[6] ) then
-        return 6
-      elseif ( f == SkillTreeButton[7] ) then
-        return 7
-      elseif ( f == SkillTreeButton[8] ) then
-        return 8
-      elseif ( f == SkillTreeButton[9] ) then
-        return 9
-      elseif ( f == SkillTreeButton[10] ) then
-        return 10
-      elseif ( f == SkillTreeButton[11] ) then
-        return 11
-      else
-        return 0
       endif
     endfunction
 
@@ -182,7 +112,7 @@ scope SkillTree initializer Init
     endfunction
     private function ButtonJustUp takes nothing returns nothing
      local integer f = DzGetTriggerUIEventFrame()
-     local string s = SkillData(1, f2I(f))
+     local string s = ESkillTree.I2Name(1, ESkillTree.f2I(f))
      local integer need = JNStringCount(DzFrameGetText(SkillTreePopup[2])," - ")
      call DzFrameSetAbsolutePoint(SkillTree2Popup[0], JN_FRAMEPOINT_BOTTOMLEFT, GetFrameMouseX(), GetFrameMouseY())
      call DzFrameShow(SkillTree2Popup[0], true)
@@ -211,17 +141,17 @@ scope SkillTree initializer Init
       call DzFrameSetTexture(SkillTreeBackdrop[i], texture, 0)
       call DzFrameSetSize(SkillTreeBackdrop[i], size, size)
       if ( addButton >= 23 ) then
-        set SkillTreeButton[addButton] = DzCreateFrameByTagName("BUTTON", "", SkillTreeBackdrop[i], "", 0)
-        call DzFrameSetAllPoints(SkillTreeButton[addButton], SkillTreeBackdrop[i])
-        call DzFrameSetScriptByCode(SkillTreeButton[addButton], JN_FRAMEEVENT_MOUSE_UP, function ButtonClick, false)
-        call DzFrameSetScriptByCode(SkillTreeButton[addButton], JN_FRAMEEVENT_MOUSE_ENTER, function ButtonJustUp, false)
-        call DzFrameSetScriptByCode(SkillTreeButton[addButton], JN_FRAMEEVENT_MOUSE_LEAVE, function ButtonJustDown, false)
+        set ESkillTree.SkillTreeButton[addButton] = DzCreateFrameByTagName("BUTTON", "", SkillTreeBackdrop[i], "", 0)
+        call DzFrameSetAllPoints(ESkillTree.SkillTreeButton[addButton], SkillTreeBackdrop[i])
+        call DzFrameSetScriptByCode(ESkillTree.SkillTreeButton[addButton], JN_FRAMEEVENT_MOUSE_UP, function SkillTreeClick, false)
+        call DzFrameSetScriptByCode(ESkillTree.SkillTreeButton[addButton], JN_FRAMEEVENT_MOUSE_ENTER, function ButtonJustUp, false)
+        call DzFrameSetScriptByCode(ESkillTree.SkillTreeButton[addButton], JN_FRAMEEVENT_MOUSE_LEAVE, function ButtonJustDown, false)
       elseif ( addButton > 0 ) then
-        set SkillTreeButton[addButton] = DzCreateFrameByTagName("BUTTON", "", SkillTreeBackdrop[i], "", 0)
-        call DzFrameSetAllPoints(SkillTreeButton[addButton], SkillTreeBackdrop[i])
-        call DzFrameSetScriptByCode(SkillTreeButton[addButton], JN_FRAMEEVENT_MOUSE_UP, function ButtonClick, false)
-        call DzFrameSetScriptByCode(SkillTreeButton[addButton], JN_FRAMEEVENT_MOUSE_ENTER, function ButtonJustUp, false)
-        call DzFrameSetScriptByCode(SkillTreeButton[addButton], JN_FRAMEEVENT_MOUSE_LEAVE, function ButtonJustDown, false)
+        set ESkillTree.SkillTreeButton[addButton] = DzCreateFrameByTagName("BUTTON", "", SkillTreeBackdrop[i], "", 0)
+        call DzFrameSetAllPoints(ESkillTree.SkillTreeButton[addButton], SkillTreeBackdrop[i])
+        call DzFrameSetScriptByCode(ESkillTree.SkillTreeButton[addButton], JN_FRAMEEVENT_MOUSE_UP, function SkillTreeClick, false)
+        call DzFrameSetScriptByCode(ESkillTree.SkillTreeButton[addButton], JN_FRAMEEVENT_MOUSE_ENTER, function ButtonJustUp, false)
+        call DzFrameSetScriptByCode(ESkillTree.SkillTreeButton[addButton], JN_FRAMEEVENT_MOUSE_LEAVE, function ButtonJustDown, false)
       endif
     endfunction
   
@@ -428,5 +358,8 @@ scope SkillTree initializer Init
       call CreateSkillTree2()
       call DzFrameShow(SkillTree2Backdrop[0], false)
       call CreateSkillTree2Popup()
+
+      call DzTriggerRegisterSyncData(skillTreeTrigger, "TreeSync", false)
+      call TriggerAddAction(skillTreeTrigger, function SkillTreeSync)
     endfunction
   endscope
