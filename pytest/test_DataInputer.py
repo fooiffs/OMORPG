@@ -41,12 +41,12 @@ def process_sheet_str(input_col, input_type, input_value):
 
 def save_str_data(keyword, data):
     with open(os.path.join(get_base_path(), 'Data', keyword + '.j'), 'w', encoding='utf-8') as result:
-        result.write('library ' + keyword + ' initializer Init\n')
+        result.write('scope ' + keyword + ' initializer Init\n')
         result.write('// 추가한 시간: ' + time.strftime('%y.%m.%d %X') + '\n')
         result.write('\n  private function Init takes nothing returns nothing\n')
         for child in data:
             result.write('    ' + child+'\n')
-        result.write('  endfunction\nendlibrary')
+        result.write('  endfunction\nendscope')
         print(f'completed {keyword}[{len(data)}]')
         
         update_git_adder(get_base_path(), keyword + '.j')

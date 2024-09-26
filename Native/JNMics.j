@@ -19,6 +19,7 @@ native JNStringSplit takes string str, string sub, integer index returns string
 native JNStringReplace takes string str, string old, string newstr returns string
 native JNStringLength takes string str returns integer
 native JNStringSub takes string str, integer start, integer length returns string
+native JNStringCount takes string str, string sub returns integer
 
 // JAPIEffect.j
 native EXEffectMatRotateZ takes effect e, real angle returns nothing
