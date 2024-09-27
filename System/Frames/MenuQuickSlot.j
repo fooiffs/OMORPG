@@ -32,7 +32,7 @@ scope MenuQuickSlot initializer Init
       call SaveInteger(hash, P, MenuNo, Hotkey)
       call SaveInteger(hash, P, Hotkey, MenuNo)
       if ( GetLocalPlayer() == Player(P-1) ) then
-        call DzFrameSetText(LoadInteger(hash, LoadInteger(hash, 0, MenuNo), StringHash("FUI_HotKey")), EHotkeys.I2H(Hotkey))
+        call DzFrameSetText(LoadInteger(hash, LoadInteger(hash, StringHash("FUI_HotKeyBase"), MenuNo), StringHash("FUI_HotKey")), EHotkeys.I2H(Hotkey))
       endif
       call DisplayTimedTextToPlayer(Player(P-1),0,0,7.,s)
     endif
@@ -110,7 +110,7 @@ scope MenuQuickSlot initializer Init
     call DzFrameSetPoint(HotFrame, JN_FRAMEPOINT_TOPLEFT, frame, JN_FRAMEPOINT_TOPLEFT, -.001, .001)
     call DzFrameSetPoint(HotFrameTxt, JN_FRAMEPOINT_CENTER, HotFrame, JN_FRAMEPOINT_CENTER, 0., 0.)
     //call DzFrameSetText(HotFrameTxt, BaseHotKey(MenuNo))
-    call SaveInteger(hash, 0, MenuNo, frame)
+    call SaveInteger(hash, StringHash("FUI_HotKeyBase"), MenuNo, frame)
     call SaveInteger(hash, frame, StringHash("FUI_HotKey"), HotFrameTxt)
     //call AddReg(P, MenuNo, Hotkey)
     //call BJDebugMsg("no"+I2S(MenuNo)+"="+I2S(frame))

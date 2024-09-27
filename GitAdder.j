@@ -23,7 +23,7 @@
 //! import "System\MemoryInterferencer\EndGameHook.j"
 //! import "System\MemoryInterferencer\UnitNameChanger.j"
 
-//! import "System\Frames\StartSetting.j"
+//! import "System\Frames\MainFrame.j"
 //! import "System\Frames\UnitDetailFrame.j"
 //! import "System\Frames\SkillTree.j"
 //! import "System\Frames\PortraitEditor.j"

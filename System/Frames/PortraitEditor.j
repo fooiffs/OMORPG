@@ -109,7 +109,6 @@ scope PortraitEditor initializer Init
 			call MsgAll("Changed")
 			call ClearSelection()
     endif
-		return initializered
   endfunction
   private function GetGameUI2 takes integer bInit, integer bRelease returns integer
 		local integer addr = pGameDll + 0x3A0B70
@@ -127,9 +126,8 @@ scope PortraitEditor initializer Init
 	endfunction
 
 	public function Change takes nothing returns nothing
-		if ( initializered ) then
-			return
+		if ( not initializered ) then
+			call Change2(GetPortraitButtonHPText())
 		endif
-		call Change2(GetPortraitButtonHPText())
 	endfunction
 endscope

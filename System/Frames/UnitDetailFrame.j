@@ -17,24 +17,24 @@ scope UnitDetailFrame initializer Init
       call DzFrameSetText(i, GetPlayerName(GetLocalPlayer()))
       
       /* 경험치바 */
-      set i = StartSetting_Get(DzSimpleFrameFindByName("SimpleHeroLevelBar", 0))
+      set i = MainFrame_Get(DzSimpleFrameFindByName("SimpleHeroLevelBar", 0))
       call DzFrameSetAbsolutePoint(i, JN_FRAMEPOINT_BOTTOMLEFT, .3, .001)
       call DzFrameSetAbsolutePoint(i, JN_FRAMEPOINT_TOPRIGHT, .62, .017)
       
       /* 영웅 이명 - 카샨 */
-      set i = StartSetting_Get(DzSimpleFontStringFindByName("SimpleNameValue", 0))
+      set i = MainFrame_Get(DzSimpleFontStringFindByName("SimpleNameValue", 0))
       call DzFrameSetAbsolutePoint(i, JN_FRAMEPOINT_CENTER, .25, .055)
       
       /* 유닛 이름 - 피전트  */
-      set i = StartSetting_Get(DzSimpleFontStringFindByName("SimpleClassValue", 0))
+      set i = MainFrame_Get(DzSimpleFontStringFindByName("SimpleClassValue", 0))
       call DzFrameSetAbsolutePoint(i, JN_FRAMEPOINT_CENTER, .25, .040)
       
       /* 레벨 1 마운틴킹 */
-      set i = StartSetting_Get(DzSimpleFrameFindByName("SimpleProgressIndicator", 0))
+      set i = MainFrame_Get(DzSimpleFrameFindByName("SimpleProgressIndicator", 0))
       call DzFrameSetAbsolutePoint(i, JN_FRAMEPOINT_CENTER, .25, .035)
       
       /* 초상화 */
-      // 초기에 설정 in StartSetting.j
+      // 초기에 설정 in MainFrame.j
       // HP & MP - 특수 설정 in Select.j -> PortraitEditor.j
       
       call DzFrameShow(Frame_Main, false)

@@ -237,7 +237,7 @@ scope IResources
     endmethod
     
     private method ChangeTargetingUI takes ability abil, integer input returns nothing
-      local boolean isSmartMode = ( PlayerResource[this.owner.id].options[EHotkeyMenu.SubMenuSmartMode].id == 1 )
+      local boolean isSmartMode = ( PlayerResource[this.owner.playerId].options[EHotkeyMenu.SubMenuSmartMode].id == 1 )
       if ( input == ESkillTypeUI.UN_CLICKABLE ) then
         // 즉발, 숨김(단축키X)
         call SetAiblityTagetingUIs(abil, 0, 0)
@@ -278,10 +278,10 @@ scope IResources
     method ChangeBaseID takes integer id, integer level returns nothing
       set this.id = id
       set SkillData[this.id].IconPath = "ReplaceableTextures\\CommandButtons\\BTNReplay-Pause.blp"
-      call ChangeIcon(this.owner.id, this.slot, SkillData[this.id].IconPath)
+      call ChangeIcon(this.owner.playerId, this.slot, SkillData[this.id].IconPath)
       call Initids()
       call ChangeLevel(level)
-      call ChangeObjectData(EXGetUnitAbility(this.owner.Unit, SlotData[this.slot].GetSkillCode(( PlayerResource[this.owner.id].options[EHotkeyMenu.SubMenuSmartMode].id == 1 ))))
+      call ChangeObjectData(EXGetUnitAbility(this.owner.Unit, SlotData[this.slot].GetSkillCode(( PlayerResource[this.owner.playerId].options[EHotkeyMenu.SubMenuSmartMode].id == 1 ))))
     endmethod
     static method Create takes CharacterResource inputCharacter, integer slot, integer id, integer level returns thistype
       local SlotResource this = IResource.create(SlotResource.typeid)
@@ -289,7 +289,7 @@ scope IResources
       set this.slot = slot
       call ChangeBaseID(id, level)
 
-      call MsgAll("생성/S.R.C[" + I2S(this.owner.id) + "][" + I2S(this.slot) + "],id=" + I2S(this.id) + ",lv=" + I2S(this.level))
+      // call MsgAll("생성/S.R.C[" + I2S(this.owner.playerId) + "][" + I2S(this.slot) + "],id=" + I2S(this.id) + ",lv=" + I2S(this.level))
       return this
     endmethod
 

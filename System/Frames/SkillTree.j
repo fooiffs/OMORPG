@@ -22,12 +22,39 @@ scope SkillTree initializer Init
         return Info[arr]
       endif
     endfunction
+    private function MaxRow3 takes integer kor, integer eng, integer space returns real
+      return .0222 + kor*.01 + eng*.00735 + space * .0033
+    endfunction
+    private function MaxRow takes string s, integer i2 returns real
+      local string temp_s
+      local real return_x = 0.07
+
+      // [가-힣] : 한글
+      // \w, [a-zA-Z_0-9] : 영문자, 숫자, 밑줄
+      // [\s\p{P}] : \s : 공백문자, \p{P} : 문장 부호
+      loop
+        exitwhen i2 <= 0
+        set temp_s = JNStringSplit(s, "\n", i2)
+        
+        // set return_x = RMaxBJ(return_x, MaxRow2(JNStringLength(temp_s), JNStringCount(temp_s, " ")))
+        set return_x = RMaxBJ(return_x, MaxRow3(JNStringCount(temp_s, "[가-힣]"), JNStringCount(temp_s, "[a-zA-Z_0-9]"), JNStringCount(temp_s, " ")))
+
+        set i2 = i2 - 1
+      endloop
+      set temp_s = null
+      return return_x
+    endfunction
+    private constant function MaxHeight takes integer count returns real
+      return count*.01
+    endfunction
+
     public function MakeLineX takes integer i, real x, real y, real size, integer no returns nothing
       if ( no == 1 ) then
         set SkillTreeBackdrop[i] = DzCreateFrameByTagName("BACKDROP", "", SkillorInfo(no, 0), "", 0)
       elseif ( no == 2 ) then
         set SkillTree2Backdrop[i] = DzCreateFrameByTagName("BACKDROP", "", SkillorInfo(no, 0), "", 0)
       else
+        call BJDebugMsg("info ~ " + I2S(i))
         set Info[i] = DzCreateFrameByTagName("BACKDROP", "", SkillorInfo(no, 0), "", 0)
       endif
       call DzFrameSetTexture(SkillorInfo(no,i), "ReplaceableTextures\\TeamColor\\TeamColor04.blp", 0)
@@ -40,12 +67,14 @@ scope SkillTree initializer Init
       elseif ( no == 2 ) then
         set SkillTree2Backdrop[i] = DzCreateFrameByTagName("BACKDROP", "", SkillorInfo(no, 0), "", 0)
       else
+        call BJDebugMsg("info ~ " + I2S(i))
         set Info[i] = DzCreateFrameByTagName("BACKDROP", "", SkillorInfo(no, 0), "", 0)
       endif
       call DzFrameSetTexture(SkillorInfo(no,i), "ReplaceableTextures\\TeamColor\\TeamColor04.blp", 0)
       call DzFrameSetPoint(SkillorInfo(no,i), JN_FRAMEPOINT_TOP, SkillorInfo(no, 0), JN_FRAMEPOINT_TOPLEFT, x, y)
       call DzFrameSetSize(SkillorInfo(no,i), 0.0005, size)
     endfunction
+
     private function MakeText takes integer i, real x, real y, string contents, real size, boolean center returns nothing
       set SkillTreeText[i] = DzCreateFrameByTagName("TEXT", "", SkillTreeNow, "", 0)
       if ( center ) then
@@ -74,13 +103,13 @@ scope SkillTree initializer Init
     private function SkillTreeSync takes nothing returns nothing
       local player clickedPlayer = DzGetTriggerSyncPlayer()
       local integer syncData = S2I(DzGetTriggerSyncData())
-      call MsgAll("(동기화)플레이어 " + GetPlayerName(clickedPlayer) + ", (스킬트리) 클릭, " + I2S(syncData))
+      call MsgAll("플레이어 " + GetPlayerName(clickedPlayer) + ", (스킬트리) 클릭, " + I2S(syncData))
     endfunction
     private function SkillTreeClick takes nothing returns nothing
       local integer f = DzGetTriggerUIEventFrame()
       local integer playerId = GetPlayerId(DzGetTriggerUIEventPlayer()) + 1
       local integer clickedNumber = ESkillTree.f2I(f)
-      call MsgAll("플레이어 " + GetPlayerName(Player(playerId-1)) + ", "+I2S(EMenus.F2It(f))+"(스킬트리) 클릭, " + I2S(clickedNumber))
+      // call MsgAll("플레이어 " + GetPlayerName(Player(playerId-1)) + ", "+I2S(EMenus.F2It(f))+"(스킬트리) 클릭, " + I2S(clickedNumber))
       if ( 0 < clickedNumber ) then
         if ( GetLocalPlayer() == DzGetTriggerUIEventPlayer() ) then
           call StopSound(gg_snd_BigButtonClick, false, false)
@@ -92,28 +121,11 @@ scope SkillTree initializer Init
       endif
     endfunction
 
-    private constant function MaxRow2 takes integer i1, integer space returns real
-      return .0272 + i1*.0068 - space *0.006
-    endfunction
-    private function MaxRow takes real title, string s, integer i2 returns real
-      local string temp_s
-      local real return_x = 0.07
-      loop
-        exitwhen i2 <= 0
-        set temp_s = JNStringSplit(s, " - ", i2)
-        set return_x = RMaxBJ(return_x, MaxRow2(JNStringLength(temp_s), JNStringCount(temp_s, " ")))
-        set i2 = i2 - 1
-      endloop
-      set temp_s = null
-      return RMaxBJ(title, return_x)
-    endfunction
-    private constant function MaxHeight takes integer count returns real
-      return count*.01
-    endfunction
+
     private function ButtonJustUp takes nothing returns nothing
      local integer f = DzGetTriggerUIEventFrame()
      local string s = ESkillTree.I2Name(1, ESkillTree.f2I(f))
-     local integer need = JNStringCount(DzFrameGetText(SkillTreePopup[2])," - ")
+     local integer need = JNStringCount(DzFrameGetText(SkillTreePopup[2]), "\n")
      call DzFrameSetAbsolutePoint(SkillTree2Popup[0], JN_FRAMEPOINT_BOTTOMLEFT, GetFrameMouseX(), GetFrameMouseY())
      call DzFrameShow(SkillTree2Popup[0], true)
      
@@ -123,8 +135,8 @@ scope SkillTree initializer Init
         if ( need == 0 ) then
           call DzFrameSetSize(SkillTreePopup[0], RMaxBJ(.07, .015+JNStringLength(s)*.012-JNStringCount(s, " ")*.008), .06)
         else
-          call DzFrameSetSize(SkillTreePopup[0], MaxRow(.015+JNStringLength(s)*.012-JNStringCount(s, " ")*.008, DzFrameGetText(SkillTreePopup[2]), need), .06+MaxHeight(need))
-          call DzFrameSetPoint(SkillTreePopup[3], JN_FRAMEPOINT_TOPLEFT, SkillTreePopup[0], JN_FRAMEPOINT_TOPLEFT, .01, -DzFrameGetHeight(SkillTreePopup[0])+.015)
+          call DzFrameSetSize(SkillTreePopup[0], RMaxBJ(.015+JNStringLength(s)*.012-JNStringCount(s, " ")*.008, MaxRow(DzFrameGetText(SkillTreePopup[2]), need)), .06+MaxHeight(need))
+          call DzFrameSetPoint(SkillTreePopup[3], JN_FRAMEPOINT_TOPLEFT, SkillTreePopup[0], JN_FRAMEPOINT_TOPLEFT, .01, -DzFrameGetHeight(SkillTreePopup[0])+.0175)
         endif
         call DzFrameShow(SkillTreePopup[0], true)
       endif
@@ -176,9 +188,10 @@ scope SkillTree initializer Init
         call DzFrameSetSize(SkillTreePopup[0], .07, .06)
         call MakeTextPopup(1, .01, -.010, "|cffffcc00세로베기|r", 0.015)
         call MakeTextPopup(2, .01, -.025, "|cffff3315필요 스킬:
-   - 찌르기 Lv1
-   - 월아천충 Lv1
-   - 검은 월아천충 Lv1", 0.010)
+ - 찌르기 Lv1
+                   _
+테스트..", 0.010)
+//  - 검은 월아천충 Lv1
         call MakeTextPopup(3, .01, -.075, "|c000080c0자세히.. (클릭)|r", 0.010)
       endif
       call DzFrameShow(SkillTreePopup[0], false)
@@ -238,6 +251,7 @@ scope SkillTree initializer Init
       call MakeLink(30, .135, -.12, 0., "SkillTree_ActiveLink_Red.blp")
       call MakeLink(31, .085, -.16, .04, "SkillTree_ActiveLink_Red.blp")
       call MakeLink(32, .135, -.20, .04, "SkillTree_ActiveLink_Red.blp")
+
       call MakeLink(33, .085, -.24, .04, "UI\\Widgets\\Console\\Human\\human-inventory-slotfiller.blp")
       call MakeLink(34, .135, -.32, .08, "UI\\Widgets\\Console\\Human\\human-inventory-slotfiller.blp")
       call MakeLink(35, .085, -.36, .08, "UI\\Widgets\\Console\\Human\\human-inventory-slotfiller.blp")
@@ -325,9 +339,9 @@ scope SkillTree initializer Init
           call DzFrameSetSize(SkillTree2Popup[0], .095, .105)
           call MakeText2Popup(1, .01, -.010, "|cffffcc00추가개방", 0.015)
           call MakeText2Popup(2, .01, -.035, "|cffff3315필요사항:
-   - 스킬레벨 4 이상
-   - 스킬포인트 1 이상
-   - 최대 레벨 도달", 0.010)
+ - 스킬레벨 4 이상
+ - 스킬포인트 1 이상
+ - 최대 레벨 도달", 0.010)
           call MakeText2Popup(3, .01, -.085, "|c000080c0조건 후 클릭하여 개방|r", 0.010)
         endif
       else
@@ -341,9 +355,9 @@ scope SkillTree initializer Init
           call DzFrameSetSize(SkillTree2Popup[0], .100, .105)
           call MakeText2Popup(1, .01, -.010, "|cffffcc00개방제한", 0.015)
           call MakeText2Popup(2, .01, -.035, "|cffff3315필요사항:
-   - 상위 스킬 우선 제한
-   - 골드 1,000 이상
-   - 최소 레벨 도달", 0.010)
+ - 상위 스킬 우선 제한
+ - 골드 1,000 이상
+ - 최소 레벨 도달", 0.010)
           call MakeText2Popup(3, .01, -.085, "|c000080c0조건 후 클릭하여 제한|r", 0.010)
         endif
       endif
@@ -358,6 +372,12 @@ scope SkillTree initializer Init
       call CreateSkillTree2()
       call DzFrameShow(SkillTree2Backdrop[0], false)
       call CreateSkillTree2Popup()
+
+      call BJDebugMsg("한글 개수 체크 : " + I2S(JNStringCount("한글 체크 abajdf usadfns \n asdjhf", "[가-힣]")))
+      call BJDebugMsg("전체 길이 체크-jn : " + I2S(JNStringLength("한글 체크 abajdf usadfns  asdjhf")))
+      call BJDebugMsg("전체 길이 체크-ori : " + I2S(StringLength("한글 체크 abajdf usadfns  asdjhf")))
+      // 4 29 37 \n(1글자)
+      
 
       call DzTriggerRegisterSyncData(skillTreeTrigger, "TreeSync", false)
       call TriggerAddAction(skillTreeTrigger, function SkillTreeSync)

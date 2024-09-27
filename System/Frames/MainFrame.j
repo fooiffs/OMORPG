@@ -1,6 +1,4 @@
-native DzFrameGetValue takes integer frame returns real
-
-scope StartSetting initializer Init
+scope MainFrame initializer Init
     globals
       private dialog NoSaveDialog = DialogCreate()
       
@@ -42,12 +40,6 @@ scope StartSetting initializer Init
       call DzFrameSetEnable(DzFrameFindByName("OverwriteOverwriteButton", 0), false)
       call DzFrameSetEnable(DzFrameFindByName("SaveGameFileEditBox", 0), false)
       call DzFrameShow(DzFrameFindByName("SaveGameFileEditBox", 0), false)
-      
-      //call JNGetFrameByName2("ConsoleUI",0)
-      //call TriggerSleepAction(2.)
-      //call DzFrameClearAllPoints(Frame_Main)
-      //call DzFrameSetParent(Frame_Main, DzFrameGetParent(JNGetFrameByName2(testframe,0)))
-      //call DzFrameSetAllPoints(Frame_Main, DzGetGameUI())
     endfunction
     private function Exit takes nothing returns nothing
       call DialogDisplay(GetLocalPlayer(), NoSaveDialog, false)
@@ -150,79 +142,71 @@ scope StartSetting initializer Init
       call TriggerAddAction(trg, function StopLoad)
       set trg = null
 
-      // FPS 우측 위로 이동
-      set i = Get(DzSimpleFrameFindByName("ResourceBarFrame", 0))
-      call DzFrameSetAbsolutePoint(i, JN_FRAMEPOINT_BOTTOMLEFT, .82, .62)
-      // 이하 전체 프레임에 속해있기에 따로 제거하지 않음.
-      return
-
-      
-      
-    
-
-      
       /* 보유 자원량 -Gold, 목재, 식량- 제거 */
-      call RemoveFrame(DzSimpleFrameFindByName("ResourceBarFrame", 0))
-      /* [2] "ResourceBarFrame",0
-      [0] Mouse Listener (Gold)
-      [1] Mouse Listener (Lumber)
-      [2] Mouse Listener (UpKeep)
-      [3] Mouse Listener (Food)
-      [???] Fps/Apm/Ping display << 이 프레임만 살려야함.
-      */
+      // FPS 우측 위로 이동
+      call DzFrameSetAbsolutePoint(Get(DzSimpleFrameFindByName("ResourceBarFrame", 0)), JN_FRAMEPOINT_BOTTOMLEFT, .82, .62)
       
-      /* F1~F6 영웅 아이콘, 체력바, 마나바 제거 */
-      set i = 0
-      loop
-        call DzFrameSetAbsolutePoint(DzFrameGetHeroBarButton(i), JN_FRAMEPOINT_TOPRIGHT, 0, 0)
-        call DzFrameSetAbsolutePoint(DzFrameGetHeroHPBar(i)    , JN_FRAMEPOINT_TOPRIGHT, 0, 0)
-        call DzFrameSetAbsolutePoint(DzFrameGetHeroManaBar(i)  , JN_FRAMEPOINT_TOPRIGHT, 0, 0)
+      // 이하 전체 프레임에 속해있기에 따로 제거하지 않음.
+      static if false then
+        /* [2] "ResourceBarFrame",0
+        [0] Mouse Listener (Gold)
+        [1] Mouse Listener (Lumber)
+        [2] Mouse Listener (UpKeep)
+        [3] Mouse Listener (Food)
+        [???] Fps/Apm/Ping display << 이 프레임만 살려야함.
+        */
         
-        /* 미니맵 아이콘 */
-        if ( i <= 4 ) then
-          call DzFrameSetAbsolutePoint(DzFrameGetMinimapButton(i), JN_FRAMEPOINT_TOPRIGHT, 0, 0)
+        /* F1~F6 영웅 아이콘, 체력바, 마나바 제거 */
+        set i = 0
+        loop
+          call DzFrameSetAbsolutePoint(DzFrameGetHeroBarButton(i), JN_FRAMEPOINT_TOPRIGHT, 0, 0)
+          call DzFrameSetAbsolutePoint(DzFrameGetHeroHPBar(i)    , JN_FRAMEPOINT_TOPRIGHT, 0, 0)
+          call DzFrameSetAbsolutePoint(DzFrameGetHeroManaBar(i)  , JN_FRAMEPOINT_TOPRIGHT, 0, 0)
           
-          /* 명령창 12개 */
-          if ( i <= 3 ) then
-            call DzFrameSetAbsolutePoint(DzFrameGetCommandBarButton(0, i), JN_FRAMEPOINT_TOPRIGHT, 0., 0.)
-            call DzFrameSetAbsolutePoint(DzFrameGetCommandBarButton(1, i), JN_FRAMEPOINT_TOPRIGHT, 0., 0.)
-            call DzFrameSetAbsolutePoint(DzFrameGetCommandBarButton(2, i), JN_FRAMEPOINT_TOPRIGHT, 0., 0.)
+          /* 미니맵 아이콘 */
+          if ( i <= 4 ) then
+            call DzFrameSetAbsolutePoint(DzFrameGetMinimapButton(i), JN_FRAMEPOINT_TOPRIGHT, 0, 0)
+            
+            /* 명령창 12개 */
+            if ( i <= 3 ) then
+              call DzFrameSetAbsolutePoint(DzFrameGetCommandBarButton(0, i), JN_FRAMEPOINT_TOPRIGHT, 0., 0.)
+              call DzFrameSetAbsolutePoint(DzFrameGetCommandBarButton(1, i), JN_FRAMEPOINT_TOPRIGHT, 0., 0.)
+              call DzFrameSetAbsolutePoint(DzFrameGetCommandBarButton(2, i), JN_FRAMEPOINT_TOPRIGHT, 0., 0.)
+            endif
           endif
-        endif
+          
+          exitwhen i >= 5
+          set i = i + 1
+        endloop
         
-        exitwhen i >= 5
-        set i = i + 1
-      endloop
-      
-      /* 경험치 바 툴팁 ( 212/500 라고 뜨는거 ) 찾아야 함.. */ 
-      /*
-      [0] Single Unit "SimpleInfoPanelUnitDetail" 내의
-      [0] "SimpleHeroLevelBar",0
-          [0] visual bar
-          [1] The Exp-Tooltipbox << 표시 위치를 정하여야 함. "SimpleHeroLevelBar_1" 으로는 안잡힘.
-      */
+        /* 경험치 바 툴팁 ( 212/500 라고 뜨는거 ) 찾아야 함.. */ 
+        /*
+        [0] Single Unit "SimpleInfoPanelUnitDetail" 내의
+        [0] "SimpleHeroLevelBar",0
+            [0] visual bar
+            [1] The Exp-Tooltipbox << 표시 위치를 정하여야 함. "SimpleHeroLevelBar_1" 으로는 안잡힘.
+        */
 
-      /* 유닛 정보 프레임 */
-      call RemoveFrame(DzSimpleFrameFindByName("SimpleInfoPanelUnitDetail", 0))
-      
-      /* 유닛 그룹 선택창 */
-      call RemoveFrame(DzFrameGetParent(DzSimpleFrameFindByName("SimpleInfoPanelUnitDetail", 0)))
-      
-      // call MsgAll("setted :: " + I2S(DzFrameGetPortrait()))
-  
-
-      
-      /* 버프 프레임 - 크기 조정이 안되는 이슈 */
-      //set Relative = DzSimpleFrameFindByName("SimpleInfoPanelUnitDetail", 0)
-      //call DzFrameClearAllPoints(Relative)
-      //call DzFrameSetAbsolutePoint(Relative, JN_FRAMEPOINT_CENTER, 0.12, 0.55)
-      /* 아이콘 및 텍스트 */
-      //call DzFrameSetPoint(DzCreateFrame("SI_Template", Frame_Main, 0), JN_FRAMEPOINT_CENTER, Relative, JN_FRAMEPOINT_CENTER, -0.085, -0.025)
-      //call DzFrameSetTexture(DzFrameFindByName("SI_Template", 0), "ReplaceableTextures\\CommandButtons\\BTNSteelMelee.blp", 0)
-      /* 툴팁 좌표 변경 - 툴팁 사용 안함 */
-      //call JNMemorySetReal(JNMemoryGetInteger(DzFrameGetTooltip() + 0x28) + 0x10, 0.134)
+        /* 유닛 정보 프레임 */
+        call RemoveFrame(DzSimpleFrameFindByName("SimpleInfoPanelUnitDetail", 0))
+        
+        /* 유닛 그룹 선택창 */
+        call RemoveFrame(DzFrameGetParent(DzSimpleFrameFindByName("SimpleInfoPanelUnitDetail", 0)))
+        
+        // call MsgAll("setted :: " + I2S(DzFrameGetPortrait()))
     
 
+        
+        /* 버프 프레임 - 크기 조정이 안되는 이슈 */
+        //set Relative = DzSimpleFrameFindByName("SimpleInfoPanelUnitDetail", 0)
+        //call DzFrameClearAllPoints(Relative)
+        //call DzFrameSetAbsolutePoint(Relative, JN_FRAMEPOINT_CENTER, 0.12, 0.55)
+        /* 아이콘 및 텍스트 */
+        //call DzFrameSetPoint(DzCreateFrame("SI_Template", Frame_Main, 0), JN_FRAMEPOINT_CENTER, Relative, JN_FRAMEPOINT_CENTER, -0.085, -0.025)
+        //call DzFrameSetTexture(DzFrameFindByName("SI_Template", 0), "ReplaceableTextures\\CommandButtons\\BTNSteelMelee.blp", 0)
+        /* 툴팁 좌표 변경 - 툴팁 사용 안함 */
+        //call JNMemorySetReal(JNMemoryGetInteger(DzFrameGetTooltip() + 0x28) + 0x10, 0.134)
+      endif
     endfunction
     
   endscope
