@@ -1,3 +1,5 @@
+native DzFrameGetValue takes integer frame returns real
+
 scope StartSetting initializer Init
     globals
       private dialog NoSaveDialog = DialogCreate()
@@ -78,31 +80,86 @@ scope StartSetting initializer Init
     private function Init takes nothing returns nothing
      local integer i = 0
      local trigger trg
-     
-      /* 시간고정, 안개제거 */
-      call SetFloatGameState(GAME_STATE_TIME_OF_DAY, 12.)
-      call SetTimeOfDayScale(0.)
-      call FogEnable(false)
-      call FogMaskEnable(false)
       
       /* 전체 프레임 제거 */
       call DzFrameHideInterface()
-      
-      /* 기본 인터페이스 틀 */
-      call DzFrameEditBlackBorders(0, 0)
     
       /* 화면 넓게 보기 */
       call DzEnableWideScreen(true)
-      
+
+      /* 기본 인터페이스 틀 */
+      call DzFrameEditBlackBorders(0, 0)
+
       /* F9,F10,F11 날리기 */
       call RemoveFrame(DzFrameGetUpperButtonBarButton(0))
       call RemoveFrame(DzFrameGetUpperButtonBarButton(1))
       call RemoveFrame(DzFrameGetUpperButtonBarButton(2))
-      
       /* F12 옮기고 작게 */
       set i = Get(DzFrameGetUpperButtonBarButton(3))
       call DzFrameSetSize(i, .022, .024)
       call DzFrameSetAbsolutePoint(i, JN_FRAMEPOINT_BOTTOMLEFT, .2, -.004)
+
+       /* 미니맵 이동 */
+      set i = Get(DzFrameGetMinimap())
+      call DzFrameSetAbsolutePoint(i, JN_FRAMEPOINT_BOTTOMLEFT, 0.7, 0.45)
+      call DzFrameSetAbsolutePoint(i, JN_FRAMEPOINT_TOPRIGHT, 0.78, 0.55)
+      call DzFrameShow(i, false)
+      
+      /* 채팅 메시지 */
+      set i = Get(DzFrameGetChatMessage())
+      call DzFrameSetAbsolutePoint(i, JN_FRAMEPOINT_BOTTOMLEFT, 0., 0.02)
+      call DzFrameSetAbsolutePoint(i, JN_FRAMEPOINT_TOPRIGHT, 0.2, 0.15)
+      
+      /* 채팅 테두리 없애기 */
+      call DzFrameSetAlpha(JNMemoryGetInteger(JNMemoryGetInteger(JNGetModuleHandle("Game.dll")+0xCB1B9C)+0x20), 0)
+      
+      /* 채팅 알맹이 */
+      set i = Get(JNMemoryGetInteger(JNGetModuleHandle("Game.dll")+0xCB1B9C))
+      call DzFrameSetAllPoints(i, JNMemoryGetInteger(JNMemoryGetInteger(JNGetModuleHandle("Game.dll")+0xCB1B9C)+0x20))
+      call DzFrameSetAbsolutePoint(i, JN_FRAMEPOINT_BOTTOMLEFT, 0., 0.)
+      call DzFrameSetAbsolutePoint(i, JN_FRAMEPOINT_TOPRIGHT, .2, .02)
+      call DzFrameSetAlpha(i, 255)
+      
+      /* 시스템 메시지 이동 */
+      set i = Get(DzFrameGetUnitMessage())
+      call DzFrameSetAbsolutePoint(i, JN_FRAMEPOINT_BOTTOMLEFT, 0., .135)
+      call DzFrameSetAbsolutePoint(i, JN_FRAMEPOINT_TOPRIGHT, .3, .435)
+
+      /* 초상화 - 체력 새로고침용 */
+      set i = Get(DzFrameGetPortrait())
+      call DzFrameSetSize(i, 0.001, 0.001)
+      call DzFrameSetAbsolutePoint(i, JN_FRAMEPOINT_BOTTOM, .25, 0.)
+      // call BJDebugMsg("Portrait : " + I2S(i))
+      // call DzFrameSetAbsolutePoint(i, JN_FRAMEPOINT_CENTER, .25, .225)
+      // call RemoveFrame(DzFrameGetPortrait())
+
+      /* toc 파일 임포트 - 단축키 등록 프레임 */
+      call DzLoadToc("ui\\command_ui.toc")
+
+      /* 메뉴 프레임 */
+      set trg = CreateTrigger()
+      call TriggerRegisterTimerEvent(trg, 0., false)
+      call TriggerAddAction(trg, function NoSaveNoTime)
+    
+      set trg = CreateTrigger()
+      call TriggerRegisterGameEvent(trg, EVENT_GAME_SAVE)
+      call TriggerAddAction(trg, function StopSave)
+      
+      set trg = CreateTrigger()
+      call TriggerRegisterGameEvent(trg, EVENT_GAME_LOADED)
+      call TriggerAddAction(trg, function StopLoad)
+      set trg = null
+
+      // FPS 우측 위로 이동
+      set i = Get(DzSimpleFrameFindByName("ResourceBarFrame", 0))
+      call DzFrameSetAbsolutePoint(i, JN_FRAMEPOINT_BOTTOMLEFT, .82, .62)
+      // 이하 전체 프레임에 속해있기에 따로 제거하지 않음.
+      return
+
+      
+      
+    
+
       
       /* 보유 자원량 -Gold, 목재, 식량- 제거 */
       call RemoveFrame(DzSimpleFrameFindByName("ResourceBarFrame", 0))
@@ -137,32 +194,7 @@ scope StartSetting initializer Init
         set i = i + 1
       endloop
       
-      /* 미니맵 이동 */
-      set i = Get(DzFrameGetMinimap())
-      call DzFrameSetAbsolutePoint(i, JN_FRAMEPOINT_BOTTOMLEFT, 0.7, 0.45)
-      call DzFrameSetAbsolutePoint(i, JN_FRAMEPOINT_TOPRIGHT, 0.78, 0.55)
-      call DzFrameShow(i, false)
-      
-      /* 채팅 메시지 */
-      set i = Get(DzFrameGetChatMessage())
-      call DzFrameSetAbsolutePoint(i, JN_FRAMEPOINT_BOTTOMLEFT, 0., 0.02)
-      call DzFrameSetAbsolutePoint(i, JN_FRAMEPOINT_TOPRIGHT, 0.2, 0.15)
-      
-      /* 채팅 테두리 없애기 */
-      call DzFrameSetAlpha(JNMemoryGetInteger(JNMemoryGetInteger(JNGetModuleHandle("Game.dll")+0xCB1B9C)+0x20), 0)
-      
-      /* 채팅 알맹이 */
-      set i = Get(JNMemoryGetInteger(JNGetModuleHandle("Game.dll")+0xCB1B9C))
-      call DzFrameSetAllPoints(i, JNMemoryGetInteger(JNMemoryGetInteger(JNGetModuleHandle("Game.dll")+0xCB1B9C)+0x20))
-      call DzFrameSetAbsolutePoint(i, JN_FRAMEPOINT_BOTTOMLEFT, 0., 0.)
-      call DzFrameSetAbsolutePoint(i, JN_FRAMEPOINT_TOPRIGHT, .2, .02)
-      call DzFrameSetAlpha(i, 255)
-      
-      /* 시스템 메시지 */
-      set i = Get(DzFrameGetUnitMessage())
-      call DzFrameSetAbsolutePoint(i, JN_FRAMEPOINT_BOTTOMLEFT, 0., .135)
-      call DzFrameSetAbsolutePoint(i, JN_FRAMEPOINT_TOPRIGHT, .3, .435)
-      
+      /* 경험치 바 툴팁 ( 212/500 라고 뜨는거 ) 찾아야 함.. */ 
       /*
       [0] Single Unit "SimpleInfoPanelUnitDetail" 내의
       [0] "SimpleHeroLevelBar",0
@@ -176,43 +208,21 @@ scope StartSetting initializer Init
       /* 유닛 그룹 선택창 */
       call RemoveFrame(DzFrameGetParent(DzSimpleFrameFindByName("SimpleInfoPanelUnitDetail", 0)))
       
-      /* 초상화 */
-        /* 이동이 아닌 삭제시 갱신 안되는 오류 있지만 커스텀 HP/MP Text를 사용하니 무방 */
-      call RemoveFrame(DzFrameGetPortrait()) 
       // call MsgAll("setted :: " + I2S(DzFrameGetPortrait()))
   
-      /* toc 파일 임포트 /* 단축키 등록 프레임 */ */
-      call DzLoadToc("ui\\command_ui.toc")
+
       
-      /* 보류 /*리포지드 전용*/ 포트레잇 아래 HP, MP 텍스트 */
-      //call DzFrameSetAbsolutePoint(BlzGetOriginFrame(ORIGIN_FRAME_PORTRAIT_HP_TEXT, 0), JN_FRAMEPOINT_TOPRIGHT, 0, 0) - DzSimpleFrameFindByName("ConsoleUI", 0)에 귀속됨.
-      //call DzFrameSetAbsolutePoint(BlzGetOriginFrame(ORIGIN_FRAME_PORTRAIT_MANA_TEXT, 0), JN_FRAMEPOINT_TOPRIGHT, 0, 0)
-      /* 버프 프레임 /*크기 조정이 안되는 이슈*/ */
+      /* 버프 프레임 - 크기 조정이 안되는 이슈 */
       //set Relative = DzSimpleFrameFindByName("SimpleInfoPanelUnitDetail", 0)
       //call DzFrameClearAllPoints(Relative)
       //call DzFrameSetAbsolutePoint(Relative, JN_FRAMEPOINT_CENTER, 0.12, 0.55)
-      /* 공격력 아이콘 /*직접 만들어서 활용 않음 */ */
-      //call DzFrameClearAllPoints(DzSimpleFontStringFindByName("InfoPanelIconValue", 0))
-      //call DzFrameSetAbsolutePoint(DzSimpleFontStringFindByName("InfoPanelIconValue", 0), JN_FRAMEPOINT_LEFT, .33, .0775)
       /* 아이콘 및 텍스트 */
       //call DzFrameSetPoint(DzCreateFrame("SI_Template", Frame_Main, 0), JN_FRAMEPOINT_CENTER, Relative, JN_FRAMEPOINT_CENTER, -0.085, -0.025)
       //call DzFrameSetTexture(DzFrameFindByName("SI_Template", 0), "ReplaceableTextures\\CommandButtons\\BTNSteelMelee.blp", 0)
-      /* 툴팁 좌표 변경 /* 툴팁 사용 안함 */ */
+      /* 툴팁 좌표 변경 - 툴팁 사용 안함 */
       //call JNMemorySetReal(JNMemoryGetInteger(DzFrameGetTooltip() + 0x28) + 0x10, 0.134)
     
-      set trg = CreateTrigger()
-      call TriggerRegisterTimerEvent(trg, 0., false)
-      call TriggerAddAction(trg, function NoSaveNoTime)
-    
-      set trg = CreateTrigger()
-      call TriggerRegisterGameEvent(trg, EVENT_GAME_SAVE)
-      call TriggerAddAction(trg, function StopSave)
-      
-      set trg = CreateTrigger()
-      call TriggerRegisterGameEvent(trg, EVENT_GAME_LOADED)
-      call TriggerAddAction(trg, function StopLoad)
-    
-     set trg = null
+
     endfunction
     
   endscope

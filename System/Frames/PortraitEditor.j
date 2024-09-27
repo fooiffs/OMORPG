@@ -1,5 +1,4 @@
 /* 240925 신규 :체력/마력 텍스트 */
-
 scope PortraitEditor initializer Init
 	globals
     private integer pGameDll
@@ -31,6 +30,8 @@ scope PortraitEditor initializer Init
 		endif
 		return 0
 	endfunction
+	
+	// 상대 좌표가 아닌 고정 좌표만 사용하기에, 생략.
 	// function SetCLayoutFramePoint takes integer pFrame, integer point, integer pParentFrame, integer relativePoint, real x, real y returns integer
 	// 	local integer addr = pGameDll + 0x13FC20
 		
@@ -105,7 +106,10 @@ scope PortraitEditor initializer Init
       set inputHp = GetPortraitButtonManaText()
       call DzFrameClearAllPoints(inputHp)
       call SetFrameAbsolutePoint(inputHp, JN_FRAMEPOINT_CENTER, .25, .010)
+			call MsgAll("Changed")
+			call ClearSelection()
     endif
+		return initializered
   endfunction
   private function GetGameUI2 takes integer bInit, integer bRelease returns integer
 		local integer addr = pGameDll + 0x3A0B70

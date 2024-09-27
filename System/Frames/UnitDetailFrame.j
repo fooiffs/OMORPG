@@ -1,4 +1,4 @@
-scope MainFrame initializer Init
+scope UnitDetailFrame initializer Init
     globals
       integer Frame_Main
       integer Frame_Sub

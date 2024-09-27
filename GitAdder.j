@@ -24,7 +24,7 @@
 //! import "System\MemoryInterferencer\UnitNameChanger.j"
 
 //! import "System\Frames\StartSetting.j"
-//! import "System\Frames\MainFrame.j"
+//! import "System\Frames\UnitDetailFrame.j"
 //! import "System\Frames\SkillTree.j"
 //! import "System\Frames\PortraitEditor.j"
 //! import "System\Frames\PushKey.j"
@@ -34,7 +34,6 @@
 //! import "System\Frames\InventoryEquip.j"
 //! import "System\Frames\Info.j"
 //! import "System\Frames\MiniInfo.j"
-//! import "System\Frames\FrameGrid.j"
 
 //! import "System\Server\ServerSetup.j"
 //! import "System\Server\Time.j"
@@ -49,7 +48,7 @@
 //! import "System\Exit.j"
 //! import "Tests\TestScope.j"
 //! import "Tests\AddReg.j"
-
+//! import "Tests\FrameGrid.j"
 //! import "Tests\ItemRandomEnchanter.j"
 //! import "Tests\UnitNameChange.j"
 

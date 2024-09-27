@@ -5,6 +5,7 @@ scope TestScope initializer Init
       call MsgAll("Hotkey null") 
     elseif(PlayerResource[1].character == null) then 
       set PlayerResource[1].character = CharacterResource.Create(tempUnit, ECharacter.UT2I(GetUnitTypeId(tempUnit))) 
+      // call CreateUnit(Player(0), 'H000', GetUnitX(tempUnit), GetUnitY(tempUnit), 0.)
     endif 
     set tempUnit = null 
 
