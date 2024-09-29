@@ -1,18 +1,60 @@
 scope SkillTree initializer Init
     globals
+      private integer TreeMainFrame
+      private integer TreePopupFrame
+      private integer TreeExtendFrame
+
+      // Link : ESkillTree.MainCharacterName 등
+      private integer array TreeChangeableFrame
+      private integer array TreeMainSkillButtons
+      private integer array TreeExtendSmallButtons
+
       private integer SkillTreeNow
-      public integer array SkillTreeBackdrop
-      private integer array SkillTreeText
-      private integer array SkillTreePopup
+
+      // private integer array SkillTreeButton
+      // public integer array SkillTreeBackdrop
+      // private integer array SkillTreeText
+      // private integer array SkillTreePopup
       
-      private integer array SkillTree2Button
-      private integer array SkillTree2Backdrop
-      private integer array SkillTree2Text
-      private integer array SkillTree2Popup
+      // private integer array SkillTree2Button
+      // private integer array SkillTree2Backdrop
+      // private integer array SkillTree2Text
+      // private integer array SkillTree2Popup
       
-      public integer array Info
+      // public integer array Info
       private trigger skillTreeTrigger = CreateTrigger()
+
+      private integer currentPlayerId   = 0
+      private integer currentTreeTypeId = 0
+      private integer currentContentsId = 0
     endglobals
+    private constant function f2I takes integer f returns integer
+      if ( f == SkillTreeButton[1] ) then
+        return 1
+      elseif ( f == SkillTreeButton[2] ) then
+        return 2
+      elseif ( f == SkillTreeButton[3] ) then
+        return 3
+      elseif ( f == SkillTreeButton[4] ) then
+        return 4
+      elseif ( f == SkillTreeButton[5] ) then
+        return 5
+      elseif ( f == SkillTreeButton[6] ) then
+        return 6
+      elseif ( f == SkillTreeButton[7] ) then
+        return 7
+      elseif ( f == SkillTreeButton[8] ) then
+        return 8
+      elseif ( f == SkillTreeButton[9] ) then
+        return 9
+      elseif ( f == SkillTreeButton[10] ) then
+        return 10
+      elseif ( f == SkillTreeButton[11] ) then
+        return 11
+      else
+        return 0
+      endif
+    endfunction
     private constant function SkillorInfo takes integer no, integer arr returns integer
       if ( no == 1 ) then
         return SkillTreeBackdrop[arr]
@@ -22,10 +64,14 @@ scope SkillTree initializer Init
         return Info[arr]
       endif
     endfunction
-    private function MaxRow3 takes integer kor, integer eng, integer space returns real
+    private function MaxRow3 takes integer kor, integer eng, integer space, boolean isColored returns real
+      if ( isColored ) then
+      return .0222 + kor*.01 + (eng-9)*.00735 + space * .0033
+      else
       return .0222 + kor*.01 + eng*.00735 + space * .0033
+      endif
     endfunction
-    private function MaxRow takes string s, integer i2 returns real
+    private function MaxRow takes real title, string s, integer i2 returns real
       local string temp_s
       local real return_x = 0.07
 
@@ -33,49 +79,55 @@ scope SkillTree initializer Init
       // \w, [a-zA-Z_0-9] : 영문자, 숫자, 밑줄
       // [\s\p{P}] : \s : 공백문자, \p{P} : 문장 부호
       loop
-        exitwhen i2 <= 0
         set temp_s = JNStringSplit(s, "\n", i2)
-        
         // set return_x = RMaxBJ(return_x, MaxRow2(JNStringLength(temp_s), JNStringCount(temp_s, " ")))
-        set return_x = RMaxBJ(return_x, MaxRow3(JNStringCount(temp_s, "[가-힣]"), JNStringCount(temp_s, "[a-zA-Z_0-9]"), JNStringCount(temp_s, " ")))
-
+        // call BJDebugMsg("MaxRow: " + I2S(JNStringLength(temp_s)) + ", " + I2S(JNStringCount(temp_s, " ")) + ", " + I2S(JNStringCount(temp_s, "[가-힣]")) + ", " + I2S(JNStringCount(temp_s, "[a-zA-Z_0-9]")))
+        set return_x = RMaxBJ(return_x, MaxRow3(JNStringCount(temp_s, "[가-힣]"), JNStringCount(temp_s, "[a-zA-Z_0-9]"), JNStringCount(temp_s, " "), JNStringContains(temp_s, "|c")))
+        exitwhen i2 <= 1
         set i2 = i2 - 1
       endloop
       set temp_s = null
-      return return_x
+      return RMaxBJ(title, return_x)
     endfunction
     private constant function MaxHeight takes integer count returns real
       return count*.01
     endfunction
 
-    public function MakeLineX takes integer i, real x, real y, real size, integer no returns nothing
-      if ( no == 1 ) then
-        set SkillTreeBackdrop[i] = DzCreateFrameByTagName("BACKDROP", "", SkillorInfo(no, 0), "", 0)
-      elseif ( no == 2 ) then
-        set SkillTree2Backdrop[i] = DzCreateFrameByTagName("BACKDROP", "", SkillorInfo(no, 0), "", 0)
-      else
-        call BJDebugMsg("info ~ " + I2S(i))
-        set Info[i] = DzCreateFrameByTagName("BACKDROP", "", SkillorInfo(no, 0), "", 0)
-      endif
-      call DzFrameSetTexture(SkillorInfo(no,i), "ReplaceableTextures\\TeamColor\\TeamColor04.blp", 0)
-      call DzFrameSetPoint(SkillorInfo(no,i), JN_FRAMEPOINT_LEFT, SkillorInfo(no, 0), JN_FRAMEPOINT_TOPLEFT, x, y)
-      call DzFrameSetSize(SkillorInfo(no,i), size, 0.0005)
+    public function MakeLineX takes integer base, real x, real y, real size returns nothing
+      set SkillTreeNow = DzCreateFrameByTagName("BACKDROP", "", base, "", 0)
+      call DzFrameSetTexture(SkillTreeNow, "ReplaceableTextures\\TeamColor\\TeamColor04.blp", 0)
+      call DzFrameSetPoint(SkillTreeNow, JN_FRAMEPOINT_LEFT, SkillorInfo(no, 0), JN_FRAMEPOINT_TOPLEFT, x, y)
+      call DzFrameSetSize(SkillTreeNow, size, 0.0005)
     endfunction
-    public function MakeLineY takes integer i, real x, real y, real size, integer no returns nothing
-      if ( no == 1 ) then
-        set SkillTreeBackdrop[i] = DzCreateFrameByTagName("BACKDROP", "", SkillorInfo(no, 0), "", 0)
-      elseif ( no == 2 ) then
-        set SkillTree2Backdrop[i] = DzCreateFrameByTagName("BACKDROP", "", SkillorInfo(no, 0), "", 0)
-      else
-        call BJDebugMsg("info ~ " + I2S(i))
-        set Info[i] = DzCreateFrameByTagName("BACKDROP", "", SkillorInfo(no, 0), "", 0)
-      endif
-      call DzFrameSetTexture(SkillorInfo(no,i), "ReplaceableTextures\\TeamColor\\TeamColor04.blp", 0)
-      call DzFrameSetPoint(SkillorInfo(no,i), JN_FRAMEPOINT_TOP, SkillorInfo(no, 0), JN_FRAMEPOINT_TOPLEFT, x, y)
-      call DzFrameSetSize(SkillorInfo(no,i), 0.0005, size)
+    public function MakeLineY takes integer base, real x, real y, real size returns nothing
+      set SkillTreeNow = DzCreateFrameByTagName("BACKDROP", "", base, "", 0)
+      call DzFrameSetTexture(SkillTreeNow, "ReplaceableTextures\\TeamColor\\TeamColor04.blp", 0)
+      call DzFrameSetPoint(SkillTreeNow, JN_FRAMEPOINT_TOP, SkillorInfo(no, 0), JN_FRAMEPOINT_TOPLEFT, x, y)
+      call DzFrameSetPoint(SkillTreeNow, JN_FRAMEPOINT_LEFT, SkillorInfo(no, 0), JN_FRAMEPOINT_TOPLEFT, x, y)
+      call DzFrameSetSize(SkillTreeNow, .0005, size)
     endfunction
 
-    private function MakeText takes integer i, real x, real y, string contents, real size, boolean center returns nothing
+    private function ChangeSmallLevelFrame takes integer playerId, integer frameNumber, integer level returns nothing
+      if ( 0 < level and GetLocalPlayer() == Player(playerId-1) ) then
+        call DzFrameShow(LoadInteger(hash, StringHash("Tree_HotkeyBase"), frameNumber), true)
+        call DzFrameSetText(LoadInteger(hash, LoadInteger(hash, StringHash("Tree_HotkeyBase"), frameNumber), StringHash("Tree_Hotkey")), I2S(level))
+      endif
+    endfunction
+    private function MakeSmallLevelFrame takes integer frame returns nothing
+      local integer HotFrame = DzCreateFrame("CommandButtonHotKeyBackDrop", frame, StringHash("TreeHotkey"))
+      local integer HotFrameTxt = DzCreateFrame("CommandButtonHotKeyText", HotFrame, 1)
+      call DzFrameSetTexture(HotFrame, "ui\\widgets\\console\\human\\commandbutton\\human-button-lvls-overlay.blp", 0)
+      call DzFrameSetPoint(HotFrame, JN_FRAMEPOINT_BOTTOM, frame, JN_FRAMEPOINT_TOP, 0., -0.008)
+      call DzFrameSetSize(HotFrame, 0.015, 0.01)
+      call DzFrameSetPoint(HotFrameTxt, JN_FRAMEPOINT_CENTER, HotFrame, JN_FRAMEPOINT_CENTER, 0., 0.)
+      call SaveInteger(hash, StringHash("Tree_HotkeyBase"), f2I(frame), frame)
+      call SaveInteger(hash, frame, StringHash("Tree_Hotkey"), HotFrameTxt)
+      call DzFrameSetText(HotFrameTxt, I2S(GetRandomInt(1,9)))
+      call DzFrameShow(HotFrame, false)
+      // call DzFrameSetEnable(HotFrame, false)
+    endfunction
+
+    private function MakeText takes integer i, real x, real y, string contents, real size, boolean center returns integer
       set SkillTreeText[i] = DzCreateFrameByTagName("TEXT", "", SkillTreeNow, "", 0)
       if ( center ) then
         call DzFrameSetPoint(SkillTreeText[i], JN_FRAMEPOINT_CENTER, SkillTreeNow, JN_FRAMEPOINT_TOPLEFT, x, y)
@@ -86,20 +138,21 @@ scope SkillTree initializer Init
         call DzFrameSetFont(SkillTreeText[i], "Fonts\\DFHeiMd.ttf", size, 0)
       endif
       call DzFrameSetText(SkillTreeText[i], contents)
+      return SkillTreeText[i]
       //! Text를 Font 이후에 설정해야 한줄로 잘 표시됨.
     endfunction
-    private function MakeLink takes integer i, real x, real y, real size, string contents returns nothing
-      set SkillTreeBackdrop[i] = DzCreateFrameByTagName("BACKDROP", "", SkillTreeNow, "", 0)
-      call DzFrameSetTexture(SkillTreeBackdrop[i], contents, 0)
-      call DzFrameSetPoint(SkillTreeBackdrop[i], JN_FRAMEPOINT_BOTTOM, SkillTreeNow, JN_FRAMEPOINT_TOPLEFT, x, y-0.005)
-      call DzFrameSetSize(SkillTreeBackdrop[i], .005, size+0.01)
-    endfunction
-    private function MakeLinkX takes integer i, real x, real y, real size, string contents returns nothing
-      set SkillTreeBackdrop[i] = DzCreateFrameByTagName("BACKDROP", "", SkillTreeNow, "", 0)
-      call DzFrameSetTexture(SkillTreeBackdrop[i], contents, 0)
-      call DzFrameSetPoint(SkillTreeBackdrop[i], JN_FRAMEPOINT_LEFT, SkillTreeNow, JN_FRAMEPOINT_TOPLEFT, x, y)
-      call DzFrameSetSize(SkillTreeBackdrop[i], size+.02, 0.005)
-    endfunction
+    // private function MakeLink takes integer i, real x, real y, real size, string contents returns nothing
+    //   set SkillTreeBackdrop[i] = DzCreateFrameByTagName("BACKDROP", "", SkillTreeNow, "", 0)
+    //   call DzFrameSetTexture(SkillTreeBackdrop[i], contents, 0)
+    //   call DzFrameSetPoint(SkillTreeBackdrop[i], JN_FRAMEPOINT_BOTTOM, SkillTreeNow, JN_FRAMEPOINT_TOPLEFT, x, y-0.005)
+    //   call DzFrameSetSize(SkillTreeBackdrop[i], .005, size+0.01)
+    // endfunction
+    // private function MakeLinkX takes integer i, real x, real y, real size, string contents returns nothing
+    //   set SkillTreeBackdrop[i] = DzCreateFrameByTagName("BACKDROP", "", SkillTreeNow, "", 0)
+    //   call DzFrameSetTexture(SkillTreeBackdrop[i], contents, 0)
+    //   call DzFrameSetPoint(SkillTreeBackdrop[i], JN_FRAMEPOINT_LEFT, SkillTreeNow, JN_FRAMEPOINT_TOPLEFT, x, y)
+    //   call DzFrameSetSize(SkillTreeBackdrop[i], size+.02, 0.005)
+    // endfunction
     private function SkillTreeSync takes nothing returns nothing
       local player clickedPlayer = DzGetTriggerSyncPlayer()
       local integer syncData = S2I(DzGetTriggerSyncData())
@@ -108,123 +161,122 @@ scope SkillTree initializer Init
     private function SkillTreeClick takes nothing returns nothing
       local integer f = DzGetTriggerUIEventFrame()
       local integer playerId = GetPlayerId(DzGetTriggerUIEventPlayer()) + 1
-      local integer clickedNumber = ESkillTree.f2I(f)
+      local integer clickedNumber = f2I(f)
       // call MsgAll("플레이어 " + GetPlayerName(Player(playerId-1)) + ", "+I2S(EMenus.F2It(f))+"(스킬트리) 클릭, " + I2S(clickedNumber))
-      if ( 0 < clickedNumber ) then
-        if ( GetLocalPlayer() == DzGetTriggerUIEventPlayer() ) then
-          call StopSound(gg_snd_BigButtonClick, false, false)
-          call StartSound(gg_snd_BigButtonClick)
+      if ( 0 < clickedNumber and GetLocalPlayer() == DzGetTriggerUIEventPlayer() ) then
+        call StopSound(gg_snd_BigButtonClick, false, false)
+        call StartSound(gg_snd_BigButtonClick)
 
-          call DzSyncData("TreeSync", I2S(clickedNumber))
+        call DzFrameShow(TreeExtendFrame, true)
+        //  call DzSyncData("TreeSync", I2S(clickedNumber))
           // => SkillTreeSync()
-        endif
       endif
     endfunction
 
 
     private function ButtonJustUp takes nothing returns nothing
      local integer f = DzGetTriggerUIEventFrame()
-     local string s = ESkillTree.I2Name(1, ESkillTree.f2I(f))
+     local integer skillnum = 0 //##
+     local string s = SkillData[skillNum].Name
      local integer need = JNStringCount(DzFrameGetText(SkillTreePopup[2]), "\n")
      call DzFrameSetAbsolutePoint(SkillTree2Popup[0], JN_FRAMEPOINT_BOTTOMLEFT, GetFrameMouseX(), GetFrameMouseY())
      call DzFrameShow(SkillTree2Popup[0], true)
      
       if ( GetLocalPlayer() == DzGetTriggerUIEventPlayer() ) then
         call DzFrameSetText(SkillTreePopup[1], "|cffffcc00" + s)
-        call DzFrameSetAbsolutePoint(SkillTreePopup[0], JN_FRAMEPOINT_BOTTOMLEFT, GetFrameMouseX(), GetFrameMouseY())
-        if ( need == 0 ) then
-          call DzFrameSetSize(SkillTreePopup[0], RMaxBJ(.07, .015+JNStringLength(s)*.012-JNStringCount(s, " ")*.008), .06)
-        else
-          call DzFrameSetSize(SkillTreePopup[0], RMaxBJ(.015+JNStringLength(s)*.012-JNStringCount(s, " ")*.008, MaxRow(DzFrameGetText(SkillTreePopup[2]), need)), .06+MaxHeight(need))
-          call DzFrameSetPoint(SkillTreePopup[3], JN_FRAMEPOINT_TOPLEFT, SkillTreePopup[0], JN_FRAMEPOINT_TOPLEFT, .01, -DzFrameGetHeight(SkillTreePopup[0])+.0175)
-        endif
-        call DzFrameShow(SkillTreePopup[0], true)
+        call DzFrameSetAbsolutePoint(TreePopupFrame, JN_FRAMEPOINT_BOTTOMLEFT, GetFrameMouseX(), GetFrameMouseY())
+        call DzFrameSetSize(TreePopupFrame, MaxRow(.015+JNStringLength(s)*.012-JNStringCount(s, " ")*.008, DzFrameGetText(SkillTreePopup[2]), need), .06+MaxHeight(need))
+        call DzFrameSetPoint(SkillTreePopup[3], JN_FRAMEPOINT_TOPLEFT, TreePopupFrame, JN_FRAMEPOINT_TOPLEFT, .01, -DzFrameGetHeight(TreePopupFrame)+.0175)
+        call DzFrameShow(TreePopupFrame, true)
       endif
     endfunction
     private function ButtonJustDown takes nothing returns nothing
       if ( GetLocalPlayer() == DzGetTriggerUIEventPlayer() ) then
-        call DzFrameShow(SkillTreePopup[0], false)
+        call DzFrameShow(TreePopupFrame, false)
         call DzFrameShow(SkillTree2Popup[0], false)
       endif
     endfunction
-    private function MakeIcon takes integer i, real x, real y, real size, integer addButton, string texture returns nothing
-      set SkillTreeBackdrop[i] = DzCreateFrameByTagName("BACKDROP", "", SkillTreeNow, "", 0)
-      call DzFrameSetPoint(SkillTreeBackdrop[i], JN_FRAMEPOINT_CENTER, SkillTreeNow, JN_FRAMEPOINT_TOPLEFT, x, y)
-      call DzFrameSetTexture(SkillTreeBackdrop[i], texture, 0)
-      call DzFrameSetSize(SkillTreeBackdrop[i], size, size)
-      if ( addButton >= 23 ) then
-        set ESkillTree.SkillTreeButton[addButton] = DzCreateFrameByTagName("BUTTON", "", SkillTreeBackdrop[i], "", 0)
-        call DzFrameSetAllPoints(ESkillTree.SkillTreeButton[addButton], SkillTreeBackdrop[i])
-        call DzFrameSetScriptByCode(ESkillTree.SkillTreeButton[addButton], JN_FRAMEEVENT_MOUSE_UP, function SkillTreeClick, false)
-        call DzFrameSetScriptByCode(ESkillTree.SkillTreeButton[addButton], JN_FRAMEEVENT_MOUSE_ENTER, function ButtonJustUp, false)
-        call DzFrameSetScriptByCode(ESkillTree.SkillTreeButton[addButton], JN_FRAMEEVENT_MOUSE_LEAVE, function ButtonJustDown, false)
-      elseif ( addButton > 0 ) then
-        set ESkillTree.SkillTreeButton[addButton] = DzCreateFrameByTagName("BUTTON", "", SkillTreeBackdrop[i], "", 0)
-        call DzFrameSetAllPoints(ESkillTree.SkillTreeButton[addButton], SkillTreeBackdrop[i])
-        call DzFrameSetScriptByCode(ESkillTree.SkillTreeButton[addButton], JN_FRAMEEVENT_MOUSE_UP, function SkillTreeClick, false)
-        call DzFrameSetScriptByCode(ESkillTree.SkillTreeButton[addButton], JN_FRAMEEVENT_MOUSE_ENTER, function ButtonJustUp, false)
-        call DzFrameSetScriptByCode(ESkillTree.SkillTreeButton[addButton], JN_FRAMEEVENT_MOUSE_LEAVE, function ButtonJustDown, false)
-      endif
-    endfunction
-  
-    private function MakeTextPopup takes integer i, real x, real y, string contents, real size returns nothing
-      set SkillTreePopup[i] = DzCreateFrameByTagName("TEXT", "", SkillTreePopup[0], "", 0)
-      call DzFrameSetPoint(SkillTreePopup[i], JN_FRAMEPOINT_TOPLEFT, SkillTreePopup[0], JN_FRAMEPOINT_TOPLEFT, x, y)
-      call DzFrameSetText(SkillTreePopup[i], contents)
-      if ( size != 0. ) then
-        call DzFrameSetFont(SkillTreePopup[i], "Fonts\\DFHeiMd.ttf", size, 0)
-      endif
-    endfunction
-    private function CreateSkillTreePopup takes nothing returns nothing
-      if ( false ) then /*요구조건 충족*/
-        set SkillTreePopup[0] = DzCreateFrameByTagName("BACKDROP", "", SkillTreeBackdrop[1], "QuestButtonBaseTemplate", 0)
-        call DzFrameSetAbsolutePoint(SkillTreePopup[0], JN_FRAMEPOINT_BOTTOMLEFT, 0.14, 0.55)
-        call MakeTextPopup(1, .01, -.010, "|cffffcc00세로베기|r", 0.015)
-        call MakeTextPopup(2, .01, -.025, "Lv: 10|cff00ff00+2|r/10", 0.010)
-        call MakeTextPopup(3, .01, -.045, "|c000080c0자세히.. (클릭)|r", 0.010)
+
+
+    private function GetMadeText takes integer base, real x, real y, string contents, real size, boolean center returns integer
+      set SkillTreeNow = DzCreateFrameByTagName("TEXT", "", base, "", 0)
+      if ( center ) then
+        call DzFrameSetPoint(SkillTreeNow, JN_FRAMEPOINT_CENTER, base, JN_FRAMEPOINT_TOPLEFT, x, y)
       else
-        set SkillTreePopup[0] = DzCreateFrameByTagName("BACKDROP", "", SkillTreeBackdrop[1], "QuestButtonBaseTemplate", 0)
-        call DzFrameSetAbsolutePoint(SkillTreePopup[0], JN_FRAMEPOINT_BOTTOMLEFT, 0.14, 0.55)
-        call DzFrameSetSize(SkillTreePopup[0], .07, .06)
-        call MakeTextPopup(1, .01, -.010, "|cffffcc00세로베기|r", 0.015)
-        call MakeTextPopup(2, .01, -.025, "|cffff3315필요 스킬:
- - 찌르기 Lv1
-                   _
-테스트..", 0.010)
-//  - 검은 월아천충 Lv1
-        call MakeTextPopup(3, .01, -.075, "|c000080c0자세히.. (클릭)|r", 0.010)
+        call DzFrameSetPoint(SkillTreeNow, JN_FRAMEPOINT_LEFT, base, JN_FRAMEPOINT_TOPLEFT, x, y)
       endif
-      call DzFrameShow(SkillTreePopup[0], false)
+      if ( size != 0. ) then
+        call DzFrameSetFont(SkillTreeNow, "Fonts\\DFHeiMd.ttf", size, 0)
+      endif
+      call DzFrameSetText(SkillTreeNow, contents)
+      return SkillTreeNow
     endfunction
-    private function CreateSkillTree takes nothing returns nothing
-      set SkillTreeBackdrop[0] = DzCreateFrameByTagName("BACKDROP", "", DzGetGameUI(), "QuestButtonBaseTemplate", 0)
-      call DzFrameSetAbsolutePoint(SkillTreeBackdrop[0], JN_FRAMEPOINT_TOPLEFT, 0.14, 0.55)
-      call DzFrameSetSize(SkillTreeBackdrop[0], .22, .45)
-      call DzFrameSetAlpha(SkillTreeBackdrop[0], 128)
-      set SkillTreeNow = SkillTreeBackdrop[0]
-      call MakeLineY(2, .06, -.01, .43, 1)
-      call MakeLineX(3, .06, -.04, .15, 1)
-      call MakeLineX(4, .01, -.06, .20, 1)
-      call MakeLineY(5, .11, -.04, .02, 1)
-      call MakeLineY(6, .16, -.04, .02, 1)
-      
-      set SkillTreeBackdrop[1] = DzCreateFrameByTagName("BACKDROP", "", SkillTreeNow, "", 0)
-      call DzFrameSetAllPoints(SkillTreeBackdrop[1], SkillTreeNow)
-      call DzFrameSetTexture(SkillTreeBackdrop[1], "SkillTree_Transparency.blp", 0)
-      call DzFrameSetAlpha(SkillTreeBackdrop[1], 204)
-      set SkillTreeNow = SkillTreeBackdrop[1]
+    private function TreeMainIcon takes integer characterId returns nothing
+      local integer loopA = TreeMainCoreData[characterId].SkillCount
+      local integer lastFrame = 0
+      if ( loopA <= 0 ) then
+        call MsgAll("오류/스킬트리/스킬아이콘"+I2S(characterId)+"/스킬카운트 0")
+        return
+      else
+        loop
+          set SkillTreeButton[loopA] = DzCreateFrameByTagName("BACKDROP", "", SkillTreeNow, "", 0)
+          call DzFrameSetPoint(SkillTreeButton[loopA], JN_FRAMEPOINT_CENTER, SkillTreeNow, JN_FRAMEPOINT_TOPLEFT, TreeMainCoreData[characterId].positionX[loopA], TreeMainCoreData[characterId].positionY[loopA])
+          call DzFrameSetTexture(SkillTreeButton[loopA], TreeMainCoreData[characterId].iconPath[index], 0)
+          call DzFrameSetSize(SkillTreeButton[loopA], .03, .03)
+
+          set lastFrame = DzCreateFrameByTagName("BUTTON", "", SkillTreeButton[loopA], "", 0)
+          call DzFrameSetAllPoints(lastFrame, SkillTreeButton[loopA])
+          call DzFrameSetScriptByCode(lastFrame, JN_FRAMEEVENT_MOUSE_UP, function SkillTreeClick, false)
+          call DzFrameSetScriptByCode(lastFrame, JN_FRAMEEVENT_MOUSE_ENTER, function ButtonJustUp, false)
+          call DzFrameSetScriptByCode(lastFrame, JN_FRAMEEVENT_MOUSE_LEAVE, function ButtonJustDown, false)
+          call MakeSmallLevelFrame(lastFrame)
+
+          exitwhen loopA <= 1
+          set loopA = loopA - 1
+        endloop
+      endif
+    endfunction
+    private function TreeExtendIcon takes integer input, real x, real y, real size, string texture returns integer
+      set TreeChangeableFrame[input] = DzCreateFrameByTagName("BACKDROP", "", TreeExtendFrame, "", 0)
+      call DzFrameSetPoint(TreeChangeableFrame[input], JN_FRAMEPOINT_CENTER, TreeExtendFrame, JN_FRAMEPOINT_TOPLEFT, x, y)
+      call DzFrameSetTexture(TreeChangeableFrame[input], texture, 0)
+      call DzFrameSetSize(TreeChangeableFrame[input], .03, .03)
+
+      set SkillTreeNow = DzCreateFrameByTagName("BUTTON", "", TreeChangeableFrame[input], "", 0)
+      call DzFrameSetAllPoints(SkillTreeNow, TreeChangeableFrame[input])
+      call DzFrameSetScriptByCode(SkillTreeNow, JN_FRAMEEVENT_MOUSE_UP, function SkillTreeClick, false)
+      call DzFrameSetScriptByCode(SkillTreeNow, JN_FRAMEEVENT_MOUSE_ENTER, function ButtonJustUp, false)
+      call DzFrameSetScriptByCode(SkillTreeNow, JN_FRAMEEVENT_MOUSE_LEAVE, function ButtonJustDown, false)
+    endfunction
   
-      call MakeText(1, .035, -.03, "이치고", .015, true)
+    private function CreateFrameSkillTreeMain takes nothing returns nothing
+      set TreeMainFrame = DzCreateFrameByTagName("BACKDROP", "", DzGetGameUI(), "QuestButtonBaseTemplate", 0)
+      call DzFrameSetAbsolutePoint(TreeMainFrame, JN_FRAMEPOINT_TOPLEFT, 0.14, 0.55)
+      call DzFrameSetSize(TreeMainFrame, .22, .45)
+      call DzFrameSetAlpha(TreeMainFrame, 128)
+      set SkillTreeNow = TreeMainFrame
+      call MakeLineY(.06, -.01, .43)
+      call MakeLineX(.06, -.04, .15)
+      call MakeLineX(.01, -.06, .20)
+      call MakeLineY(.11, -.04, .02)
+      call MakeLineY(.16, -.04, .02)
+      
+      set SkillTreeNow = DzCreateFrameByTagName("BACKDROP", "", TreeMainFrame, "", 0)
+      call DzFrameSetAllPoints(SkillTreeNow, TreeMainFrame)
+      call DzFrameSetTexture(SkillTreeNow, "SkillTree_Transparency.blp", 0)
+      call DzFrameSetAlpha(SkillTreeNow, 204)
+  
+      set TreeChangeableFrame[ESkillTree.MainCharacterName]   = MakeText(1, .035, -.03, "이치고", .015, true)
       call MakeText(2, .135, -.02, "스킬트리", .020, true)
       call MakeText(3, .085, -.05, "[기본]", 0., true)
       call MakeText(4, .135, -.05, "[핵심]", 0., true)
       call MakeText(5, .185, -.05, "[변신]", 0., true)
       
       call MakeText(6, .035, -.07, "필요 변신", .01, true)
-      call MakeText(7, .085, -.07, "종베기", .01, true)
-      call MakeText(8, .135, -.07, "횡베기", .01, true)
-      call MakeText(9, .185, -.07, "찌르기", .01, true)
-      
+      set TreeChangeableFrame[ESkillTree.MainTreeTypeLeft]    = MakeText(7, .085, -.07, "종베기", .01, true)
+      set TreeChangeableFrame[ESkillTree.MainTreeTypeCenter]  = MakeText(8, .135, -.07, "횡베기", .01, true)
+      set TreeChangeableFrame[ESkillTree.MainTreeTypeRight]   = MakeText(9, .185, -.07, "찌르기", .01, true)
+
       call MakeText(10, .035, -.10, "기본", 0., true)
       call MakeText(11, .035, -.14, "1단계", 0., true)
       call MakeText(12, .035, -.18, "2단계", 0., true)
@@ -234,88 +286,115 @@ scope SkillTree initializer Init
       call MakeText(16, .035, -.34, "6단계", 0., true)
       call MakeText(17, .035, -.38, "7단계", 0., true)
       call MakeText(18, .035, -.42, "8단계", 0., true)
-      //call MakeText(19, .035, -.46, "9단계", 0., true)
-      
-      call MakeIcon(19, .085, -.10, .03, 1, "SkillTree_ichi_01.blp")
-      call MakeIcon(20, .135, -.10, .03, 2, "SkillTree_ichi_02.blp")
-      call MakeIcon(21, .135, -.14, .03, 3, "SkillTree_ichi_03.blp")
-      call MakeIcon(22, .185, -.14, .03, 4, "SkillTree_ichi_04.blp")
-      call MakeIcon(23, .085, -.18, .03, 5, "SkillTree_ichi_05.blp")
-      call MakeIcon(24, .135, -.22, .03, 6, "SkillTree_ichi_06.blp")
-      call MakeIcon(25, .085, -.26, .03, 7, "SkillTree_ichi_07_DIS.blp")
-      call MakeIcon(26, .135, -.34, .03, 8, "SkillTree_ichi_08_DIS.blp")
-      call MakeIcon(27, .085, -.38, .03, 9, "SkillTree_ichi_09_DIS.blp")
-      call MakeIcon(28, .185, -.38, .03, 10, "SkillTree_ichi_10_DIS.blp")
-      call MakeIcon(29, .135, -.42, .03, 11, "SkillTree_ichi_11_DIS.blp")
-      
-      call MakeLink(30, .135, -.12, 0., "SkillTree_ActiveLink_Red.blp")
-      call MakeLink(31, .085, -.16, .04, "SkillTree_ActiveLink_Red.blp")
-      call MakeLink(32, .135, -.20, .04, "SkillTree_ActiveLink_Red.blp")
 
-      call MakeLink(33, .085, -.24, .04, "UI\\Widgets\\Console\\Human\\human-inventory-slotfiller.blp")
-      call MakeLink(34, .135, -.32, .08, "UI\\Widgets\\Console\\Human\\human-inventory-slotfiller.blp")
-      call MakeLink(35, .085, -.36, .08, "UI\\Widgets\\Console\\Human\\human-inventory-slotfiller.blp")
-      call MakeLink(36, .185, -.36, .20, "UI\\Widgets\\Console\\Human\\human-inventory-slotfiller.blp")
-      call MakeLinkX(37,.100, -.38, .05, "UI\\Widgets\\Console\\Human\\human-inventory-slotfiller.blp")
-      call MakeLink(38, .135, -.40, .04, "UI\\Widgets\\Console\\Human\\human-inventory-slotfiller.blp")
+      call DzFrameShow(TreeMainFrame, false)
+      //call MakeText(19, .035, -.46, "9단계", 0., true)
+
+      // call MakeLink(30, .135, -.12, 0., "SkillTree_ActiveLink_Red.blp")
+      // call MakeLink(31, .085, -.16, .04, "SkillTree_ActiveLink_Red.blp")
+      // call MakeLink(32, .135, -.20, .04, "SkillTree_ActiveLink_Red.blp")
+
+      // call MakeLink(33, .085, -.24, .04, "UI\\Widgets\\Console\\Human\\human-inventory-slotfiller.blp")
+      // call MakeLink(34, .135, -.32, .08, "UI\\Widgets\\Console\\Human\\human-inventory-slotfiller.blp")
+      // call MakeLink(35, .085, -.36, .08, "UI\\Widgets\\Console\\Human\\human-inventory-slotfiller.blp")
+      // call MakeLink(36, .185, -.36, .20, "UI\\Widgets\\Console\\Human\\human-inventory-slotfiller.blp")
+      // call MakeLinkX(37,.100, -.38, .05, "UI\\Widgets\\Console\\Human\\human-inventory-slotfiller.blp")
+      // call MakeLink(38, .135, -.40, .04, "UI\\Widgets\\Console\\Human\\human-inventory-slotfiller.blp")
     endfunction
-    private function CreateSkillTree2 takes nothing returns nothing
-      set SkillTree2Backdrop[0] = DzCreateFrameByTagName("BACKDROP", "", SkillTreeBackdrop[0], "QuestButtonBaseTemplate", 0)
-      call DzFrameSetAbsolutePoint(SkillTree2Backdrop[0], JN_FRAMEPOINT_TOPLEFT, 0.45, 0.55)
-      call DzFrameSetSize(SkillTree2Backdrop[0], .2, .31)
-      call DzFrameSetAlpha(SkillTree2Backdrop[0], 128)
+
+    private function CreateSkillTreePopupDetails takes integer i, real x, real y, string contents, real size returns nothing
+      set TreeChangeableFrame[i] = DzCreateFrameByTagName("TEXT", "", TreePopupFrame, "", 0)
+      call DzFrameSetPoint(TreeChangeableFrame[i], JN_FRAMEPOINT_TOPLEFT, TreePopupFrame, JN_FRAMEPOINT_TOPLEFT, x, y)
+      call DzFrameSetText(TreeChangeableFrame[i], contents)
+      call DzFrameSetFont(TreeChangeableFrame[i], "Fonts\\DFHeiMd.ttf", size, 0)
+    endfunction
+    private function CreateSkillTreePopup takes nothing returns nothing
+      set TreePopupFrame = DzCreateFrameByTagName("BACKDROP", "", TreeMainFrame, "QuestButtonBaseTemplate", 0)
+      call DzFrameSetAbsolutePoint(TreePopupFrame, JN_FRAMEPOINT_BOTTOMLEFT, 0.14, 0.55)
+      call DzFrameSetSize(TreePopupFrame, .07, .06)
+      call CreateSkillTreePopupDetails(ESkillTree.PopupTitle, .01, -.010, "|cffffcc00세로베기|r", 0.015)
+      call CreateSkillTreePopupDetails(ESkillTree.PopupDetailPoint, .01, -.025, "|cffff3315변신레벨 12 이상 필요", 0.010)
+      call CreateSkillTreePopupDetails(ESkillTree.PopupDetailCurrentLevel, .01, -.025, "Lv: 10|cff00ff00+2|r/10", 0.010)
+
+      set SkillTreeNow = DzCreateFrameByTagName("TEXT", "", TreePopupFrame, "", 0)
+      call DzFrameSetPoint(SkillTreeNow, JN_FRAMEPOINT_TOPLEFT, TreePopupFrame, JN_FRAMEPOINT_TOPLEFT, .01, -.075)
+      call DzFrameSetText(SkillTreeNow, "|c000080c0자세히.. (클릭)|r")
+      call DzFrameSetFont(TreeChangeableFrame, "Fonts\\DFHeiMd.ttf", 0.010, 0)
+
+      call DzFrameShow(TreePopupFrame, false)
+    endfunction
+
+    private function CreateFrameSkillTreeExtend takes nothing returns nothing
+      set TreeExtendFrame = DzCreateFrameByTagName("BACKDROP", "", TreeMainFrame, "QuestButtonBaseTemplate", 0)
+      call DzFrameSetAbsolutePoint(TreeExtendFrame, JN_FRAMEPOINT_TOPLEFT, 0.45, 0.55)
+      call DzFrameSetSize(TreeExtendFrame, .2, .31)
+      call DzFrameSetAlpha(TreeExtendFrame, 128)
       
-      set SkillTreeNow = SkillTree2Backdrop[0]
-      call MakeLineY(39, .06, -.01, .09, 2)
-      call MakeLineX(40, .06, -.035, .13, 2)
-      call MakeLineX(41, .06, -.065, .13, 2)
-      call MakeLineX(42, .01, -.10, .18, 2)
+      set SkillTreeNow = TreeExtendFrame
+      call MakeLineY(.06, -.01, .09)
+      call MakeLineX(.06, -.035, .13)
+      call MakeLineX(.06, -.065, .13)
+      call MakeLineX(.01, -.10, .18)
       
-      set SkillTree2Backdrop[1] = DzCreateFrameByTagName("BACKDROP", "", SkillTreeNow, "", 0)
-      call DzFrameSetAllPoints(SkillTree2Backdrop[1], SkillTreeNow)
-      call DzFrameSetTexture(SkillTree2Backdrop[1], "SkillTree_Transparency.blp", 0)
-      call DzFrameSetAlpha(SkillTree2Backdrop[1], 204)
-      set SkillTreeNow = SkillTree2Backdrop[1]
-      call MakeIcon(43, .035, -.035, .05, 0, "SkillTree_ichi_01.blp")
-      call MakeIcon(44, .025, -.070, .02, 21, "SkillTree_PlusMinus02.blp")
-      call MakeIcon(45, .045, -.070, .02, 22, "SkillTree_PlusMinus01.blp")
-      call MakeText(46, .035, -.088, "Lv 12/10", .010, true)
+      set SkillTreeNow = DzCreateFrameByTagName("BACKDROP", "", TreeExtendFrame, "", 0)
+      call DzFrameSetAllPoints(SkillTreeNow, TreeExtendFrame)
+      call DzFrameSetTexture(SkillTreeNow, "SkillTree_Transparency.blp", 0)
+      call DzFrameSetAlpha(SkillTreeNow, 204)
+
+      call TreeExtendIcon(ESkillTree.SubIcon, .035, -.035, .05, "SkillTree_ichi_01.blp")
+      set TreeChangeableFrame[ESkillTree.SubTitle]                  = GetMadeText(TreeExtendFrame, .125, -.020, "세로베기", .020, true)
+      set TreeChangeableFrame[ESkillTree.SubShortDescriptionTop]    = GetMadeText(TreeExtendFrame, .125, -.030, "현재레벨", .010, true)
+      set TreeChangeableFrame[ESkillTree.SubShortDescriptionMiddle] = GetMadeText(TreeExtendFrame, .125, -.040, "7/10", .010, true)
+      set TreeChangeableFrame[ESkillTree.SubShortDescriptionLow]    = GetMadeText(TreeExtendFrame, .125, -.050, "B+ Rank", .010, true)
+
+      set TreeChangeableFrame[ESkillTree.SubLongDescriptionCost]    = GetMadeText(TreeExtendFrame, .125, -.065, "소모마나 240, 쿨다운 70초", .010, true)
+      set TreeChangeableFrame[ESkillTree.SubLongDescriptionDetials]    = GetMadeText(TreeExtendFrame, .125, -.075, "잠재능력을 모두 해방시켜 참격을 발사합니다.
+750범위에 1427% 데미지를 가합니다.", .010, true)
+      set TreeChangeableFrame[ESkillTree.SubLongDescriptionNextLevels]    = GetMadeText(TreeExtendFrame, .125, -.085, "데미지 상승 +11%, 
+소모마나 +4.4", .010, true)
+
+      call TreeExtendIcon(ESkillTree.SubSkillMinusAll, .035, -.035, .02, "SkillTree_PlusMinus01.blp")
+      call TreeExtendIcon(ESkillTree.SubSkillMinusOne, .035, -.035, .02, "SkillTree_PlusMinus01.blp")
+      call TreeExtendIcon(ESkillTree.SubSkillPlusOne, .035, -.035, .02, "SkillTree_PlusMinus01.blp")
+      call TreeExtendIcon(ESkillTree.SubSkillPlusAll, .035, -.035, .02, "SkillTree_PlusMinus01.blp")
+
+  //     call MakeText(46, .035, -.088, "Lv 12/10", .010, true)
       
-      call MakeText(47, .125, -.020, "세로베기", .020, true)
+  //     call MakeText(47, .125, -.020, "세로베기", .020, true)
       
-      call MakeText(48, .065, -.050, "전방을 세로로 베어 처음으로
-  맞는 적에게 데미지를 줍니다.", .010, false)
+  //     call MakeText(48, .065, -.050, "전방을 세로로 베어 처음으로
+  // 맞는 적에게 데미지를 줍니다.", .010, false)
   
-      call MakeText(49, .065, -.075, "데미지: 50 (40 + 공격력 10%)", .010, false)
-      call MakeText(50, .065, -.090, "다음레벨: 65 (50 + 공격력 15%)", .010, false)
+  //     call MakeText(49, .065, -.075, "데미지: 50 (40 + 공격력 10%)", .010, false)
+  //     call MakeText(50, .065, -.090, "다음레벨: 65 (50 + 공격력 15%)", .010, false)
       
-      call MakeText(51, .100, -.110, "|cff3ca03c강화", .015, true)
-      call MakeIcon(52, .100, -.135, .03, 0, "SkillTree_AddFire_0.blp")
-      call MakeIcon(53, .085, -.150, .015, 23, "SkillTree_PlusMinus04.blp")
-      call MakeIcon(54, .115, -.150, .015, 24, "SkillTree_PlusMinus01.blp")
-      call MakeText(55, .100, -.155, "|cff3ca03c0/5", .008, true)
+      // call MakeText(51, .100, -.110, "|cff3ca03c강화", .015, true)
+      // call MakeIcon(52, .100, -.135, .03, 0, "SkillTree_AddFire_0.blp")
+      // call MakeIcon(53, .085, -.150, .015, 23, "SkillTree_PlusMinus04.blp")
+      // call MakeIcon(54, .115, -.150, .015, 24, "SkillTree_PlusMinus01.blp")
+      // call MakeText(55, .100, -.155, "|cff3ca03c0/5", .008, true)
       
-      call MakeText(56, .070, -.180, "|cffed393e진화Ａ", .015, true)
-      call MakeIcon(57, .070, -.205, .03, 0, "SkillTree_AddFire_2_1.blp")
-      call MakeIcon(58, .055, -.220, .015, 23, "SkillTree_PlusMinus02.blp")
-      call MakeIcon(59, .085, -.220, .015, 24, "SkillTree_PlusMinus01.blp")
-      call MakeText(60, .070, -.225, "|cffed393e2/3", .008, true)
-      call MakeText(61, .130, -.180, "|cff3681eb진화Ｂ", .015, true)
-      call MakeIcon(62, .130, -.205, .03, 0, "SkillTree_AddFire_2_2.blp")
-      call MakeIcon(63, .115, -.220, .015, 23, "SkillTree_PlusMinus02.blp")
-      call MakeIcon(64, .145, -.220, .015, 24, "SkillTree_PlusMinus03.blp")
-      call MakeText(65, .130, -.225, "|cff3681eb3/3", .008, true)
+      // call MakeText(56, .070, -.180, "|cffed393e진화Ａ", .015, true)
+      // call MakeIcon(57, .070, -.205, .03, 0, "SkillTree_AddFire_2_1.blp")
+      // call MakeIcon(58, .055, -.220, .015, 23, "SkillTree_PlusMinus02.blp")
+      // call MakeIcon(59, .085, -.220, .015, 24, "SkillTree_PlusMinus01.blp")
+      // call MakeText(60, .070, -.225, "|cffed393e2/3", .008, true)
+      // call MakeText(61, .130, -.180, "|cff3681eb진화Ｂ", .015, true)
+      // call MakeIcon(62, .130, -.205, .03, 0, "SkillTree_AddFire_2_2.blp")
+      // call MakeIcon(63, .115, -.220, .015, 23, "SkillTree_PlusMinus02.blp")
+      // call MakeIcon(64, .145, -.220, .015, 24, "SkillTree_PlusMinus03.blp")
+      // call MakeText(65, .130, -.225, "|cff3681eb3/3", .008, true)
       
-      call MakeText(66, .070, -.250, "|cffeb8dd0개화Ａ", .015, true)
-      call MakeIcon(67, .070, -.275, .03, 0, "SkillTree_AddFire_3_1.blp")
-      call MakeIcon(68, .055, -.290, .015, 23, "SkillTree_PlusMinus04.blp")
-      call MakeIcon(69, .085, -.290, .015, 24, "SkillTree_PlusMinus01.blp")
-      call MakeText(70, .070, -.295, "|cffeb8dd00/1", .008, true)
-      call MakeText(71, .130, -.250, "|cfffeff79개화Ｂ", .015, true)
-      call MakeIcon(72, .130, -.275, .03, 0, "SkillTree_AddFire_3_2.blp")
-      call MakeIcon(73, .115, -.290, .015, 23, "SkillTree_PlusMinus02.blp")
-      call MakeIcon(74, .145, -.290, .015, 24, "SkillTree_PlusMinus03.blp")
-      call MakeText(75, .130, -.295, "|cfffeff791/1", .008, true)
+      // call MakeText(66, .070, -.250, "|cffeb8dd0개화Ａ", .015, true)
+      // call MakeIcon(67, .070, -.275, .03, 0, "SkillTree_AddFire_3_1.blp")
+      // call MakeIcon(68, .055, -.290, .015, 23, "SkillTree_PlusMinus04.blp")
+      // call MakeIcon(69, .085, -.290, .015, 24, "SkillTree_PlusMinus01.blp")
+      // call MakeText(70, .070, -.295, "|cffeb8dd00/1", .008, true)
+      // call MakeText(71, .130, -.250, "|cfffeff79개화Ｂ", .015, true)
+      // call MakeIcon(72, .130, -.275, .03, 0, "SkillTree_AddFire_3_2.blp")
+      // call MakeIcon(73, .115, -.290, .015, 23, "SkillTree_PlusMinus02.blp")
+      // call MakeIcon(74, .145, -.290, .015, 24, "SkillTree_PlusMinus03.blp")
+      // call MakeText(75, .130, -.295, "|cfffeff791/1", .008, true)
     endfunction
     private function MakeText2Popup takes integer i, real x, real y, string contents, real size returns nothing
       set SkillTree2Popup[i] = DzCreateFrameByTagName("TEXT", "", SkillTreeNow, "", 0)
@@ -366,18 +445,16 @@ scope SkillTree initializer Init
     endfunction
     
     private function Init takes nothing returns nothing
-      call CreateSkillTree()
-      call DzFrameShow(SkillTreeBackdrop[0], false)
-      call CreateSkillTreePopup()
-      call CreateSkillTree2()
-      call DzFrameShow(SkillTree2Backdrop[0], false)
-      call CreateSkillTree2Popup()
 
-      call BJDebugMsg("한글 개수 체크 : " + I2S(JNStringCount("한글 체크 abajdf usadfns \n asdjhf", "[가-힣]")))
-      call BJDebugMsg("전체 길이 체크-jn : " + I2S(JNStringLength("한글 체크 abajdf usadfns  asdjhf")))
-      call BJDebugMsg("전체 길이 체크-ori : " + I2S(StringLength("한글 체크 abajdf usadfns  asdjhf")))
-      // 4 29 37 \n(1글자)
-      
+      call CreateFrameSkillTreeMain()
+      call SkillIconBase(ECharacter.ICHIGO)
+      call CreateSkillTreePopup()
+
+      call CreateFrameSkillTreeExtend()
+
+      // call CreateSkillTree2()
+      // call DzFrameShow(TreeExtendFrame, false)
+      call CreateSkillTree2Popup()
 
       call DzTriggerRegisterSyncData(skillTreeTrigger, "TreeSync", false)
       call TriggerAddAction(skillTreeTrigger, function SkillTreeSync)

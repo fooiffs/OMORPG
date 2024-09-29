@@ -7,7 +7,7 @@ scope GlobalInitializer
     constant integer MAX_STAT_COUNT = 32 + 1 
     constant integer MAX_SKILL_COUNT = 205 + 1 /* 배열 1 시작, +1 */
     constant integer MAX_OPTION_MENU_COUNT = 30 + 1 
-    constant integer MAX_SKILL_SLOT = 8 + 1 
+    constant integer MAX_SKILL_SLOT = 8 + 1
     constant real XX = 1280. 
     constant real YY = 1024. 
 
@@ -17,6 +17,7 @@ scope GlobalInitializer
     private SlotData array privateSkillSlotData[MAX_SKILL_SLOT] 
     private HotkeyData array privateHotkeyData[MAX_OPTION_MENU_COUNT] 
     private CharacterData array privateCharacterData[MAX_CHARACTER_COUNT] 
+    private TreeMainCoreData array privateTreeMainData[MAX_CHARACTER_COUNT] 
 
     // 캐릭터
     unit gg_unit_H005_0003 = null
@@ -31,6 +32,13 @@ scope GlobalInitializer
   endfunction 
   function IsNotEmpty takes string s returns boolean 
     return(s != "") and (s != null) 
+  endfunction
+  function IfEmpty takes string s, string s2 returns string 
+    if (s != "") and (s != null) then 
+      return s 
+    else 
+      return s2
+    endif
   endfunction 
 
   function Msg takes player p, string msg returns nothing 
@@ -110,7 +118,7 @@ scope GlobalInitializer
     string Detail 
     string ValueUse 
     string ValueChange 
-    string IconPath 
+    // string IconPath --- 모든 스킬이 아이콘이 있지 않으니 생략.
     integer Distance 
     integer DistanceAdd 
     integer CastingTime 
@@ -303,6 +311,53 @@ scope GlobalInitializer
       call SetTimeOfDayScale(0.)
       call FogEnable(false)
       call FogMaskEnable(false)
+    endmethod 
+  endstruct 
+
+  struct TreeMainCoreData
+    integer SkillCount = 12
+    integer array SkillNumber[12]
+    real array positionX[12]
+    real array positionY[12]
+    string array iconPath[12]
+    
+    static method operator[] takes integer input returns thistype 
+      if(input <= 0 or MAX_CHARACTER_COUNT <= input) then
+        call MsgAll("오류/SkillTreeData[" + I2S(input) + "]는 설정 범위(1~" + I2S(MAX_CHARACTER_COUNT - 1) + ")를 벗어납니다.") 
+        return 0 
+      elseif(privateCharacterData[input] == 0) then 
+        call MsgAll("오류/CharacterData[" + I2S(input) + "]는 설정되지 않았습니다.") 
+        return 0 
+      else 
+        return privateCharacterData[input] 
+      endif 
+    endmethod
+    method CreateSub takes integer number, real inputX, real inputY, string iconPath returns nothing
+      set SkillCount = SkillCount + 1
+      set this.SkillNumber[SkillCount] = number
+      set this.positionX[SkillCount] = inputX
+      set this.positionY[SkillCount] = inputY
+      set this.iconPath[SkillCount] = iconPath
+    endmethod
+    static method Create takes integer characterId returns thistype
+      local thistype this = thistype.create()
+      if ( characterId == ECharacter.ICHIGO ) then
+        call CreateSub(16, .085, -.10, "SkillTree_ichi_01.blp")
+        call CreateSub(20, .135, -.10, "SkillTree_ichi_02.blp")
+        call CreateSub(21, .135, -.14, "SkillTree_ichi_03.blp")
+        call CreateSub(25, .185, -.14, "SkillTree_ichi_04.blp")
+        call CreateSub(17, .085, -.18, "SkillTree_ichi_05.blp")
+        call CreateSub(22, .135, -.22, "SkillTree_ichi_06.blp")
+        call CreateSub(18, .085, -.26, "SkillTree_ichi_07_DIS.blp")
+        call CreateSub(23, .135, -.34, "SkillTree_ichi_08_DIS.blp")
+        call CreateSub(19, .085, -.38, "SkillTree_ichi_09_DIS.blp")
+        call CreateSub(26, .185, -.38, "SkillTree_ichi_10_DIS.blp")
+        call CreateSub(24, .135, -.42, "SkillTree_ichi_11_DIS.blp")
+      endif
+      return this 
+    endmethod 
+    static method onInit takes nothing returns nothing
+      call TreeMainCoreData[ECharacter.ICHIGO].Create(ECharacter.ICHIGO)
     endmethod 
   endstruct 
 endscope

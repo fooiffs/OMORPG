@@ -1,14 +1,16 @@
-scope EMenus 
+scope EMainMenus
   globals
     constant integer FRAME_TYPE_ITEMSLOT = 1
     constant integer FRAME_TYPE_SKILLSLOT = 2
     constant integer FRAME_TYPE_MENU = 3
     constant integer FRAME_TYPE_PRESKILL = 4
     constant integer FRAME_TYPE_CHARACTER = 5
+
     integer array Frame_SelectSkills
   endglobals
+  
 
-  struct EMenus 
+  struct EMenus
     static method F2IN takes integer MenuNo returns integer 
       //m번째 값이 아이템/스킬/메뉴의 n번째 값인지 반환 
       if(MenuNo > 0) then 
@@ -84,65 +86,6 @@ scope EMenus
         return FRAME_TYPE_CHARACTER
       endif
       return 0
-    endmethod
-  endstruct
-  struct ESkillTree
-    static integer array SkillTreeButton
-
-    static method f2I takes integer f returns integer
-      if ( f == SkillTreeButton[1] ) then
-        return 1
-      elseif ( f == SkillTreeButton[2] ) then
-        return 2
-      elseif ( f == SkillTreeButton[3] ) then
-        return 3
-      elseif ( f == SkillTreeButton[4] ) then
-        return 4
-      elseif ( f == SkillTreeButton[5] ) then
-        return 5
-      elseif ( f == SkillTreeButton[6] ) then
-        return 6
-      elseif ( f == SkillTreeButton[7] ) then
-        return 7
-      elseif ( f == SkillTreeButton[8] ) then
-        return 8
-      elseif ( f == SkillTreeButton[9] ) then
-        return 9
-      elseif ( f == SkillTreeButton[10] ) then
-        return 10
-      elseif ( f == SkillTreeButton[11] ) then
-        return 11
-      else
-        return 0
-      endif
-    endmethod
-    static method I2Name takes integer characterNumber, integer skillNumber returns string
-      if ( characterNumber == 1 ) then
-        if ( skillNumber == 1 ) then
-          return "세로베기"
-        elseif ( skillNumber == 2 ) then
-          return "가로베기"
-        elseif ( skillNumber == 3 ) then
-          return "공열섬"
-        elseif ( skillNumber == 4 ) then
-          return "찌르기"
-        elseif ( skillNumber == 5 ) then
-          return "월아천충"
-        elseif ( skillNumber == 6 ) then
-          return "천쇄참월"
-        elseif ( skillNumber == 7 ) then
-          return "월아십자충"
-        elseif ( skillNumber == 8 ) then
-          return "검은 월아천충"
-        elseif ( skillNumber == 9 ) then
-          return "무쌍의 일섬"
-        elseif ( skillNumber == 10 ) then
-          return "흑류아돌"
-        elseif ( skillNumber == 11 ) then
-          return "무월"
-        endif
-      endif
-      return ""
     endmethod
   endstruct
 endscope

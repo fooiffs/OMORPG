@@ -113,7 +113,6 @@ scope IResources
     private integer lastCastingTime = 0
     private integer lastCooldownTime = 0
 
-
     static method ChangeSlotIcon takes integer slot, boolean isSkill, string TexturePath returns nothing
       //아이콘 텍스처 설정
       if ( isSkill and 0 < slot and slot < MAX_SKILL_SLOT ) then
@@ -128,12 +127,12 @@ scope IResources
     endmethod
 
     // id = id
-    static method ChangeIcon takes integer playerId, integer slot, string iconPath returns nothing
+    static method ChangeIcon takes integer playerId, integer characterId, integer slot returns nothing
       if ( GetLocalPlayer() == Player(playerId-1) ) then
-        call ChangeSlotIcon(slot, true, iconPath)
+        call ChangeSlotIcon(slot, true, IfEmpty(TreeMainCoreData[characterId].iconPath[slot], "ReplaceableTextures\\CommandButtons\\BTNReplay-Pause.blp"))
       endif
     endmethod
-    method Initids takes nothing returns nothing
+    private method InitVariables takes nothing returns nothing
       set tempString = SkillData[this.id].Detail
       if ( JNStringContains(tempString, "#") ) then
         if ( JNStringContains(tempString, "#CastingTime") ) then
@@ -184,7 +183,7 @@ scope IResources
         set .lastCooldownTime = 0
       endif
     endmethod
-    private method Updateids takes nothing returns nothing
+    private method UpdateInitVariables takes nothing returns nothing
       set tempString = SkillData[this.id].ValueChange
       if ( JNStringContains(tempString, "~") ) then
         if ( JNStringContains(tempString, "~CastingTime") ) then
@@ -210,12 +209,6 @@ scope IResources
         endif
       endif
     endmethod
-    method ChangeLevel takes integer newLevel returns nothing
-      set this.level = newLevel
-      if ( 2 <= level ) then
-        call Updateids()
-      endif
-    endmethod
     private method SetAiblityTagetingUIs takes ability abil, real dataB, real dataC returns nothing
       // 목표물 종류(DATA_B, 109)를 변경 (1레벨)
         // 즉시(0) , 유닛 타겟(1) , 지점 타겟(2) , 유닛 또는 지점(3)
@@ -235,7 +228,6 @@ scope IResources
       // 범위(AREA, 106)를 변경 (1레벨)
       call EXSetAbilityDataReal(abil, 1, 106, area)
     endmethod
-    
     private method ChangeTargetingUI takes ability abil, integer input returns nothing
       local boolean isSmartMode = ( PlayerResource[this.owner.playerId].options[EHotkeyMenu.SubMenuSmartMode].id == 1 )
       if ( input == ESkillTypeUI.UN_CLICKABLE ) then
@@ -275,10 +267,16 @@ scope IResources
       // call IncUnitAbilityLevel(유닛, '')
       // call DecUnitAbilityLevel(유닛, '')
     endmethod
-    method ChangeBaseID takes integer id, integer level returns nothing
+
+    public method ChangeLevel takes integer newLevel returns nothing
+      set this.level = newLevel
+      if ( 2 <= level ) then
+        call UpdateInitVariables()
+      endif
+    endmethod
+    public method ChangeBaseID takes integer id, integer level returns nothing
       set this.id = id
-      set SkillData[this.id].IconPath = "ReplaceableTextures\\CommandButtons\\BTNReplay-Pause.blp"
-      call ChangeIcon(this.owner.playerId, this.slot, SkillData[this.id].IconPath)
+      call ChangeIcon(this.owner.playerId, id, this.slot)
       call Initids()
       call ChangeLevel(level)
       call ChangeObjectData(EXGetUnitAbility(this.owner.Unit, SlotData[this.slot].GetSkillCode(( PlayerResource[this.owner.playerId].options[EHotkeyMenu.SubMenuSmartMode].id == 1 ))))
@@ -292,175 +290,9 @@ scope IResources
       // call MsgAll("생성/S.R.C[" + I2S(this.owner.playerId) + "][" + I2S(this.slot) + "],id=" + I2S(this.id) + ",lv=" + I2S(this.level))
       return this
     endmethod
-
-    private static method ConvertLevelToRank takes integer level returns string
-      if ( level == 0 ) then
-        return " [미습득]"
-      elseif ( level == 1 ) then
-        return " - F Rank"
-      elseif ( level == 2 ) then
-        return " - D Rank"
-      elseif ( level == 3 ) then
-        return " - D+ Rank"
-      elseif ( level == 4 ) then
-        return " - C Rank"
-      elseif ( level == 5 ) then
-        return " - C+ Rank"
-      elseif ( level == 6 ) then
-        return " - B Rank"
-      elseif ( level == 7 ) then
-        return " - B+ Rank"
-      elseif ( level == 8 ) then
-        return " - A Rank"
-      elseif ( level == 9 ) then
-        return " - A+ Rank"
-      elseif ( level == 10 ) then
-        return " - S Rank"
-      endif
-      return " - Over Rank"
-    endmethod
-    method GetName takes nothing returns string
-      return SkillData[this.id].Name
-    endmethod
-    method GetNameWithRank takes integer inputLevel returns string
-      return SkillData[this.id].Name + ConvertLevelToRank(inputLevel)
-    endmethod
-
-    // static 가공 왼쪽으로 몇자리, 소숫점 표시, 추가 문자열
-    private static method ProcessI2S takes integer input, boolean isRoundUp, integer cutLength, boolean hasDot returns string
-      if ( isRoundUp ) then
-        set input = input + 5
-      endif
-      set cutLength = StringLength(I2S(input)) - cutLength
-      if ( hasDot ) then
-        return JNStringInsert(SubString(I2S(input),0,cutLength), cutLength-1, ".")
-      else
-        return SubString(I2S(input),0,cutLength)
-      endif
-    endmethod
-
-    method GetDescription takes boolean displayAsPercentage returns string
-      set tempString = SkillData[this.id].Detail
-        // => "#Distance거리를 찌르며 돌진하며 #Damage% 데미지를 가합니다."
-
-      if ( JNStringContains(tempString, "#Damage%") ) and ( not displayAsPercentage ) then
-        set tempString = JNStringReplace(tempString, "#Damage%", ProcessI2S(this.lastDamage*this.owner.Stats[EStatType.AttackPower], true, 2, false))
-          // => 300거리를 찌르며, 1273 데미지를 가합니다.
-      endif
-
-      set tempString = JNStringReplace(tempString, "#CastingTime", ProcessI2S(this.lastCastingTime, true, 2, true)+"초")
-      set tempString = JNStringReplace(tempString, "#Damage", I2S(this.lastDamage))
-        // => 300거리를 찌르며, 100% 데미지를 가합니다. (기본)
-      set tempString = JNStringReplace(tempString, "#Distance", I2S(this.lastDistance))
-      set tempString = JNStringReplace(tempString, "#Range", I2S(this.lastRange))
-      set tempString = JNStringReplace(tempString, "#Duration", ProcessI2S(this.lastDuration, true, 2, true)+"초")
-      set tempString = JNStringReplace(tempString, "#Mana", ProcessI2S(this.lastCostMana, true, 1, false))
-      set tempString = JNStringReplace(tempString, "#CoolDown", ProcessI2S(this.lastCooldownTime, true, 2, true)+"초")
-      return tempString
-    endmethod
-    static method GetInfoRequire takes integer playerId, integer skillId, integer currentLevel returns string
-      if ( currentLevel == 0 ) then
-        if ( PlayerResource[playerId].character.changeLevel < SkillData[skillId].RequireLevel ) then
-          return "변신레벨 " + I2S(SkillData[skillId].RequireLevel) + " 이상 필요"
-        else
-          return "습득이 가능합니다"
-        endif
-      else
-        set tempString = SkillData[skillId].ValueUse
-        if ( JNStringContains(tempString, "#Mana") ) then
-          if ( JNStringContains(tempString, "#CoolDown") ) then
-            return "마나소모 " + ProcessI2S(SkillData[skillId].CostMana, true, 1, false) +", 쿨다운 " + ProcessI2S(SkillData[skillId].CoolTime, true, 1, true) + "초"
-          else
-            return "마나소모 " + ProcessI2S(SkillData[skillId].CostMana, true, 1, false)
-          endif
-        elseif ( JNStringContains(tempString, "#CoolDown") ) then
-          return "쿨다운 " + ProcessI2S(SkillData[skillId].CoolTime, true, 1, true) + "초"
-        else
-          return "오류/GIR/" +I2S(playerId) + "/" + I2S(skillId) + "/" + I2S(currentLevel) + "/" + tempString
-        endif
-      endif
-    endmethod
-    static method AddCommaIfFilled takes string head returns string
-      if ( head == "" ) then
-        return " : "
-      else
-        return head + ", "
-      endif
-    endmethod
-    static method AddZeroIfShort takes integer inputLength, boolean isNegative returns string
-      if ( isNegative ) then
-        set inputLength = inputLength - 1
-      endif
-      if ( inputLength <= 2 ) then
-        return "0."
-      else
-        return "."
-      endif
-    endmethod
-    static method AddSignalIfPositive takes boolean isPositive returns string
-      if ( isPositive ) then
-        return "+"
-      else
-        return ""
-      endif
-    endmethod
-    private static method AddSignal takes integer input, integer cutLength, boolean hasDot returns string
-      set cutLength = StringLength(I2S(input)) - cutLength
-      if ( hasDot ) then
-        return AddSignalIfPositive(0 <= input) + JNStringInsert(SubString(I2S(input),0,cutLength), cutLength-1, AddZeroIfShort(cutLength, input < 0))
-      else
-        return AddSignalIfPositive(0 <= input) + SubString(I2S(input),0,cutLength)
-      endif
-    endmethod
-    private static method ConvertLevelToPoint takes integer skillLevel returns integer
-      if ( skillLevel <= 1 ) then
-        return 0
-      elseif ( skillLevel <= 6 ) then
-        return 1
-      elseif ( skillLevel <= 9 ) then
-        return 2
-      elseif ( skillLevel == 10 ) then
-        return 3
-      endif
-      return 999
-    endmethod
-    static method GetInfoNextLevel takes integer skillId, integer currentLevel returns string
-      local string getString = SkillData[skillId].ValueChange
-      set tempString = ""
-      if ( 1 <= currentLevel and currentLevel <= 10 ) then
-        if ( JNStringContains(getString, "~") ) then
-          if ( JNStringContains(getString, "~CastingTime") ) then
-            set tempString = AddCommaIfFilled(tempString) + "시전시간 " + AddSignal(SkillData[skillId].CastingTimeAdd, 1, true) + "초"
-          endif
-          if ( JNStringContains(getString, "~Damage") ) then
-            set tempString = AddCommaIfFilled(tempString) + "데미지 " + AddSignal(SkillData[skillId].DamageAdd, 0, false)
-            if ( JNStringContains(SkillData[skillId].Detail, "#Damage%") ) then
-              set tempString = tempString + "%"
-            endif
-          endif
-          if ( JNStringContains(getString, "~Distance") ) then
-            set tempString = AddCommaIfFilled(tempString) + "거리 " + AddSignal(SkillData[skillId].DistanceAdd, 0, false)
-          endif
-          if ( JNStringContains(getString, "~Range") ) then
-            set tempString = AddCommaIfFilled(tempString) + "범위 " + AddSignal(SkillData[skillId].RangeAdd, 0, false)
-          endif
-          if ( JNStringContains(getString, "~Duration") ) then
-            set tempString = AddCommaIfFilled(tempString) + "지속시간 " + AddSignal(SkillData[skillId].DurationAdd, 1, true) + "초"
-          endif
-          if ( JNStringContains(getString, "~Mana") ) then
-            set tempString = AddCommaIfFilled(tempString) + "마나소모 " + AddSignal(SkillData[skillId].CostManaAdd, 0, true)
-          endif
-          if ( JNStringContains(getString, "~CoolDown") ) then
-            set tempString = AddCommaIfFilled(tempString) + "쿨다운 " + AddSignal(SkillData[skillId].CoolTimeAdd, 1, true) + "초"
-          endif
-        endif
-        set tempString = "다음레벨(" + I2S(ConvertLevelToPoint(currentLevel+1)) + "P)" + tempString
-      endif
-      return tempString
-    endmethod
   endstruct
   
-  // 인터페이스 이하에 참조가 되지 않아 아래에 설정.
+  // 인터페이스 이하 Line들이 참조가 되지 않아 아래에 설정.
   interface IResource
     
     // 주석 처리를 위해 새로운 구조체 생성.
