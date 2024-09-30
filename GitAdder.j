@@ -29,8 +29,8 @@
 //! import "System\Frames\SkillTree.j"
 //! import "System\Frames\PortraitEditor.j"
 //! import "System\Frames\PushKey.j"
-//! import "System\Frames\Select.j" /* need PushKey_MenuClick() */
 //! import "System\Frames\MenuQuickSlot.j"
+//! import "System\Frames\Select.j"
 //! import "System\Frames\Option.j"
 //! import "System\Frames\InventoryEquip.j"
 //! import "System\Frames\Info.j"

@@ -112,8 +112,31 @@ scope IResources
     private integer lastCostMana = 0
     private integer lastCastingTime = 0
     private integer lastCooldownTime = 0
+    
+    public static method Create takes CharacterResource inputCharacter, integer slot, integer id, integer level returns thistype
+      local SlotResource this = IResource.create(SlotResource.typeid)
+      set this.owner = inputCharacter
+      set this.slot = slot
+      call ChangeBaseID(id, level)
 
-    static method ChangeSlotIcon takes integer slot, boolean isSkill, string TexturePath returns nothing
+      // call MsgAll("생성/S.R.C[" + I2S(this.owner.playerId) + "][" + I2S(this.slot) + "],id=" + I2S(this.id) + ",lv=" + I2S(this.level))
+      return this
+    endmethod
+    public method ChangeLevel takes integer newLevel returns nothing
+      set this.level = newLevel
+      if ( 2 <= level ) then
+        call UpdateInitVariables()
+      endif
+    endmethod
+    public method ChangeBaseID takes integer id, integer level returns nothing
+      set this.id = id
+      call ChangeIcon(this.owner.playerId, id, this.slot)
+      call InitVariables()
+      call ChangeLevel(level)
+      call ChangeObjectData(EXGetUnitAbility(this.owner.Unit, SlotData[this.slot].GetSkillCode(PlayerResource[this.owner.playerId].options[EHotkeyMenu.SubMenuSmartMode].id == 1 )))
+    endmethod
+
+    private static method ChangeSlotIcon takes integer slot, boolean isSkill, string TexturePath returns nothing
       //아이콘 텍스처 설정
       if ( isSkill and 0 < slot and slot < MAX_SKILL_SLOT ) then
         call DzFrameSetTexture(Frame_ButtonsBackDrop[slot+7], TexturePath, 0)
@@ -125,9 +148,8 @@ scope IResources
         call MsgAll("오류/슬롯["+I2S(slot)+"]변경/아이템")
       endif
     endmethod
-
     // id = id
-    static method ChangeIcon takes integer playerId, integer characterId, integer slot returns nothing
+    private static method ChangeIcon takes integer playerId, integer characterId, integer slot returns nothing
       if ( GetLocalPlayer() == Player(playerId-1) ) then
         call ChangeSlotIcon(slot, true, IfEmpty(TreeMainCoreData[characterId].iconPath[slot], "ReplaceableTextures\\CommandButtons\\BTNReplay-Pause.blp"))
       endif
@@ -250,6 +272,28 @@ scope IResources
         return
       endif
     endmethod
+
+    // 툴팁 변경
+    private method GetCurrentTooltips takes boolean displayAsPercentage returns string
+      set tempString = SkillData[this.id].Detail
+        // => "#Distance거리를 찌르며 돌진하며 #Damage% 데미지를 가합니다."
+
+      if ( JNStringContains(tempString, "#Damage%") ) and ( not displayAsPercentage ) then
+        set tempString = JNStringReplace(tempString, "#Damage%", ESkillTree.ProcessI2S(this.lastDamage*this.owner.Stats[EStatType.AttackPower], true, 2, false))
+          // => 300거리를 찌르며, 1273 데미지를 가합니다.
+      endif
+
+      set tempString = JNStringReplace(tempString, "#CastingTime", ESkillTree.ProcessI2S(this.lastCastingTime, true, 2, true)+"초")
+      set tempString = JNStringReplace(tempString, "#Damage", I2S(this.lastDamage))
+        // => 300거리를 찌르며, 100% 데미지를 가합니다. (기본)
+      set tempString = JNStringReplace(tempString, "#Distance", I2S(this.lastDistance))
+      set tempString = JNStringReplace(tempString, "#Range", I2S(this.lastRange))
+      set tempString = JNStringReplace(tempString, "#Duration", ESkillTree.ProcessI2S(this.lastDuration, true, 2, true)+"초")
+      set tempString = JNStringReplace(tempString, "#Mana", ESkillTree.ProcessI2S(this.lastCostMana, true, 1, false))
+      set tempString = JNStringReplace(tempString, "#CoolDown", ESkillTree.ProcessI2S(this.lastCooldownTime, true, 2, true)+"초")
+      return tempString
+    endmethod
+
     private method ChangeObjectData takes ability abil returns nothing
       // UI 형태 변경
       call ChangeTargetingUI(abil, SkillData[this.id].TypeUI)
@@ -263,32 +307,12 @@ scope IResources
       // 소모마나(COST, 104)를 변경 (1레벨) - 소숫점 생략하니까 나누기 10
       call EXSetAbilityDataInteger(abil, 1, 104, this.lastCostMana/10)
 
-      // 새로고침?
-      // call IncUnitAbilityLevel(유닛, '')
-      // call DecUnitAbilityLevel(유닛, '')
-    endmethod
+      // 툴팁 변경(UBERTIP, 218)를 변경 (1레벨) - 현재 값을 기준으로.
+      call EXSetAbilityDataString(abil, 1, 218, GetCurrentTooltips(true))
 
-    public method ChangeLevel takes integer newLevel returns nothing
-      set this.level = newLevel
-      if ( 2 <= level ) then
-        call UpdateInitVariables()
-      endif
-    endmethod
-    public method ChangeBaseID takes integer id, integer level returns nothing
-      set this.id = id
-      call ChangeIcon(this.owner.playerId, id, this.slot)
-      call Initids()
-      call ChangeLevel(level)
-      call ChangeObjectData(EXGetUnitAbility(this.owner.Unit, SlotData[this.slot].GetSkillCode(( PlayerResource[this.owner.playerId].options[EHotkeyMenu.SubMenuSmartMode].id == 1 ))))
-    endmethod
-    static method Create takes CharacterResource inputCharacter, integer slot, integer id, integer level returns thistype
-      local SlotResource this = IResource.create(SlotResource.typeid)
-      set this.owner = inputCharacter
-      set this.slot = slot
-      call ChangeBaseID(id, level)
-
-      // call MsgAll("생성/S.R.C[" + I2S(this.owner.playerId) + "][" + I2S(this.slot) + "],id=" + I2S(this.id) + ",lv=" + I2S(this.level))
-      return this
+      // 새로고침
+      call IncUnitAbilityLevel(this.owner.Unit, SlotData[this.slot].GetSkillCode(( PlayerResource[this.owner.playerId].options[EHotkeyMenu.SubMenuSmartMode].id == 1 )))
+      call DecUnitAbilityLevel(this.owner.Unit, SlotData[this.slot].GetSkillCode(( PlayerResource[this.owner.playerId].options[EHotkeyMenu.SubMenuSmartMode].id == 1 )))
     endmethod
   endstruct
   

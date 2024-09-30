@@ -2,7 +2,6 @@
 scope Select initializer Init
     globals
       private boolean array PreLoad
-      public integer array NowSelect
   
       private unit array SelectedUnit
       private boolean array SelectBol
@@ -23,7 +22,63 @@ scope Select initializer Init
       public real startXX = -9696.
       public real startYY = 4288.
     endglobals
+    struct Select
+      static method SetStars takes integer startnum, integer val, string texture returns nothing
+      local integer i = 0
+        loop
+          if ( val > i ) then
+            call DzFrameSetTexture(Frame_SelectStars[startnum+i], texture, 0)
+          else
+            call DzFrameSetTexture(Frame_SelectStars[startnum+i], "Select_stars0.tga", 0)
+          endif
+          exitwhen i >= 4
+          set i = i + 1
+        endloop
+      endmethod
+
+      static method ViewInfo takes string s, boolean Continue returns nothing
+        //이름 영어 설명x2
+        call DzFrameSetText(Frame_SelectText[2], JNStringSplit(s,"'",0))
+        call DzFrameSetText(Frame_SelectText[3], JNStringSplit(s,"'",1))
+        call DzFrameSetText(Frame_SelectText[4], JNStringSplit(s,"'",2))
+        call DzFrameSetText(Frame_SelectText[5], JNStringSplit(s,"'",3))
+        //별표
+        call SetStars(1, S2I(JNStringSplit(s,"'",4)), "Select_stars1.tga")
+        call SetStars(6, S2I(JNStringSplit(s,"'",5)), "Select_stars1.tga")
+        call SetStars(11, S2I(JNStringSplit(s,"'",6)), "Select_stars1.tga")
+        call SetStars(16, S2I(JNStringSplit(s,"'",7)), "Select_stars1.tga")
+        call SetStars(21, S2I(JNStringSplit(s,"'",8)), "Select_stars2.tga")
+            
+        //피해, 무기, 스킬아이콘
+        if ( SubString(JNStringSplit(s,"'",9),0,10) == "|cffff8000" ) then
+          call DzFrameSetTexture(Frame_SelectBack[3], "Select_BackRed.blp", 0)
+          call DzFrameSetTexture(Frame_SelectBack[4], "Select_BackRedRed.blp", 0)
+          if ( Continue ) then
+            call DzFrameSetTexture(Frame_SelectBack[6], "Select_ContinueRed.blp", 0)
+          else
+            call DzFrameSetTexture(Frame_SelectBack[6], "Select_StartRed.blp", 0)
+          endif
+        else
+          call DzFrameSetTexture(Frame_SelectBack[3], "Select_BackBlue.blp", 0)
+          call DzFrameSetTexture(Frame_SelectBack[4], "Select_BackBlueBlue.blp", 0)
+          if ( Continue ) then
+            call DzFrameSetTexture(Frame_SelectBack[6], "Select_ContinueBlue.blp", 0)
+          else
+            call DzFrameSetTexture(Frame_SelectBack[6], "Select_StartBlue.blp", 0)
+          endif
+        endif
+        call DzFrameSetText(Frame_SelectText[12], JNStringSplit(s,"'",9))
+        call DzFrameSetText(Frame_SelectText[14], JNStringSplit(s,"'",10))
     
+        call DzFrameSetTexture(Frame_SelectSkills[2], JNStringSplit(s,"'",11), 0)
+        call DzFrameSetTexture(Frame_SelectSkills[4], JNStringSplit(s,"'",12), 0)
+        call DzFrameSetTexture(Frame_SelectSkills[6], JNStringSplit(s,"'",13), 0)
+        call DzFrameSetTexture(Frame_SelectSkills[8], JNStringSplit(s,"'",14), 0)
+            
+        call DzFrameShow(Frame_SelectBack[1], true)
+        call DzFrameShow(Frame_SelectText[16], false)
+      endmethod
+    endstruct
     // 유닛 선택 해제 시 갱신 함수
     private function Deselected takes nothing returns nothing
       if GetLocalPlayer() == GetTriggerPlayer() then
@@ -32,60 +87,6 @@ scope Select initializer Init
       set SelectedUnit[GetPlayerId(GetTriggerPlayer()) + 1] = null
     endfunction
     
-    private function SetStars takes integer startnum, integer val, string texture returns nothing
-     local integer i = 0
-      loop
-        if ( val > i ) then
-          call DzFrameSetTexture(Frame_SelectStars[startnum+i], texture, 0)
-        else
-          call DzFrameSetTexture(Frame_SelectStars[startnum+i], "Select_stars0.tga", 0)
-        endif
-        exitwhen i >= 4
-        set i = i + 1
-      endloop
-    endfunction
-    private function ViewInfo takes string s, boolean Continue returns nothing
-      //이름 영어 설명x2
-      call DzFrameSetText(Frame_SelectText[2], JNStringSplit(s,"'",0))
-      call DzFrameSetText(Frame_SelectText[3], JNStringSplit(s,"'",1))
-      call DzFrameSetText(Frame_SelectText[4], JNStringSplit(s,"'",2))
-      call DzFrameSetText(Frame_SelectText[5], JNStringSplit(s,"'",3))
-      //별표
-      call SetStars(1, S2I(JNStringSplit(s,"'",4)), "Select_stars1.tga")
-      call SetStars(6, S2I(JNStringSplit(s,"'",5)), "Select_stars1.tga")
-      call SetStars(11, S2I(JNStringSplit(s,"'",6)), "Select_stars1.tga")
-      call SetStars(16, S2I(JNStringSplit(s,"'",7)), "Select_stars1.tga")
-      call SetStars(21, S2I(JNStringSplit(s,"'",8)), "Select_stars2.tga")
-          
-      //피해, 무기, 스킬아이콘
-      if ( SubString(JNStringSplit(s,"'",9),0,10) == "|cffff8000" ) then
-        call DzFrameSetTexture(Frame_SelectBack[3], "Select_BackRed.blp", 0)
-        call DzFrameSetTexture(Frame_SelectBack[4], "Select_BackRedRed.blp", 0)
-        if ( Continue ) then
-          call DzFrameSetTexture(Frame_SelectBack[6], "Select_ContinueRed.blp", 0)
-        else
-          call DzFrameSetTexture(Frame_SelectBack[6], "Select_StartRed.blp", 0)
-        endif
-      else
-        call DzFrameSetTexture(Frame_SelectBack[3], "Select_BackBlue.blp", 0)
-        call DzFrameSetTexture(Frame_SelectBack[4], "Select_BackBlueBlue.blp", 0)
-        if ( Continue ) then
-          call DzFrameSetTexture(Frame_SelectBack[6], "Select_ContinueBlue.blp", 0)
-        else
-          call DzFrameSetTexture(Frame_SelectBack[6], "Select_StartBlue.blp", 0)
-        endif
-      endif
-      call DzFrameSetText(Frame_SelectText[12], JNStringSplit(s,"'",9))
-      call DzFrameSetText(Frame_SelectText[14], JNStringSplit(s,"'",10))
-  
-      call DzFrameSetTexture(Frame_SelectSkills[2], JNStringSplit(s,"'",11), 0)
-      call DzFrameSetTexture(Frame_SelectSkills[4], JNStringSplit(s,"'",12), 0)
-      call DzFrameSetTexture(Frame_SelectSkills[6], JNStringSplit(s,"'",13), 0)
-      call DzFrameSetTexture(Frame_SelectSkills[8], JNStringSplit(s,"'",14), 0)
-          
-      call DzFrameShow(Frame_SelectBack[1], true)
-      call DzFrameShow(Frame_SelectText[16], false)
-    endfunction
     // 유닛 선택수 초기화 함수
     private function Inter takes nothing returns nothing
       local timer t = GetExpiredTimer()
@@ -108,7 +109,7 @@ scope Select initializer Init
           set NowSelect[pid] = ECharacter.U2I(u)
           if ( GetLocalPlayer() == p ) then
             
-            call ViewInfo(CharacterData[NowSelect[pid]].SelectDatas, ( 0 < S2I(JNStringSplit(JNStringSplit(LoadStr(hash, pid, StringHash("Data")),"/",NowSelect[pid]),"'",1)) ))
+            call Select.ViewInfo(CharacterData[NowSelect[pid]].SelectDatas, ( 0 < S2I(JNStringSplit(JNStringSplit(LoadStr(hash, pid, StringHash("Data")),"/",NowSelect[pid]),"'",1)) ))
             call ClearSelection()
           endif
         endif
@@ -138,30 +139,12 @@ scope Select initializer Init
      set u = null
      set t = null
     endfunction
-    public function ButtonClick takes nothing returns nothing
-      local integer f = DzGetTriggerUIEventFrame()
-      if ( EMenus.F2It(f) == FRAME_TYPE_CHARACTER ) then
-        set NowSelect[GetPlayerId(DzGetTriggerUIEventPlayer())+1] = EMenus.F2In(f)
-      endif
-      if ( GetLocalPlayer() == DzGetTriggerUIEventPlayer() ) then
-        if ( EMenus.F2It(f) == FRAME_TYPE_MENU ) then
-          call PushKey_MenuClick(EMenus.F2In(f))
-        else
-          call StopSound(gg_snd_MouseClick1, false, false)
-          call StartSound(gg_snd_MouseClick1)
-        endif
-        
-        if ( EMenus.F2It(f) == FRAME_TYPE_CHARACTER ) then
-          call ViewInfo(CharacterData[EMenus.F2In(f)].SelectDatas, ( 0 < S2I(JNStringSplit(JNStringSplit(LoadStr(hash, GetPlayerId(DzGetTriggerUIEventPlayer())+1, StringHash("Data")),"/",EMenus.F2In(f)),"'",1)) ))
-        endif
-      endif
-    endfunction
       
     private function ButtonJustUp takes nothing returns nothing
       local integer f = DzGetTriggerUIEventFrame()
       local integer nowSelectNum = NowSelect[GetPlayerId(DzGetTriggerUIEventPlayer())+1]
       if ( GetLocalPlayer() == DzGetTriggerUIEventPlayer() ) then
-        set f = 12+3*EMenus.F2In(f)
+        set f = 12+3*EMenus.GetSubTypeId(f)
         
         call DzFrameSetText(Frame_SelectText[16], "|cffd5d500"+JNStringSplit(CharacterData[nowSelectNum].SelectDatas,"'",f))
         call DzFrameSetText(Frame_SelectText[17], JNStringSplit(CharacterData[nowSelectNum].SelectDatas,"'",f+1))
@@ -241,7 +224,7 @@ scope Select initializer Init
     private function CreateSelectButton takes integer types returns nothing
       set Frame_SelectBack[types]=DzCreateFrameByTagName("BUTTON", "", Frame_SelectBack[types-1], "ScoreScreenTabButtonTemplate", 0)
       call DzFrameSetAllPoints(Frame_SelectBack[types], Frame_SelectBack[types-1])
-      call DzFrameSetScriptByCode(Frame_SelectBack[types], JN_FRAMEEVENT_MOUSE_UP, function ButtonClick, false)
+      call DzFrameSetScriptByCode(Frame_SelectBack[types], JN_FRAMEEVENT_MOUSE_UP, function MenuQuickSlot.ButtonClickAll, false)
     endfunction
     
     private function CreateSelectIcon2 takes integer types, integer parent, integer point, integer point2, real x, real y, real size, string IconTexture returns integer

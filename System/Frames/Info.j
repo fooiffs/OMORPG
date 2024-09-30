@@ -94,24 +94,23 @@ scope Info initializer Init
     call DzFrameSetSize(Frame_Info[i], .12, .285)
     call DzFrameSetPoint(Frame_Info[i], JN_FRAMEPOINT_TOPRIGHT, Frame_Info[i-2], JN_FRAMEPOINT_BOTTOMRIGHT, 0., -Equip_EDGEGAP)
     call DzFrameSetTexture(Frame_Info[i], "Equip_Back.blp", 0)
-    set SkillTree_Info[0] = Frame_Info[i]
     set i = i + 1
-    
+  
     set i = Info(i, Frame_Info[i-1], .010, JN_FRAMEPOINT_TOPLEFT, JN_FRAMEPOINT_TOPLEFT, Equip_EDGEGAP2, -.005, "방어(감소율)")
     set i = Info(i, Frame_Info[i-1], .010, JN_FRAMEPOINT_TOPLEFT, JN_FRAMEPOINT_BOTTOMLEFT, 0., -Equip_EDGEGAP, "추가감소/회피")
     call Info3(i-2, .010, JN_FRAMEPOINT_LEFT, JN_FRAMEPOINT_LEFT, .055, 0., I2S(GetRandomInt(1000,9999))+" ("+R2SW(GetRandomReal(10.,99.),2,1)+"%)")
     call Info3(i-1, .010, JN_FRAMEPOINT_LEFT, JN_FRAMEPOINT_LEFT, .055, 0., I2S(GetRandomInt(100,999))+" / "+I2S(GetRandomInt(10,99))+"%")
     
     
-    call SkillTree_MakeLineY(1, .055, -.01, .265, 3)
-    call SkillTree_MakeLineX(2, .045, -.0275, .02, 3)
-    call SkillTree_MakeLineX(3, .035, -.0525, .04, 3)
-    call SkillTree_MakeLineX(4, .045, -.0770, .02, 3)
-    call SkillTree_MakeLineX(5, .035, -.1025, .04, 3)
-    call SkillTree_MakeLineX(6, .045, -.1380, .02, 3)
-    call SkillTree_MakeLineX(7, .035, -.1750, .04, 3)
-    call SkillTree_MakeLineX(8, .035, -.2125, .04, 3)
-    call SkillTree_MakeLineX(9, .025, -.2400, .06, 3)
+    call SkillTree_MakeLineY(Frame_Info[0], .055, -.01, .265)
+    call SkillTree_MakeLineX(Frame_Info[0], .045, -.0275, .02)
+    call SkillTree_MakeLineX(Frame_Info[0], .035, -.0525, .04)
+    call SkillTree_MakeLineX(Frame_Info[0], .045, -.0770, .02)
+    call SkillTree_MakeLineX(Frame_Info[0], .035, -.1025, .04)
+    call SkillTree_MakeLineX(Frame_Info[0], .045, -.1380, .02)
+    call SkillTree_MakeLineX(Frame_Info[0], .035, -.1750, .04)
+    call SkillTree_MakeLineX(Frame_Info[0], .035, -.2125, .04)
+    call SkillTree_MakeLineX(Frame_Info[0], .025, -.2400, .06)
     //set i = InfoCase(i, Frame_Info[i-2], Frame_InfoValue[i-1], Frame_InfoValue[i-2])
     
     set i = Info(i, Frame_Info[i-1], .010, JN_FRAMEPOINT_TOPLEFT, JN_FRAMEPOINT_BOTTOMLEFT, 0., -Equip_EDGEGAP, "마방(감소율)")
