@@ -1,11 +1,7 @@
-scope Save initializer Init 
+scope Save initializer Init
   globals 
     private string array InvenData 
     private string array EquipData 
-      
-    public constant integer MAX_INVENTORY = 49 
-    public constant integer MAX_EQUIP = 16 
-    public constant integer MAX_CHARACTER = 6 
   endglobals 
     
   private function GetEquipData takes integer P returns nothing 
@@ -18,7 +14,7 @@ scope Save initializer Init
       else 
         set EquipData[loopA] = "" 
       endif 
-      exitwhen loopA >= MAX_EQUIP 
+      exitwhen MAX_EQUIP-1 <= loopA
       set loopA = loopA + 1 
     endloop 
     set t = null 
@@ -33,7 +29,7 @@ scope Save initializer Init
       else 
         set InvenData[loopA] = "" 
       endif 
-      exitwhen loopA >= MAX_INVENTORY 
+      exitwhen MAX_INVENTORY-1 <= loopA
       set loopA = loopA + 1 
     endloop 
     set t = null 
@@ -63,7 +59,7 @@ scope Save initializer Init
           call JNObjectCharacterSetString(name, I2S(loopB) + "e" + I2S(loopA), s) 
         endif 
           
-        exitwhen loopA >= MAX_EQUIP 
+        exitwhen MAX_EQUIP-1 <= loopA 
         set loopA = loopA + 1 
       endloop 
       exitwhen loopB >= MAX_CHARACTER 
@@ -101,7 +97,7 @@ scope Save initializer Init
         else 
           call JNObjectCharacterRemoveField(Name[P], "i" + I2S(loopA)) 
         endif 
-        exitwhen loopA >= MAX_INVENTORY 
+        exitwhen MAX_INVENTORY-1 <= loopA 
         set loopA = loopA + 1 
       endloop 
       call msgCheck(p, JNObjectCharacterSave(JN_MAPID, Name[P], JN_SECRETKEY, "Save")) 

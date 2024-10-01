@@ -1,0 +1,25 @@
+{
+  "version": "2.0.0",
+  "tasks": [ {
+      "label": "Jass Format",
+      "type": "shell",
+      "command": "& c:\\Python312\\python.exe 'C:\\Program Files\\Warcraft\\New\\Breach\\Script\\pytest\\format_jass.py' '\"${file}\"'",
+      "group": {
+        "kind": "test",
+        "isDefault": true
+      },
+      "presentation": {
+        "reveal": "silent",
+        "revealProblems": "onProblem",
+        "close": true
+      },
+      "isBackground": true,
+      "promptOnClose": true
+    }
+  ],
+  "presentation": {
+    "reveal": "silent",
+    "revealProblems": "onProblem",
+    "close": true
+  }
+}

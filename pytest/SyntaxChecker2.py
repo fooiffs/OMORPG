@@ -5,6 +5,8 @@ import subprocess
 # 시간 대기를 위해 사용
 import time
 
+import signal
+
 # 실행될 때, 디버그용 메시지를 표시합니다. 오류가 나면 하나하나 찾아보기 위함.
 is_print = False
 
@@ -68,9 +70,4 @@ command = 'Remove-Item –path ' + base_path + '\\Script\\backups\" -Recurse'
 if is_print: print(command)
 subprocess.run(["powershell", command])
 
-command = 'Remove-Item –path ' + base_path + '\\Script\\logs\" -Recurse'
-if is_print: print(command)
-subprocess.run(["powershell", command])
-
-os.system('cls')
-quit()
+os.kill(os.getppid(), signal.SIGTERM)

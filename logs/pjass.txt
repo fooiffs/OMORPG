@@ -1,0 +1,37 @@
+Parse successful:     2418 lines: c:\Program Files\Warcraft\New\Breach\Script\api\1.0.0\common.j
+Parse successful:    10230 lines: c:\Program Files\Warcraft\New\Breach\Script\api\1.0.0\blizzard.j
+logs\currentmapscript.j:5936: Undeclared variable QUICK_MENU_CHARACTER. Maybe you meant bj_lastCreatedTextTag, EVENT_PLAYER_DEFEAT or QUICK_MENU_SKILL_COUNT
+logs\currentmapscript.j:5936: Comparing two variables of different primitive types (except real and integer) is not allowed
+logs\currentmapscript.j:6254: Undeclared variable selextX
+logs\currentmapscript.j:6363: Undeclared variable Save_MAX_CHARACTER
+logs\currentmapscript.j:6394: Undeclared variable Save_MAX_CHARACTER
+logs\currentmapscript.j:7280: Undeclared variable Save_MAX_INVENTORY. Maybe you meant bj_MAX_INVENTORY
+logs\currentmapscript.j:7334: Undeclared variable Save_MAX_INVENTORY. Maybe you meant bj_MAX_INVENTORY
+logs\currentmapscript.j:7900: Cannot convert string to integer
+logs\currentmapscript.j:7901: Undeclared variable gg_trg_Load_End
+logs\currentmapscript.j:7956: Undeclared variable Save_MAX_CHARACTER
+logs\currentmapscript.j:8017: Undeclared variable Save_MAX_EQUIP
+logs\currentmapscript.j:8030: Undeclared variable Save_MAX_INVENTORY. Maybe you meant bj_MAX_INVENTORY
+logs\currentmapscript.j:8075: Undeclared variable Save_MAX_EQUIP
+logs\currentmapscript.j:8083: Undeclared variable Save_MAX_CHARACTER
+logs\currentmapscript.j:8092: Undeclared variable Save_MAX_INVENTORY. Maybe you meant bj_MAX_INVENTORY
+logs\currentmapscript.j:8152: Undeclared variable MAX_EQUIP
+logs\currentmapscript.j:8167: Undeclared variable MAX_INVENTORY
+logs\currentmapscript.j:8197: Undeclared variable MAX_EQUIP
+logs\currentmapscript.j:8200: Undeclared variable MAX_CHARACTER
+logs\currentmapscript.j:8235: Undeclared variable MAX_INVENTORY
+logs\currentmapscript.j:8268: Undeclared variable Save_MAX_EQUIP
+logs\currentmapscript.j:8277: Undeclared variable Save_MAX_EQUIP
+logs\currentmapscript.j:8283: Undeclared variable currentPlayerId
+logs\currentmapscript.j:8297: Undeclared variable MAX_INVENTORY
+logs\currentmapscript.j:8304: Undeclared variable currentPlayerId
+logs\currentmapscript.j:8326: Undeclared variable MAX_INVENTORY
+logs\currentmapscript.j:8369: Undeclared variable Data
+logs\currentmapscript.j:8373: Undeclared variable HouseName
+logs\currentmapscript.j:9268: Undeclared variable XX. Maybe you meant P
+logs\currentmapscript.j:9268: Undeclared variable YY. Maybe you meant P
+logs\currentmapscript.j:9518: Undeclared variable QUICK_MENU_CHARACTER. Maybe you meant si__CharacterData_F, bj_randomSubGroupWant or bj_rescueChangeColorUnit
+logs\currentmapscript.j:9518: Comparing two variables of different primitive types (except real and integer) is not allowed
+logs\currentmapscript.j failed with 32 errors
+Parse failed: 32 errors total
+9 errors ignored

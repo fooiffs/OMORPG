@@ -1,6 +1,10 @@
 // need: PushKey_MenuClick()
 scope Select initializer Init
     globals
+      private trigger selectTrigger = CreateTrigger()
+      private trigger deSelectTrigger = CreateTrigger()
+      private trigger syncTrigger = CreateTrigger()
+
       private boolean array PreLoad
   
       private unit array SelectedUnit
@@ -9,18 +13,22 @@ scope Select initializer Init
       
       private integer array Frame_SelectStars
       
-      private integer array SlotLv
-      private integer array SlotPlayTime
-  
+      // private integer array SlotLv
+      // private integer array SlotPlayTime
+
+
       public constant string DEFAULT_DATA = "0'0/1_0'1.2500/2_0'0/3_0'0/4_0'0/5_0'0/6_0'0/"
-                                           //Last Slot
-                                             //플탐All
+                                           //Last Slot + '
+                                             //' + 플탐All
                                                //1번슬롯_
                                                   //_플탐
                                                    //Lv.
                                                      //.경험치
-      public real startXX = -9696.
-      public real startYY = 4288.
+      public constant real startCreateX = -9696.
+      public constant real startCreateY = 4288.
+
+      private constant real selectX = -9664.
+      private constant real selectY = 5440.
     endglobals
     struct Select
       static method SetStars takes integer startnum, integer val, string texture returns nothing
@@ -42,6 +50,7 @@ scope Select initializer Init
         call DzFrameSetText(Frame_SelectText[3], JNStringSplit(s,"'",1))
         call DzFrameSetText(Frame_SelectText[4], JNStringSplit(s,"'",2))
         call DzFrameSetText(Frame_SelectText[5], JNStringSplit(s,"'",3))
+
         //별표
         call SetStars(1, S2I(JNStringSplit(s,"'",4)), "Select_stars1.tga")
         call SetStars(6, S2I(JNStringSplit(s,"'",5)), "Select_stars1.tga")
@@ -67,6 +76,7 @@ scope Select initializer Init
             call DzFrameSetTexture(Frame_SelectBack[6], "Select_StartBlue.blp", 0)
           endif
         endif
+
         call DzFrameSetText(Frame_SelectText[12], JNStringSplit(s,"'",9))
         call DzFrameSetText(Frame_SelectText[14], JNStringSplit(s,"'",10))
     
@@ -79,6 +89,7 @@ scope Select initializer Init
         call DzFrameShow(Frame_SelectText[16], false)
       endmethod
     endstruct
+
     // 유닛 선택 해제 시 갱신 함수
     private function Deselected takes nothing returns nothing
       if GetLocalPlayer() == GetTriggerPlayer() then
@@ -104,6 +115,7 @@ scope Select initializer Init
       local integer pid = GetPlayerId(p) + 1
       local unit u = GetTriggerUnit()
       local timer t
+      call MsgAll("Player[" +I2S(pid)+ "] : Selected (" + I2S(NowSelect[pid]) + " -> " + I2S(ECharacter.U2I(u)) + ")")
       if ( PreLoad[pid] ) then /* 시작하기 전 선택창 */
         if ( ECharacter.U2I(u) > 0 ) then
           set NowSelect[pid] = ECharacter.U2I(u)
@@ -159,12 +171,9 @@ scope Select initializer Init
         call DzFrameShow(Frame_SelectText[16], false)
       endif
     endfunction
-    private function DataSync2 takes nothing returns nothing
-      //To CreateUnit
-      set GetServerPlayer = DzGetTriggerSyncPlayer()
-      set NowSelect[GetPlayerId(DzGetTriggerSyncPlayer())+1] = S2I(DzGetTriggerSyncData())
-      call TriggerExecute(gg_trg_Load_End)
-      call PortraitEditor_Change()
+    private function CreateAfterSync takes nothing returns nothing
+      call Load_ExcuteAction.execute(DzGetTriggerSyncPlayer(), S2I(DzGetTriggerSyncData()))
+      // call TriggerExecute(gg_trg_Load_End)
     endfunction
     
     private function ButtonStart takes nothing returns nothing
@@ -181,7 +190,7 @@ scope Select initializer Init
           call DzFrameShow(Frame_Info[0], false)
           call ResetToGameCamera(0.)
           call SetCameraBoundsToRect(bj_mapInitialPlayableArea)
-          call PanCameraTo(startXX, startYY)
+          call PanCameraTo(selectX, selectY)
           call EnablePreSelect(true, true)
           call DzFrameShow(DzFrameGetMinimap(), true)
         endif
@@ -249,8 +258,8 @@ scope Select initializer Init
       call SetCameraField(CAMERA_FIELD_TARGET_DISTANCE, 1024, 0.)
       call SetCameraField(CAMERA_FIELD_FIELD_OF_VIEW, 70., 0.)
       call SetCameraField(CAMERA_FIELD_FARZ, 5000., 0.)
-      call CameraBounds(-9664., 5440.)
-         
+      call CameraBounds(selextX, selectY)
+
       // 체력바 끄기 (Alt 누른 효과 off)
       call EnablePreSelect(false, false)
 
@@ -341,11 +350,11 @@ scope Select initializer Init
         return ""
       elseif ( i < 100 ) then
         return I2S(i) + "분"
-      elseif ( i < 600 ) then /* 10시간 */
+      elseif ( i < 600 ) then /* 10시간 -> 4.27시간 */
         return R2SW(i/60.,1,2) + "시간"
-      else/* if ( i < 6000 ) then /* 100시간 */ */
+      else/* if ( i < 6000 ) then /* 100시간 -> 45.2시간 */ */
         return R2SW(i/60.,2,1) + "시간"
-      /*elseif ( i < 14400 ) then /* 10일 */
+      /*elseif ( i < 14400 ) then /* 10일 -> 27D12H*/
         return I2S(i/1440)+"D"+I2S(ModuloInteger(i,1440)/60)+"H"
       else
         return R2SW(i/1440.,2,2) + "D"*/
@@ -405,39 +414,36 @@ scope Select initializer Init
       call CreateSelectBottom2(p, Input)
      /* 1_시간'레벨.경험치  / 2_시간'레벨.경험치 ... */
     endfunction
-      
+    
+    // IResource.PlayerResource[]가 생성된 후 호출
     private function Init takes nothing returns nothing
-     local integer i = 0
-     local trigger trg
+      local integer loopA = 1
+      if ( PlayerResource.ALL_PLAYING_COUNT <= 0 ) then
+        call MsgAll("오류 / 플레이어 초기값이 설정되지 않았습니다.")
+        return
+      endif
+
+      // set leftCount = PlayerResource.ALL_PLAYING_COUNT
+
       call CreateSelect()
       call CreateSelectBottom()
       
-      call DzFrameShow(Frame_SelectBack[1], false) /* 전체 선택 프레임 without 최상단 나만의 알피지 txt */
+      call DzFrameShow(Frame_SelectBack[1], false)  /* 전체 선택 프레임 without 최상단 나만의 알피지 txt */
       call DzFrameShow(Frame_SelectText[16], false) /* 스킬 설명부분 */
       
-      set i = bj_MAX_PLAYERS-1
-      set trg = CreateTrigger()
       loop
-        call TriggerRegisterPlayerUnitEvent(trg, Player(i), EVENT_PLAYER_UNIT_DESELECTED, null)
-        set PreLoad[i+1] = true
-        exitwhen i <= 0
-        set i = i - 1
+        if ( PlayerResource[loopA].isPlaying ) then
+          set PreLoad[loopA] = true
+          call TriggerRegisterPlayerUnitEvent(selectTrigger, Player(loopA-1), EVENT_PLAYER_UNIT_SELECTED, null)
+          call TriggerRegisterPlayerUnitEvent(deSelectTrigger, Player(loopA-1), EVENT_PLAYER_UNIT_DESELECTED, null)
+        endif
+        exitwhen MAX_PLAYER_COUNT-1 <= loopA
+        set loopA = loopA + 1
       endloop
-      call TriggerAddAction(trg, function Deselected)
-    
-      set i = bj_MAX_PLAYERS-1
-      set trg = CreateTrigger()
-      loop
-        call TriggerRegisterPlayerUnitEvent(trg, Player(i), EVENT_PLAYER_UNIT_SELECTED, null)
-        exitwhen i <= 0
-        set i = i - 1
-      endloop
-      call TriggerAddAction(trg, function Selected)
-      
-      set trg = CreateTrigger()
-      call DzTriggerRegisterSyncData(trg, "Select", false)
-      call TriggerAddAction(trg, function DataSync2)
-      
-      set trg = null
+      call TriggerAddAction(selectTrigger, function Selected)
+      call TriggerAddAction(deSelectTrigger, function Deselected)
+
+      call DzTriggerRegisterSyncData(syncTrigger, "Select", false)
+      call TriggerAddAction(syncTrigger, function CreateAfterSync)
     endfunction
   endscope

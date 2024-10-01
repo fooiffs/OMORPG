@@ -1,0 +1,35 @@
+logs\currentmapscript.j
+pjass\f2d22c84.exe
+Line 5936:  Undeclared variable QUICK_MENU_CHARACTER. Maybe you meant bj_lastCreatedTextTag, EVENT_PLAYER_DEFEAT or QUICK_MENU_SKILL_COUNT
+Line 5936:  Comparing two variables of different primitive types (except real and integer) is not allowed
+Line 6254:  Undeclared variable selextX
+Line 6363:  Undeclared variable Save_MAX_CHARACTER
+Line 6394:  Undeclared variable Save_MAX_CHARACTER
+Line 7280:  Undeclared variable Save_MAX_INVENTORY. Maybe you meant bj_MAX_INVENTORY
+Line 7334:  Undeclared variable Save_MAX_INVENTORY. Maybe you meant bj_MAX_INVENTORY
+Line 7900:  Cannot convert string to integer
+Line 7901:  Undeclared variable gg_trg_Load_End
+Line 7956:  Undeclared variable Save_MAX_CHARACTER
+Line 8017:  Undeclared variable Save_MAX_EQUIP
+Line 8030:  Undeclared variable Save_MAX_INVENTORY. Maybe you meant bj_MAX_INVENTORY
+Line 8075:  Undeclared variable Save_MAX_EQUIP
+Line 8083:  Undeclared variable Save_MAX_CHARACTER
+Line 8092:  Undeclared variable Save_MAX_INVENTORY. Maybe you meant bj_MAX_INVENTORY
+Line 8152:  Undeclared variable MAX_EQUIP
+Line 8167:  Undeclared variable MAX_INVENTORY
+Line 8197:  Undeclared variable MAX_EQUIP
+Line 8200:  Undeclared variable MAX_CHARACTER
+Line 8235:  Undeclared variable MAX_INVENTORY
+Line 8268:  Undeclared variable Save_MAX_EQUIP
+Line 8277:  Undeclared variable Save_MAX_EQUIP
+Line 8283:  Undeclared variable currentPlayerId
+Line 8297:  Undeclared variable MAX_INVENTORY
+Line 8304:  Undeclared variable currentPlayerId
+Line 8326:  Undeclared variable MAX_INVENTORY
+Line 8369:  Undeclared variable Data
+Line 8373:  Undeclared variable HouseName
+Line 9268:  Undeclared variable XX. Maybe you meant P
+Line 9268:  Undeclared variable YY. Maybe you meant P
+Line 9518:  Undeclared variable QUICK_MENU_CHARACTER. Maybe you meant si__CharacterData_F, bj_randomSubGroupWant or bj_rescueChangeColorUnit
+Line 9518:  Comparing two variables of different primitive types (except real and integer) is not allowed
+32

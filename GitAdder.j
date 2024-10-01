@@ -39,8 +39,8 @@
 //! import "System\Server\ServerSetup.j"
 //! import "System\Server\Time.j"
 //! import "System\Server\LoadAuto.j"
-//! import "System\Server\Load.j" /* need Select_NowSelect, UnitNameChanger_SetObjectName() */
 //! import "System\Server\Save.j" /* need UnitNameChanger_GetHeroProperNameIndex() */
+//! import "System\Server\Load.j" /* need Select_NowSelect, UnitNameChanger_SetObjectName() */
 
 //! import "System\MemoryInterferencer\ClearCacher.j"
 

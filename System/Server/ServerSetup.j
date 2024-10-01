@@ -18,7 +18,8 @@ scope JNObjectGui initializer init /* requires JNServer, JNString, DzAPISync */
   endfunction 
 
   function JNObjectCharacterCreateSync takes nothing returns nothing 
-    set GetServerPlayer = DzGetTriggerSyncPlayer() 
+    set GetServerPlayer = DzGetTriggerSyncPlayer()
+    set NowSelect[GetPlayerId(DzGetTriggerSyncPlayer())+1] = JNStringSplit(DzGetTriggerSyncData(), "'", 0)
     call TriggerExecute(gg_trg_Load_End) 
   endfunction 
 

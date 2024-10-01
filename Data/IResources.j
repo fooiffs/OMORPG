@@ -23,6 +23,7 @@ scope IResources
     endmethod
   endstruct
   struct PlayerResource extends IResource
+    static integer ALL_PLAYING_COUNT = 0
     // super.id => 이 플레이어의 id 값 1~12
     boolean isPlaying
     CharacterResource character
@@ -45,7 +46,8 @@ scope IResources
       local integer loopA = 1
       loop
         if ( GetPlayerController(Player(loopA-1)) == MAP_CONTROL_USER ) and ( GetPlayerSlotState(Player(loopA-1)) == PLAYER_SLOT_STATE_PLAYING ) then
-          set privatePlayerResource[loopA] = IResource.create(PlayerResource.typeid)
+          set ALL_PLAYING_COUNT = ALL_PLAYING_COUNT + 1
+          set privatePlayerResource[loopA] = IResource.create(thistype.typeid)
           set privatePlayerResource[loopA].id = loopA
           set privatePlayerResource[loopA].isPlaying = true
         endif

@@ -2,7 +2,7 @@
 import os
 # 파워쉘 사용을 위해 사용
 import subprocess
-import time
+import signal
 
 is_print = False
 # base_path = '"' + os.path.dirname(os.path.abspath(os.path.dirname(os.path.abspath(os.path.dirname(__file__)))))
@@ -19,4 +19,4 @@ if is_print: print(command)
 subprocess.run(["powershell", command])
 
 os.system('cls')
-quit()
+os.kill(os.getppid(), signal.SIGTERM)

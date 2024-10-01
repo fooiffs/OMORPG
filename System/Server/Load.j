@@ -1,117 +1,157 @@
-globals
-  string array InvenData2
-  string array EquipData2
-  trigger gg_trg_Load_End
-endglobals
-scope Load initializer Init
-  function SetEquipData takes integer P, integer Slot returns nothing
-    local integer loopA = 1
-    loop
-      set EquipData2[loopA] = LoadStringBJ(StringHash(I2S(Slot) + "e" + I2S(loopA)), P, hash)
-      exitwhen loopA >= Save_MAX_EQUIP
-      set loopA = loopA + 1
-    endloop
+scope Load
+  public function ExcuteAction takes player target, integer data returns nothing
+    set GetServerPlayer = target
+    set NowSelect[GetPlayerId(target)+1] = data
+    call TriggerExecute(Load.triggerLoad)
   endfunction
-  function SetInvenData takes integer P returns nothing
-    local integer loopA = 1
-    loop
-      set InvenData2[loopA] = LoadStringBJ(StringHash("i" + I2S(loopA)), P, hash)
-      exitwhen loopA >= Save_MAX_INVENTORY
-      set loopA = loopA + 1
-    endloop
-  endfunction
-  function Trig_JN_Object_Load2_Actions takes nothing returns nothing
-    local integer loopA = 0
-    local string Data = ""
-    local string HouseName = ""
-    if ( JN_LoaderNow == 0 ) then
-      set JN_LoaderNow = GetPlayerId(GetServerPlayer) + 1
-      set Data = JNStringSplit(LoadStr(hash, JN_LoaderNow, StringHash("Data")), "/", NowSelect[JN_LoaderNow])
-      if ( IsNotEmpty(Data) ) then
-        if ( NowSelect[JN_LoaderNow] == 0 ) then
-          call DisplayTimedTextToPlayer(GetServerPlayer, 0., 0., 20, "로드 |cff00ff00가능! |r - 로드할 준비가 되었습니다.")
-        else
-          set loopA = S2I(JNStringSplit(Data, "'", 1))
-          if ( loopA == 0 ) then /* 신규 시작 */
-            call Msg(GetLocalPlayer(), GetPlayerName(GetServerPlayer) + "님이 " + JNStringSplit(CharacterData[NowSelect[JN_LoaderNow]].SelectDatas, "'", 0) + "을(를) 선택하였습니다.")
-            call ResetEquip(JN_LoaderNow)
-          else
-            call Msg(GetLocalPlayer(), GetPlayerName(GetServerPlayer) + "님이 Lv." + I2S(loopA) + " " + JNStringSplit(CharacterData[NowSelect[JN_LoaderNow]].SelectDatas, "'", 0) + "(으)로 모험을 이어갑니다.")
-            call SetEquipData(JN_LoaderNow, NowSelect[JN_LoaderNow])
+  struct Load
+    private static string array EquipData2[MAX_SAVE_EQUIP]
+    private static string array InvenData2[MAX_SAVE_INVENTORY]
+    public static trigger triggerLoad = CreateTrigger()
+
+
+    private static method GetEquipData takes integer P, integer Slot returns nothing
+      local integer loopA = Save_MAX_EQUIP-1
+      loop
+        set EquipData2[loopA] = LoadStringBJ(StringHash(I2S(Slot) + "e" + I2S(loopA)), P, hash)
+
+        exitwhen loopA <= 1
+        set loopA = loopA + 1
+      endloop
+    endmethod
+    private static method SetEquipData takes integer P returns nothing
+      local integer loopA = Save_MAX_EQUIP-1
+      local string tempString = ""
+      loop
+        set tempString = EquipData2[loopA]
+        if ( IsVaild(tempString) ) then
+          set bj_lastCreatedItem = CreateItem(S2I(JNStringSplit(tempString, "/", 0)), 0, 0)
+          call SaveItemHandle(hash, currentPlayerId, StringHash("ItemData" + I2S(-loopA)), bj_lastCreatedItem)
+          call SaveStr(hash, GetHandleId(bj_lastCreatedItem), StringHash("ItemAddData"), JNStringSplit(tempString, "/", 1))
+          if ( Player(P-1) == GetLocalPlayer() ) then
+            call DzFrameSetTexture(Equip_EquipBackdrop[loopA], EXGetItemDataString(GetItemTypeId(bj_lastCreatedItem), 1), 0)
           endif
-         
-          //집 이름 변경
-          set HouseName = GetObjectName('nefm')
-          if ( GetLocalPlayer() == GetServerPlayer ) then
-           
-            set HouseName = GetPlayerName(GetServerPlayer) + "가문의 " + GetObjectName(CharacterData[NowSelect[JN_LoaderNow]].UnitCode) + "네 집"
-          endif
-          call SetObjectName('nefm', HouseName)
-         
-          set udg_hero[JN_LoaderNow] = CreateUnit(GetServerPlayer, CharacterData[NowSelect[JN_LoaderNow]].UnitCode, Select_startXX, Select_startYY, bj_UNIT_FACING)
-          if ( GetLocalPlayer() == GetServerPlayer ) then
-            call DzFrameShow(Frame_Main, true)
-          endif
-         
-          call SetInvenData(JN_LoaderNow)
-         
-          call SetHeroLevel(udg_hero[JN_LoaderNow], loopA, false)
-          call SetHeroXP(udg_hero[JN_LoaderNow], S2I(JNStringSplit(JNStringSplit(Data, "'", 1), ".", 1)), false)
- 
-         
-          set Data = LoadStr(hash, JN_LoaderNow, StringHash(I2S(NowSelect[JN_LoaderNow]) + "_" + "Name"))
-          if ( IsNotEmpty(Data) ) then
-            call SetHeroProperNameIndex(udg_hero[JN_LoaderNow], JN_LoaderNow)
-            call SetHeroProperName(udg_hero[JN_LoaderNow], Data)
-          else
-            call SetHeroProperNameIndex(udg_hero[JN_LoaderNow], 0)
-          endif
-                 
-          set loopA = 1
-          loop
-            set Data = EquipData2[loopA]
-            if ( IsNotEmpty(Data) ) then
-              set bj_lastCreatedItem = CreateItem(S2I(JNStringSplit(Data, "/", 0)), 0, 0)
-             
-              call SaveItemHandle(hash, JN_LoaderNow, StringHash("ItemData" + I2S(-loopA)), bj_lastCreatedItem)
-              call SaveStr(hash, GetHandleId(bj_lastCreatedItem), StringHash("ItemAddData"), JNStringSplit(Data, "/", 1))
-              if ( GetLocalPlayer() == GetServerPlayer ) then
-                call DzFrameSetTexture(Equip_EquipBackdrop[loopA], EXGetItemDataString(GetItemTypeId(bj_lastCreatedItem), 1), 0)
-              endif
-              call Equip_Process(EXGetItemDataString(GetItemTypeId(bj_lastCreatedItem), 3) + "'" + LoadStr(hash, GetHandleId(bj_lastCreatedItem), StringHash("ItemAddData")), JN_LoaderNow)
-              call SetItemPosition(bj_lastCreatedItem, XX, YY)
-            endif
-            exitwhen loopA >= Save_MAX_EQUIP
-            set loopA = loopA + 1
-          endloop
-          set loopA = 1
-          loop
-            set Data = InvenData2[loopA]
-            if ( IsNotEmpty(Data) ) then
-              set bj_lastCreatedItem = CreateItem(S2I(JNStringSplit(Data, "/", 0)), 0, 0)
-             
-              call SaveItemHandle(hash, JN_LoaderNow, StringHash("ItemData" + I2S(loopA)), bj_lastCreatedItem)
-              call SaveStr(hash, GetHandleId(bj_lastCreatedItem), StringHash("ItemAddData"), JNStringSplit(Data, "/", 1))
-              if ( GetLocalPlayer() == GetServerPlayer ) then
-                call DzFrameSetTexture(Frame_InvenButtonsBackDrop[loopA], EXGetItemDataString(GetItemTypeId(bj_lastCreatedItem), 1), 0)
-              endif
-              call SetItemPosition(bj_lastCreatedItem, XX, YY)
-            endif
-            exitwhen loopA >= Save_MAX_INVENTORY
-            set loopA = loopA + 1
-          endloop
+          call Equip_Process(EXGetItemDataString(GetItemTypeId(bj_lastCreatedItem), 3) + "'" + LoadStr(hash, GetHandleId(bj_lastCreatedItem), StringHash("ItemAddData")), currentPlayerId)
+          call SetItemPosition(bj_lastCreatedItem, StoreX, StoreY)
         endif
-      else
-        call DisplayTimedTextToPlayer(GetServerPlayer, 0., 0., 20, "로드 준비 |cffff0000실패|r: \"-load\"로 리로드가 가능합니다.")
+
+        exitwhen loopA <= 1
+        set loopA = loopA - 1
+      endloop
+    endmethod
+    private static method SetInvenData takes integer P, boolean removeIfEmpty returns nothing
+      local integer loopA = MAX_INVENTORY-1
+      local string tempString = ""
+      loop
+        set tempString = InvenData2[loopA]
+        if ( IsVaild(tempString) ) then
+          set bj_lastCreatedItem = CreateItem(S2I(JNStringSplit(tempString, "/", 0)), 0, 0)
+          
+          call SaveItemHandle(hash, currentPlayerId, StringHash("ItemData" + I2S(loopA)), bj_lastCreatedItem)
+          call SaveStr(hash, GetHandleId(bj_lastCreatedItem), StringHash("ItemAddData"), JNStringSplit(tempString, "/", 1))
+          if ( Player(P-1) == GetLocalPlayer() ) then
+            call DzFrameSetTexture(Frame_InvenButtonsBackDrop[loopA], EXGetItemDataString(GetItemTypeId(bj_lastCreatedItem), 1), 0)
+          endif
+          call SetItemPosition(bj_lastCreatedItem, StoreX, StoreY)
+        elseif ( removeIfEmpty and HaveSavedHandle(hash, currentPlayerId, StringHash("ItemData" + I2S(loopA))) ) then
+          set bj_lastCreatedItem = LoadItemHandle(hash, currentPlayerId, StringHash("ItemData" + I2S(loopA)))
+          call FlushChildHashtable(hash, GetHandleId(bj_lastCreatedItem))
+          call RemoveItem(bj_lastCreatedItem)
+          call RemoveSavedHandle(hash, currentPlayerId, StringHash("ItemData" + I2S(loopA)))
+          
+          if ( Player(P-1) == GetLocalPlayer() ) then
+            call DzFrameSetTexture(Frame_InvenButtonsBackDrop[loopA], "Inven_Empty.blp", 0)
+          endif
+        endif
+
+        exitwhen loopA <= 1
+        set loopA = loopA - 1
+      endloop
+    endmethod
+    private static method GetInvenData takes integer P returns nothing
+      local integer loopA = MAX_INVENTORY-1
+      loop
+        set InvenData2[loopA] = LoadStringBJ(StringHash("i" + I2S(loopA)), P, hash)
+
+        exitwhen loopA <= 1
+        set loopA = loopA - 1
+      endloop
+    endmethod
+    private static method Actions takes nothing returns nothing
+      local integer currentPlayerId = GetPlayerId(GetServerPlayer) + 1
+      local integer receivedData = NowSelect[currentPlayerId]
+      local integer tempInteger = 0
+      local string tempString = ""
+      
+      if ( 0 < JN_LoaderNow ) then
+        call Msg(GetServerPlayer, "로드 |cffff0000실패! |r - 현재 " + GetPlayerName(Player(JN_LoaderNow - 1)) + "|r님이 로드하고 있습니다. 잠시 후 다시 시도하세요.")
+        return
+      elseif ( 0 == receivedData ) then
+        call Msg(GetServerPlayer, "로드 |cffff0000실패! |r - 데이터가 비어 있습니다. 리로드 혹은 캐릭터 선택을 진행해주세요.")
+        return
+      elseif ( IsEmpty(CharacterData[receivedData].SelectDatas) ) then
+        call Msg(GetServerPlayer, "로드 |cffff0000실패!|r - 캐릭터가 정보가 비어 있습니다. 다시 선택해주세요.")
+        return
       endif
-      set JN_LoaderNow = 0
-    else
-      call DisplayTimedTextToPlayer(GetServerPlayer, 0., 0., 20, "로드 |cffff0000실패! |r - 현재 " + GetPlayerName(Player(JN_LoaderNow - 1)) + "|r님이 로드하고 있습니다. 잠시 후 다시 시도하세요.")
-    endif
-  endfunction
- 
-  private function Init takes nothing returns nothing
-    set gg_trg_Load_End = CreateTrigger()
-    call TriggerAddAction(gg_trg_Load_End, function Trig_JN_Object_Load2_Actions)
-  endfunction
+
+      // 데이터 설정
+        // 현재 로드중인 플레이어 설정
+      set JN_LoaderNow = currentPlayerId
+        // 불러올 데이터
+      set tempString = JNStringSplit(JNObjectCharacterGetString(GetPlayerName(GetServerPlayer), "Data"), "/", receivedData)
+
+        // 불러올 레벨 : [1_0'1.2500] 에서, '1. 의 1을 추출
+      set tempInteger = S2I(JNStringSplit(JNStringSplit(tempString, "'", 1), ".", 0))
+
+      // 생성
+      set udg_hero[currentPlayerId] = CreateUnit(GetServerPlayer, CharacterData[receivedData].UnitCode, Select_startCreateX, Select_startCreateY, bj_UNIT_FACING)
+
+      // 신규, 이어하기 알림
+      if ( 0 == tempInteger ) then /* 신규 시작 */
+        call MsgAll(GetPlayerName(GetServerPlayer) + "님이 " + JNStringSplit(CharacterData[receivedData].SelectDatas, "'", 0) + "을(를) 선택하였습니다.")
+      else
+        call MsgAll(GetPlayerName(GetServerPlayer) + "님이 Lv." + I2S(tempInteger) + " " + JNStringSplit(CharacterData[receivedData].SelectDatas, "'", 0) + "(으)로 모험을 이어갑니다.")
+        call SetHeroLevel(udg_hero[currentPlayerId], tempInteger, false)
+        call SetHeroXP(udg_hero[currentPlayerId], S2I(JNStringSplit(JNStringSplit(Data, "'", 1), ".", 1)), false)
+      endif
+
+      // 집 이름 설정
+      set HouseName = GetObjectName('nefm')
+      if ( GetServerPlayer == GetLocalPlayer() ) then
+        set HouseName = GetPlayerName(GetServerPlayer) + "가문의 " + GetObjectName(CharacterData[receivedData].UnitCode) + "네 집"
+      endif
+
+      // 영웅 이름 설정
+      set tempString = LoadStr(hash, currentPlayerId, StringHash(I2S(receivedData) + "_Name"))
+      if ( IsVaild(tempString) ) then
+        call SetHeroProperNameIndex(udg_hero[currentPlayerId], currentPlayerId)
+        call SetHeroProperName(udg_hero[currentPlayerId], tempString)
+      else
+        call SetHeroProperNameIndex(udg_hero[currentPlayerId], 0)
+      endif
+
+      // 장비, 인벤토리 설정
+      if ( tempInteger <= 0 ) then
+        call ResetEquip(currentPlayerId)
+      else
+        call GetEquipData(currentPlayerId, receivedData)
+        call SetEquipData(currentPlayerId)
+      endif
+      call GetInvenData(currentPlayerId)
+      call SetInvenData(currentPlayerId, true)
+
+      // 메인 프레임 보임
+      if ( GetLocalPlayer() == GetServerPlayer ) then
+        call DzFrameShow(Frame_Main, true)
+      endif
+      
+      set currentPlayerId = 0
+
+      call PortraitEditor_Change()
+    endmethod
+  
+    private static method onInit takes nothing returns nothing
+      call TriggerAddAction(triggerLoad, function Load.Actions)
+    endmethod
+  endstruct
 endscope

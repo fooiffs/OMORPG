@@ -8,8 +8,8 @@ scope GlobalInitializer
     constant integer MAX_SKILL_COUNT = 205 + 1 /* 배열 1 시작, +1 */
     constant integer MAX_OPTION_MENU_COUNT = 30 + 1
     constant integer MAX_SKILL_SLOT = 8 + 1
-    constant real XX = 1280.
-    constant real YY = 1024.
+    constant real StoreX = 1280.
+    constant real StoreY = 1024.
 
     // 지역 설정  
     private SkillData array privateSkillData[MAX_SKILL_COUNT]
@@ -26,11 +26,16 @@ scope GlobalInitializer
     unit gg_unit_H002_0009 = null
     unit gg_unit_H001_0010 = null
     unit gg_unit_H000_0011 = null
+
+    // 저장
+    constant integer MAX_SAVE_INVENTORY = 49 +1
+    constant integer MAX_SAVE_EQUIP = 16 +1
+    constant integer MAX_SAVE_CHARACTER = 6 
   endglobals
   function IsEmpty takes string s returns boolean
     return (s == "") or (s == null)
   endfunction
-  function IsNotEmpty takes string s returns boolean
+  function IsVaild takes string s returns boolean
     return(s != "") and (s != null)
   endfunction
   function IfEmpty takes string s, string s2 returns string
