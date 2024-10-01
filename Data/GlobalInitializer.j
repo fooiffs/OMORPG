@@ -461,6 +461,9 @@ scope GlobalInitializer
       call SetTimeOfDayScale(0.)
       call FogEnable(false)
       call FogMaskEnable(false)
+
+      // 체력바 끄기 (Alt 누른 효과 off)
+      call EnablePreSelect(false, false)
     endmethod
   endstruct
 

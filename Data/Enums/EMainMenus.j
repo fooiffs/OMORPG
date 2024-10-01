@@ -2,7 +2,7 @@ scope EMainMenus
   globals
     key QUICK_MENU_ITEMSLOT
     key QUICK_MENU_SKILLSLOT
-    key QUICK_MENU_MENU prin
+    key QUICK_MENU_MENU
 
     key SELECT_MENU_PRESKILL
     key SELECT_MENU_CHARACTER

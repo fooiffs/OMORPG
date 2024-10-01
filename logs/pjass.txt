@@ -1,37 +1,95 @@
 Parse successful:     2418 lines: c:\Program Files\Warcraft\New\Breach\Script\api\1.0.0\common.j
 Parse successful:    10230 lines: c:\Program Files\Warcraft\New\Breach\Script\api\1.0.0\blizzard.j
-logs\currentmapscript.j:5936: Undeclared variable QUICK_MENU_CHARACTER. Maybe you meant bj_lastCreatedTextTag, EVENT_PLAYER_DEFEAT or QUICK_MENU_SKILL_COUNT
-logs\currentmapscript.j:5936: Comparing two variables of different primitive types (except real and integer) is not allowed
-logs\currentmapscript.j:6254: Undeclared variable selextX
-logs\currentmapscript.j:6363: Undeclared variable Save_MAX_CHARACTER
-logs\currentmapscript.j:6394: Undeclared variable Save_MAX_CHARACTER
-logs\currentmapscript.j:7280: Undeclared variable Save_MAX_INVENTORY. Maybe you meant bj_MAX_INVENTORY
-logs\currentmapscript.j:7334: Undeclared variable Save_MAX_INVENTORY. Maybe you meant bj_MAX_INVENTORY
-logs\currentmapscript.j:7900: Cannot convert string to integer
-logs\currentmapscript.j:7901: Undeclared variable gg_trg_Load_End
-logs\currentmapscript.j:7956: Undeclared variable Save_MAX_CHARACTER
-logs\currentmapscript.j:8017: Undeclared variable Save_MAX_EQUIP
-logs\currentmapscript.j:8030: Undeclared variable Save_MAX_INVENTORY. Maybe you meant bj_MAX_INVENTORY
-logs\currentmapscript.j:8075: Undeclared variable Save_MAX_EQUIP
-logs\currentmapscript.j:8083: Undeclared variable Save_MAX_CHARACTER
-logs\currentmapscript.j:8092: Undeclared variable Save_MAX_INVENTORY. Maybe you meant bj_MAX_INVENTORY
-logs\currentmapscript.j:8152: Undeclared variable MAX_EQUIP
-logs\currentmapscript.j:8167: Undeclared variable MAX_INVENTORY
-logs\currentmapscript.j:8197: Undeclared variable MAX_EQUIP
-logs\currentmapscript.j:8200: Undeclared variable MAX_CHARACTER
-logs\currentmapscript.j:8235: Undeclared variable MAX_INVENTORY
-logs\currentmapscript.j:8268: Undeclared variable Save_MAX_EQUIP
-logs\currentmapscript.j:8277: Undeclared variable Save_MAX_EQUIP
-logs\currentmapscript.j:8283: Undeclared variable currentPlayerId
-logs\currentmapscript.j:8297: Undeclared variable MAX_INVENTORY
-logs\currentmapscript.j:8304: Undeclared variable currentPlayerId
-logs\currentmapscript.j:8326: Undeclared variable MAX_INVENTORY
-logs\currentmapscript.j:8369: Undeclared variable Data
-logs\currentmapscript.j:8373: Undeclared variable HouseName
-logs\currentmapscript.j:9268: Undeclared variable XX. Maybe you meant P
-logs\currentmapscript.j:9268: Undeclared variable YY. Maybe you meant P
-logs\currentmapscript.j:9518: Undeclared variable QUICK_MENU_CHARACTER. Maybe you meant si__CharacterData_F, bj_randomSubGroupWant or bj_rescueChangeColorUnit
-logs\currentmapscript.j:9518: Comparing two variables of different primitive types (except real and integer) is not allowed
-logs\currentmapscript.j failed with 32 errors
-Parse failed: 32 errors total
+logs\currentmapscript.j:6122: Undeclared variable SelectedUnit
+logs\currentmapscript.j:6156: Undeclared variable Frame_SelectText
+logs\currentmapscript.j:6166: Undeclared variable Frame_SelectText
+logs\currentmapscript.j:6183: Undeclared variable Frame_SelectBack
+logs\currentmapscript.j:6224: Undeclared variable SELECT_MENU_SKILL. Maybe you meant SELECT_MENU_PRESKILL
+logs\currentmapscript.j:6224: Comparing two variables of different primitive types (except real and integer) is not allowed
+logs\currentmapscript.j:6232: Cannot return value from function that returns nothing
+logs\currentmapscript.j:6247: Comparing two variables of different primitive types (except real and integer) is not allowed
+logs\currentmapscript.j:6252: Cannot return value from function that returns nothing
+logs\currentmapscript.j:6256: Undeclared variable Frame_SelectBack
+logs\currentmapscript.j:6278: Undeclared variable selextX
+logs\currentmapscript.j:6298: Undeclared variable selectTextCharacterDescription
+logs\currentmapscript.j:6301: syntax error
+logs\currentmapscript.j:6302: syntax error
+logs\currentmapscript.j:6303: syntax error
+logs\currentmapscript.j:6304: syntax error
+logs\currentmapscript.j:6305: syntax error
+logs\currentmapscript.j:6308: syntax error
+logs\currentmapscript.j:6309: syntax error
+logs\currentmapscript.j:6310: syntax error
+logs\currentmapscript.j:6311: syntax error
+logs\currentmapscript.j:6312: syntax error
+logs\currentmapscript.j:6315: syntax error
+logs\currentmapscript.j:6316: syntax error
+logs\currentmapscript.j:6317: syntax error
+logs\currentmapscript.j:6318: syntax error
+logs\currentmapscript.j:6319: syntax error
+logs\currentmapscript.j:6322: syntax error
+logs\currentmapscript.j:6323: syntax error
+logs\currentmapscript.j:6324: syntax error
+logs\currentmapscript.j:6325: syntax error
+logs\currentmapscript.j:6326: syntax error
+logs\currentmapscript.j:6329: syntax error
+logs\currentmapscript.j:6330: syntax error
+logs\currentmapscript.j:6331: syntax error
+logs\currentmapscript.j:6332: syntax error
+logs\currentmapscript.j:6333: syntax error
+logs\currentmapscript.j:6342: Cannot convert nothing to integer
+logs\currentmapscript.j:6343: Cannot convert nothing to integer
+logs\currentmapscript.j:6344: Cannot convert nothing to integer
+logs\currentmapscript.j:6345: Cannot convert nothing to integer
+logs\currentmapscript.j:6352: Undeclared function GetAdder
+logs\currentmapscript.j:6377: Undeclared variable selectTextBottomsNameLevels
+logs\currentmapscript.j:6378: Undeclared variable selectTextBottomsPlayTimes
+logs\currentmapscript.j:6379: Undeclared variable selectTextBottomsLoadTypes
+logs\currentmapscript.j:6380: Cannot convert nothing to integer
+logs\currentmapscript.j:6381: Undeclared variable Save_MAX_CHARACTER
+logs\currentmapscript.j:6381: Exitwhen outside of loop
+logs\currentmapscript.j:6383: Missing endfunction
+logs\currentmapscript.j:6383: syntax error
+logs\currentmapscript.j:6383: Statement outside of function
+logs\currentmapscript.j:6383: Statement outside of function
+logs\currentmapscript.j:6384: Statement outside of function
+logs\currentmapscript.j:6384: Statement outside of function
+logs\currentmapscript.j:6394: Undeclared variable selectTextBottomsNameLevels
+logs\currentmapscript.j:6396: Undeclared variable selectTextBottomsPlayTimes
+logs\currentmapscript.j:6398: Undeclared variable selectTextBottomsLoadTypes
+logs\currentmapscript.j:6403: Undeclared variable Frame_SelectBack
+logs\currentmapscript.j:6404: Undeclared variable Frame_SelectText
+logs\currentmapscript.j:6419: Undeclared variable Save_MAX_CHARACTER
+logs\currentmapscript.j:6449: Undeclared variable PreLoad
+logs\currentmapscript.j:7305: Undeclared variable Save_MAX_INVENTORY. Maybe you meant bj_MAX_INVENTORY
+logs\currentmapscript.j:7359: Undeclared variable Save_MAX_INVENTORY. Maybe you meant bj_MAX_INVENTORY
+logs\currentmapscript.j:7925: Cannot convert string to integer
+logs\currentmapscript.j:7926: Undeclared variable gg_trg_Load_End
+logs\currentmapscript.j:7981: Undeclared variable Save_MAX_CHARACTER
+logs\currentmapscript.j:8003: Undeclared variable Select_DEFAULT_DATA. Maybe you meant s__Select_DEFAULT_DATA
+logs\currentmapscript.j:8042: Undeclared variable Save_MAX_EQUIP
+logs\currentmapscript.j:8055: Undeclared variable Save_MAX_INVENTORY. Maybe you meant bj_MAX_INVENTORY
+logs\currentmapscript.j:8100: Undeclared variable Save_MAX_EQUIP
+logs\currentmapscript.j:8108: Undeclared variable Save_MAX_CHARACTER
+logs\currentmapscript.j:8117: Undeclared variable Save_MAX_INVENTORY. Maybe you meant bj_MAX_INVENTORY
+logs\currentmapscript.j:8126: Undeclared function Select_GetSaveData. Maybe you meant s__Select_GetSaveData
+logs\currentmapscript.j:8177: Undeclared variable MAX_EQUIP
+logs\currentmapscript.j:8192: Undeclared variable MAX_INVENTORY
+logs\currentmapscript.j:8222: Undeclared variable MAX_EQUIP
+logs\currentmapscript.j:8225: Undeclared variable MAX_CHARACTER
+logs\currentmapscript.j:8260: Undeclared variable MAX_INVENTORY
+logs\currentmapscript.j:8293: Undeclared variable Save_MAX_EQUIP
+logs\currentmapscript.j:8302: Undeclared variable Save_MAX_EQUIP
+logs\currentmapscript.j:8308: Undeclared variable currentPlayerId
+logs\currentmapscript.j:8322: Undeclared variable MAX_INVENTORY
+logs\currentmapscript.j:8329: Undeclared variable currentPlayerId
+logs\currentmapscript.j:8351: Undeclared variable MAX_INVENTORY
+logs\currentmapscript.j:8386: Undeclared variable Select_startCreateX. Maybe you meant s__Select_startCreateY or s__Select_startCreateX
+logs\currentmapscript.j:8386: Undeclared variable Select_startCreateY. Maybe you meant s__Select_startCreateY or s__Select_startCreateX
+logs\currentmapscript.j:8394: Undeclared variable Data
+logs\currentmapscript.j:8398: Undeclared variable HouseName
+logs\currentmapscript.j:9293: Undeclared variable XX. Maybe you meant P
+logs\currentmapscript.j:9293: Undeclared variable YY. Maybe you meant P
+logs\currentmapscript.j failed with 90 errors
+Parse failed: 90 errors total
 9 errors ignored

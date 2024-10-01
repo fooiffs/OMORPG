@@ -1,4 +1,4 @@
-scope EHotkeyMenu
+scope EMenuButtons
   struct EHotkeyMenu
     static key Main1MiniInfo
     static key Main2SimpleEffect

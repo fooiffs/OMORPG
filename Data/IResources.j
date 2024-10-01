@@ -141,9 +141,9 @@ scope IResources
     private static method ChangeSlotIcon takes integer slot, boolean isSkill, string TexturePath returns nothing
       //아이콘 텍스처 설정
       if ( isSkill and 0 < slot and slot < MAX_SKILL_SLOT ) then
-        call DzFrameSetTexture(Frame_ButtonsBackDrop[slot+7], TexturePath, 0)
+        call DzFrameSetTexture(Quickmenu_Backdrops[slot+7], TexturePath, 0)
       elseif ( not isSkill and 0 < slot and slot <= 7 ) then
-        call DzFrameSetTexture(Frame_ButtonsBackDrop[slot], TexturePath, 0)
+        call DzFrameSetTexture(Quickmenu_Backdrops[slot], TexturePath, 0)
       elseif ( isSkill ) then
         call MsgAll("오류/슬롯["+I2S(slot)+"]변경/스킬")
       else

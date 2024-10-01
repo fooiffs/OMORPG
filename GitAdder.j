@@ -7,7 +7,7 @@
 
 //! import "Data\Enums\ETile.j"
 //! import "Data\Enums\ECharacter.j"
-//! import "Data\Enums\EHotkeyMenu.j"
+//! import "Data\Enums\EMenuButtons.j"
 //! import "Data\Enums\ESkillDatas.j"
 //! import "Data\Enums\EStatDatas.j"
 //! import "Data\Enums\EHotkeys.j"

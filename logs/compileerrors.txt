@@ -1,35 +1,93 @@
 logs\currentmapscript.j
 pjass\f2d22c84.exe
-Line 5936:  Undeclared variable QUICK_MENU_CHARACTER. Maybe you meant bj_lastCreatedTextTag, EVENT_PLAYER_DEFEAT or QUICK_MENU_SKILL_COUNT
-Line 5936:  Comparing two variables of different primitive types (except real and integer) is not allowed
-Line 6254:  Undeclared variable selextX
-Line 6363:  Undeclared variable Save_MAX_CHARACTER
-Line 6394:  Undeclared variable Save_MAX_CHARACTER
-Line 7280:  Undeclared variable Save_MAX_INVENTORY. Maybe you meant bj_MAX_INVENTORY
-Line 7334:  Undeclared variable Save_MAX_INVENTORY. Maybe you meant bj_MAX_INVENTORY
-Line 7900:  Cannot convert string to integer
-Line 7901:  Undeclared variable gg_trg_Load_End
-Line 7956:  Undeclared variable Save_MAX_CHARACTER
-Line 8017:  Undeclared variable Save_MAX_EQUIP
-Line 8030:  Undeclared variable Save_MAX_INVENTORY. Maybe you meant bj_MAX_INVENTORY
-Line 8075:  Undeclared variable Save_MAX_EQUIP
-Line 8083:  Undeclared variable Save_MAX_CHARACTER
-Line 8092:  Undeclared variable Save_MAX_INVENTORY. Maybe you meant bj_MAX_INVENTORY
-Line 8152:  Undeclared variable MAX_EQUIP
-Line 8167:  Undeclared variable MAX_INVENTORY
-Line 8197:  Undeclared variable MAX_EQUIP
-Line 8200:  Undeclared variable MAX_CHARACTER
-Line 8235:  Undeclared variable MAX_INVENTORY
-Line 8268:  Undeclared variable Save_MAX_EQUIP
-Line 8277:  Undeclared variable Save_MAX_EQUIP
-Line 8283:  Undeclared variable currentPlayerId
-Line 8297:  Undeclared variable MAX_INVENTORY
-Line 8304:  Undeclared variable currentPlayerId
-Line 8326:  Undeclared variable MAX_INVENTORY
-Line 8369:  Undeclared variable Data
-Line 8373:  Undeclared variable HouseName
-Line 9268:  Undeclared variable XX. Maybe you meant P
-Line 9268:  Undeclared variable YY. Maybe you meant P
-Line 9518:  Undeclared variable QUICK_MENU_CHARACTER. Maybe you meant si__CharacterData_F, bj_randomSubGroupWant or bj_rescueChangeColorUnit
-Line 9518:  Comparing two variables of different primitive types (except real and integer) is not allowed
-32
+Line 6122:  Undeclared variable SelectedUnit
+Line 6156:  Undeclared variable Frame_SelectText
+Line 6166:  Undeclared variable Frame_SelectText
+Line 6183:  Undeclared variable Frame_SelectBack
+Line 6224:  Undeclared variable SELECT_MENU_SKILL. Maybe you meant SELECT_MENU_PRESKILL
+Line 6224:  Comparing two variables of different primitive types (except real and integer) is not allowed
+Line 6232:  Cannot return value from function that returns nothing
+Line 6247:  Comparing two variables of different primitive types (except real and integer) is not allowed
+Line 6252:  Cannot return value from function that returns nothing
+Line 6256:  Undeclared variable Frame_SelectBack
+Line 6278:  Undeclared variable selextX
+Line 6298:  Undeclared variable selectTextCharacterDescription
+Line 6301:  syntax error
+Line 6302:  syntax error
+Line 6303:  syntax error
+Line 6304:  syntax error
+Line 6305:  syntax error
+Line 6308:  syntax error
+Line 6309:  syntax error
+Line 6310:  syntax error
+Line 6311:  syntax error
+Line 6312:  syntax error
+Line 6315:  syntax error
+Line 6316:  syntax error
+Line 6317:  syntax error
+Line 6318:  syntax error
+Line 6319:  syntax error
+Line 6322:  syntax error
+Line 6323:  syntax error
+Line 6324:  syntax error
+Line 6325:  syntax error
+Line 6326:  syntax error
+Line 6329:  syntax error
+Line 6330:  syntax error
+Line 6331:  syntax error
+Line 6332:  syntax error
+Line 6333:  syntax error
+Line 6342:  Cannot convert nothing to integer
+Line 6343:  Cannot convert nothing to integer
+Line 6344:  Cannot convert nothing to integer
+Line 6345:  Cannot convert nothing to integer
+Line 6352:  Undeclared function GetAdder
+Line 6377:  Undeclared variable selectTextBottomsNameLevels
+Line 6378:  Undeclared variable selectTextBottomsPlayTimes
+Line 6379:  Undeclared variable selectTextBottomsLoadTypes
+Line 6380:  Cannot convert nothing to integer
+Line 6381:  Undeclared variable Save_MAX_CHARACTER
+Line 6381:  Exitwhen outside of loop
+Line 6383:  Missing endfunction
+Line 6383:  syntax error
+Line 6383:  Statement outside of function
+Line 6383:  Statement outside of function
+Line 6384:  Statement outside of function
+Line 6384:  Statement outside of function
+Line 6394:  Undeclared variable selectTextBottomsNameLevels
+Line 6396:  Undeclared variable selectTextBottomsPlayTimes
+Line 6398:  Undeclared variable selectTextBottomsLoadTypes
+Line 6403:  Undeclared variable Frame_SelectBack
+Line 6404:  Undeclared variable Frame_SelectText
+Line 6419:  Undeclared variable Save_MAX_CHARACTER
+Line 6449:  Undeclared variable PreLoad
+Line 7305:  Undeclared variable Save_MAX_INVENTORY. Maybe you meant bj_MAX_INVENTORY
+Line 7359:  Undeclared variable Save_MAX_INVENTORY. Maybe you meant bj_MAX_INVENTORY
+Line 7925:  Cannot convert string to integer
+Line 7926:  Undeclared variable gg_trg_Load_End
+Line 7981:  Undeclared variable Save_MAX_CHARACTER
+Line 8003:  Undeclared variable Select_DEFAULT_DATA. Maybe you meant s__Select_DEFAULT_DATA
+Line 8042:  Undeclared variable Save_MAX_EQUIP
+Line 8055:  Undeclared variable Save_MAX_INVENTORY. Maybe you meant bj_MAX_INVENTORY
+Line 8100:  Undeclared variable Save_MAX_EQUIP
+Line 8108:  Undeclared variable Save_MAX_CHARACTER
+Line 8117:  Undeclared variable Save_MAX_INVENTORY. Maybe you meant bj_MAX_INVENTORY
+Line 8126:  Undeclared function Select_GetSaveData. Maybe you meant s__Select_GetSaveData
+Line 8177:  Undeclared variable MAX_EQUIP
+Line 8192:  Undeclared variable MAX_INVENTORY
+Line 8222:  Undeclared variable MAX_EQUIP
+Line 8225:  Undeclared variable MAX_CHARACTER
+Line 8260:  Undeclared variable MAX_INVENTORY
+Line 8293:  Undeclared variable Save_MAX_EQUIP
+Line 8302:  Undeclared variable Save_MAX_EQUIP
+Line 8308:  Undeclared variable currentPlayerId
+Line 8322:  Undeclared variable MAX_INVENTORY
+Line 8329:  Undeclared variable currentPlayerId
+Line 8351:  Undeclared variable MAX_INVENTORY
+Line 8386:  Undeclared variable Select_startCreateX. Maybe you meant s__Select_startCreateY or s__Select_startCreateX
+Line 8386:  Undeclared variable Select_startCreateY. Maybe you meant s__Select_startCreateY or s__Select_startCreateX
+Line 8394:  Undeclared variable Data
+Line 8398:  Undeclared variable HouseName
+Line 9293:  Undeclared variable XX. Maybe you meant P
+Line 9293:  Undeclared variable YY. Maybe you meant P
+90

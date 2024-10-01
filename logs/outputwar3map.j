@@ -88,15 +88,15 @@ constant integer JN_OSKEY_OEM_6= $DD
 constant integer JN_OSKEY_OEM_7= $DE
     
 constant integer JN_MOUSE_BUTTON_TYPE_RIGHT= 2
-constant integer QUICK_MENU_ITEMSLOT=3
-constant integer QUICK_MENU_SKILLSLOT=4
-constant integer QUICK_MENU_MENU=5
+constant integer QUICK_MENU_ITEMSLOT=9
+constant integer QUICK_MENU_SKILLSLOT=11
+constant integer QUICK_MENU_MENU=13
 
-constant integer SELECT_MENU_PRESKILL=6
-constant integer SELECT_MENU_CHARACTER=7
+constant integer SELECT_MENU_PRESKILL=15
+constant integer SELECT_MENU_CHARACTER=17
 
-constant integer SKILL_TREE_MAIN=8
-constant integer SKILL_TREE_EXTEND=9
+constant integer SKILL_TREE_MAIN=19
+constant integer SKILL_TREE_EXTEND=21
 
 constant integer QUICK_MENU_ITEM_COUNT= 7
 constant integer QUICK_MENU_SKILL_COUNT= 8
@@ -167,10 +167,10 @@ integer GameExitHook__MemoryBlock_block
 integer array l__GameExitHook__MemoryBlock_block
 dialog MainFrame__NoSaveDialog= DialogCreate()
       
-integer array Frame_SelectBack
-integer array Frame_SelectText
+      // integer array Frame_SelectBack
+      // integer array Frame_SelectText
 
-integer array Frame_ButtonsBackDrop
+      // integer array Frame_ButtonsBackDrop       //아이템/스킬/메뉴 버튼 배경 아이콘
       
 integer array Frame_Info
 integer array Frame_InfoValue
@@ -216,34 +216,6 @@ integer PortraitEditor__pGameUI
 constant integer PortraitEditor__JNProc__fastcall= 3
 boolean PortraitEditor__initializered= false
 boolean array PushKey__ChatState
-trigger Select__selectTrigger= CreateTrigger()
-trigger Select__deSelectTrigger= CreateTrigger()
-trigger Select__syncTrigger= CreateTrigger()
-
-boolean array Select__PreLoad
-  
-unit array Select__SelectedUnit
-boolean array Select__SelectBol
-integer array Select__SelectCount
-      
-integer array Select__Frame_SelectStars
-      
-      // private integer array SlotLv
-      // private integer array SlotPlayTime
-
-
-constant string Select_DEFAULT_DATA= "0'0/1_0'1.2500/2_0'0/3_0'0/4_0'0/5_0'0/6_0'0/"
-                                           //Last Slot + '
-                                             //' + 플탐All
-                                               //1번슬롯_
-                                                  //_플탐
-                                                   //Lv.
-                                                     //.경험치
-constant real Select_startCreateX= - 9696.
-constant real Select_startCreateY= 4288.
-
-constant real Select__selectX= - 9664.
-constant real Select__selectY= 5440.
 integer array Option__Frame_Setting
 integer array Option_Frame_SettingBackdrop
 constant real Equip__EQUIPSPACEGAP= 0.040
@@ -296,15 +268,15 @@ string array Name
 integer LoadAuto__int= 0
 string array Save__InvenData
 string array Save__EquipData
-region Hunting___tempRegion= null
-rect array Hunting___PlayerRect
-trigger Hunting___tempEnterTrigger= CreateTrigger()
-trigger Hunting___DyingTrigger= CreateTrigger()
-effect array Hunting___PlayerDecorationEffects
-integer array Hunting___PlayerDecorationNumber
+region Hunting__tempRegion= null
+rect array Hunting__PlayerRect
+trigger Hunting__tempEnterTrigger= CreateTrigger()
+trigger Hunting__DyingTrigger= CreateTrigger()
+effect array Hunting__PlayerDecorationEffects
+integer array Hunting__PlayerDecorationNumber
     
-constant integer Hunting___MAX_ROW= 10
-constant integer Hunting___MAX_COL= 8
+constant integer Hunting__MAX_ROW= 10
+constant integer Hunting__MAX_COL= 8
 trigger Enchant___triggerEnchant= CreateTrigger()
 trigger exitTrigger= CreateTrigger()
 trigger gg_trg_test_1_add= null
@@ -518,46 +490,46 @@ constant integer si__ECharacter=10
 integer si__ECharacter_F=0
 integer si__ECharacter_I=0
 integer array si__ECharacter_V
-constant integer s__ECharacter_ICHIGO=10
-constant integer s__ECharacter_RUKIA=11
-constant integer s__ECharacter_URYU=12
-constant integer s__ECharacter_ORIHIME=13
-constant integer s__ECharacter_RENJI=14
-constant integer s__ECharacter_SADO=15
+constant integer s__ECharacter_ICHIGO=23
+constant integer s__ECharacter_RUKIA=25
+constant integer s__ECharacter_URYU=27
+constant integer s__ECharacter_ORIHIME=29
+constant integer s__ECharacter_RENJI=31
+constant integer s__ECharacter_SADO=33
 constant integer si__EHotkeyMenu=11
 integer si__EHotkeyMenu_F=0
 integer si__EHotkeyMenu_I=0
 integer array si__EHotkeyMenu_V
-constant integer s__EHotkeyMenu_Main1MiniInfo=16
-constant integer s__EHotkeyMenu_Main2SimpleEffect=17
-constant integer s__EHotkeyMenu_Main3GlobalEffect=18
-constant integer s__EHotkeyMenu_Main4FeildOfView=19
-constant integer s__EHotkeyMenu_Main5HoldFieldOfView=20
-constant integer s__EHotkeyMenu_Main6ViewHotkeys=21
-constant integer s__EHotkeyMenu_Main7ServerSaveLeft=22
-constant integer s__EHotkeyMenu_SkillSlot1=23
-constant integer s__EHotkeyMenu_SkillSlot2=24
-constant integer s__EHotkeyMenu_SkillSlot3=25
-constant integer s__EHotkeyMenu_SkillSlot4=26
-constant integer s__EHotkeyMenu_SkillSlot5=27
-constant integer s__EHotkeyMenu_SkillSlot6=28
-constant integer s__EHotkeyMenu_SkillSlot7=29
-constant integer s__EHotkeyMenu_SkillSlot8=30
-constant integer s__EHotkeyMenu_ItemSlot1=31
-constant integer s__EHotkeyMenu_ItemSlot2=32
-constant integer s__EHotkeyMenu_ItemSlot3=33
-constant integer s__EHotkeyMenu_ItemSlot4=34
-constant integer s__EHotkeyMenu_ItemSlot5=35
-constant integer s__EHotkeyMenu_ItemSlot6=36
-constant integer s__EHotkeyMenu_ItemSlot7=37
-constant integer s__EHotkeyMenu_SubMenuKakaotalk=38
-constant integer s__EHotkeyMenu_SubMenuDiscord=39
-constant integer s__EHotkeyMenu_SubMenuSetting=40
-constant integer s__EHotkeyMenu_SubMenuAutoCombat=41
-constant integer s__EHotkeyMenu_SubMenuInventory=42
-constant integer s__EHotkeyMenu_SubMenuStatus=43
-constant integer s__EHotkeyMenu_SubMenuSkillTree=44
-constant integer s__EHotkeyMenu_SubMenuSmartMode=45
+constant integer s__EHotkeyMenu_Main1MiniInfo=35
+constant integer s__EHotkeyMenu_Main2SimpleEffect=37
+constant integer s__EHotkeyMenu_Main3GlobalEffect=39
+constant integer s__EHotkeyMenu_Main4FeildOfView=41
+constant integer s__EHotkeyMenu_Main5HoldFieldOfView=43
+constant integer s__EHotkeyMenu_Main6ViewHotkeys=45
+constant integer s__EHotkeyMenu_Main7ServerSaveLeft=47
+constant integer s__EHotkeyMenu_SkillSlot1=49
+constant integer s__EHotkeyMenu_SkillSlot2=51
+constant integer s__EHotkeyMenu_SkillSlot3=53
+constant integer s__EHotkeyMenu_SkillSlot4=55
+constant integer s__EHotkeyMenu_SkillSlot5=57
+constant integer s__EHotkeyMenu_SkillSlot6=59
+constant integer s__EHotkeyMenu_SkillSlot7=61
+constant integer s__EHotkeyMenu_SkillSlot8=63
+constant integer s__EHotkeyMenu_ItemSlot1=65
+constant integer s__EHotkeyMenu_ItemSlot2=67
+constant integer s__EHotkeyMenu_ItemSlot3=69
+constant integer s__EHotkeyMenu_ItemSlot4=71
+constant integer s__EHotkeyMenu_ItemSlot5=73
+constant integer s__EHotkeyMenu_ItemSlot6=75
+constant integer s__EHotkeyMenu_ItemSlot7=77
+constant integer s__EHotkeyMenu_SubMenuKakaotalk=79
+constant integer s__EHotkeyMenu_SubMenuDiscord=81
+constant integer s__EHotkeyMenu_SubMenuSetting=83
+constant integer s__EHotkeyMenu_SubMenuAutoCombat=85
+constant integer s__EHotkeyMenu_SubMenuInventory=87
+constant integer s__EHotkeyMenu_SubMenuStatus=89
+constant integer s__EHotkeyMenu_SubMenuSkillTree=91
+constant integer s__EHotkeyMenu_SubMenuSmartMode=93
 constant integer si__ESkillClass=12
 integer si__ESkillClass_F=0
 integer si__ESkillClass_I=0
@@ -671,25 +643,25 @@ constant integer si__ESkillTree=19
 integer si__ESkillTree_F=0
 integer si__ESkillTree_I=0
 integer array si__ESkillTree_V
-constant integer s__ESkillTree_MainCharacterName=46
-constant integer s__ESkillTree_MainTreeTypeLeft=47
-constant integer s__ESkillTree_MainTreeTypeCenter=48
-constant integer s__ESkillTree_MainTreeTypeRight=49
-constant integer s__ESkillTree_PopupTitle=50
-constant integer s__ESkillTree_PopupDetailPoint=51
-constant integer s__ESkillTree_PopupDetailCurrentLevel=52
-constant integer s__ESkillTree_SubIcon=53
-constant integer s__ESkillTree_SubTitle=54
-constant integer s__ESkillTree_SubShortDescriptionTop=55
-constant integer s__ESkillTree_SubShortDescriptionMiddle=56
-constant integer s__ESkillTree_SubShortDescriptionLow=57
-constant integer s__ESkillTree_SubLongDescriptionCost=58
-constant integer s__ESkillTree_SubLongDescriptionDetials=59
-constant integer s__ESkillTree_SubLongDescriptionNextLevels=60
-constant integer s__ESkillTree_SubSkillMinusAll=61
-constant integer s__ESkillTree_SubSkillMinusOne=62
-constant integer s__ESkillTree_SubSkillPlusOne=63
-constant integer s__ESkillTree_SubSkillPlusAll=64
+constant integer s__ESkillTree_MainCharacterName=94
+constant integer s__ESkillTree_MainTreeTypeLeft=95
+constant integer s__ESkillTree_MainTreeTypeCenter=96
+constant integer s__ESkillTree_MainTreeTypeRight=97
+constant integer s__ESkillTree_PopupTitle=98
+constant integer s__ESkillTree_PopupDetailPoint=99
+constant integer s__ESkillTree_PopupDetailCurrentLevel=100
+constant integer s__ESkillTree_SubIcon=101
+constant integer s__ESkillTree_SubTitle=102
+constant integer s__ESkillTree_SubShortDescriptionTop=103
+constant integer s__ESkillTree_SubShortDescriptionMiddle=104
+constant integer s__ESkillTree_SubShortDescriptionLow=105
+constant integer s__ESkillTree_SubLongDescriptionCost=106
+constant integer s__ESkillTree_SubLongDescriptionDetials=107
+constant integer s__ESkillTree_SubLongDescriptionNextLevels=108
+constant integer s__ESkillTree_SubSkillMinusAll=109
+constant integer s__ESkillTree_SubSkillMinusOne=110
+constant integer s__ESkillTree_SubSkillPlusOne=111
+constant integer s__ESkillTree_SubSkillPlusAll=112
 constant integer s__ESkillTree_MAX_SUBTYPE_COUNT= 3
 string s__ESkillTree_tempString= ""
 constant integer si__StatData=20
@@ -833,7 +805,30 @@ constant integer si__Select=42
 integer si__Select_F=0
 integer si__Select_I=0
 integer array si__Select_V
-constant integer si__Load=43
+trigger s__Select_selectTrigger= CreateTrigger()
+trigger s__Select_deSelectTrigger= CreateTrigger()
+trigger s__Select_syncTrigger= CreateTrigger()
+constant string s__Select_DEFAULT_DATA= "0'0/1_0'1.2500/2_0'0/3_0'0/4_0'0/5_0'0/6_0'0/"
+constant real s__Select_startCreateX= - 9696.
+constant real s__Select_startCreateY= 4288.
+constant real s__Select_selectX= - 9664.
+constant real s__Select_selectY= 5440.
+integer s__Select_currentCount= 0
+integer s__Select_select_Main= 0
+integer s__Select_select_Preview= 0
+integer s__Select_selectTextCharacterNameEnglish= 0
+integer s__Select_selectTextCharacterNameKorean= 0
+integer s__Select_selectTextCharacterDescription1= 0
+integer s__Select_selectTextCharacterDescription2= 0
+integer s__Select_selectTextCharacterDamageType= 0
+integer s__Select_selectTextCharacterMainWeapon= 0
+integer s__Select_selectBackSkillPreview= 0
+integer s__Select_selectTextSkillPreviewName= 0
+integer s__Select_selectTextSkillPreviewDescription1= 0
+integer s__Select_selectTextSkillPreviewDescription2= 0
+integer s__Select_selectButtonStart= 0
+integer s__Select_selectBackStart= 0
+constant integer si__Load=44
 integer si__Load_F=0
 integer si__Load_I=0
 integer array si__Load_V
@@ -848,6 +843,15 @@ integer array s__GlobalInitializer__privateCharacterData
 integer array s__GlobalInitializer__privateTreeMainData
 string array s__s__SkillData_ranks
 integer array s__s__PlayerResource_privatePlayerResource
+boolean array s__s__Select_isSelected
+integer array s__s__Select_selectBackBottoms
+integer array s__s__Select_selectBackStars
+integer array s__s__Select_selectBackSkills
+integer array s__s__Select_selectButtonBottoms
+integer array s__s__Select_selectButtonSkills
+integer array s__s__Select_selectTextBottoms
+integer array s__s__Select_selectTextBottomPlayTimes
+integer array s__s__Select_selectTextBottomLoadTypes
 string array s__s__Load_EquipData2
 string array s__s__Load_InvenData2
 trigger st__PlayerResource__staticgetindex
@@ -862,7 +866,8 @@ trigger st__IResource__factory
 trigger st__MenuQuickSlot_MenuClick
 trigger st__MenuQuickSlot_ButtonClickDetail
 trigger st__Select_ViewInfo
-trigger array st___prototype71
+trigger st__Select_CountAdder
+trigger array st___prototype67
 integer f__arg_integer1
 integer f__arg_integer2
 integer f__arg_integer3
@@ -1024,6 +1029,12 @@ function sc__Select_ViewInfo takes string s,boolean Continue returns nothing
     set f__arg_string1=s
     set f__arg_boolean1=Continue
     call TriggerEvaluate(st__Select_ViewInfo)
+endfunction
+
+//Generated method caller for Select.CountAdder
+function sc__Select_CountAdder takes nothing returns integer
+      set s__Select_currentCount=s__Select_currentCount + 1
+      return s__Select_currentCount
 endfunction
 
 //Generated allocator of Select
@@ -2058,17 +2069,17 @@ function s__BytePtr__allocate takes nothing returns integer
  return this
 endfunction
 
-function sc___prototype71_execute takes integer i,player a1,integer a2 returns nothing
+function sc___prototype67_execute takes integer i,player a1,integer a2 returns nothing
     set f__arg_player1=a1
     set f__arg_integer1=a2
 
-    call TriggerExecute(st___prototype71[i])
+    call TriggerExecute(st___prototype67[i])
 endfunction
-function sc___prototype71_evaluate takes integer i,player a1,integer a2 returns nothing
+function sc___prototype67_evaluate takes integer i,player a1,integer a2 returns nothing
     set f__arg_player1=a1
     set f__arg_integer1=a2
 
-    call TriggerEvaluate(st___prototype71[i])
+    call TriggerEvaluate(st___prototype67[i])
 
 endfunction
 
@@ -2774,10 +2785,10 @@ endfunction
   
 // scope ECharacter ends
 // END IMPORT OF Data\Enums\ECharacter.j
-// BEGIN IMPORT OF Data\Enums\EHotkeyMenu.j
-// scope EHotkeyMenu begins
-// scope EHotkeyMenu ends
-// END IMPORT OF Data\Enums\EHotkeyMenu.j
+// BEGIN IMPORT OF Data\Enums\EMenuButtons.j
+// scope EMenuButtons begins
+// scope EMenuButtons ends
+// END IMPORT OF Data\Enums\EMenuButtons.j
 // BEGIN IMPORT OF Data\Enums\ESkillDatas.j
 // scope ESkillDatas begins
     
@@ -3594,6 +3605,9 @@ endfunction
       call SetTimeOfDayScale(0.)
       call FogEnable(false)
       call FogMaskEnable(false)
+
+      // 체력바 끄기 (Alt 누른 효과 off)
+      call EnablePreSelect(false, false)
     endfunction
 
    
@@ -4160,9 +4174,9 @@ endfunction
     function s__SlotResource_ChangeSlotIcon takes integer slot,boolean isSkill,string TexturePath returns nothing
       //아이콘 텍스처 설정
       if ( isSkill and 0 < slot and slot < MAX_SKILL_SLOT ) then
-        call DzFrameSetTexture(Frame_ButtonsBackDrop[slot + 7], TexturePath, 0)
+        call DzFrameSetTexture(s__Quickmenu_Backdrops[slot + 7], TexturePath, 0)
       elseif ( not isSkill and 0 < slot and slot <= 7 ) then
-        call DzFrameSetTexture(Frame_ButtonsBackDrop[slot], TexturePath, 0)
+        call DzFrameSetTexture(s__Quickmenu_Backdrops[slot], TexturePath, 0)
       elseif ( isSkill ) then
         call MsgAll("오류/슬롯[" + I2S(slot) + "]변경/스킬")
       else
@@ -5933,7 +5947,7 @@ endfunction
       endif
     endfunction
     function s__MenuQuickSlot_ButtonClickDetail takes player p,integer frame returns nothing
-      if ( s__EMenus_GetMainType(frame) == QUICK_MENU_CHARACTER ) then
+      if ( s__EMenus_GetMainType(frame) == SELECT_MENU_CHARACTER ) then
         set NowSelect[GetPlayerId(p) + 1]=s__EMenus_GetSubTypeId(frame)
         if ( GetLocalPlayer() == p ) then
           call StopSound(gg_snd_MouseClick1, false, false)
@@ -5981,9 +5995,9 @@ endfunction
       call s__MenuQuickSlot_CreateHotKey(s__Quickmenu_Buttons[s__MenuQuickSlot_currentCount])
 
       // Backdrop
-      set s__Quickmenu_Backdrops[types]= DzCreateFrameByTagName("BACKDROP", "", s__Quickmenu_Buttons[types], "", 0)
-      call DzFrameSetAllPoints(s__Quickmenu_Backdrops[types], s__Quickmenu_Buttons[types])
-      call DzFrameSetTexture(s__Quickmenu_Backdrops[types], iconPath, 0)
+      set s__Quickmenu_Backdrops[s__MenuQuickSlot_currentCount]= DzCreateFrameByTagName("BACKDROP", "", s__Quickmenu_Buttons[s__MenuQuickSlot_currentCount], "", 0)
+      call DzFrameSetAllPoints(s__Quickmenu_Backdrops[s__MenuQuickSlot_currentCount], s__Quickmenu_Buttons[s__MenuQuickSlot_currentCount])
+      call DzFrameSetTexture(s__Quickmenu_Backdrops[s__MenuQuickSlot_currentCount], iconPath, 0)
     endfunction
     function s__MenuQuickSlot_CreateMenuFrames takes integer offset returns nothing
       call s__MenuQuickSlot_CreateButtons(QUICK_MENU_MENU , offset , .78 , .58 , .02 , "war3mapImported\\frame_setting.blp")
@@ -6023,132 +6037,120 @@ endfunction
 // scope MenuQuickSlot ends
 // END IMPORT OF System\Frames\MenuQuickSlot.j
 // BEGIN IMPORT OF System\Frames\Select.j
-// need: PushKey_MenuClick()
 // scope Select begins
-      function s__Select_SetStars takes integer startnum,integer val,string texture returns nothing
+    
+
+                                              //  ^ Last Slot       + '
+                                              //' + ^ 플탐All
+                                              // / +  ^ 1번슬롯      + _
+                                              // _ +    ^ 플탐
+                                              // ' +       ^ Lv       + .
+                                              // . +         ^ 경험치
+
+
+    // 프레임 선언
+
+
+
+
+
+
+      
+    function s__Select_SetStars takes integer startnum,integer val,string texture returns nothing
       local integer i= 0
-        loop
-          if ( val > i ) then
-            call DzFrameSetTexture(Select__Frame_SelectStars[startnum + i], texture, 0)
-          else
-            call DzFrameSetTexture(Select__Frame_SelectStars[startnum + i], "Select_stars0.tga", 0)
-          endif
-          exitwhen i >= 4
-          set i=i + 1
-        endloop
-      endfunction
-
-      function s__Select_ViewInfo takes string s,boolean Continue returns nothing
-        //이름 영어 설명x2
-        call DzFrameSetText(Frame_SelectText[2], JNStringSplit(s, "'", 0))
-        call DzFrameSetText(Frame_SelectText[3], JNStringSplit(s, "'", 1))
-        call DzFrameSetText(Frame_SelectText[4], JNStringSplit(s, "'", 2))
-        call DzFrameSetText(Frame_SelectText[5], JNStringSplit(s, "'", 3))
-
-        //별표
-        call s__Select_SetStars(1 , S2I(JNStringSplit(s, "'", 4)) , "Select_stars1.tga")
-        call s__Select_SetStars(6 , S2I(JNStringSplit(s, "'", 5)) , "Select_stars1.tga")
-        call s__Select_SetStars(11 , S2I(JNStringSplit(s, "'", 6)) , "Select_stars1.tga")
-        call s__Select_SetStars(16 , S2I(JNStringSplit(s, "'", 7)) , "Select_stars1.tga")
-        call s__Select_SetStars(21 , S2I(JNStringSplit(s, "'", 8)) , "Select_stars2.tga")
-            
-        //피해, 무기, 스킬아이콘
-        if ( SubString(JNStringSplit(s, "'", 9), 0, 10) == "|cffff8000" ) then
-          call DzFrameSetTexture(Frame_SelectBack[3], "Select_BackRed.blp", 0)
-          call DzFrameSetTexture(Frame_SelectBack[4], "Select_BackRedRed.blp", 0)
-          if ( Continue ) then
-            call DzFrameSetTexture(Frame_SelectBack[6], "Select_ContinueRed.blp", 0)
-          else
-            call DzFrameSetTexture(Frame_SelectBack[6], "Select_StartRed.blp", 0)
-          endif
+      loop
+        if ( val > i ) then
+          call DzFrameSetTexture(s__s__Select_selectBackStars[(startnum)*(5)+i], texture, 0)
         else
-          call DzFrameSetTexture(Frame_SelectBack[3], "Select_BackBlue.blp", 0)
-          call DzFrameSetTexture(Frame_SelectBack[4], "Select_BackBlueBlue.blp", 0)
-          if ( Continue ) then
-            call DzFrameSetTexture(Frame_SelectBack[6], "Select_ContinueBlue.blp", 0)
-          else
-            call DzFrameSetTexture(Frame_SelectBack[6], "Select_StartBlue.blp", 0)
-          endif
+          call DzFrameSetTexture(s__s__Select_selectBackStars[(startnum)*(5)+i], "Select_stars0.tga", 0)
         endif
-
-        call DzFrameSetText(Frame_SelectText[12], JNStringSplit(s, "'", 9))
-        call DzFrameSetText(Frame_SelectText[14], JNStringSplit(s, "'", 10))
-    
-        call DzFrameSetTexture(Frame_SelectSkills[2], JNStringSplit(s, "'", 11), 0)
-        call DzFrameSetTexture(Frame_SelectSkills[4], JNStringSplit(s, "'", 12), 0)
-        call DzFrameSetTexture(Frame_SelectSkills[6], JNStringSplit(s, "'", 13), 0)
-        call DzFrameSetTexture(Frame_SelectSkills[8], JNStringSplit(s, "'", 14), 0)
-            
-        call DzFrameShow(Frame_SelectBack[1], true)
-        call DzFrameShow(Frame_SelectText[16], false)
-      endfunction
-
-    // 유닛 선택 해제 시 갱신 함수
-    function Select__Deselected takes nothing returns nothing
-      if GetLocalPlayer() == GetTriggerPlayer() then
-        call DzFrameShow(Frame_Sub, false)
-      endif
-      set Select__SelectedUnit[GetPlayerId(GetTriggerPlayer()) + 1]=null
+        exitwhen i >= 4
+        set i=i + 1
+      endloop
     endfunction
-    
-    // 유닛 선택수 초기화 함수
-    function Select__Inter takes nothing returns nothing
-      local timer t= GetExpiredTimer()
-      local integer tid= GetHandleId(t)
-      local integer pid= LoadInteger(hash, tid, StringHash("pid"))
-      set Select__SelectBol[pid]=false
-      set Select__SelectCount[pid]=0
-      call FlushChildHashtable(hash, tid)
-      call DestroyTimer(t)
-      set t=null
-    endfunction
-    // 유닛 선택 시 갱신 함수
-    function Select__Selected takes nothing returns nothing
-      local player p= GetTriggerPlayer()
-      local integer pid= GetPlayerId(p) + 1
-      local unit u= GetTriggerUnit()
-      local timer t
-      call MsgAll("Player[" + I2S(pid) + "] : Selected (" + I2S(NowSelect[pid]) + " -> " + I2S(s__ECharacter_U2I(u)) + ")")
-      if ( Select__PreLoad[pid] ) then
-        if ( s__ECharacter_U2I(u) > 0 ) then
-          set NowSelect[pid]=s__ECharacter_U2I(u)
-          if ( GetLocalPlayer() == p ) then
-            
-            call s__Select_ViewInfo(s__CharacterData_SelectDatas[s__CharacterData__staticgetindex(NowSelect[pid])] , ( 0 < S2I(JNStringSplit(JNStringSplit(LoadStr(hash, pid, StringHash("Data")), "/", NowSelect[pid]), "'", 1)) ))
-            call ClearSelection()
-          endif
+
+    function s__Select_ViewInfo takes string s,boolean Continue returns nothing
+      //이름 영어 설명x2
+      call DzFrameSetText(s__Select_selectTextCharacterNameKorean, JNStringSplit(s, "'", 0))
+      call DzFrameSetText(s__Select_selectTextCharacterNameEnglish, JNStringSplit(s, "'", 1))
+      call DzFrameSetText(s__Select_selectTextCharacterDescription1, JNStringSplit(s, "'", 2))
+      call DzFrameSetText(s__Select_selectTextCharacterDescription2, JNStringSplit(s, "'", 3))
+
+      //별표
+      call s__Select_SetStars(0 , S2I(JNStringSplit(s, "'", 4)) , "Select_stars1.tga")
+      call s__Select_SetStars(1 , S2I(JNStringSplit(s, "'", 5)) , "Select_stars1.tga")
+      call s__Select_SetStars(2 , S2I(JNStringSplit(s, "'", 6)) , "Select_stars1.tga")
+      call s__Select_SetStars(3 , S2I(JNStringSplit(s, "'", 7)) , "Select_stars1.tga")
+      call s__Select_SetStars(4 , S2I(JNStringSplit(s, "'", 8)) , "Select_stars2.tga")
+          
+      //피해, 무기, 스킬아이콘
+      if ( SubString(JNStringSplit(s, "'", 9), 0, 10) == "|cffff8000" ) then
+        call DzFrameSetTexture(s__Select_select_Preview, "Select_BackRed.blp", 0)
+        call DzFrameSetTexture(s__Select_selectBackSkillPreview, "Select_BackRedRed.blp", 0)
+        if ( Continue ) then
+          call DzFrameSetTexture(s__Select_selectBackStart, "Select_ContinueRed.blp", 0)
+        else
+          call DzFrameSetTexture(s__Select_selectBackStart, "Select_StartRed.blp", 0)
         endif
       else
-        set Select__SelectCount[pid]=Select__SelectCount[pid] + 1
-        if ( Select__SelectCount[pid] > 1 ) then
-          if ( GetLocalPlayer() == p ) then
-            call DzFrameShow(Frame_Sub, false)
-          endif
-        elseif ( Select__SelectedUnit[pid] != null and Select__SelectedUnit[pid] != u ) then
-          if ( GetLocalPlayer() == p ) then
-            call DzFrameShow(Frame_Sub, false)
-          endif
+        call DzFrameSetTexture(s__Select_select_Preview, "Select_BackBlue.blp", 0)
+        call DzFrameSetTexture(s__Select_selectBackSkillPreview, "Select_BackBlueBlue.blp", 0)
+        if ( Continue ) then
+          call DzFrameSetTexture(s__Select_selectBackStart, "Select_ContinueBlue.blp", 0)
         else
-          if GetLocalPlayer() == GetTriggerPlayer() then
-            call DzFrameShow(Frame_Sub, true)
-          endif
+          call DzFrameSetTexture(s__Select_selectBackStart, "Select_StartBlue.blp", 0)
         endif
-        if not Select__SelectBol[pid] then
-          set Select__SelectBol[pid]=true
-          set t=CreateTimer()
-          call SaveInteger(hash, GetHandleId(t), StringHash("pid"), pid)
-          call TimerStart(t, 0, false, function Select__Inter)
-        endif
-        set Select__SelectedUnit[pid]=u
       endif
-     set u=null
-     set t=null
+
+      call DzFrameSetText(s__Select_selectTextCharacterDamageType, JNStringSplit(s, "'", 9))
+      call DzFrameSetText(s__Select_selectTextCharacterMainWeapon, JNStringSplit(s, "'", 10))
+
+      call DzFrameSetTexture(s__s__Select_selectBackSkills[0], JNStringSplit(s, "'", 11), 0)
+      call DzFrameSetTexture(s__s__Select_selectBackSkills[1], JNStringSplit(s, "'", 12), 0)
+      call DzFrameSetTexture(s__s__Select_selectBackSkills[2], JNStringSplit(s, "'", 13), 0)
+      call DzFrameSetTexture(s__s__Select_selectBackSkills[3], JNStringSplit(s, "'", 14), 0)
+          
+      call DzFrameShow(s__Select_select_Main, true)
+      call DzFrameShow(s__Select_select_Preview, false)
     endfunction
-      
-    function Select__ButtonJustUp takes nothing returns nothing
+
+    // 유닛 선택 해제 시 갱신 함수
+    function s__Select_Deselected takes nothing returns nothing
+      if ( GetTriggerPlayer() == GetLocalPlayer() ) then
+        call DzFrameShow(Frame_Sub, false)
+      endif
+      set SelectedUnit[GetPlayerId(GetTriggerPlayer()) + 1]=null
+    endfunction
+    
+    // // 유닛 선택수 초기화 함수
+    // private static method Inter takes nothing returns nothing
+    //   local timer t = GetExpiredTimer()
+    //   local integer tid = GetHandleId(t)
+    //   local integer pid = LoadInteger(hash, tid, StringHash("pid"))
+    //   set SelectBol[pid] = false
+    //   set SelectCount[pid] = 0
+    //   call FlushChildHashtable(hash, tid)
+    //   call DestroyTimer(t)
+    //   set t = null
+    // endmethod
+
+    // 유닛 선택 시 갱신 함수
+    function s__Select_Selected takes nothing returns nothing
+      local player p= GetTriggerPlayer()
+      local integer pid= GetPlayerId(p) + 1
+      // call MsgAll("Player[" +I2S(pid)+ "] : Selected (" + I2S(NowSelect[pid]) + " -> " + I2S(ECharacter.U2I(GetTriggerUnit())) + ")")
+      if ( s__s__Select_isSelected[pid] and 0 < s__ECharacter_U2I(GetTriggerUnit()) ) then
+        set NowSelect[pid]=s__ECharacter_U2I(GetTriggerUnit())
+        if ( p == GetLocalPlayer() ) then
+          call s__Select_ViewInfo(s__CharacterData_SelectDatas[s__CharacterData__staticgetindex(NowSelect[pid])] , ( 0 < S2I(JNStringSplit(JNStringSplit(LoadStr(hash, pid, StringHash("Data")), "/", NowSelect[pid]), "'", 1)) ))
+          call ClearSelection()
+        endif
+      endif
+    endfunction
+    function s__Select_ButtonJustUp takes nothing returns nothing
       local integer f= DzGetTriggerUIEventFrame()
       local integer nowSelectNum= NowSelect[GetPlayerId(DzGetTriggerUIEventPlayer()) + 1]
-      if ( GetLocalPlayer() == DzGetTriggerUIEventPlayer() ) then
+      if ( DzGetTriggerUIEventPlayer() == GetLocalPlayer() ) then
         set f=12 + 3 * s__EMenus_GetSubTypeId(f)
         
         call DzFrameSetText(Frame_SelectText[16], "|cffd5d500" + JNStringSplit(s__CharacterData_SelectDatas[s__CharacterData__staticgetindex(nowSelectNum)], "'", f))
@@ -6158,81 +6160,100 @@ endfunction
         call DzFrameShow(Frame_SelectText[16], true)
       endif
     endfunction
-    function Select__ButtonJustDown takes nothing returns nothing
+    function s__Select_ButtonJustDown takes nothing returns nothing
       local integer f= DzGetTriggerUIEventFrame()
-      if ( GetLocalPlayer() == DzGetTriggerUIEventPlayer() ) then
+      if ( DzGetTriggerUIEventPlayer() == GetLocalPlayer() ) then
         call DzFrameShow(Frame_SelectText[16], false)
       endif
     endfunction
-    function Select__CreateAfterSync takes nothing returns nothing
-      call sc___prototype71_execute(1,DzGetTriggerSyncPlayer() , S2I(DzGetTriggerSyncData()))
-      // call TriggerExecute(gg_trg_Load_End)
+    function s__Select_SendSyncedData takes nothing returns nothing
+      call sc___prototype67_execute(1,DzGetTriggerSyncPlayer() , S2I(DzGetTriggerSyncData()))
     endfunction
-    
-    function Select__ButtonStart takes nothing returns nothing
-      local integer f= GetPlayerId(DzGetTriggerUIEventPlayer()) + 1
-      set Select__PreLoad[f]=false
-      if ( s__CharacterData_UnitCode[s__CharacterData__staticgetindex(NowSelect[f])] == 0 ) then
-        set Select__PreLoad[f]=true
+
+    function s__Select_ButtonStart takes nothing returns nothing
+      local integer playerId= GetPlayerId(DzGetTriggerUIEventPlayer()) + 1
+      if ( s__CharacterData_UnitCode[s__CharacterData__staticgetindex(NowSelect[playerId])] == 0 ) then
         call Msg(DzGetTriggerUIEventPlayer() , "올바른 캐릭터를 선택 후, 시작하기를 눌러주세요")
       else
-        if ( GetLocalPlayer() == DzGetTriggerUIEventPlayer() ) then
-          call DzSyncData("Select", I2S(NowSelect[f]))
-          call DzFrameShow(Frame_SelectBack[0], false)
+        set s__s__Select_isSelected[playerId]= false
+        if ( DzGetTriggerUIEventPlayer() == GetLocalPlayer() ) then
+          call DzSyncData("Select", I2S(NowSelect[playerId]))
+
+          call DzFrameShow(s__Select_select_Main, false)
           call DzFrameShow(Frame_SelectBack[1], false)
           call DzFrameShow(Frame_Info[0], false)
           call ResetToGameCamera(0.)
           call SetCameraBoundsToRect(bj_mapInitialPlayableArea)
-          call PanCameraTo(Select__selectX, Select__selectY)
+          call PanCameraTo(s__Select_selectX, s__Select_selectY)
           call EnablePreSelect(true, true)
           call DzFrameShow(DzFrameGetMinimap(), true)
         endif
       endif
     endfunction
-    function Select__CameraBounds takes real x,real y returns nothing
-      call SetCameraBounds(x, y, x, y, x, y, x, y)
+
+    function s__Select_MakeStars takes integer parent,integer point,integer point2,real x,real y,real size,string texture returns integer
+      local integer temp= DzCreateFrame("BACKDROP", parent, sc__Select_CountAdder())
+      call DzFrameSetPoint(temp, point, parent, point2, x, y)
+      call DzFrameSetSize(temp, size, size)
+      call DzFrameSetTexture(temp, texture, 0)
+      return temp
     endfunction
-    function Select__MakeSelect takes integer no,integer point,real x,real y,real xx,real yy,string texture returns integer
-      set Frame_SelectBack[no]=DzCreateFrameByTagName("BACKDROP", "", Frame_SelectBack[1], "", no)
-      call DzFrameSetAbsolutePoint(Frame_SelectBack[no], point, x, y)
-      call DzFrameSetSize(Frame_SelectBack[no], xx, yy)
-      call DzFrameSetTexture(Frame_SelectBack[no], texture, 0)
-      return no + 1
+    function s__Select_CountAdder takes nothing returns integer
+      set s__Select_currentCount=s__Select_currentCount + 1
+      return s__Select_currentCount
     endfunction
-    function Select__MakeStars takes integer no,integer parent,integer point,integer point2,real x,real y,real size,string texture returns integer
-      set Select__Frame_SelectStars[no]=DzCreateFrameByTagName("BACKDROP", "", parent, "", no)
-      call DzFrameSetPoint(Select__Frame_SelectStars[no], point, parent, point2, x, y)
-      call DzFrameSetSize(Select__Frame_SelectStars[no], size, size)
-      call DzFrameSetTexture(Select__Frame_SelectStars[no], texture, 0)
-      return no + 1
+
+    function s__Select_MakeBack takes integer parent,integer point,real x,real y,real xx,real yy,string texture returns integer
+      local integer temp= DzCreateFrame("BACKDROP", parent, s__Select_CountAdder())
+      call DzFrameSetAbsolutePoint(temp, point, x, y)
+      call DzFrameSetSize(temp, xx, yy)
+      call DzFrameSetTexture(temp, texture, 0)
+      return temp
     endfunction
-    function Select__MakeSelectText takes integer no,integer parent,integer point,integer point2,real x,real y,real size,string text returns integer
-      set Frame_SelectText[no]=DzCreateFrameByTagName("TEXT", "", parent, "", no)
+    function s__Select_MakeText takes integer parent,integer point,integer point2,real x,real y,real size,string text returns integer
+      local integer temp= DzCreateFrame("TEXT", parent, s__Select_CountAdder())
       if ( size != 0. ) then
-        call DzFrameSetFont(Frame_SelectText[no], "Fonts\\DFHeiMd.ttf", size, 0)
+        call DzFrameSetFont(temp, "Fonts\\DFHeiMd.ttf", size, 0)
       endif
-      call DzFrameSetPoint(Frame_SelectText[no], point, parent, point2, x, y)
-      call DzFrameSetText(Frame_SelectText[no], text)
-      return no + 1
+      call DzFrameSetPoint(temp, point, parent, point2, x, y)
+      call DzFrameSetText(temp, text)
+      return temp
     endfunction
-      
-  
-    function Select__CreateSelectIcon takes integer types,real x,real y,real w,real h,string IconTexture returns nothing
-        set Frame_SelectBack[types]=DzCreateFrameByTagName("BACKDROP", "", Frame_SelectBack[0], "", 0)
-        call DzFrameSetAbsolutePoint(Frame_SelectBack[types], JN_FRAMEPOINT_CENTER, x, y)
-        call DzFrameSetSize(Frame_SelectBack[types], w, h)
-        call DzFrameSetTexture(Frame_SelectBack[types], IconTexture, 0)
-    endfunction
-    function Select__CreateSelectButton takes integer types returns nothing
-      set Frame_SelectBack[types]=DzCreateFrameByTagName("BUTTON", "", Frame_SelectBack[types - 1], "ScoreScreenTabButtonTemplate", 0)
-      call DzFrameSetAllPoints(Frame_SelectBack[types], Frame_SelectBack[types - 1])
-      call DzFrameSetScriptByCode(Frame_SelectBack[types], JN_FRAMEEVENT_MOUSE_UP, function s__MenuQuickSlot_ButtonClickAll, false)
+    function s__Select_MakeButton takes integer parent,integer types,integer input,integer point,integer point2,real x,real y,real size,string iconPath returns nothing
+      local integer temp= 0
+      if ( types != SELECT_MENU_PRESKILL and types != SELECT_MENU_SKILL ) then
+        call MsgAll("선택/버튼생성/타입오류." + I2S(types) + "," + I2S(input))
+        return
+      endif
+      set temp=DzCreateFrameByTagName("BUTTON", "", Frame_Main, "ScoreScreenTabButtonTemplate", s__Select_CountAdder())
+      if ( size == 0. ) then
+        call DzFrameSetAllPoints(temp, parent)
+        call s__EMenus_FrameSaveIDs(temp , types , input)
+        return temp
+      else
+        call DzFrameSetPoint(temp, point, parent, point2, x, y)
+        call DzFrameSetSize(temp, size, size)
+      endif
+
+      // IDs
+      call s__EMenus_FrameSaveIDs(temp , types , input)
+
+      // 배경
+      set s__s__Select_selectBackSkills[input]= DzCreateFrame("BACKDROP", temp, 0)
+      call DzFrameSetAllPoints(s__s__Select_selectBackSkills[input], temp)
+      call DzFrameSetTexture(s__s__Select_selectBackSkills[input], iconPath, 0)
+
+      call DzFrameSetScriptByCode(temp, JN_FRAMEEVENT_MOUSE_UP, function s__MenuQuickSlot_ButtonClickAll, false)
+      if ( types == SELECT_MENU_SKILL ) then
+        call DzFrameSetScriptByCode(temp, JN_FRAMEEVENT_MOUSE_ENTER, function s__Select_ButtonJustUp, false)
+        call DzFrameSetScriptByCode(temp, JN_FRAMEEVENT_MOUSE_LEAVE, function s__Select_ButtonJustDown, false)
+      endif
+
+      return temp
     endfunction
     
-    function Select__CreateSelectIcon2 takes integer types,integer parent,integer point,integer point2,real x,real y,real size,string IconTexture returns integer
+    function s__Select_CreateSelectIcon2 takes integer types,integer parent,integer point,integer point2,real x,real y,real size,string IconTexture returns integer
       set Frame_SelectSkills[types]=DzCreateFrameByTagName("BUTTON", "", Frame_SelectBack[1], "ScoreScreenTabButtonTemplate", 0)
-      call DzFrameSetScriptByCode(Frame_SelectSkills[types], JN_FRAMEEVENT_MOUSE_ENTER, function Select__ButtonJustUp, false)
-      call DzFrameSetScriptByCode(Frame_SelectSkills[types], JN_FRAMEEVENT_MOUSE_LEAVE, function Select__ButtonJustDown, false)
       call DzFrameSetPoint(Frame_SelectSkills[types], point, parent, point2, x, y)
       call DzFrameSetSize(Frame_SelectSkills[types], size, size)
         
@@ -6243,102 +6264,101 @@ endfunction
       call DzFrameSetTexture(Frame_SelectSkills[types], IconTexture, 0)
       return types + 1
     endfunction
-    function Select__CreateSelect takes nothing returns nothing
-     local integer Text= 1
-       
+
+    function s__Select_CameraBounds takes real x,real y returns nothing
+      call SetCameraBounds(x, y, x, y, x, y, x, y)
+    endfunction
+    function s__Select_InitCamera takes nothing returns nothing
       call SetCameraField(CAMERA_FIELD_ROTATION, 90., 0.)
       call SetCameraField(CAMERA_FIELD_ANGLE_OF_ATTACK, 325., 0.)
       call SetCameraField(CAMERA_FIELD_TARGET_DISTANCE, 1024, 0.)
       call SetCameraField(CAMERA_FIELD_FIELD_OF_VIEW, 70., 0.)
       call SetCameraField(CAMERA_FIELD_FARZ, 5000., 0.)
-      call Select__CameraBounds(selextX , Select__selectY)
 
-      // 체력바 끄기 (Alt 누른 효과 off)
-      call EnablePreSelect(false, false)
-
-      set Frame_SelectBack[0]=DzCreateFrameByTagName("TEXT", "", DzGetGameUI(), "", 0)
-      call DzFrameSetFont(Frame_SelectBack[0], "Fonts\\MoonEpi2.ttf", .030, 1)
-      call DzFrameSetAbsolutePoint(Frame_SelectBack[0], JN_FRAMEPOINT_CENTER, .4, .55)
-      if ( GetRandomReal(0., 99.) <= 33. ) then
-        call DzFrameSetText(Frame_SelectBack[0], "|cffFF7CBFThe Only My Own RPG")
-      elseif ( GetRandomReal(0., 66.) <= 33. ) then
-        call DzFrameSetText(Frame_SelectBack[0], "|cff28FF0DThe Only My Own RPG")
-      else
-        call DzFrameSetText(Frame_SelectBack[0], "|cff0085FFThe Only My Own RPG")
-      endif
-      set Text=Select__MakeSelectText(1 , Frame_SelectBack[0] , JN_FRAMEPOINT_TOPRIGHT , JN_FRAMEPOINT_BOTTOMRIGHT , 0. , 0. , 0. , "나만의 알피지")
-      call DzFrameSetFont(Frame_SelectText[1], "Fonts\\MoonEpi2.ttf", .0136, 0)
-      
-      set Frame_SelectBack[1]=DzCreateFrameByTagName("TEXT", "", DzGetGameUI(), "", 0)
-       
-      //call DzFrameSetTexture(Frame_SelectBack[0], "ui\\Title-R.blp", 0)
-      call Select__MakeSelect(2 , JN_FRAMEPOINT_TOPLEFT , .05 , .45 , .18 , .25 , "Select_Back.blp")
-      set Text=Select__MakeSelectText(Text , Frame_SelectBack[2] , JN_FRAMEPOINT_TOP , JN_FRAMEPOINT_TOP , 0. , - .013 , .015 , "T" + I2S(Text) + "DarkElf Mage")
-      set Text=Select__MakeSelectText(Text , Frame_SelectBack[2] , JN_FRAMEPOINT_TOPRIGHT , JN_FRAMEPOINT_TOPRIGHT , - .020 , - .035 , .010 , "T" + I2S(Text) + "다크엘프 마법사")
-      
-      set Text=Select__MakeSelectText(Text , Frame_SelectBack[2] , JN_FRAMEPOINT_TOPLEFT , JN_FRAMEPOINT_TOPLEFT , .020 , - .050 , .008 , "T" + I2S(Text) + "마법사는 강력한 마법 공격과 디버프를 사용해")
-      set Text=Select__MakeSelectText(Text , Frame_SelectText[Text - 1] , JN_FRAMEPOINT_TOPLEFT , JN_FRAMEPOINT_BOTTOMLEFT , 0. , 0. , .008 , "T" + I2S(Text) + "적을 괴롭히고 다대다 전투에 강한 직업입니다.")
-      
-      set Text=Select__MakeSelectText(Text , Frame_SelectBack[2] , JN_FRAMEPOINT_TOPLEFT , JN_FRAMEPOINT_TOPLEFT , .020 , - .080 , .012 , "공격")
-      call Select__MakeStars(1 , Frame_SelectText[Text - 1] , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_LEFT , .040 , 0. , .020 , "Select_stars1.tga")
-      call Select__MakeStars(2 , Select__Frame_SelectStars[1] , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_RIGHT , 0. , 0. , .020 , "Select_stars1.tga")
-      call Select__MakeStars(3 , Select__Frame_SelectStars[2] , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_RIGHT , 0. , 0. , .020 , "Select_stars1.tga")
-      call Select__MakeStars(4 , Select__Frame_SelectStars[3] , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_RIGHT , 0. , 0. , .020 , "Select_stars1.tga")
-      call Select__MakeStars(5 , Select__Frame_SelectStars[4] , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_RIGHT , 0. , 0. , .020 , "Select_stars1.tga")
-      set Text=Select__MakeSelectText(Text , Frame_SelectText[Text - 1] , JN_FRAMEPOINT_TOPLEFT , JN_FRAMEPOINT_BOTTOMLEFT , 0. , - .02 , .012 , "방어")
-      call Select__MakeStars(6 , Frame_SelectText[Text - 1] , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_LEFT , .040 , 0. , .020 , "Select_stars1.tga")
-      call Select__MakeStars(7 , Select__Frame_SelectStars[6] , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_RIGHT , 0. , 0. , .020 , "Select_stars1.tga")
-      call Select__MakeStars(8 , Select__Frame_SelectStars[7] , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_RIGHT , 0. , 0. , .020 , "Select_stars1.tga")
-      call Select__MakeStars(9 , Select__Frame_SelectStars[8] , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_RIGHT , 0. , 0. , .020 , "Select_stars1.tga")
-      call Select__MakeStars(10 , Select__Frame_SelectStars[9] , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_RIGHT , 0. , 0. , .020 , "Select_stars0.tga")
-      set Text=Select__MakeSelectText(Text , Frame_SelectText[Text - 1] , JN_FRAMEPOINT_TOPLEFT , JN_FRAMEPOINT_BOTTOMLEFT , 0. , - .02 , .012 , "보조")
-      call Select__MakeStars(11 , Frame_SelectText[Text - 1] , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_LEFT , .040 , 0. , .020 , "Select_stars1.tga")
-      call Select__MakeStars(12 , Select__Frame_SelectStars[11] , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_RIGHT , 0. , 0. , .020 , "Select_stars1.tga")
-      call Select__MakeStars(13 , Select__Frame_SelectStars[12] , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_RIGHT , 0. , 0. , .020 , "Select_stars1.tga")
-      call Select__MakeStars(14 , Select__Frame_SelectStars[13] , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_RIGHT , 0. , 0. , .020 , "Select_stars0.tga")
-      call Select__MakeStars(15 , Select__Frame_SelectStars[14] , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_RIGHT , 0. , 0. , .020 , "Select_stars0.tga")
-      set Text=Select__MakeSelectText(Text , Frame_SelectText[Text - 1] , JN_FRAMEPOINT_TOPLEFT , JN_FRAMEPOINT_BOTTOMLEFT , 0. , - .02 , .012 , "방해")
-      call Select__MakeStars(16 , Frame_SelectText[Text - 1] , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_LEFT , .040 , 0. , .020 , "Select_stars1.tga")
-      call Select__MakeStars(17 , Select__Frame_SelectStars[16] , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_RIGHT , 0. , 0. , .020 , "Select_stars1.tga")
-      call Select__MakeStars(18 , Select__Frame_SelectStars[17] , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_RIGHT , 0. , 0. , .020 , "Select_stars0.tga")
-      call Select__MakeStars(19 , Select__Frame_SelectStars[18] , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_RIGHT , 0. , 0. , .020 , "Select_stars0.tga")
-      call Select__MakeStars(20 , Select__Frame_SelectStars[19] , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_RIGHT , 0. , 0. , .020 , "Select_stars0.tga")
-      set Text=Select__MakeSelectText(Text , Frame_SelectText[Text - 1] , JN_FRAMEPOINT_TOPLEFT , JN_FRAMEPOINT_BOTTOMLEFT , 0. , - .02 , .012 , "난이도")
-      call Select__MakeStars(21 , Frame_SelectText[Text - 1] , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_LEFT , .040 , 0. , .020 , "Select_stars2.tga")
-      call Select__MakeStars(22 , Select__Frame_SelectStars[21] , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_RIGHT , 0. , 0. , .020 , "Select_stars0.tga")
-      call Select__MakeStars(23 , Select__Frame_SelectStars[22] , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_RIGHT , 0. , 0. , .020 , "Select_stars0.tga")
-      call Select__MakeStars(24 , Select__Frame_SelectStars[23] , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_RIGHT , 0. , 0. , .020 , "Select_stars0.tga")
-      call Select__MakeStars(25 , Select__Frame_SelectStars[24] , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_RIGHT , 0. , 0. , .020 , "Select_stars0.tga")
-        
-      call Select__MakeSelect(3 , JN_FRAMEPOINT_TOPLEFT , .6 , .4 , .20 , .23 , "Select_BackRed.blp")
-      set Text=Select__MakeSelectText(Text , Frame_SelectBack[3] , JN_FRAMEPOINT_TOPLEFT , JN_FRAMEPOINT_TOPLEFT , .02 , - .02 , .010 , "|cff8f8f8f피해 유형")
-      set Text=Select__MakeSelectText(Text , Frame_SelectText[Text - 1] , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_LEFT , .07 , 0. , .015 , "T" + I2S(Text) + "|cff0080c0마법 데미지")
-      set Text=Select__MakeSelectText(Text , Frame_SelectBack[3] , JN_FRAMEPOINT_TOPLEFT , JN_FRAMEPOINT_TOPLEFT , .02 , - .04 , .010 , "|cff8f8f8f사용(전용)무기")
-      set Text=Select__MakeSelectText(Text , Frame_SelectText[Text - 1] , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_LEFT , .07 , 0. , .012 , "T" + I2S(Text) + "[완드] [지팡이]")
-        
-      call Select__MakeSelect(4 , JN_FRAMEPOINT_TOPLEFT , .62 , .34 , .16 , .12 , "Select_BackRedRed.blp")
-      set Text=Select__MakeSelectText(Text , Frame_SelectBack[4] , JN_FRAMEPOINT_TOPLEFT , JN_FRAMEPOINT_TOPLEFT , .01 , - .01 , .010 , "|cff8f8f8f주요 스킬 보기")
-      call Select__CreateSelectIcon2(1 , Frame_SelectBack[4] , JN_FRAMEPOINT_TOP , JN_FRAMEPOINT_TOPLEFT , .024 , - .03 , .0275 , "war3mapImported\\frame_kakao.blp")
-      call Select__CreateSelectIcon2(3 , Frame_SelectBack[4] , JN_FRAMEPOINT_TOP , JN_FRAMEPOINT_TOPLEFT , .061 , - .03 , .0275 , "war3mapImported\\frame_kakao.blp")
-      call Select__CreateSelectIcon2(5 , Frame_SelectBack[4] , JN_FRAMEPOINT_TOP , JN_FRAMEPOINT_TOPLEFT , .099 , - .03 , .0275 , "war3mapImported\\frame_kakao.blp")
-      call Select__CreateSelectIcon2(7 , Frame_SelectBack[4] , JN_FRAMEPOINT_TOP , JN_FRAMEPOINT_TOPLEFT , .136 , - .03 , .0275 , "war3mapImported\\frame_kakao.blp")
-        
-      set Text=Select__MakeSelectText(Text , Frame_SelectBack[4] , JN_FRAMEPOINT_TOPLEFT , JN_FRAMEPOINT_TOPLEFT , .01 , - .08 , .012 , "T" + I2S(Text) + "|cffd5d500분노의 소용돌이 |cffff8000Lv.1")
-      
-      set Text=Select__MakeSelectText(Text , Frame_SelectText[Text - 1] , JN_FRAMEPOINT_TOPLEFT , JN_FRAMEPOINT_BOTTOMLEFT , 0. , - .005 , .008 , "T" + I2S(Text) + "창을 크게 휘둘러 주위의 적들에게 공격력의")
-      set Text=Select__MakeSelectText(Text , Frame_SelectText[Text - 1] , JN_FRAMEPOINT_TOPLEFT , JN_FRAMEPOINT_BOTTOMLEFT , 0. , 0. , .008 , "T" + I2S(Text) + "|cffff800060%|r만큼 마법피해를 최대 |cffff80003|r회 입힙니다.")
-  
-      set Frame_SelectBack[5]=DzCreateFrameByTagName("BUTTON", "", Frame_SelectBack[1], "ScoreScreenTabButtonTemplate", 0)
-      call DzFrameSetPoint(Frame_SelectBack[5], JN_FRAMEPOINT_TOP, Frame_SelectBack[4], JN_FRAMEPOINT_BOTTOM, 0., - .005)
-      call DzFrameSetSize(Frame_SelectBack[5], .11, .03)
-      call DzFrameSetScriptByCode(Frame_SelectBack[5], JN_FRAMEEVENT_MOUSE_UP, function Select__ButtonStart, true)
-      
-      //시작하기
-      set Frame_SelectBack[6]=DzCreateFrameByTagName("BACKDROP", "", Frame_SelectBack[5], "", 0)
-      call DzFrameSetAllPoints(Frame_SelectBack[6], Frame_SelectBack[5])
-      call DzFrameSetTexture(Frame_SelectBack[6], "Select_StartRed.blp", 0)
+      call s__Select_CameraBounds(selextX , s__Select_selectY)
     endfunction
-    function Select_I2T takes integer i returns string
+    function s__Select_CreateSelect takes nothing returns nothing
+      local integer Text= 1
+      call s__Select_InitCamera()
+
+      if ( GetRandomReal(0., 99.) <= 33. ) then
+        set Text=s__Select_MakeText(DzGetGameUI() , JN_FRAMEPOINT_CENTER , JN_FRAMEPOINT_BOTTOMLEFT , .4 , .55 , .038 , "|cffFF7CBFThe Only My Own RPG")
+      elseif ( GetRandomReal(0., 66.) <= 33. ) then
+        set Text=s__Select_MakeText(DzGetGameUI() , JN_FRAMEPOINT_CENTER , JN_FRAMEPOINT_BOTTOMLEFT , .4 , .55 , .038 , "|cff28FF0DThe Only My Own RPG")
+      else
+        set Text=s__Select_MakeText(DzGetGameUI() , JN_FRAMEPOINT_CENTER , JN_FRAMEPOINT_BOTTOMLEFT , .4 , .55 , .038 , "|cff0085FFThe Only My Own RPG")
+      endif
+      set s__Select_select_Main=s__Select_MakeText(Text , JN_FRAMEPOINT_TOPRIGHT , JN_FRAMEPOINT_BOTTOMRIGHT , 0. , 0. , 0136 , "나만의 알피지")
+       
+      //call DzFrameSetTexture(select_Main, "ui\\Title-R.blp", 0)
+      set s__Select_select_Preview=s__Select_MakeBack(s__Select_select_Main , JN_FRAMEPOINT_TOPLEFT , .05 , .45 , .18 , .25 , "Select_Back.blp")
+      set s__Select_selectTextCharacterNameEnglish=s__Select_MakeText(s__Select_select_Preview , JN_FRAMEPOINT_TOP , JN_FRAMEPOINT_TOP , 0. , - .013 , .015 , "DarkElf Mage")
+      set s__Select_selectTextCharacterNameKorean=s__Select_MakeText(s__Select_select_Preview , JN_FRAMEPOINT_TOPRIGHT , JN_FRAMEPOINT_TOPRIGHT , - .020 , - .035 , .010 , "다크엘프 마법사")
+      set s__Select_selectTextCharacterDescription1=s__Select_MakeText(s__Select_select_Preview , JN_FRAMEPOINT_TOPLEFT , JN_FRAMEPOINT_BOTTOMLEFT , .020 , - .050 , .008 , "마법사는 강력한 마법 공격과 디버프를 사용해")
+      set s__Select_selectTextCharacterDescription2=s__Select_MakeText(selectTextCharacterDescription , JN_FRAMEPOINT_TOPLEFT , JN_FRAMEPOINT_BOTTOMLEFT , 0. , 0. , .008 , "적을 괴롭히고 다대다 전투에 강한 직업입니다.")
+
+      set Text=s__Select_MakeText(Text , JN_FRAMEPOINT_TOPLEFT , JN_FRAMEPOINT_TOPLEFT , .020 , - .080 , .012 , "공격")
+      set selectTextStarBacks[0][0]=s__Select_MakeStars(Text , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_LEFT , .040 , 0. , .020 , "Select_stars1.tga")
+      set selectTextStarBacks[0][1]=s__Select_MakeStars(Text , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_LEFT , .060 , 0. , .020 , "Select_stars1.tga")
+      set selectTextStarBacks[0][2]=s__Select_MakeStars(Text , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_LEFT , .080 , 0. , .020 , "Select_stars1.tga")
+      set selectTextStarBacks[0][3]=s__Select_MakeStars(Text , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_LEFT , .100 , 0. , .020 , "Select_stars1.tga")
+      set selectTextStarBacks[0][4]=s__Select_MakeStars(Text , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_LEFT , .120 , 0. , .020 , "Select_stars1.tga")
+
+      set Text=s__Select_MakeText(Text , JN_FRAMEPOINT_TOPLEFT , JN_FRAMEPOINT_BOTTOMLEFT , 0. , - .02 , .012 , "방어")
+      set selectTextStarBacks[1][0]=s__Select_MakeStars(Text , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_LEFT , .040 , 0. , .020 , "Select_stars1.tga")
+      set selectTextStarBacks[1][1]=s__Select_MakeStars(Text , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_LEFT , .060 , 0. , .020 , "Select_stars1.tga")
+      set selectTextStarBacks[1][2]=s__Select_MakeStars(Text , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_LEFT , .080 , 0. , .020 , "Select_stars1.tga")
+      set selectTextStarBacks[1][3]=s__Select_MakeStars(Text , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_LEFT , .100 , 0. , .020 , "Select_stars1.tga")
+      set selectTextStarBacks[1][4]=s__Select_MakeStars(Text , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_LEFT , .120 , 0. , .020 , "Select_stars1.tga")
+
+      set Text=s__Select_MakeText(Text , JN_FRAMEPOINT_TOPLEFT , JN_FRAMEPOINT_BOTTOMLEFT , 0. , - .02 , .012 , "보조")
+      set selectTextStarBacks[2][0]=s__Select_MakeStars(Text , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_LEFT , .040 , 0. , .020 , "Select_stars1.tga")
+      set selectTextStarBacks[2][1]=s__Select_MakeStars(Text , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_LEFT , .060 , 0. , .020 , "Select_stars1.tga")
+      set selectTextStarBacks[2][2]=s__Select_MakeStars(Text , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_LEFT , .080 , 0. , .020 , "Select_stars1.tga")
+      set selectTextStarBacks[2][3]=s__Select_MakeStars(Text , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_LEFT , .100 , 0. , .020 , "Select_stars1.tga")
+      set selectTextStarBacks[2][4]=s__Select_MakeStars(Text , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_LEFT , .120 , 0. , .020 , "Select_stars1.tga")
+
+      set Text=s__Select_MakeText(Text , JN_FRAMEPOINT_TOPLEFT , JN_FRAMEPOINT_BOTTOMLEFT , 0. , - .02 , .012 , "방해")
+      set selectTextStarBacks[3][0]=s__Select_MakeStars(Text , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_LEFT , .040 , 0. , .020 , "Select_stars1.tga")
+      set selectTextStarBacks[3][1]=s__Select_MakeStars(Text , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_LEFT , .060 , 0. , .020 , "Select_stars1.tga")
+      set selectTextStarBacks[3][2]=s__Select_MakeStars(Text , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_LEFT , .080 , 0. , .020 , "Select_stars1.tga")
+      set selectTextStarBacks[3][3]=s__Select_MakeStars(Text , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_LEFT , .100 , 0. , .020 , "Select_stars1.tga")
+      set selectTextStarBacks[3][4]=s__Select_MakeStars(Text , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_LEFT , .120 , 0. , .020 , "Select_stars1.tga")
+
+      set Text=s__Select_MakeText(Text , JN_FRAMEPOINT_TOPLEFT , JN_FRAMEPOINT_BOTTOMLEFT , 0. , - .02 , .012 , "난이도")
+      set selectTextStarBacks[4][0]=s__Select_MakeStars(Text , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_LEFT , .040 , 0. , .020 , "Select_stars2.tga")
+      set selectTextStarBacks[4][1]=s__Select_MakeStars(Text , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_LEFT , .060 , 0. , .020 , "Select_stars2.tga")
+      set selectTextStarBacks[4][2]=s__Select_MakeStars(Text , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_LEFT , .080 , 0. , .020 , "Select_stars2.tga")
+      set selectTextStarBacks[4][3]=s__Select_MakeStars(Text , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_LEFT , .100 , 0. , .020 , "Select_stars2.tga")
+      set selectTextStarBacks[4][4]=s__Select_MakeStars(Text , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_LEFT , .120 , 0. , .020 , "Select_stars2.tga")
+      
+      set Text=s__Select_MakeText(s__Select_select_Main , JN_FRAMEPOINT_TOPLEFT , JN_FRAMEPOINT_TOPLEFT , .02 , - .02 , .010 , "|cff8f8f8f피해 유형")
+      set s__Select_selectTextCharacterDamageType=s__Select_MakeText(Text , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_LEFT , .07 , 0. , .015 , "|cff0080c0마법 데미지")
+      set Text=s__Select_MakeText(s__Select_select_Main , JN_FRAMEPOINT_TOPLEFT , JN_FRAMEPOINT_TOPLEFT , .02 , - .04 , .010 , "|cff8f8f8f사용(전용)무기")
+      set s__Select_selectTextCharacterMainWeapon=s__Select_MakeText(Text , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_LEFT , .07 , 0. , .012 , "[완드] [지팡이]")
+
+      set s__Select_selectBackSkillPreview=s__Select_MakeBack(DzGetGameUI() , JN_FRAMEPOINT_TOPLEFT , .62 , .34 , .16 , .12 , "Select_BackRedRed.blp")
+      set Text=s__Select_MakeText(s__Select_selectBackSkillPreview , JN_FRAMEPOINT_TOPLEFT , JN_FRAMEPOINT_TOPLEFT , .01 , - .01 , .010 , "|cff8f8f8f주요 스킬 보기")
+      set s__s__Select_selectButtonSkills[0]= s__Select_MakeButton(s__Select_selectBackSkillPreview , SELECT_MENU_PRESKILL , 1 , JN_FRAMEPOINT_TOP , JN_FRAMEPOINT_TOPLEFT , .024 , - .03 , .0275 , "war3mapImported\\frame_kakao.blp")
+      set s__s__Select_selectButtonSkills[1]= s__Select_MakeButton(s__Select_selectBackSkillPreview , SELECT_MENU_PRESKILL , 2 , JN_FRAMEPOINT_TOP , JN_FRAMEPOINT_TOPLEFT , .061 , - .03 , .0275 , "war3mapImported\\frame_kakao.blp")
+      set s__s__Select_selectButtonSkills[2]= s__Select_MakeButton(s__Select_selectBackSkillPreview , SELECT_MENU_PRESKILL , 3 , JN_FRAMEPOINT_TOP , JN_FRAMEPOINT_TOPLEFT , .099 , - .03 , .0275 , "war3mapImported\\frame_kakao.blp")
+      set s__s__Select_selectButtonSkills[3]= s__Select_MakeButton(s__Select_selectBackSkillPreview , SELECT_MENU_PRESKILL , 4 , JN_FRAMEPOINT_TOP , JN_FRAMEPOINT_TOPLEFT , .136 , - .03 , .0275 , "war3mapImported\\frame_kakao.blp")
+      
+      set s__Select_selectTextSkillPreviewName=s__Select_MakeText(s__Select_selectBackSkillPreview , JN_FRAMEPOINT_TOPLEFT , JN_FRAMEPOINT_TOPLEFT , .01 , - .08 , .012 , "|cffd5d500분노의 소용돌이 |cffff8000Lv.1")
+      set s__Select_selectTextSkillPreviewDescription1=s__Select_MakeText(s__Select_selectTextSkillPreviewName , JN_FRAMEPOINT_TOPLEFT , JN_FRAMEPOINT_BOTTOMLEFT , 0. , - .005 , .008 , "창을 크게 휘둘러 주위의 적들에게 공격력의")
+      set s__Select_selectTextSkillPreviewDescription2=s__Select_MakeText(s__Select_selectTextSkillPreviewDescription1 , JN_FRAMEPOINT_TOPLEFT , JN_FRAMEPOINT_BOTTOMLEFT , 0. , 0. , .008 , "|cffff800060%|r만큼 마법피해를 최대 |cffff80003|r회 입힙니다.")
+  
+      // 시작하기
+      set s__Select_selectButtonStart=DzCreateFrameByTagName("BUTTON", "", s__Select_select_Main, "ScoreScreenTabButtonTemplate", GetAdder())
+      call DzFrameSetPoint(s__Select_selectButtonStart, JN_FRAMEPOINT_TOP, s__Select_selectTextSkillPreviewDescription2, JN_FRAMEPOINT_BOTTOM, 0., - .005)
+      call DzFrameSetSize(s__Select_selectButtonStart, .11, .03)
+      call DzFrameSetScriptByCode(s__Select_selectButtonStart, JN_FRAMEEVENT_MOUSE_UP, function s__Select_ButtonStart, true)
+
+      set s__Select_selectBackStart=DzCreateFrame("BACKDROP", s__Select_selectButtonStart, 0)
+      call DzFrameSetAllPoints(s__Select_selectBackStart, s__Select_selectButtonStart)
+      call DzFrameSetTexture(s__Select_selectBackStart, "Select_StartRed.blp", 0)
+    endfunction
+    function s__Select_I2T takes integer i returns string
       if ( i <= 0 ) then
         return ""
       elseif ( i < 100 ) then
@@ -6350,21 +6370,19 @@ endfunction
       
       endif
     endfunction
-    function Select__CreateSelectBottom takes nothing returns nothing
+    function s__Select_CreateSelectBottom takes nothing returns nothing
      local integer i= 1
       //아래쪽
-      loop
-        call Select__CreateSelectIcon(5 + i * 2 , i * .12 , .1 , .1 , .04 , "Select_SlotBack75.blp")
-        call Select__MakeSelectText(16 + i * 3 , Frame_SelectBack[5 + i * 2] , JN_FRAMEPOINT_TOPLEFT , JN_FRAMEPOINT_TOPLEFT , .005 , - .005 , .010 , JNStringSplit(JNStringSplit(s__CharacterData_SelectDatas[s__CharacterData__staticgetindex(i)], "'", 0), " ", 1) + " Lv00")
-        call Select__MakeSelectText(17 + i * 3 , Frame_SelectBack[5 + i * 2] , JN_FRAMEPOINT_TOPRIGHT , JN_FRAMEPOINT_TOPRIGHT , - .005 , - .005 , .009 , " ")
-        call Select__MakeSelectText(18 + i * 3 , Frame_SelectBack[5 + i * 2] , JN_FRAMEPOINT_BOTTOMRIGHT , JN_FRAMEPOINT_BOTTOMRIGHT , - .01 , .008 , .013 , "이어하기")
-        
-        call Select__CreateSelectButton(6 + i * 2)
-        exitwhen i >= Save_MAX_CHARACTER
+        set s__s__Select_selectBackBottoms[i]= s__Select_MakeBack(s__Select_select_Main , JN_FRAMEPOINT_CENTER , i * .12 , .1 , .1 , .04 , "Select_SlotBack75.blp")
+        set selectTextBottomsNameLevels[i]=s__Select_MakeText(s__s__Select_selectBackBottoms[i] , JN_FRAMEPOINT_TOPLEFT , JN_FRAMEPOINT_TOPLEFT , .005 , - .005 , .010 , JNStringSplit(JNStringSplit(s__CharacterData_SelectDatas[s__CharacterData__staticgetindex(i)], "'", 0), " ", 1) + " Lv00")
+        set selectTextBottomsPlayTimes[i]=s__Select_MakeText(s__s__Select_selectBackBottoms[i] , JN_FRAMEPOINT_TOPRIGHT , JN_FRAMEPOINT_TOPRIGHT , .005 , .005 , .009 , "00분")
+        set selectTextBottomsLoadTypes[i]=s__Select_MakeText(s__s__Select_selectBackBottoms[i] , JN_FRAMEPOINT_BOTTOMRIGHT , JN_FRAMEPOINT_BOTTOMRIGHT , - .01 , .008 , .013 , "이어하기")
+        set s__s__Select_selectButtonBottoms[i]= s__Select_MakeButton(s__s__Select_selectBackBottoms[i] , SELECT_MENU_CHARACTER , i , 0 , 0 , 0. , 0. , .0 , "")
+        exitwhen Save_MAX_CHARACTER - 1 <= i
         set i=i + 1
       endloop
     endfunction
-    function Select__CreateSelectBottom2 takes player p,string Input returns nothing
+    function s__Select_CreateSelectBottom2 takes player p,string Input returns nothing
      local string s
      local integer i= 1
       //아래쪽
@@ -6372,13 +6390,13 @@ endfunction
         set s=JNStringSplit(Input, "/", i)
         if ( S2I(JNStringSplit(JNStringSplit(s, "'", 1), ".", 0)) > 0 ) then
           if ( GetLocalPlayer() == p ) then
-            call DzFrameSetTexture(Frame_SelectBack[5 + i * 2], "Select_SlotBack75.blp", 0)
-            call DzFrameSetFont(Frame_SelectText[16 + i * 3], "Fonts\\DFHeiMd.ttf", .010, 0)
-            call DzFrameSetText(Frame_SelectText[16 + i * 3], JNStringSplit(JNStringSplit(s__CharacterData_SelectDatas[s__CharacterData__staticgetindex(i)], "'", 0), " ", 1) + " Lv" + JNStringSplit(JNStringSplit(s, "'", 1), ".", 0))
-            call DzFrameSetFont(Frame_SelectText[17 + i * 3], "Fonts\\DFHeiMd.ttf", .009, 0)
-            call DzFrameSetText(Frame_SelectText[17 + i * 3], Select_I2T(S2I(JNStringSplit(JNStringSplit(s, "'", 0), "_", 1))))
-            call DzFrameSetFont(Frame_SelectText[18 + i * 3], "Fonts\\DFHeiMd.ttf", .013, 0)
-            call DzFrameSetText(Frame_SelectText[18 + i * 3], "이어하기")
+            call DzFrameSetTexture(s__s__Select_selectBackBottoms[i], "Select_SlotBack75.blp", 0)
+            call DzFrameSetFont(selectTextBottomsNameLevels[i], "Fonts\\DFHeiMd.ttf", .010, 0)
+            call DzFrameSetText(selectTextBottomsNameLevels[i], JNStringSplit(JNStringSplit(s__CharacterData_SelectDatas[s__CharacterData__staticgetindex(i)], "'", 0), " ", 1) + " Lv" + JNStringSplit(JNStringSplit(s, "'", 1), ".", 0))
+            call DzFrameSetFont(selectTextBottomsPlayTimes[i], "Fonts\\DFHeiMd.ttf", .009, 0)
+            call DzFrameSetText(selectTextBottomsPlayTimes[i], s__Select_I2T(S2I(JNStringSplit(JNStringSplit(s, "'", 0), "_", 1))))
+            call DzFrameSetFont(selectTextBottomsLoadTypes[i], "Fonts\\DFHeiMd.ttf", .013, 0)
+            call DzFrameSetText(selectTextBottomsLoadTypes[i], "이어하기")
           endif
         else
           if ( GetLocalPlayer() == p ) then
@@ -6388,25 +6406,30 @@ endfunction
             call DzFrameSetText(Frame_SelectText[17 + i * 3], "")
             call DzFrameSetFont(Frame_SelectText[18 + i * 3], "Fonts\\DFHeiMd.ttf", .008, 0)
             call DzFrameSetText(Frame_SelectText[18 + i * 3], "미리보기")
+
+            call DzFrameSetTexture(s__s__Select_selectBackBottoms[i], "Select_SlotBack50.blp", 0)
+            call DzFrameSetFont(selectTextBottomsNameLevels[i], "Fonts\\DFHeiMd.ttf", .010, 0)
+            call DzFrameSetText(selectTextBottomsNameLevels[i], JNStringSplit(s__CharacterData_SelectDatas[s__CharacterData__staticgetindex(i)], "'", 0) + " (신규)")
+            call DzFrameSetText(selectTextBottomsPlayTimes[i], "")
+            call DzFrameSetFont(selectTextBottomsLoadTypes[i], "Fonts\\DFHeiMd.ttf", .013, 0)
+            call DzFrameSetText(selectTextBottomsLoadTypes[i], "이어하기")
           endif
         endif
         
-        exitwhen i >= Save_MAX_CHARACTER
+        exitwhen Save_MAX_CHARACTER - 1 <= i
         set i=i + 1
       endloop
     endfunction
     
-    function Select_GetSaveData takes player p,string Input returns nothing
-      if ( IsEmpty(Input) ) then
-        set Input=Select_DEFAULT_DATA
-      endif
-      call SaveStr(hash, GetPlayerId(p) + 1, StringHash("Data"), Input)
-      call Select__CreateSelectBottom2(p , Input)
+    function s__Select_GetSaveData takes player p,string input returns nothing
+      set input=IfEmpty(input , s__Select_DEFAULT_DATA)
+      call SaveStr(hash, GetPlayerId(p) + 1, StringHash("Data"), input)
+      call s__Select_CreateSelectBottom2(p , input)
      
     endfunction
     
     // IResource.PlayerResource[]가 생성된 후 호출
-    function Select__Init takes nothing returns nothing
+    function s__Select_onInit takes nothing returns nothing
       local integer loopA= 1
       if ( s__PlayerResource_ALL_PLAYING_COUNT <= 0 ) then
         call MsgAll("오류 / 플레이어 초기값이 설정되지 않았습니다.")
@@ -6415,26 +6438,26 @@ endfunction
 
       // set leftCount = PlayerResource.ALL_PLAYING_COUNT
 
-      call Select__CreateSelect()
-      call Select__CreateSelectBottom()
+      call s__Select_CreateSelect()
+      call s__Select_CreateSelectBottom()
       
-      call DzFrameShow(Frame_SelectBack[1], false)
-      call DzFrameShow(Frame_SelectText[16], false)
+      call DzFrameShow(s__Select_select_Main, false)
+      call DzFrameShow(s__Select_select_Preview, false)
       
       loop
         if ( s__PlayerResource_isPlaying[s__PlayerResource__staticgetindex(loopA)] ) then
-          set Select__PreLoad[loopA]=true
-          call TriggerRegisterPlayerUnitEvent(Select__selectTrigger, Player(loopA - 1), EVENT_PLAYER_UNIT_SELECTED, null)
-          call TriggerRegisterPlayerUnitEvent(Select__deSelectTrigger, Player(loopA - 1), EVENT_PLAYER_UNIT_DESELECTED, null)
+          set PreLoad[loopA]=true
+          call TriggerRegisterPlayerUnitEvent(s__Select_selectTrigger, Player(loopA - 1), EVENT_PLAYER_UNIT_SELECTED, null)
+          call TriggerRegisterPlayerUnitEvent(s__Select_deSelectTrigger, Player(loopA - 1), EVENT_PLAYER_UNIT_DESELECTED, null)
         endif
         exitwhen MAX_PLAYER_COUNT - 1 <= loopA
         set loopA=loopA + 1
       endloop
-      call TriggerAddAction(Select__selectTrigger, function Select__Selected)
-      call TriggerAddAction(Select__deSelectTrigger, function Select__Deselected)
+      call TriggerAddAction(s__Select_selectTrigger, function s__Select_Selected)
+      call TriggerAddAction(s__Select_deSelectTrigger, function s__Select_Deselected)
 
-      call DzTriggerRegisterSyncData(Select__syncTrigger, "Select", false)
-      call TriggerAddAction(Select__syncTrigger, function Select__CreateAfterSync)
+      call DzTriggerRegisterSyncData(s__Select_syncTrigger, "Select", false)
+      call TriggerAddAction(s__Select_syncTrigger, function s__Select_SendSyncedData)
     endfunction
 // scope Select ends
 // END IMPORT OF System\Frames\Select.j
@@ -6483,13 +6506,16 @@ endfunction
         call DzFrameShow(Option_Frame_SettingBackdrop[0], false)
       endif
     endfunction
-    function Option__SettingHotKey takes integer i,integer number,integer frame,real x,real y,string text,code funcHandle returns integer
-      set Option__Frame_Setting[i]=DzCreateFrameByTagName("GLUETEXTBUTTON", "", Option_Frame_SettingBackdrop[1], "ScriptDialogButton", 0)
-      call Option__SaveNumber(Option__Frame_Setting[i] , number)
-      call DzFrameSetSize(Option__Frame_Setting[i], .02667, .02667)
-      call DzFrameSetPoint(Option__Frame_Setting[i], JN_FRAMEPOINT_LEFT, frame, JN_FRAMEPOINT_LEFT, .1 + x, y)
-      call DzFrameSetText(Option__Frame_Setting[i], text)
-      return i + 1
+    function Option__SettingHotKey takes integer input,integer parent,real x,real y,string keys returns integer
+      set Option__Frame_Setting[input]=DzCreateFrameByTagName("GLUETEXTBUTTON", "", Option_Frame_SettingBackdrop[1], "ScriptDialogButton", 0)
+      // call EMenus.FrameSaveIDs(Frame_Setting[input], types, input)
+      call DzFrameSetSize(Option__Frame_Setting[input], .02667, .02667)
+      call DzFrameSetPoint(Option__Frame_Setting[input], JN_FRAMEPOINT_LEFT, parent, JN_FRAMEPOINT_LEFT, .1 + x, y)
+      call DzFrameSetText(Option__Frame_Setting[input], keys)
+      // MenuQuickSlot.BaseHotKey(types, input)
+      // function SettingHotKeyClick
+
+      return input + 1
     endfunction
     function Option__SettingHotKeyClick takes nothing returns nothing
       local integer f= DzGetTriggerUIEventFrame()
@@ -6554,34 +6580,33 @@ endfunction
       set i=Option__SettingButton(i , 5 , "|c004f4f4fON |cffffffff/ |cfffed312OFF" , function Option__SettingClick)
       set i=Option__SettingButton(i , 6 , "|cfffed312ON |cffffffff/ |c004f4f4fOFF" , function Option__SettingClick)
       
-      set i=Option__SettingHotKey(i , s__EHotkeyMenu_SkillSlot1 , Option__Frame_Setting[8] , 0. , 0.01 , s__MenuQuickSlot_BaseHotKey(QUICK_MENU_SKILLSLOT , 1) , function Option__SettingHotKeyClick)
-      set i=Option__SettingHotKey(i , s__EHotkeyMenu_SkillSlot2 , Option__Frame_Setting[8] , 0.02 , 0.01 , s__MenuQuickSlot_BaseHotKey(QUICK_MENU_SKILLSLOT , 2) , function Option__SettingHotKeyClick)
-      set i=Option__SettingHotKey(i , s__EHotkeyMenu_SkillSlot3 , Option__Frame_Setting[8] , 0.04 , 0.01 , s__MenuQuickSlot_BaseHotKey(QUICK_MENU_SKILLSLOT , 3) , function Option__SettingHotKeyClick)
-      set i=Option__SettingHotKey(i , s__EHotkeyMenu_SkillSlot4 , Option__Frame_Setting[8] , 0.06 , 0.01 , s__MenuQuickSlot_BaseHotKey(QUICK_MENU_SKILLSLOT , 4) , function Option__SettingHotKeyClick)
-      set i=Option__SettingHotKey(i , s__EHotkeyMenu_SkillSlot5 , Option__Frame_Setting[8] , 0. , - 0.01 , s__MenuQuickSlot_BaseHotKey(QUICK_MENU_SKILLSLOT , 5) , function Option__SettingHotKeyClick)
-      set i=Option__SettingHotKey(i , s__EHotkeyMenu_SkillSlot6 , Option__Frame_Setting[8] , 0.02 , - 0.01 , s__MenuQuickSlot_BaseHotKey(QUICK_MENU_SKILLSLOT , 6) , function Option__SettingHotKeyClick)
-      set i=Option__SettingHotKey(i , s__EHotkeyMenu_SkillSlot7 , Option__Frame_Setting[8] , 0.04 , - 0.01 , s__MenuQuickSlot_BaseHotKey(QUICK_MENU_SKILLSLOT , 7) , function Option__SettingHotKeyClick)
-      set i=Option__SettingHotKey(i , s__EHotkeyMenu_SkillSlot8 , Option__Frame_Setting[8] , 0.06 , - 0.01 , s__MenuQuickSlot_BaseHotKey(QUICK_MENU_SKILLSLOT , 8) , function Option__SettingHotKeyClick)
-  
-      set i=Option__SettingHotKey(i , s__EHotkeyMenu_ItemSlot1 , Option__Frame_Setting[9] , 0. , 0.01 , s__MenuQuickSlot_BaseHotKey(QUICK_MENU_ITEMSLOT , 1) , function Option__SettingHotKeyClick)
-      set i=Option__SettingHotKey(i , s__EHotkeyMenu_ItemSlot2 , Option__Frame_Setting[9] , 0.02 , 0.01 , s__MenuQuickSlot_BaseHotKey(QUICK_MENU_ITEMSLOT , 2) , function Option__SettingHotKeyClick)
-      set i=Option__SettingHotKey(i , s__EHotkeyMenu_ItemSlot3 , Option__Frame_Setting[9] , 0.04 , 0.01 , s__MenuQuickSlot_BaseHotKey(QUICK_MENU_ITEMSLOT , 3) , function Option__SettingHotKeyClick)
-      set i=Option__SettingHotKey(i , s__EHotkeyMenu_ItemSlot4 , Option__Frame_Setting[9] , 0.06 , 0.01 , s__MenuQuickSlot_BaseHotKey(QUICK_MENU_ITEMSLOT , 4) , function Option__SettingHotKeyClick)
-      set i=Option__SettingHotKey(i , s__EHotkeyMenu_ItemSlot5 , Option__Frame_Setting[9] , 0.01 , - 0.01 , s__MenuQuickSlot_BaseHotKey(QUICK_MENU_ITEMSLOT , 5) , function Option__SettingHotKeyClick)
-      set i=Option__SettingHotKey(i , s__EHotkeyMenu_ItemSlot6 , Option__Frame_Setting[9] , 0.03 , - 0.01 , s__MenuQuickSlot_BaseHotKey(QUICK_MENU_ITEMSLOT , 6) , function Option__SettingHotKeyClick)
-      set i=Option__SettingHotKey(i , s__EHotkeyMenu_ItemSlot7 , Option__Frame_Setting[9] , 0.05 , - 0.01 , s__MenuQuickSlot_BaseHotKey(QUICK_MENU_ITEMSLOT , 7) , function Option__SettingHotKeyClick)
-      
-      set i=Option__SettingHotKey(i , s__EHotkeyMenu_SubMenuKakaotalk , Option__Frame_Setting[10] , 0. , 0. , s__MenuQuickSlot_BaseHotKey(QUICK_MENU_MENU , 1) , function Option__SettingHotKeyClick)
-      set i=Option__SettingHotKey(i , s__EHotkeyMenu_SubMenuDiscord , Option__Frame_Setting[10] , .03 , 0. , s__MenuQuickSlot_BaseHotKey(QUICK_MENU_MENU , 2) , function Option__SettingHotKeyClick)
-      set i=Option__SettingHotKey(i , s__EHotkeyMenu_SubMenuSetting , Option__Frame_Setting[10] , .06 , 0. , s__MenuQuickSlot_BaseHotKey(QUICK_MENU_MENU , 3) , function Option__SettingHotKeyClick)
-      
-      set i=Option__SettingHotKey(i , s__EHotkeyMenu_SubMenuAutoCombat , Option__Frame_Setting[11] , 0.01 , 0. , s__MenuQuickSlot_BaseHotKey(QUICK_MENU_MENU , 4) , function Option__SettingHotKeyClick)
-      set i=Option__SettingHotKey(i , s__EHotkeyMenu_SubMenuInventory , Option__Frame_Setting[11] , 0.04 , 0. , s__MenuQuickSlot_BaseHotKey(QUICK_MENU_MENU , 5) , function Option__SettingHotKeyClick)
-      
-      set i=Option__SettingHotKey(i , s__EHotkeyMenu_SubMenuStatus , Option__Frame_Setting[12] , 0. , 0. , s__MenuQuickSlot_BaseHotKey(QUICK_MENU_MENU , 6) , function Option__SettingHotKeyClick)
-      set i=Option__SettingHotKey(i , s__EHotkeyMenu_SubMenuSkillTree , Option__Frame_Setting[12] , .03 , 0. , s__MenuQuickSlot_BaseHotKey(QUICK_MENU_MENU , 7) , function Option__SettingHotKeyClick)
-      set i=Option__SettingHotKey(i , s__EHotkeyMenu_SubMenuSmartMode , Option__Frame_Setting[12] , .06 , 0. , s__MenuQuickSlot_BaseHotKey(QUICK_MENU_MENU , 8) , function Option__SettingHotKeyClick)
+      set i=Option__SettingHotKey(i , Option__Frame_Setting[8] , 0. , 0.01 , s__MenuQuickSlot_BaseHotKey(QUICK_MENU_SKILLSLOT , 1))
+      set i=Option__SettingHotKey(i , Option__Frame_Setting[8] , 0.02 , 0.01 , s__MenuQuickSlot_BaseHotKey(QUICK_MENU_SKILLSLOT , 2))
+      set i=Option__SettingHotKey(i , Option__Frame_Setting[8] , 0.04 , 0.01 , s__MenuQuickSlot_BaseHotKey(QUICK_MENU_SKILLSLOT , 3))
+      set i=Option__SettingHotKey(i , Option__Frame_Setting[8] , 0.06 , 0.01 , s__MenuQuickSlot_BaseHotKey(QUICK_MENU_SKILLSLOT , 4))
+      set i=Option__SettingHotKey(i , Option__Frame_Setting[8] , 0. , - 0.01 , s__MenuQuickSlot_BaseHotKey(QUICK_MENU_SKILLSLOT , 5))
+      set i=Option__SettingHotKey(i , Option__Frame_Setting[8] , 0.02 , - 0.01 , s__MenuQuickSlot_BaseHotKey(QUICK_MENU_SKILLSLOT , 6))
+      set i=Option__SettingHotKey(i , Option__Frame_Setting[8] , 0.04 , - 0.01 , s__MenuQuickSlot_BaseHotKey(QUICK_MENU_SKILLSLOT , 7))
+      set i=Option__SettingHotKey(i , Option__Frame_Setting[8] , 0.06 , - 0.01 , s__MenuQuickSlot_BaseHotKey(QUICK_MENU_SKILLSLOT , 8))
 
+      set i=Option__SettingHotKey(i , Option__Frame_Setting[9] , 0. , 0.01 , s__MenuQuickSlot_BaseHotKey(QUICK_MENU_ITEMSLOT , 1))
+      set i=Option__SettingHotKey(i , Option__Frame_Setting[9] , 0.02 , 0.01 , s__MenuQuickSlot_BaseHotKey(QUICK_MENU_ITEMSLOT , 2))
+      set i=Option__SettingHotKey(i , Option__Frame_Setting[9] , 0.04 , 0.01 , s__MenuQuickSlot_BaseHotKey(QUICK_MENU_ITEMSLOT , 3))
+      set i=Option__SettingHotKey(i , Option__Frame_Setting[9] , 0.06 , 0.01 , s__MenuQuickSlot_BaseHotKey(QUICK_MENU_ITEMSLOT , 4))
+      set i=Option__SettingHotKey(i , Option__Frame_Setting[9] , 0.01 , - 0.01 , s__MenuQuickSlot_BaseHotKey(QUICK_MENU_ITEMSLOT , 5))
+      set i=Option__SettingHotKey(i , Option__Frame_Setting[9] , 0.03 , - 0.01 , s__MenuQuickSlot_BaseHotKey(QUICK_MENU_ITEMSLOT , 6))
+      set i=Option__SettingHotKey(i , Option__Frame_Setting[9] , 0.05 , - 0.01 , s__MenuQuickSlot_BaseHotKey(QUICK_MENU_ITEMSLOT , 7))
+
+      set i=Option__SettingHotKey(i , Option__Frame_Setting[10] , 0. , 0. , s__MenuQuickSlot_BaseHotKey(QUICK_MENU_ITEMSLOT , 1))
+      set i=Option__SettingHotKey(i , Option__Frame_Setting[10] , .03 , 0. , s__MenuQuickSlot_BaseHotKey(QUICK_MENU_ITEMSLOT , 2))
+      set i=Option__SettingHotKey(i , Option__Frame_Setting[10] , .06 , 0. , s__MenuQuickSlot_BaseHotKey(QUICK_MENU_ITEMSLOT , 3))
+
+      set i=Option__SettingHotKey(i , Option__Frame_Setting[11] , 0.01 , 0. , s__MenuQuickSlot_BaseHotKey(QUICK_MENU_ITEMSLOT , 4))
+      set i=Option__SettingHotKey(i , Option__Frame_Setting[11] , 0.04 , 0. , s__MenuQuickSlot_BaseHotKey(QUICK_MENU_ITEMSLOT , 5))
+
+      set i=Option__SettingHotKey(i , Option__Frame_Setting[12] , 0. , 0. , s__MenuQuickSlot_BaseHotKey(QUICK_MENU_ITEMSLOT , 6))
+      set i=Option__SettingHotKey(i , Option__Frame_Setting[12] , .03 , 0. , s__MenuQuickSlot_BaseHotKey(QUICK_MENU_ITEMSLOT , 7))
+      set i=Option__SettingHotKey(i , Option__Frame_Setting[12] , .06 , 0. , s__MenuQuickSlot_BaseHotKey(QUICK_MENU_ITEMSLOT , 8))
       call DzFrameShow(Option_Frame_SettingBackdrop[0], false)
     endfunction
     function Option__Init takes nothing returns nothing
@@ -8457,7 +8482,7 @@ endfunction
     set p=null
   endfunction 
 
-  function ClearCacher___OnGameEnd takes nothing returns nothing
+  function ClearCacher__OnGameEnd takes nothing returns nothing
     call DzFrameSetUpdateCallback("")
     if ( udg_ExitOption == 1 ) then
       call FSE_MakeFile(GetLocalPlayer() , GetPlayerName(GetLocalPlayer()) + "_" + JNServerTime("MMdd_HHmmss") , true)
@@ -8468,8 +8493,8 @@ endfunction
     endif
   endfunction 
 
-  function ClearCacher___Init takes nothing returns nothing
-    call SetGameEndCallbackByCode(function ClearCacher___OnGameEnd)
+  function ClearCacher__Init takes nothing returns nothing
+    call SetGameEndCallbackByCode(function ClearCacher__OnGameEnd)
   endfunction 
 
 // scope ClearCacher ends
@@ -8491,17 +8516,17 @@ endfunction
 
 // scope Hunting begins
   
-  constant function Hunting___EStageMaxWave takes integer stage returns integer
+  constant function Hunting__EStageMaxWave takes integer stage returns integer
     if ( stage == 1 ) then
       return 2
     endif
     return 0
   endfunction
-  function Hunting___RectAddEvent takes rect r,integer num,integer exitWhere returns nothing
-    set Hunting___tempRegion=CreateRegion()
-    call RegionAddRect(Hunting___tempRegion, r)
-    call SaveInteger(hash, GetHandleId(Hunting___tempRegion), StringHash("rectNumber"), num)
-    call TriggerRegisterEnterRegion(Hunting___tempEnterTrigger, Hunting___tempRegion, null)
+  function Hunting__RectAddEvent takes rect r,integer num,integer exitWhere returns nothing
+    set Hunting__tempRegion=CreateRegion()
+    call RegionAddRect(Hunting__tempRegion, r)
+    call SaveInteger(hash, GetHandleId(Hunting__tempRegion), StringHash("rectNumber"), num)
+    call TriggerRegisterEnterRegion(Hunting__tempEnterTrigger, Hunting__tempRegion, null)
     if ( exitWhere == bj_KEYEVENTKEY_LEFT ) then
       call SaveReal(hash, StringHash("rectExitX"), num, GetRectMinX(r) - bj_CELLWIDTH)
       call SaveReal(hash, StringHash("rectExitY"), num, GetRectCenterY(r))
@@ -8519,10 +8544,10 @@ endfunction
     endif
     call RemoveRect(r)
   endfunction
-  function Hunting___isEnterHero takes nothing returns boolean
+  function Hunting__isEnterHero takes nothing returns boolean
     return ( GetEnteringUnit() == udg_hero[GetPlayerId(GetOwningPlayer(GetEnteringUnit())) + 1] )
   endfunction
-  function Hunting___DecorationLoc takes real x,real y,real probability,integer terrainType returns boolean
+  function Hunting__DecorationLoc takes real x,real y,real probability,integer terrainType returns boolean
     if ( GetRandomReal(0., 1.) <= probability ) then
       if ( terrainType == s__ETile_BLIGHT ) then
         call SetBlight(Player(PLAYER_NEUTRAL_AGGRESSIVE), x, y, 0., true)
@@ -8534,181 +8559,181 @@ endfunction
       return false
     endif
   endfunction
-  function Hunting___DecorationAll takes rect r,integer terrainType returns nothing
+  function Hunting__DecorationAll takes rect r,integer terrainType returns nothing
     //해당 지점에 지역 크기(10)의 구역을 설정
     if ( terrainType == s__ETile_BLIGHT ) then
-      call SetTerrainType(GetRectCenterX(r), GetRectCenterY(r), s__ETile_CITY_DIRT, - 1, Hunting___MAX_ROW / 2 + 1, 1)
+      call SetTerrainType(GetRectCenterX(r), GetRectCenterY(r), s__ETile_CITY_DIRT, - 1, Hunting__MAX_ROW / 2 + 1, 1)
       call SetBlightRect(Player(PLAYER_NEUTRAL_AGGRESSIVE), r, true)
     else
-      call SetTerrainType(GetRectCenterX(r), GetRectCenterY(r), terrainType, - 1, Hunting___MAX_ROW / 2 + 1, 1)
+      call SetTerrainType(GetRectCenterX(r), GetRectCenterY(r), terrainType, - 1, Hunting__MAX_ROW / 2 + 1, 1)
       call SetBlightRect(Player(PLAYER_NEUTRAL_AGGRESSIVE), r, false)
     endif
   endfunction
   
-  function Hunting___DecorationRect takes integer pNumber,integer rectNumber returns nothing
+  function Hunting__DecorationRect takes integer pNumber,integer rectNumber returns nothing
     local integer row= 0
     local integer col= 0
     if ( rectNumber == 1 ) then
       
-      call Hunting___DecorationAll(Hunting___PlayerRect[pNumber] , s__ETile_CITY_DIRT)
+      call Hunting__DecorationAll(Hunting__PlayerRect[pNumber] , s__ETile_CITY_DIRT)
       loop
         set row=0
         loop
-          if ( not Hunting___DecorationLoc(GetRectMinX(Hunting___PlayerRect[pNumber]) + bj_CELLWIDTH * row , GetRectMinY(Hunting___PlayerRect[pNumber]) + bj_CELLWIDTH * col , .3 , s__ETile_CITY_DIRT_ROUGH) ) then
+          if ( not Hunting__DecorationLoc(GetRectMinX(Hunting__PlayerRect[pNumber]) + bj_CELLWIDTH * row , GetRectMinY(Hunting__PlayerRect[pNumber]) + bj_CELLWIDTH * col , .3 , s__ETile_CITY_DIRT_ROUGH) ) then
           
             // 실패시 10/70%로 블라이트 생성
-            call Hunting___DecorationLoc(GetRectMinX(Hunting___PlayerRect[pNumber]) + bj_CELLWIDTH * row , GetRectMinY(Hunting___PlayerRect[pNumber]) + bj_CELLWIDTH * col , .14 , s__ETile_BLIGHT)
+            call Hunting__DecorationLoc(GetRectMinX(Hunting__PlayerRect[pNumber]) + bj_CELLWIDTH * row , GetRectMinY(Hunting__PlayerRect[pNumber]) + bj_CELLWIDTH * col , .14 , s__ETile_BLIGHT)
           endif
-          exitwhen row >= Hunting___MAX_ROW
+          exitwhen row >= Hunting__MAX_ROW
           set row=row + 1
         endloop
-        exitwhen col >= Hunting___MAX_COL
+        exitwhen col >= Hunting__MAX_COL
         set col=col + 1
       endloop
     endif
   endfunction
-  function Hunting___CharacterMoveIn takes integer pNumber,real combineX,real combineY returns nothing
-    call SetUnitPosition(udg_hero[pNumber], GetRectCenterX(Hunting___PlayerRect[pNumber]) + combineX, GetRectCenterY(Hunting___PlayerRect[pNumber]) + combineY)
+  function Hunting__CharacterMoveIn takes integer pNumber,real combineX,real combineY returns nothing
+    call SetUnitPosition(udg_hero[pNumber], GetRectCenterX(Hunting__PlayerRect[pNumber]) + combineX, GetRectCenterY(Hunting__PlayerRect[pNumber]) + combineY)
     call SetUnitFacing(udg_hero[pNumber], 0)
     if ( GetLocalPlayer() == Player(pNumber - 1) ) then
-      call PanCameraToTimed(GetRectCenterX(Hunting___PlayerRect[pNumber]), GetRectCenterY(Hunting___PlayerRect[pNumber]), 0.)
+      call PanCameraToTimed(GetRectCenterX(Hunting__PlayerRect[pNumber]), GetRectCenterY(Hunting__PlayerRect[pNumber]), 0.)
     endif
   endfunction
   
-  function Hunting___DecorationScale takes string s1,string s2 returns real
+  function Hunting__DecorationScale takes string s1,string s2 returns real
     if ( s1 == "1.00" and s2 == "1.00" ) then
       return 1.00
     else
       return GetRandomReal(S2R(s1), S2R(s2))
     endif
   endfunction
-  function Hunting___DecorationDoodadLoc takes integer pNumber,real x,real y,real probability,integer objectId,integer objectId2,boolean top returns boolean
-    set Hunting___PlayerDecorationNumber[pNumber]=Hunting___PlayerDecorationNumber[pNumber] + 1
+  function Hunting__DecorationDoodadLoc takes integer pNumber,real x,real y,real probability,integer objectId,integer objectId2,boolean top returns boolean
+    set Hunting__PlayerDecorationNumber[pNumber]=Hunting__PlayerDecorationNumber[pNumber] + 1
     if ( GetRandomReal(0., 1.) <= probability ) then
-      set Hunting___PlayerDecorationEffects[pNumber * 10 + Hunting___PlayerDecorationNumber[pNumber]]=AddSpecialEffect(EXExecuteScript("(require'jass.slk').doodad[" + I2S(objectId) + "].file"), x, y)
+      set Hunting__PlayerDecorationEffects[pNumber * 10 + Hunting__PlayerDecorationNumber[pNumber]]=AddSpecialEffect(EXExecuteScript("(require'jass.slk').doodad[" + I2S(objectId) + "].file"), x, y)
       if ( top ) then
-        call EXEffectMatRotateZ(Hunting___PlayerDecorationEffects[pNumber * 10 + Hunting___PlayerDecorationNumber[pNumber]], bj_UNIT_FACING)
+        call EXEffectMatRotateZ(Hunting__PlayerDecorationEffects[pNumber * 10 + Hunting__PlayerDecorationNumber[pNumber]], bj_UNIT_FACING)
       else
-        call EXEffectMatRotateZ(Hunting___PlayerDecorationEffects[pNumber * 10 + Hunting___PlayerDecorationNumber[pNumber]], 90.)
+        call EXEffectMatRotateZ(Hunting__PlayerDecorationEffects[pNumber * 10 + Hunting__PlayerDecorationNumber[pNumber]], 90.)
       endif
-      call EXSetEffectSize(Hunting___PlayerDecorationEffects[pNumber * 10 + Hunting___PlayerDecorationNumber[pNumber]], Hunting___DecorationScale(EXExecuteScript("(require'jass.slk').doodad[" + I2S(objectId) + "].minScale") , EXExecuteScript("(require'jass.slk').doodad[" + I2S(objectId) + "].maxScale")))
+      call EXSetEffectSize(Hunting__PlayerDecorationEffects[pNumber * 10 + Hunting__PlayerDecorationNumber[pNumber]], Hunting__DecorationScale(EXExecuteScript("(require'jass.slk').doodad[" + I2S(objectId) + "].minScale") , EXExecuteScript("(require'jass.slk').doodad[" + I2S(objectId) + "].maxScale")))
       return true
     elseif ( objectId2 != 0 ) then
-      set Hunting___PlayerDecorationEffects[pNumber * 10 + Hunting___PlayerDecorationNumber[pNumber]]=AddSpecialEffect(EXExecuteScript("(require'jass.slk').doodad[" + I2S(objectId2) + "].file"), x, y)
+      set Hunting__PlayerDecorationEffects[pNumber * 10 + Hunting__PlayerDecorationNumber[pNumber]]=AddSpecialEffect(EXExecuteScript("(require'jass.slk').doodad[" + I2S(objectId2) + "].file"), x, y)
       if ( top ) then
-        call EXEffectMatRotateZ(Hunting___PlayerDecorationEffects[pNumber * 10 + Hunting___PlayerDecorationNumber[pNumber]], bj_UNIT_FACING)
+        call EXEffectMatRotateZ(Hunting__PlayerDecorationEffects[pNumber * 10 + Hunting__PlayerDecorationNumber[pNumber]], bj_UNIT_FACING)
       else
-        call EXEffectMatRotateZ(Hunting___PlayerDecorationEffects[pNumber * 10 + Hunting___PlayerDecorationNumber[pNumber]], 90.)
+        call EXEffectMatRotateZ(Hunting__PlayerDecorationEffects[pNumber * 10 + Hunting__PlayerDecorationNumber[pNumber]], 90.)
       endif
-      call EXSetEffectSize(Hunting___PlayerDecorationEffects[pNumber * 10 + Hunting___PlayerDecorationNumber[pNumber]], Hunting___DecorationScale(EXExecuteScript("(require'jass.slk').doodad[" + I2S(objectId2) + "].minScale") , EXExecuteScript("(require'jass.slk').doodad[" + I2S(objectId2) + "].maxScale")))
+      call EXSetEffectSize(Hunting__PlayerDecorationEffects[pNumber * 10 + Hunting__PlayerDecorationNumber[pNumber]], Hunting__DecorationScale(EXExecuteScript("(require'jass.slk').doodad[" + I2S(objectId2) + "].minScale") , EXExecuteScript("(require'jass.slk').doodad[" + I2S(objectId2) + "].maxScale")))
     endif
     return false
   endfunction
   
-  function Hunting___ClearDoodad takes integer pNumber returns nothing
-    local integer loopA= Hunting___PlayerDecorationNumber[pNumber]
+  function Hunting__ClearDoodad takes integer pNumber returns nothing
+    local integer loopA= Hunting__PlayerDecorationNumber[pNumber]
     loop
       exitwhen loopA <= 0
-      call EXSetEffectSize(Hunting___PlayerDecorationEffects[pNumber * 10 + loopA], 0.)
-      call DestroyEffect(Hunting___PlayerDecorationEffects[pNumber * 10 + loopA])
+      call EXSetEffectSize(Hunting__PlayerDecorationEffects[pNumber * 10 + loopA], 0.)
+      call DestroyEffect(Hunting__PlayerDecorationEffects[pNumber * 10 + loopA])
       set loopA=loopA - 1
     endloop
-    set Hunting___PlayerDecorationNumber[pNumber]=0
+    set Hunting__PlayerDecorationNumber[pNumber]=0
     //call EnumDestructablesInRect(PlayerRect[pNumber], null, function ClearDoodadAll)
   endfunction
-  function Hunting___DecorationDoodad takes integer pNumber,integer rectNumber returns nothing
-    call Hunting___ClearDoodad(pNumber)
+  function Hunting__DecorationDoodad takes integer pNumber,integer rectNumber returns nothing
+    call Hunting__ClearDoodad(pNumber)
     if ( rectNumber == 1 ) then
       
       
-      call Hunting___DecorationDoodadLoc(pNumber , GetRectMinX(Hunting___PlayerRect[pNumber]) + bj_CELLWIDTH * 3.5 , GetRectMaxY(Hunting___PlayerRect[pNumber]) - bj_CELLWIDTH * 0.25 , .5 , 'D019' , 'D00Q' , true)
-      call Hunting___DecorationDoodadLoc(pNumber , GetRectMinX(Hunting___PlayerRect[pNumber]) + bj_CELLWIDTH * 5.5 , GetRectMaxY(Hunting___PlayerRect[pNumber]) - bj_CELLWIDTH * 0.25 , .5 , 'D019' , 'D00Q' , true)
-      call Hunting___DecorationDoodadLoc(pNumber , GetRectMinX(Hunting___PlayerRect[pNumber]) + bj_CELLWIDTH * 7.5 , GetRectMaxY(Hunting___PlayerRect[pNumber]) - bj_CELLWIDTH * 0.25 , .5 , 'D019' , 'D00Q' , true)
-      call Hunting___DecorationDoodadLoc(pNumber , GetRectMinX(Hunting___PlayerRect[pNumber]) + bj_CELLWIDTH * 2.5 , GetRectMinY(Hunting___PlayerRect[pNumber]) + bj_CELLWIDTH * 0.25 , .5 , 'D019' , 'D00Q' , false)
-      call Hunting___DecorationDoodadLoc(pNumber , GetRectMinX(Hunting___PlayerRect[pNumber]) + bj_CELLWIDTH * 4.5 , GetRectMinY(Hunting___PlayerRect[pNumber]) + bj_CELLWIDTH * 0.25 , .5 , 'D019' , 'D00Q' , false)
-      call Hunting___DecorationDoodadLoc(pNumber , GetRectMinX(Hunting___PlayerRect[pNumber]) + bj_CELLWIDTH * 6.5 , GetRectMinY(Hunting___PlayerRect[pNumber]) + bj_CELLWIDTH * 0.25 , .5 , 'D019' , 'D00Q' , false)
+      call Hunting__DecorationDoodadLoc(pNumber , GetRectMinX(Hunting__PlayerRect[pNumber]) + bj_CELLWIDTH * 3.5 , GetRectMaxY(Hunting__PlayerRect[pNumber]) - bj_CELLWIDTH * 0.25 , .5 , 'D019' , 'D00Q' , true)
+      call Hunting__DecorationDoodadLoc(pNumber , GetRectMinX(Hunting__PlayerRect[pNumber]) + bj_CELLWIDTH * 5.5 , GetRectMaxY(Hunting__PlayerRect[pNumber]) - bj_CELLWIDTH * 0.25 , .5 , 'D019' , 'D00Q' , true)
+      call Hunting__DecorationDoodadLoc(pNumber , GetRectMinX(Hunting__PlayerRect[pNumber]) + bj_CELLWIDTH * 7.5 , GetRectMaxY(Hunting__PlayerRect[pNumber]) - bj_CELLWIDTH * 0.25 , .5 , 'D019' , 'D00Q' , true)
+      call Hunting__DecorationDoodadLoc(pNumber , GetRectMinX(Hunting__PlayerRect[pNumber]) + bj_CELLWIDTH * 2.5 , GetRectMinY(Hunting__PlayerRect[pNumber]) + bj_CELLWIDTH * 0.25 , .5 , 'D019' , 'D00Q' , false)
+      call Hunting__DecorationDoodadLoc(pNumber , GetRectMinX(Hunting__PlayerRect[pNumber]) + bj_CELLWIDTH * 4.5 , GetRectMinY(Hunting__PlayerRect[pNumber]) + bj_CELLWIDTH * 0.25 , .5 , 'D019' , 'D00Q' , false)
+      call Hunting__DecorationDoodadLoc(pNumber , GetRectMinX(Hunting__PlayerRect[pNumber]) + bj_CELLWIDTH * 6.5 , GetRectMinY(Hunting__PlayerRect[pNumber]) + bj_CELLWIDTH * 0.25 , .5 , 'D019' , 'D00Q' , false)
       
-      if ( not Hunting___DecorationDoodadLoc(pNumber , GetRectMinX(Hunting___PlayerRect[pNumber]) + bj_CELLWIDTH * 1.5 , GetRectMaxY(Hunting___PlayerRect[pNumber]) - bj_CELLWIDTH * 0.25 , .4 , 'D00Q' , 0 , true) ) then
-        if ( not Hunting___DecorationDoodadLoc(pNumber , GetRectMinX(Hunting___PlayerRect[pNumber]) + bj_CELLWIDTH * 1.5 , GetRectMaxY(Hunting___PlayerRect[pNumber]) - bj_CELLWIDTH * 0.25 , .33 , 'D01B' , 0 , true) ) then
-        call Hunting___DecorationDoodadLoc(pNumber , GetRectMinX(Hunting___PlayerRect[pNumber]) + bj_CELLWIDTH * 1.5 , GetRectMaxY(Hunting___PlayerRect[pNumber]) - bj_CELLWIDTH * 0.25 , .33 , 'D00E' , 'D01F' , true)
+      if ( not Hunting__DecorationDoodadLoc(pNumber , GetRectMinX(Hunting__PlayerRect[pNumber]) + bj_CELLWIDTH * 1.5 , GetRectMaxY(Hunting__PlayerRect[pNumber]) - bj_CELLWIDTH * 0.25 , .4 , 'D00Q' , 0 , true) ) then
+        if ( not Hunting__DecorationDoodadLoc(pNumber , GetRectMinX(Hunting__PlayerRect[pNumber]) + bj_CELLWIDTH * 1.5 , GetRectMaxY(Hunting__PlayerRect[pNumber]) - bj_CELLWIDTH * 0.25 , .33 , 'D01B' , 0 , true) ) then
+        call Hunting__DecorationDoodadLoc(pNumber , GetRectMinX(Hunting__PlayerRect[pNumber]) + bj_CELLWIDTH * 1.5 , GetRectMaxY(Hunting__PlayerRect[pNumber]) - bj_CELLWIDTH * 0.25 , .33 , 'D00E' , 'D01F' , true)
         endif
       endif
-      if ( not Hunting___DecorationDoodadLoc(pNumber , GetRectMinX(Hunting___PlayerRect[pNumber]) + bj_CELLWIDTH * 9.5 , GetRectMaxY(Hunting___PlayerRect[pNumber]) - bj_CELLWIDTH * 0.25 , .4 , 'D00Q' , 0 , true) ) then
-        if ( not Hunting___DecorationDoodadLoc(pNumber , GetRectMinX(Hunting___PlayerRect[pNumber]) + bj_CELLWIDTH * 9.5 , GetRectMaxY(Hunting___PlayerRect[pNumber]) - bj_CELLWIDTH * 0.25 , .33 , 'D01B' , 0 , true) ) then
-        call Hunting___DecorationDoodadLoc(pNumber , GetRectMinX(Hunting___PlayerRect[pNumber]) + bj_CELLWIDTH * 9.5 , GetRectMaxY(Hunting___PlayerRect[pNumber]) - bj_CELLWIDTH * 0.25 , .33 , 'D00E' , 'D01F' , true)
+      if ( not Hunting__DecorationDoodadLoc(pNumber , GetRectMinX(Hunting__PlayerRect[pNumber]) + bj_CELLWIDTH * 9.5 , GetRectMaxY(Hunting__PlayerRect[pNumber]) - bj_CELLWIDTH * 0.25 , .4 , 'D00Q' , 0 , true) ) then
+        if ( not Hunting__DecorationDoodadLoc(pNumber , GetRectMinX(Hunting__PlayerRect[pNumber]) + bj_CELLWIDTH * 9.5 , GetRectMaxY(Hunting__PlayerRect[pNumber]) - bj_CELLWIDTH * 0.25 , .33 , 'D01B' , 0 , true) ) then
+        call Hunting__DecorationDoodadLoc(pNumber , GetRectMinX(Hunting__PlayerRect[pNumber]) + bj_CELLWIDTH * 9.5 , GetRectMaxY(Hunting__PlayerRect[pNumber]) - bj_CELLWIDTH * 0.25 , .33 , 'D00E' , 'D01F' , true)
         endif
       endif
-      if ( not Hunting___DecorationDoodadLoc(pNumber , GetRectMinX(Hunting___PlayerRect[pNumber]) + bj_CELLWIDTH * 0.5 , GetRectMinY(Hunting___PlayerRect[pNumber]) + bj_CELLWIDTH * 0.25 , .4 , 'D00Q' , 0 , false) ) then
-        if ( not Hunting___DecorationDoodadLoc(pNumber , GetRectMinX(Hunting___PlayerRect[pNumber]) + bj_CELLWIDTH * 0.5 , GetRectMinY(Hunting___PlayerRect[pNumber]) + bj_CELLWIDTH * 0.25 , .33 , 'D01B' , 0 , false) ) then
-        call Hunting___DecorationDoodadLoc(pNumber , GetRectMinX(Hunting___PlayerRect[pNumber]) + bj_CELLWIDTH * 0.5 , GetRectMinY(Hunting___PlayerRect[pNumber]) + bj_CELLWIDTH * 0.25 , .33 , 'D00E' , 'D01F' , false)
+      if ( not Hunting__DecorationDoodadLoc(pNumber , GetRectMinX(Hunting__PlayerRect[pNumber]) + bj_CELLWIDTH * 0.5 , GetRectMinY(Hunting__PlayerRect[pNumber]) + bj_CELLWIDTH * 0.25 , .4 , 'D00Q' , 0 , false) ) then
+        if ( not Hunting__DecorationDoodadLoc(pNumber , GetRectMinX(Hunting__PlayerRect[pNumber]) + bj_CELLWIDTH * 0.5 , GetRectMinY(Hunting__PlayerRect[pNumber]) + bj_CELLWIDTH * 0.25 , .33 , 'D01B' , 0 , false) ) then
+        call Hunting__DecorationDoodadLoc(pNumber , GetRectMinX(Hunting__PlayerRect[pNumber]) + bj_CELLWIDTH * 0.5 , GetRectMinY(Hunting__PlayerRect[pNumber]) + bj_CELLWIDTH * 0.25 , .33 , 'D00E' , 'D01F' , false)
         endif
       endif
-      if ( not Hunting___DecorationDoodadLoc(pNumber , GetRectMinX(Hunting___PlayerRect[pNumber]) + bj_CELLWIDTH * 8.5 , GetRectMinY(Hunting___PlayerRect[pNumber]) + bj_CELLWIDTH * 0.25 , .4 , 'D00Q' , 0 , false) ) then
-        if ( not Hunting___DecorationDoodadLoc(pNumber , GetRectMinX(Hunting___PlayerRect[pNumber]) + bj_CELLWIDTH * 8.5 , GetRectMinY(Hunting___PlayerRect[pNumber]) + bj_CELLWIDTH * 0.25 , .33 , 'D01B' , 0 , false) ) then
-        call Hunting___DecorationDoodadLoc(pNumber , GetRectMinX(Hunting___PlayerRect[pNumber]) + bj_CELLWIDTH * 8.5 , GetRectMinY(Hunting___PlayerRect[pNumber]) + bj_CELLWIDTH * 0.25 , .33 , 'D00E' , 'D01F' , false)
+      if ( not Hunting__DecorationDoodadLoc(pNumber , GetRectMinX(Hunting__PlayerRect[pNumber]) + bj_CELLWIDTH * 8.5 , GetRectMinY(Hunting__PlayerRect[pNumber]) + bj_CELLWIDTH * 0.25 , .4 , 'D00Q' , 0 , false) ) then
+        if ( not Hunting__DecorationDoodadLoc(pNumber , GetRectMinX(Hunting__PlayerRect[pNumber]) + bj_CELLWIDTH * 8.5 , GetRectMinY(Hunting__PlayerRect[pNumber]) + bj_CELLWIDTH * 0.25 , .33 , 'D01B' , 0 , false) ) then
+        call Hunting__DecorationDoodadLoc(pNumber , GetRectMinX(Hunting__PlayerRect[pNumber]) + bj_CELLWIDTH * 8.5 , GetRectMinY(Hunting__PlayerRect[pNumber]) + bj_CELLWIDTH * 0.25 , .33 , 'D00E' , 'D01F' , false)
         endif
       endif
     endif
   endfunction
   
-  function Hunting___AddDyingEvent takes integer pNumber,unit u returns nothing
+  function Hunting__AddDyingEvent takes integer pNumber,unit u returns nothing
     call SaveInteger(hash, GetHandleId(u), StringHash("pNumber"), pNumber)
     call SaveInteger(hash, pNumber, StringHash("mCount"), LoadInteger(hash, pNumber, StringHash("mCount")) + 1)
-    call TriggerRegisterUnitEvent(Hunting___DyingTrigger, u, EVENT_UNIT_DEATH)
-    call MsgAll("added : " + GetUnitName(u) + "/" + I2S(LoadInteger(hash, pNumber, StringHash("mCount"))) + " at " + I2S(GetHandleId(Hunting___DyingTrigger)))
+    call TriggerRegisterUnitEvent(Hunting__DyingTrigger, u, EVENT_UNIT_DEATH)
+    call MsgAll("added : " + GetUnitName(u) + "/" + I2S(LoadInteger(hash, pNumber, StringHash("mCount"))) + " at " + I2S(GetHandleId(Hunting__DyingTrigger)))
   endfunction
-  function Hunting___AngleToUnit takes real x,real y,unit unitB returns real
+  function Hunting__AngleToUnit takes real x,real y,unit unitB returns real
     return bj_RADTODEG * Atan2(GetWidgetY(unitB) - y, GetWidgetX(unitB) - x)
   endfunction
-  function Hunting___CreateMonster takes integer pNumber,integer count,integer monsterType,real x,real y,real angle returns nothing
+  function Hunting__CreateMonster takes integer pNumber,integer count,integer monsterType,real x,real y,real angle returns nothing
     if ( angle < 0 ) then
       set angle=GetRandomDirectionDeg()
     elseif ( angle == 0. ) then
-      set angle=Hunting___AngleToUnit(GetRectCenterX(Hunting___PlayerRect[pNumber]) + x , GetRectCenterY(Hunting___PlayerRect[pNumber]) + y , udg_hero[pNumber])
+      set angle=Hunting__AngleToUnit(GetRectCenterX(Hunting__PlayerRect[pNumber]) + x , GetRectCenterY(Hunting__PlayerRect[pNumber]) + y , udg_hero[pNumber])
     endif
     loop
       exitwhen count <= 0
-      call Hunting___AddDyingEvent(pNumber , CreateUnit(Player(PLAYER_NEUTRAL_AGGRESSIVE), monsterType, GetRectCenterX(Hunting___PlayerRect[pNumber]) + x, GetRectCenterY(Hunting___PlayerRect[pNumber]) + y, angle))
+      call Hunting__AddDyingEvent(pNumber , CreateUnit(Player(PLAYER_NEUTRAL_AGGRESSIVE), monsterType, GetRectCenterX(Hunting__PlayerRect[pNumber]) + x, GetRectCenterY(Hunting__PlayerRect[pNumber]) + y, angle))
       set count=count - 1
     endloop
   endfunction
-  function Hunting___CreateMonsters takes integer pNumber,integer rectNumber,integer wave returns nothing
+  function Hunting__CreateMonsters takes integer pNumber,integer rectNumber,integer wave returns nothing
     if ( rectNumber == 1 ) then
       if ( wave == 1 ) then
-        call Hunting___CreateMonster(pNumber , 2 , 'nban' , 300 , 0 , 0)
+        call Hunting__CreateMonster(pNumber , 2 , 'nban' , 300 , 0 , 0)
       elseif ( wave == 2 ) then
-        call Hunting___CreateMonster(pNumber , 1 , 'nenf' , 300 , 0 , 0)
+        call Hunting__CreateMonster(pNumber , 1 , 'nenf' , 300 , 0 , 0)
       endif
     endif
   endfunction
-  function Hunting___KillAll takes nothing returns nothing
+  function Hunting__KillAll takes nothing returns nothing
     call RemoveUnit(GetEnumUnit())
   endfunction
-  function Hunting___ClearRectUnits takes rect r returns nothing
+  function Hunting__ClearRectUnits takes rect r returns nothing
     local group g= CreateGroup()
     call GroupEnumUnitsInRect(g, r, null)
-    call ForGroup(g, function Hunting___KillAll)
+    call ForGroup(g, function Hunting__KillAll)
     call DestroyGroup(g)
     set g=null
   endfunction
-  function Hunting___EnterAction takes nothing returns nothing
+  function Hunting__EnterAction takes nothing returns nothing
     local integer rectNumber= LoadInteger(hash, GetHandleId(GetTriggeringRegion()), StringHash("rectNumber"))
     local integer pNumber= GetPlayerId(GetOwningPlayer(GetEnteringUnit())) + 1
     if ( rectNumber < 1 ) or ( pNumber < 1 ) then
       call MsgAll("Bug/Hunting/Action/enter value 0 : " + I2S(rectNumber) + "//" + I2S(pNumber))
     else
-      call Hunting___ClearRectUnits(Hunting___PlayerRect[pNumber])
+      call Hunting__ClearRectUnits(Hunting__PlayerRect[pNumber])
       call SaveInteger(hash, pNumber, StringHash("rectNumber"), rectNumber)
       call SaveInteger(hash, pNumber, StringHash("currentWave"), 1)
       call SaveInteger(hash, pNumber, StringHash("mCount"), 0)
       
-      call Hunting___CharacterMoveIn(pNumber , - 400. , 0)
-      call Hunting___DecorationRect(pNumber , rectNumber)
-      call Hunting___CreateMonsters(pNumber , rectNumber , 1)
-      call Hunting___DecorationDoodad(pNumber , rectNumber)
+      call Hunting__CharacterMoveIn(pNumber , - 400. , 0)
+      call Hunting__DecorationRect(pNumber , rectNumber)
+      call Hunting__CreateMonsters(pNumber , rectNumber , 1)
+      call Hunting__DecorationDoodad(pNumber , rectNumber)
     endif
   endfunction
-  function Hunting___RectSetup takes rect r1,rect r2,integer max returns nothing
+  function Hunting__RectSetup takes rect r1,rect r2,integer max returns nothing
     local integer i= 3
     // 초기설정 - 
     local real length= GetRectMaxX(r1) - GetRectMinX(r1)
@@ -8721,28 +8746,28 @@ endfunction
       else
         call MsgAll("Bug/Hunting/RectSetup/r2 null")
       endif
-    elseif ( Hunting___MAX_ROW != length / bj_CELLWIDTH ) or ( Hunting___MAX_COL != ( GetRectMaxY(r1) - GetRectMinY(r1) ) / bj_CELLWIDTH ) then
+    elseif ( Hunting__MAX_ROW != length / bj_CELLWIDTH ) or ( Hunting__MAX_COL != ( GetRectMaxY(r1) - GetRectMinY(r1) ) / bj_CELLWIDTH ) then
       call MsgAll("Bug/Hunting/RectSetup/MAX ROW/COL != " + R2SW(length / bj_CELLWIDTH, 2, 0) + "//" + R2SW(( GetRectMaxY(r1) - GetRectMinY(r1) ) / bj_CELLWIDTH, 2, 0))
     else
-      set Hunting___PlayerRect[1]=r1
-      set Hunting___PlayerRect[2]=r2
+      set Hunting__PlayerRect[1]=r1
+      set Hunting__PlayerRect[2]=r2
       
       // 3부터 실행
       loop
-        set Hunting___PlayerRect[i]=Rect(GetRectMaxX(Hunting___PlayerRect[i - 1]) + space, GetRectMinY(r1), GetRectMaxX(Hunting___PlayerRect[i - 1]) + space + length, GetRectMaxY(r1))
+        set Hunting__PlayerRect[i]=Rect(GetRectMaxX(Hunting__PlayerRect[i - 1]) + space, GetRectMinY(r1), GetRectMaxX(Hunting__PlayerRect[i - 1]) + space + length, GetRectMaxY(r1))
         exitwhen i >= max
         set i=i + 1
       endloop
     endif
   endfunction
-  function Hunting___CharacterMoveTo takes integer pNumber,real x,real y returns nothing
+  function Hunting__CharacterMoveTo takes integer pNumber,real x,real y returns nothing
     call SetUnitPosition(udg_hero[pNumber], x, y)
     if ( GetLocalPlayer() == Player(pNumber - 1) ) then
       call PanCameraToTimed(x, y, 0.)
     endif
   endfunction
-  function Hunting___Clear takes integer pNumber,integer stage returns nothing
-    call Hunting___CharacterMoveTo(pNumber , LoadReal(hash, StringHash("rectExitX"), stage) , LoadReal(hash, StringHash("rectExitY"), stage))
+  function Hunting__Clear takes integer pNumber,integer stage returns nothing
+    call Hunting__CharacterMoveTo(pNumber , LoadReal(hash, StringHash("rectExitX"), stage) , LoadReal(hash, StringHash("rectExitY"), stage))
     if ( stage == 1 ) then
       call SetPlayerState(Player(pNumber - 1), PLAYER_STATE_RESOURCE_GOLD, GetPlayerState(Player(pNumber - 1), PLAYER_STATE_RESOURCE_GOLD) + 100)
       call AddHeroXP(udg_hero[pNumber], 50, false)
@@ -8751,7 +8776,7 @@ endfunction
       call MsgAll("Hunting/Clear/ERROR 0")
     endif
   endfunction
-  function Hunting___MonsterDying takes nothing returns nothing
+  function Hunting__MonsterDying takes nothing returns nothing
     local unit u= GetTriggerUnit()
     local integer pNumber= LoadInteger(hash, GetHandleId(u), StringHash("pNumber"))
     local integer mCount= LoadInteger(hash, pNumber, StringHash("mCount")) - 1
@@ -8761,32 +8786,32 @@ endfunction
     
     call MsgAll("pNumber:" + I2S(pNumber) + "/mCount:" + I2S(mCount) + "/rectNumber:" + I2S(rectNumber) + "/currentWave:" + I2S(currentWave))
     if ( mCount <= 0 ) then
-      if ( currentWave < Hunting___EStageMaxWave(rectNumber) ) then
+      if ( currentWave < Hunting__EStageMaxWave(rectNumber) ) then
         set currentWave=currentWave + 1
         call SaveInteger(hash, pNumber, StringHash("currentWave"), currentWave)
-        call Hunting___CharacterMoveIn(pNumber , - 400. , 0)
-        call Hunting___CreateMonsters(pNumber , rectNumber , currentWave)
+        call Hunting__CharacterMoveIn(pNumber , - 400. , 0)
+        call Hunting__CreateMonsters(pNumber , rectNumber , currentWave)
       else
-        call Hunting___Clear(pNumber , rectNumber)
+        call Hunting__Clear(pNumber , rectNumber)
       endif
     endif
   endfunction
-  function Hunting___Init takes nothing returns nothing
+  function Hunting__Init takes nothing returns nothing
     // 이벤트 추가
-    call Hunting___RectAddEvent(gg_rct_Hunting_Enter_01_Down , 1 , bj_KEYEVENTKEY_DOWN)
-    call Hunting___RectAddEvent(gg_rct_Hunting_Enter_02 , 2 , bj_KEYEVENTKEY_LEFT)
-    set Hunting___tempRegion=null
+    call Hunting__RectAddEvent(gg_rct_Hunting_Enter_01_Down , 1 , bj_KEYEVENTKEY_DOWN)
+    call Hunting__RectAddEvent(gg_rct_Hunting_Enter_02 , 2 , bj_KEYEVENTKEY_LEFT)
+    set Hunting__tempRegion=null
     
     // 조건, 액션
-    call TriggerAddCondition(Hunting___tempEnterTrigger, Condition(function Hunting___isEnterHero))
-    call TriggerAddAction(Hunting___tempEnterTrigger, function Hunting___EnterAction)
+    call TriggerAddCondition(Hunting__tempEnterTrigger, Condition(function Hunting__isEnterHero))
+    call TriggerAddAction(Hunting__tempEnterTrigger, function Hunting__EnterAction)
     
-    call TriggerAddAction(Hunting___DyingTrigger, function Hunting___MonsterDying)
+    call TriggerAddAction(Hunting__DyingTrigger, function Hunting__MonsterDying)
     
     // 구역 설정, 2개의 위치에 따라 max까지 반복
-    call Hunting___RectSetup(gg_rct_Player_Hunting_Rect_01 , gg_rct_Player_Hunting_Rect_02 , bj_MAX_PLAYERS)
+    call Hunting__RectSetup(gg_rct_Player_Hunting_Rect_01 , gg_rct_Player_Hunting_Rect_02 , bj_MAX_PLAYERS)
     // 메모리 반환
-    set Hunting___tempEnterTrigger=null
+    set Hunting__tempEnterTrigger=null
     //set DyingTrigger = null *해당이름 계속 사용하니 null 처리 안함*
   endfunction
 // scope Hunting ends
@@ -9386,7 +9411,7 @@ function main takes nothing returns nothing
     call CreateAllUnits()
     call InitBlizzard()
 
-call ExecuteFunc("jasshelper__initstructs47460625")
+call ExecuteFunc("jasshelper__initstructs67908109")
 call ExecuteFunc("MemoryLibBase__Init")
 call JNMemory__Init()
 call SkillDataStr__Init()
@@ -9396,7 +9421,6 @@ call UnitDetailFrame__Init()
 call SkillTree__Init()
 call PortraitEditor__Init()
 call PushKey__Init()
-call Select__Init()
 call Option__Init()
 call Equip__Init()
 call Info__Init()
@@ -9405,8 +9429,8 @@ call JNObjectGui__init()
 call Time__Init()
 call LoadAuto__Init()
 call Save__Init()
-call ClearCacher___Init()
-call Hunting___Init()
+call ClearCacher__Init()
+call Hunting__Init()
 call Enchant___Init()
 call Exit___Init()
 call TestScope___Init()
@@ -9414,9 +9438,9 @@ call AddReg___Init()
 call DisplayGrid___Init()
 call UnitNameChange___Init()
 
-call ExecuteFunc("jasshelper__0initdatastructs47460625")
-call ExecuteFunc("jasshelper__1initdatastructs47460625")
-call ExecuteFunc("jasshelper__2initdatastructs47460625")
+call ExecuteFunc("jasshelper__0initdatastructs67908109")
+call ExecuteFunc("jasshelper__1initdatastructs67908109")
+call ExecuteFunc("jasshelper__2initdatastructs67908109")
     call InitGlobals()
     call InitCustomTriggers()
 
@@ -9452,40 +9476,46 @@ endfunction
 function sa__Select_ViewInfo takes nothing returns boolean
 local string s=f__arg_string1
 local boolean Continue=f__arg_boolean1
-        call DzFrameSetText(Frame_SelectText[2], JNStringSplit(s, "'", 0))
-        call DzFrameSetText(Frame_SelectText[3], JNStringSplit(s, "'", 1))
-        call DzFrameSetText(Frame_SelectText[4], JNStringSplit(s, "'", 2))
-        call DzFrameSetText(Frame_SelectText[5], JNStringSplit(s, "'", 3))
-        call s__Select_SetStars(1 , S2I(JNStringSplit(s, "'", 4)) , "Select_stars1.tga")
-        call s__Select_SetStars(6 , S2I(JNStringSplit(s, "'", 5)) , "Select_stars1.tga")
-        call s__Select_SetStars(11 , S2I(JNStringSplit(s, "'", 6)) , "Select_stars1.tga")
-        call s__Select_SetStars(16 , S2I(JNStringSplit(s, "'", 7)) , "Select_stars1.tga")
-        call s__Select_SetStars(21 , S2I(JNStringSplit(s, "'", 8)) , "Select_stars2.tga")
-        if ( SubString(JNStringSplit(s, "'", 9), 0, 10) == "|cffff8000" ) then
-          call DzFrameSetTexture(Frame_SelectBack[3], "Select_BackRed.blp", 0)
-          call DzFrameSetTexture(Frame_SelectBack[4], "Select_BackRedRed.blp", 0)
-          if ( Continue ) then
-            call DzFrameSetTexture(Frame_SelectBack[6], "Select_ContinueRed.blp", 0)
-          else
-            call DzFrameSetTexture(Frame_SelectBack[6], "Select_StartRed.blp", 0)
-          endif
+      call DzFrameSetText(s__Select_selectTextCharacterNameKorean, JNStringSplit(s, "'", 0))
+      call DzFrameSetText(s__Select_selectTextCharacterNameEnglish, JNStringSplit(s, "'", 1))
+      call DzFrameSetText(s__Select_selectTextCharacterDescription1, JNStringSplit(s, "'", 2))
+      call DzFrameSetText(s__Select_selectTextCharacterDescription2, JNStringSplit(s, "'", 3))
+      call s__Select_SetStars(0 , S2I(JNStringSplit(s, "'", 4)) , "Select_stars1.tga")
+      call s__Select_SetStars(1 , S2I(JNStringSplit(s, "'", 5)) , "Select_stars1.tga")
+      call s__Select_SetStars(2 , S2I(JNStringSplit(s, "'", 6)) , "Select_stars1.tga")
+      call s__Select_SetStars(3 , S2I(JNStringSplit(s, "'", 7)) , "Select_stars1.tga")
+      call s__Select_SetStars(4 , S2I(JNStringSplit(s, "'", 8)) , "Select_stars2.tga")
+      if ( SubString(JNStringSplit(s, "'", 9), 0, 10) == "|cffff8000" ) then
+        call DzFrameSetTexture(s__Select_select_Preview, "Select_BackRed.blp", 0)
+        call DzFrameSetTexture(s__Select_selectBackSkillPreview, "Select_BackRedRed.blp", 0)
+        if ( Continue ) then
+          call DzFrameSetTexture(s__Select_selectBackStart, "Select_ContinueRed.blp", 0)
         else
-          call DzFrameSetTexture(Frame_SelectBack[3], "Select_BackBlue.blp", 0)
-          call DzFrameSetTexture(Frame_SelectBack[4], "Select_BackBlueBlue.blp", 0)
-          if ( Continue ) then
-            call DzFrameSetTexture(Frame_SelectBack[6], "Select_ContinueBlue.blp", 0)
-          else
-            call DzFrameSetTexture(Frame_SelectBack[6], "Select_StartBlue.blp", 0)
-          endif
+          call DzFrameSetTexture(s__Select_selectBackStart, "Select_StartRed.blp", 0)
         endif
-        call DzFrameSetText(Frame_SelectText[12], JNStringSplit(s, "'", 9))
-        call DzFrameSetText(Frame_SelectText[14], JNStringSplit(s, "'", 10))
-        call DzFrameSetTexture(Frame_SelectSkills[2], JNStringSplit(s, "'", 11), 0)
-        call DzFrameSetTexture(Frame_SelectSkills[4], JNStringSplit(s, "'", 12), 0)
-        call DzFrameSetTexture(Frame_SelectSkills[6], JNStringSplit(s, "'", 13), 0)
-        call DzFrameSetTexture(Frame_SelectSkills[8], JNStringSplit(s, "'", 14), 0)
-        call DzFrameShow(Frame_SelectBack[1], true)
-        call DzFrameShow(Frame_SelectText[16], false)
+      else
+        call DzFrameSetTexture(s__Select_select_Preview, "Select_BackBlue.blp", 0)
+        call DzFrameSetTexture(s__Select_selectBackSkillPreview, "Select_BackBlueBlue.blp", 0)
+        if ( Continue ) then
+          call DzFrameSetTexture(s__Select_selectBackStart, "Select_ContinueBlue.blp", 0)
+        else
+          call DzFrameSetTexture(s__Select_selectBackStart, "Select_StartBlue.blp", 0)
+        endif
+      endif
+      call DzFrameSetText(s__Select_selectTextCharacterDamageType, JNStringSplit(s, "'", 9))
+      call DzFrameSetText(s__Select_selectTextCharacterMainWeapon, JNStringSplit(s, "'", 10))
+      call DzFrameSetTexture(s__s__Select_selectBackSkills[0], JNStringSplit(s, "'", 11), 0)
+      call DzFrameSetTexture(s__s__Select_selectBackSkills[1], JNStringSplit(s, "'", 12), 0)
+      call DzFrameSetTexture(s__s__Select_selectBackSkills[2], JNStringSplit(s, "'", 13), 0)
+      call DzFrameSetTexture(s__s__Select_selectBackSkills[3], JNStringSplit(s, "'", 14), 0)
+      call DzFrameShow(s__Select_select_Main, true)
+      call DzFrameShow(s__Select_select_Preview, false)
+   return true
+endfunction
+function sa__Select_CountAdder takes nothing returns boolean
+
+      set s__Select_currentCount=s__Select_currentCount + 1
+set f__result_integer= s__Select_currentCount
    return true
 endfunction
 function sa__MenuQuickSlot_MenuClick takes nothing returns boolean
@@ -9515,7 +9545,7 @@ endfunction
 function sa__MenuQuickSlot_ButtonClickDetail takes nothing returns boolean
 local player p=f__arg_player1
 local integer frame=f__arg_integer1
-      if ( s__EMenus_GetMainType(frame) == QUICK_MENU_CHARACTER ) then
+      if ( s__EMenus_GetMainType(frame) == SELECT_MENU_CHARACTER ) then
         set NowSelect[GetPlayerId(p) + 1]=s__EMenus_GetSubTypeId(frame)
         if ( GetLocalPlayer() == p ) then
           call StopSound(gg_snd_MouseClick1, false, false)
@@ -9712,7 +9742,7 @@ return true
 set f__result_integer= s__s__PlayerResource_privatePlayerResource[input]
    return true
 endfunction
-function sa___prototype71_Load_ExcuteAction takes nothing returns boolean
+function sa___prototype67_Load_ExcuteAction takes nothing returns boolean
  local player target=f__arg_player1
  local integer data=f__arg_integer1
 
@@ -9722,9 +9752,11 @@ function sa___prototype71_Load_ExcuteAction takes nothing returns boolean
     return true
 endfunction
 
-function jasshelper__initstructs47460625 takes nothing returns nothing
+function jasshelper__initstructs67908109 takes nothing returns nothing
     set st__Select_ViewInfo=CreateTrigger()
     call TriggerAddCondition(st__Select_ViewInfo,Condition( function sa__Select_ViewInfo))
+    set st__Select_CountAdder=CreateTrigger()
+    call TriggerAddCondition(st__Select_CountAdder,Condition( function sa__Select_CountAdder))
     set st__MenuQuickSlot_MenuClick=CreateTrigger()
     call TriggerAddCondition(st__MenuQuickSlot_MenuClick,Condition( function sa__MenuQuickSlot_MenuClick))
     set st__MenuQuickSlot_ButtonClickDetail=CreateTrigger()
@@ -9761,9 +9793,10 @@ function jasshelper__initstructs47460625 takes nothing returns nothing
     set st__Ptr_onDestroy[4]=null
     set st__Ptr_onDestroy[3]=null
     set st__Ptr_onDestroy[2]=null
-    set st___prototype71[1]=CreateTrigger()
-    call TriggerAddAction(st___prototype71[1],function sa___prototype71_Load_ExcuteAction)
-    call TriggerAddCondition(st___prototype71[1],Condition(function sa___prototype71_Load_ExcuteAction))
+    set st___prototype67[1]=CreateTrigger()
+    call TriggerAddAction(st___prototype67[1],function sa___prototype67_Load_ExcuteAction)
+    call TriggerAddCondition(st___prototype67[1],Condition(function sa___prototype67_Load_ExcuteAction))
+
 
 
 
@@ -9817,10 +9850,11 @@ function jasshelper__initstructs47460625 takes nothing returns nothing
     call ExecuteFunc("s__PlayerResource_onInit")
     call ExecuteFunc("s__EndGameHook__MemoryBlock_onInit")
     call ExecuteFunc("s__MenuQuickSlot_onInit")
+    call ExecuteFunc("s__Select_onInit")
     call ExecuteFunc("s__Load_onInit")
 endfunction
 
-function jasshelper__0initdatastructs47460625 takes nothing returns nothing
+function jasshelper__0initdatastructs67908109 takes nothing returns nothing
  local integer s
 
 //Loaded from: Data\SkillData.slk
@@ -11166,7 +11200,7 @@ function jasshelper__0initdatastructs47460625 takes nothing returns nothing
 
 endfunction
 
-function jasshelper__1initdatastructs47460625 takes nothing returns nothing
+function jasshelper__1initdatastructs67908109 takes nothing returns nothing
  local integer s
 
 //Loaded from: Data\SkillData.slk
@@ -12288,7 +12322,7 @@ function jasshelper__1initdatastructs47460625 takes nothing returns nothing
 
 endfunction
 
-function jasshelper__2initdatastructs47460625 takes nothing returns nothing
+function jasshelper__2initdatastructs67908109 takes nothing returns nothing
  local integer s
 
 //Loaded from: Data\SkillData.slk

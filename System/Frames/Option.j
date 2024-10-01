@@ -46,13 +46,16 @@ scope Option initializer Init
         call DzFrameShow(Frame_SettingBackdrop[0], false)
       endif
     endfunction
-    private function SettingHotKey takes integer i, integer number, integer frame, real x, real y, string text, code funcHandle returns integer
-      set Frame_Setting[i] = DzCreateFrameByTagName("GLUETEXTBUTTON", "", Frame_SettingBackdrop[1], "ScriptDialogButton", 0)
-      call SaveNumber(Frame_Setting[i], number)
-      call DzFrameSetSize(Frame_Setting[i], .02667, .02667)
-      call DzFrameSetPoint(Frame_Setting[i], JN_FRAMEPOINT_LEFT, frame, JN_FRAMEPOINT_LEFT, .1 + x, y)
-      call DzFrameSetText(Frame_Setting[i], text)
-      return i + 1
+    private function SettingHotKey takes integer input, integer parent, real x, real y, string keys returns integer
+      set Frame_Setting[input] = DzCreateFrameByTagName("GLUETEXTBUTTON", "", Frame_SettingBackdrop[1], "ScriptDialogButton", 0)
+      // call EMenus.FrameSaveIDs(Frame_Setting[input], types, input)
+      call DzFrameSetSize(Frame_Setting[input], .02667, .02667)
+      call DzFrameSetPoint(Frame_Setting[input], JN_FRAMEPOINT_LEFT, parent, JN_FRAMEPOINT_LEFT, .1 + x, y)
+      call DzFrameSetText(Frame_Setting[input], keys)
+      // MenuQuickSlot.BaseHotKey(types, input)
+      // function SettingHotKeyClick
+
+      return input + 1
     endfunction
     private function SettingHotKeyClick takes nothing returns nothing
       local integer f = DzGetTriggerUIEventFrame()
@@ -117,34 +120,33 @@ scope Option initializer Init
       set i = SettingButton(i, 5, "|c004f4f4fON |cffffffff/ |cfffed312OFF", function SettingClick)
       set i = SettingButton(i, 6, "|cfffed312ON |cffffffff/ |c004f4f4fOFF", function SettingClick)
       
-      set i = SettingHotKey(i, EHotkeyMenu.SkillSlot1, Frame_Setting[8], 0., 0.01, MenuQuickSlot.BaseHotKey(QUICK_MENU_SKILLSLOT, 1), function SettingHotKeyClick)
-      set i = SettingHotKey(i, EHotkeyMenu.SkillSlot2, Frame_Setting[8], 0.02, 0.01, MenuQuickSlot.BaseHotKey(QUICK_MENU_SKILLSLOT, 2), function SettingHotKeyClick)
-      set i = SettingHotKey(i, EHotkeyMenu.SkillSlot3, Frame_Setting[8], 0.04, 0.01, MenuQuickSlot.BaseHotKey(QUICK_MENU_SKILLSLOT, 3), function SettingHotKeyClick)
-      set i = SettingHotKey(i, EHotkeyMenu.SkillSlot4, Frame_Setting[8], 0.06, 0.01, MenuQuickSlot.BaseHotKey(QUICK_MENU_SKILLSLOT, 4), function SettingHotKeyClick)
-      set i = SettingHotKey(i, EHotkeyMenu.SkillSlot5, Frame_Setting[8], 0., -0.01, MenuQuickSlot.BaseHotKey(QUICK_MENU_SKILLSLOT, 5), function SettingHotKeyClick)
-      set i = SettingHotKey(i, EHotkeyMenu.SkillSlot6, Frame_Setting[8], 0.02, -0.01, MenuQuickSlot.BaseHotKey(QUICK_MENU_SKILLSLOT, 6), function SettingHotKeyClick)
-      set i = SettingHotKey(i, EHotkeyMenu.SkillSlot7, Frame_Setting[8], 0.04, -0.01, MenuQuickSlot.BaseHotKey(QUICK_MENU_SKILLSLOT, 7), function SettingHotKeyClick)
-      set i = SettingHotKey(i, EHotkeyMenu.SkillSlot8, Frame_Setting[8], 0.06, -0.01, MenuQuickSlot.BaseHotKey(QUICK_MENU_SKILLSLOT, 8), function SettingHotKeyClick)
-  
-      set i = SettingHotKey(i, EHotkeyMenu.ItemSlot1, Frame_Setting[9], 0., 0.01, MenuQuickSlot.BaseHotKey(QUICK_MENU_ITEMSLOT, 1), function SettingHotKeyClick)
-      set i = SettingHotKey(i, EHotkeyMenu.ItemSlot2, Frame_Setting[9], 0.02, 0.01, MenuQuickSlot.BaseHotKey(QUICK_MENU_ITEMSLOT, 2), function SettingHotKeyClick)
-      set i = SettingHotKey(i, EHotkeyMenu.ItemSlot3, Frame_Setting[9], 0.04, 0.01, MenuQuickSlot.BaseHotKey(QUICK_MENU_ITEMSLOT, 3), function SettingHotKeyClick)
-      set i = SettingHotKey(i, EHotkeyMenu.ItemSlot4, Frame_Setting[9], 0.06, 0.01, MenuQuickSlot.BaseHotKey(QUICK_MENU_ITEMSLOT, 4), function SettingHotKeyClick)
-      set i = SettingHotKey(i, EHotkeyMenu.ItemSlot5, Frame_Setting[9], 0.01, -0.01, MenuQuickSlot.BaseHotKey(QUICK_MENU_ITEMSLOT, 5), function SettingHotKeyClick)
-      set i = SettingHotKey(i, EHotkeyMenu.ItemSlot6, Frame_Setting[9], 0.03, -0.01, MenuQuickSlot.BaseHotKey(QUICK_MENU_ITEMSLOT, 6), function SettingHotKeyClick)
-      set i = SettingHotKey(i, EHotkeyMenu.ItemSlot7, Frame_Setting[9], 0.05, -0.01, MenuQuickSlot.BaseHotKey(QUICK_MENU_ITEMSLOT, 7), function SettingHotKeyClick)
-      
-      set i = SettingHotKey(i, EHotkeyMenu.SubMenuKakaotalk, Frame_Setting[10], 0., 0., MenuQuickSlot.BaseHotKey(QUICK_MENU_MENU, 1), function SettingHotKeyClick)
-      set i = SettingHotKey(i, EHotkeyMenu.SubMenuDiscord, Frame_Setting[10], .03, 0., MenuQuickSlot.BaseHotKey(QUICK_MENU_MENU, 2), function SettingHotKeyClick)
-      set i = SettingHotKey(i, EHotkeyMenu.SubMenuSetting, Frame_Setting[10], .06, 0., MenuQuickSlot.BaseHotKey(QUICK_MENU_MENU, 3), function SettingHotKeyClick)
-      
-      set i = SettingHotKey(i, EHotkeyMenu.SubMenuAutoCombat, Frame_Setting[11], 0.01, 0., MenuQuickSlot.BaseHotKey(QUICK_MENU_MENU, 4), function SettingHotKeyClick)
-      set i = SettingHotKey(i, EHotkeyMenu.SubMenuInventory, Frame_Setting[11], 0.04, 0., MenuQuickSlot.BaseHotKey(QUICK_MENU_MENU, 5), function SettingHotKeyClick)
-      
-      set i = SettingHotKey(i, EHotkeyMenu.SubMenuStatus, Frame_Setting[12], 0., 0., MenuQuickSlot.BaseHotKey(QUICK_MENU_MENU, 6), function SettingHotKeyClick)
-      set i = SettingHotKey(i, EHotkeyMenu.SubMenuSkillTree, Frame_Setting[12], .03, 0., MenuQuickSlot.BaseHotKey(QUICK_MENU_MENU, 7), function SettingHotKeyClick)
-      set i = SettingHotKey(i, EHotkeyMenu.SubMenuSmartMode, Frame_Setting[12], .06, 0., MenuQuickSlot.BaseHotKey(QUICK_MENU_MENU, 8), function SettingHotKeyClick)
+      set i = SettingHotKey(i, Frame_Setting[8], 0., 0.01, MenuQuickSlot.BaseHotKey(QUICK_MENU_SKILLSLOT, 1))
+      set i = SettingHotKey(i, Frame_Setting[8], 0.02, 0.01, MenuQuickSlot.BaseHotKey(QUICK_MENU_SKILLSLOT, 2))
+      set i = SettingHotKey(i, Frame_Setting[8], 0.04, 0.01, MenuQuickSlot.BaseHotKey(QUICK_MENU_SKILLSLOT, 3))
+      set i = SettingHotKey(i, Frame_Setting[8], 0.06, 0.01, MenuQuickSlot.BaseHotKey(QUICK_MENU_SKILLSLOT, 4))
+      set i = SettingHotKey(i, Frame_Setting[8], 0., -0.01, MenuQuickSlot.BaseHotKey(QUICK_MENU_SKILLSLOT, 5))
+      set i = SettingHotKey(i, Frame_Setting[8], 0.02, -0.01, MenuQuickSlot.BaseHotKey(QUICK_MENU_SKILLSLOT, 6))
+      set i = SettingHotKey(i, Frame_Setting[8], 0.04, -0.01, MenuQuickSlot.BaseHotKey(QUICK_MENU_SKILLSLOT, 7))
+      set i = SettingHotKey(i, Frame_Setting[8], 0.06, -0.01, MenuQuickSlot.BaseHotKey(QUICK_MENU_SKILLSLOT, 8))
 
+      set i = SettingHotKey(i, Frame_Setting[9], 0., 0.01, MenuQuickSlot.BaseHotKey(QUICK_MENU_ITEMSLOT, 1)) 
+      set i = SettingHotKey(i, Frame_Setting[9], 0.02, 0.01, MenuQuickSlot.BaseHotKey(QUICK_MENU_ITEMSLOT, 2)) 
+      set i = SettingHotKey(i, Frame_Setting[9], 0.04, 0.01, MenuQuickSlot.BaseHotKey(QUICK_MENU_ITEMSLOT, 3)) 
+      set i = SettingHotKey(i, Frame_Setting[9], 0.06, 0.01, MenuQuickSlot.BaseHotKey(QUICK_MENU_ITEMSLOT, 4)) 
+      set i = SettingHotKey(i, Frame_Setting[9], 0.01, -0.01, MenuQuickSlot.BaseHotKey(QUICK_MENU_ITEMSLOT, 5)) 
+      set i = SettingHotKey(i, Frame_Setting[9], 0.03, -0.01, MenuQuickSlot.BaseHotKey(QUICK_MENU_ITEMSLOT, 6)) 
+      set i = SettingHotKey(i, Frame_Setting[9], 0.05, -0.01, MenuQuickSlot.BaseHotKey(QUICK_MENU_ITEMSLOT, 7))
+
+      set i = SettingHotKey(i, Frame_Setting[10], 0., 0., MenuQuickSlot.BaseHotKey(QUICK_MENU_ITEMSLOT, 1))
+      set i = SettingHotKey(i, Frame_Setting[10], .03, 0., MenuQuickSlot.BaseHotKey(QUICK_MENU_ITEMSLOT, 2))
+      set i = SettingHotKey(i, Frame_Setting[10], .06, 0., MenuQuickSlot.BaseHotKey(QUICK_MENU_ITEMSLOT, 3))
+
+      set i = SettingHotKey(i, Frame_Setting[11], 0.01, 0., MenuQuickSlot.BaseHotKey(QUICK_MENU_ITEMSLOT, 4))
+      set i = SettingHotKey(i, Frame_Setting[11], 0.04, 0., MenuQuickSlot.BaseHotKey(QUICK_MENU_ITEMSLOT, 5))
+
+      set i = SettingHotKey(i, Frame_Setting[12], 0., 0., MenuQuickSlot.BaseHotKey(QUICK_MENU_ITEMSLOT, 6))
+      set i = SettingHotKey(i, Frame_Setting[12], .03, 0., MenuQuickSlot.BaseHotKey(QUICK_MENU_ITEMSLOT, 7))
+      set i = SettingHotKey(i, Frame_Setting[12], .06, 0., MenuQuickSlot.BaseHotKey(QUICK_MENU_ITEMSLOT, 8))
       call DzFrameShow(Frame_SettingBackdrop[0], false)
     endfunction
     private function Init takes nothing returns nothing

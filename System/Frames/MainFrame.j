@@ -2,10 +2,10 @@ scope MainFrame initializer Init
     globals
       private dialog NoSaveDialog = DialogCreate()
       
-      integer array Frame_SelectBack
-      integer array Frame_SelectText
+      // integer array Frame_SelectBack
+      // integer array Frame_SelectText
 
-      integer array Frame_ButtonsBackDrop       //아이템/스킬/메뉴 버튼 배경 아이콘
+      // integer array Frame_ButtonsBackDrop       //아이템/스킬/메뉴 버튼 배경 아이콘
       
       integer array Frame_Info
       integer array Frame_InfoValue

@@ -132,7 +132,7 @@ scope MenuQuickSlot
       endif
     endmethod
     static method ButtonClickDetail takes player p, integer frame returns nothing
-      if ( EMenus.GetMainType(frame) == QUICK_MENU_CHARACTER ) then
+      if ( EMenus.GetMainType(frame) == SELECT_MENU_CHARACTER ) then
         set NowSelect[GetPlayerId(p)+1] = EMenus.GetSubTypeId(frame)
         if ( GetLocalPlayer() == p ) then
           call StopSound(gg_snd_MouseClick1, false, false)
@@ -180,9 +180,9 @@ scope MenuQuickSlot
       call CreateHotKey(Quickmenu_Buttons[currentCount])
 
       // Backdrop
-      set Quickmenu_Backdrops[types]=DzCreateFrameByTagName("BACKDROP", "", Quickmenu_Buttons[types], "", 0)
-      call DzFrameSetAllPoints(Quickmenu_Backdrops[types], Quickmenu_Buttons[types])
-      call DzFrameSetTexture(Quickmenu_Backdrops[types], iconPath, 0)
+      set Quickmenu_Backdrops[currentCount]=DzCreateFrameByTagName("BACKDROP", "", Quickmenu_Buttons[currentCount], "", 0)
+      call DzFrameSetAllPoints(Quickmenu_Backdrops[currentCount], Quickmenu_Buttons[currentCount])
+      call DzFrameSetTexture(Quickmenu_Backdrops[currentCount], iconPath, 0)
     endmethod
     private static method CreateMenuFrames takes integer offset returns nothing
       call CreateButtons(QUICK_MENU_MENU, offset, .78, .58, .02, "war3mapImported\\frame_setting.blp")  /* 설정 */
