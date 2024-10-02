@@ -22,8 +22,8 @@ scope Select
     public static constant real startCreateX = -9696.
     public static constant real startCreateY = 4288.
 
-    private static constant real selectX = -9664.
-    private static constant real selectY = 5440.
+    private static constant real defaultX = -9664.
+    private static constant real defaultY = 5440.
 
     // 프레임 선언
     private static integer currentCount = 0
@@ -194,7 +194,7 @@ scope Select
           call DzFrameShow(select_SkillPreview, false)
           call ResetToGameCamera(0.)
           call SetCameraBoundsToRect(bj_mapInitialPlayableArea)
-          call PanCameraTo(selectX, selectY)
+          call PanCameraTo(startCreateX, startCreateY)
           call EnablePreSelect(true, true)
           call DzFrameShow(DzFrameGetMinimap(), true)
         endif
@@ -282,7 +282,7 @@ scope Select
       call SetCameraField(CAMERA_FIELD_FIELD_OF_VIEW, 70., 0.)
       call SetCameraField(CAMERA_FIELD_FARZ, 5000., 0.)
 
-      call CameraBounds(selectX, selectY)
+      call CameraBounds(defaultX, defaultY)
     endmethod
     private static method CreateSelectMain takes nothing returns nothing
       local integer temp
@@ -301,8 +301,8 @@ scope Select
       set select_LeftPreview              = MakeBack(select_Main, JN_FRAMEPOINT_TOPLEFT, .05, .45, .18, .25, "Select_Back.blp")
       set selectTextCharacterNameEnglish  = MakeText(select_LeftPreview, JN_FRAMEPOINT_TOP, JN_FRAMEPOINT_TOP, 0., -.013, .015, "DarkElf Mage")
       set selectTextCharacterNameKorean   = MakeText(select_LeftPreview, JN_FRAMEPOINT_TOPRIGHT, JN_FRAMEPOINT_TOPRIGHT, -.020, -.035, .010, "다크엘프 마법사")
-      set selectTextCharacterDescription1 = MakeText(select_LeftPreview, JN_FRAMEPOINT_LEFT, JN_FRAMEPOINT_TOPLEFT, .02, -.050, .009, "마법사는 강력한 마법 공격과 디버프를 사용해")
-      set selectTextCharacterDescription2 = MakeText(select_LeftPreview, JN_FRAMEPOINT_LEFT, JN_FRAMEPOINT_TOPLEFT, .02, -.060, .009, "적을 괴롭히고 다대다 전투에 강한 직업입니다.")
+      set selectTextCharacterDescription1 = MakeText(select_LeftPreview, JN_FRAMEPOINT_LEFT, JN_FRAMEPOINT_TOPLEFT, .02, -.055, .008, "마법사는 강력한 마법 공격과 디버프를 사용해")
+      set selectTextCharacterDescription2 = MakeText(select_LeftPreview, JN_FRAMEPOINT_LEFT, JN_FRAMEPOINT_TOPLEFT, .02, -.065, .008, "적을 괴롭히고 다대다 전투에 강한 직업입니다.")
 
       set temp = MakeText(select_LeftPreview, JN_FRAMEPOINT_TOPLEFT, JN_FRAMEPOINT_TOPLEFT, .020, -.080, .012, "공격")
       set selectBackStars[0][0] = MakeStars(temp, JN_FRAMEPOINT_LEFT, JN_FRAMEPOINT_LEFT, .040, 0., .020, "Select_stars1.tga")
@@ -354,9 +354,9 @@ scope Select
       set selectButtonSkills[2] = MakeButton(selectBackPreviewInter, SELECT_MENU_PRESKILL, 2, JN_FRAMEPOINT_TOP, JN_FRAMEPOINT_TOPLEFT, .099, -.03, .0275, "war3mapImported\\frame_kakao.blp")
       set selectButtonSkills[3] = MakeButton(selectBackPreviewInter, SELECT_MENU_PRESKILL, 3, JN_FRAMEPOINT_TOP, JN_FRAMEPOINT_TOPLEFT, .136, -.03, .0275, "war3mapImported\\frame_kakao.blp")
 
-      set selectTextSkillPreviewName = MakeText(selectBackPreviewInter, JN_FRAMEPOINT_TOPLEFT, JN_FRAMEPOINT_TOPLEFT, .01, -.08, .012, "|cffd5d500분노의 소용돌이 |cffff8000Lv.1")
-      set selectTextSkillPreviewDescription1 = MakeText(selectTextSkillPreviewName, JN_FRAMEPOINT_TOPLEFT, JN_FRAMEPOINT_BOTTOMLEFT, 0., -.005, .008, "창을 크게 휘둘러 주위의 적들에게 공격력의")
-      set selectTextSkillPreviewDescription2 = MakeText(selectTextSkillPreviewDescription1, JN_FRAMEPOINT_TOPLEFT, JN_FRAMEPOINT_BOTTOMLEFT, 0., 0., .008, "|cffff800060%|r만큼 마법피해를 최대 |cffff80003|r회 입힙니다.")
+      set selectTextSkillPreviewName = MakeText(selectBackPreviewInter, JN_FRAMEPOINT_TOPLEFT, JN_FRAMEPOINT_TOPLEFT, .01, -.08, .012, "|cffd5d500캐릭터 스킬 |cffff8000미리보기")
+      set selectTextSkillPreviewDescription1 = MakeText(selectTextSkillPreviewName, JN_FRAMEPOINT_TOPLEFT, JN_FRAMEPOINT_BOTTOMLEFT, 0., -.005, .008, "위에 있는 |cffff8000아이콘|r에 마우스를 대면,")
+      set selectTextSkillPreviewDescription2 = MakeText(selectTextSkillPreviewDescription1, JN_FRAMEPOINT_TOPLEFT, JN_FRAMEPOINT_BOTTOMLEFT, 0., 0., .008, "캐릭터가 가진 |cffff8000스킬|r을 확인할 수 있습니다.")
 
       // 시작하기
       set selectBackStart = DzCreateFrameByTagName("BACKDROP", "", select_SkillPreview, "", 0)
@@ -464,7 +464,7 @@ scope Select
       call DzFrameShow(select_Main, true)
       call DzFrameShow(select_LeftPreview, false) /* 클릭시 보이게 */
       call DzFrameShow(select_SkillPreview, false)
-      call DzFrameShow(selectTextSkillPreviewName, false)
+      // call DzFrameShow(selectTextSkillPreviewName, false)
 
       loop
         if ( PlayerResource[loopA].isPlaying ) then
