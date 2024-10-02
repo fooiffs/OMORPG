@@ -4,7 +4,7 @@ scope Select
     private static trigger deSelectTrigger = CreateTrigger()
     private static trigger syncTrigger = CreateTrigger()
 
-    private static boolean array isSelected[MAX_PLAYER_COUNT]
+    private static boolean array isSelecting[MAX_PLAYER_COUNT]
 
     public static constant string DEFAULT_DATA = "0'0/1_0'1.2500/2_0'0/3_0'0/4_0'0/5_0'0/6_0'0/"
                                           //      ^ Last Slot              (1~6)
@@ -38,11 +38,10 @@ scope Select
     private static integer selectTextCharacterDamageType = 0
     private static integer selectTextCharacterMainWeapon = 0
 
-
+    private static integer selectBackPreviewInter = 0
     private static integer selectTextSkillPreviewName = 0
     private static integer selectTextSkillPreviewDescription1 = 0
     private static integer selectTextSkillPreviewDescription2 = 0
-    private static integer selectButtonStart = 0
     private static integer selectBackStart = 0
 
     private static integer array selectBackBottoms[MAX_CHARACTER_COUNT]
@@ -86,16 +85,18 @@ scope Select
 
       // 미리보기 창
       if ( SubString(JNStringSplit(s, "'", 9), 0, 10) == "|cffff8000" ) then
-        call DzFrameSetTexture(select_LeftPreview, "Select_BackRed.blp", 0)
-        call DzFrameSetTexture(select_SkillPreview, "Select_BackRedRed.blp", 0)
+        call DzFrameSetTexture(select_SkillPreview, "Select_BackRed.blp", 0)
+        call DzFrameSetTexture(selectBackPreviewInter, "Select_BackRedRed.blp", 0)
+        
+
         if ( Continue ) then
           call DzFrameSetTexture(selectBackStart, "Select_ContinueRed.blp", 0)
         else
           call DzFrameSetTexture(selectBackStart, "Select_StartRed.blp", 0)
         endif
       else
-        call DzFrameSetTexture(select_LeftPreview, "Select_BackBlue.blp", 0)
-        call DzFrameSetTexture(select_SkillPreview, "Select_BackBlueBlue.blp", 0)
+        call DzFrameSetTexture(select_SkillPreview, "Select_BackBlue.blp", 0)
+        call DzFrameSetTexture(selectBackPreviewInter, "Select_BackBlueBlue.blp", 0)
         if ( Continue ) then
           call DzFrameSetTexture(selectBackStart, "Select_ContinueBlue.blp", 0)
         else
@@ -142,7 +143,7 @@ scope Select
       local player p = GetTriggerPlayer()
       local integer pid = GetPlayerId(p) + 1
       // call MsgAll("Player[" +I2S(pid)+ "] : Selected (" + I2S(NowSelect[pid]) + " -> " + I2S(ECharacter.U2I(GetTriggerUnit())) + ")")
-      if ( isSelected[pid] and 0 < ECharacter.U2I(GetTriggerUnit()) ) then
+      if ( isSelecting[pid] and 0 < ECharacter.U2I(GetTriggerUnit()) ) then
         set NowSelect[pid] = ECharacter.U2I(GetTriggerUnit())
         if ( p == GetLocalPlayer() ) then
           call Select.ViewInfo(CharacterData[NowSelect[pid]].SelectDatas, (0 < S2I(JNStringSplit(JNStringSplit(LoadStr(hash, pid, StringHash("Data")), "/", NowSelect[pid]), "'", 1))))
@@ -152,9 +153,9 @@ scope Select
     endmethod
     private static method ButtonJustUp takes nothing returns nothing
       local integer f = DzGetTriggerUIEventFrame()
-      local integer nowSelectNum = NowSelect[GetPlayerId(DzGetTriggerUIEventPlayer()) + 1]
+      local integer nowSelectNum = EMenus.GetSubTypeId(f)
       if ( DzGetTriggerUIEventPlayer() == GetLocalPlayer() ) then
-        set f = 12 + 3 * EMenus.GetSubTypeId(f)
+        set f = 12 + 3 * nowSelectNum
 
         call DzFrameSetText(selectTextSkillPreviewName, "|cffd5d500" + JNStringSplit(CharacterData[nowSelectNum].SelectDatas, "'", f))
         call DzFrameSetText(selectTextSkillPreviewDescription1, JNStringSplit(CharacterData[nowSelectNum].SelectDatas, "'", f + 1))
@@ -178,7 +179,7 @@ scope Select
       if ( CharacterData[NowSelect[playerId]].UnitCode == 0 ) then
         call Msg(DzGetTriggerUIEventPlayer(), "올바른 캐릭터를 선택 후, 시작하기를 눌러주세요")
       else
-        set isSelected[playerId] = false
+        set isSelecting[playerId] = false
         if ( DzGetTriggerUIEventPlayer() == GetLocalPlayer() ) then
           call DzSyncData("Select", I2S(NowSelect[playerId]))
 
@@ -225,7 +226,7 @@ scope Select
       return temp
     endmethod
     private static method MakeButtonSimple takes integer parent, integer types, integer input, code func returns integer
-      local integer temp = DzCreateFrameByTagName("BUTTON", "", Frame_Main, "ScoreScreenTabButtonTemplate", CountAdder())
+      local integer temp = DzCreateFrameByTagName("BUTTON", "", select_Main, "ScoreScreenTabButtonTemplate", CountAdder())
       call DzFrameSetAllPoints(temp, parent)
       call EMenus.FrameSaveIDs(temp, types, input)
 
@@ -233,7 +234,7 @@ scope Select
       return temp
     endmethod
     private static method MakeButton takes integer parent, integer types, integer input, integer point, integer point2, real x, real y, real size, string iconPath returns integer
-      local integer temp = DzCreateFrameByTagName("BUTTON", "", Frame_Main, "ScoreScreenTabButtonTemplate", CountAdder())
+      local integer temp = DzCreateFrameByTagName("BUTTON", "", selectBackPreviewInter, "ScoreScreenTabButtonTemplate", CountAdder())
       call DzFrameSetPoint(temp, point, parent, point2, x, y)
       call DzFrameSetSize(temp, size, size)
         
@@ -246,10 +247,9 @@ scope Select
       call DzFrameSetTexture(selectBackSkills[input], iconPath, 0)
 
       // 이벤트 등록
-      call DzFrameSetScriptByCode(temp, JN_FRAMEEVENT_MOUSE_UP, function MenuQuickSlot.ButtonClickAll, false)
+      // call DzFrameSetScriptByCode(temp, JN_FRAMEEVENT_MOUSE_UP, function MenuQuickSlot.ButtonClickAll, false)
       call DzFrameSetScriptByCode(temp, JN_FRAMEEVENT_MOUSE_ENTER, function Select.ButtonJustUp, false)
       call DzFrameSetScriptByCode(temp, JN_FRAMEEVENT_MOUSE_LEAVE, function Select.ButtonJustDown, false)
-
       return temp
     endmethod
 
@@ -334,33 +334,31 @@ scope Select
       set selectBackStars[4][4] = MakeStars(temp, JN_FRAMEPOINT_LEFT, JN_FRAMEPOINT_LEFT, .120, 0., .020, "Select_stars2.tga")
     endmethod
     private static method CreateSelectSkillPreview takes nothing returns nothing
-      local integer temp = 1
-      set select_SkillPreview = MakeBack(DzGetGameUI(), JN_FRAMEPOINT_TOPLEFT, .62, .34, .16, .12, "Select_BackRedRed.blp")
-      call MakeText(select_SkillPreview, JN_FRAMEPOINT_TOPLEFT, JN_FRAMEPOINT_TOPLEFT, .01, -.01, .010, "|cff8f8f8f주요 스킬 보기")
-
-      set temp = MakeText(select_LeftPreview, JN_FRAMEPOINT_TOPLEFT, JN_FRAMEPOINT_TOPLEFT, .02, -.02, .010, "|cff8f8f8f피해 유형")
+      local integer temp = 0
+      set select_SkillPreview = MakeBack(DzGetGameUI(), JN_FRAMEPOINT_TOPLEFT, .6, .4, .20, .23, "Select_BackRed.blp")
+      set temp = MakeText(select_SkillPreview, JN_FRAMEPOINT_TOPLEFT, JN_FRAMEPOINT_TOPLEFT, .02, -.02, .010, "|cff8f8f8f피해 유형")
       set selectTextCharacterDamageType = MakeText(temp, JN_FRAMEPOINT_LEFT, JN_FRAMEPOINT_LEFT, .07, 0., .015, "|cff0080c0마법 데미지")
-      set temp = MakeText(select_LeftPreview, JN_FRAMEPOINT_TOPLEFT, JN_FRAMEPOINT_TOPLEFT, .02, -.04, .010, "|cff8f8f8f사용(전용)무기")
+      set temp = MakeText(select_SkillPreview, JN_FRAMEPOINT_TOPLEFT, JN_FRAMEPOINT_TOPLEFT, .02, -.04, .010, "|cff8f8f8f사용(전용)무기")
       set selectTextCharacterMainWeapon = MakeText(temp, JN_FRAMEPOINT_LEFT, JN_FRAMEPOINT_LEFT, .07, 0., .012, "[완드][지팡이]")
 
-      set selectButtonSkills[0] = MakeButton(select_SkillPreview, SELECT_MENU_PRESKILL, 1, JN_FRAMEPOINT_TOP, JN_FRAMEPOINT_TOPLEFT, .024, -.03, .0275, "war3mapImported\\frame_kakao.blp")
-      set selectButtonSkills[1] = MakeButton(select_SkillPreview, SELECT_MENU_PRESKILL, 2, JN_FRAMEPOINT_TOP, JN_FRAMEPOINT_TOPLEFT, .061, -.03, .0275, "war3mapImported\\frame_kakao.blp")
-      set selectButtonSkills[2] = MakeButton(select_SkillPreview, SELECT_MENU_PRESKILL, 3, JN_FRAMEPOINT_TOP, JN_FRAMEPOINT_TOPLEFT, .099, -.03, .0275, "war3mapImported\\frame_kakao.blp")
-      set selectButtonSkills[3] = MakeButton(select_SkillPreview, SELECT_MENU_PRESKILL, 4, JN_FRAMEPOINT_TOP, JN_FRAMEPOINT_TOPLEFT, .136, -.03, .0275, "war3mapImported\\frame_kakao.blp")
+      set selectBackPreviewInter = MakeBack(DzGetGameUI(), JN_FRAMEPOINT_TOPLEFT, .62, .34, .16, .12, "Select_BackRedRed.blp")
+      call MakeText(selectBackPreviewInter, JN_FRAMEPOINT_TOPLEFT, JN_FRAMEPOINT_TOPLEFT, .01, -.01, .010, "|cff8f8f8f주요 스킬 보기")
+      set selectButtonSkills[0] = MakeButton(selectBackPreviewInter, SELECT_MENU_PRESKILL, 1, JN_FRAMEPOINT_TOP, JN_FRAMEPOINT_TOPLEFT, .024, -.03, .0275, "war3mapImported\\frame_kakao.blp")
+      set selectButtonSkills[1] = MakeButton(selectBackPreviewInter, SELECT_MENU_PRESKILL, 2, JN_FRAMEPOINT_TOP, JN_FRAMEPOINT_TOPLEFT, .061, -.03, .0275, "war3mapImported\\frame_kakao.blp")
+      set selectButtonSkills[2] = MakeButton(selectBackPreviewInter, SELECT_MENU_PRESKILL, 3, JN_FRAMEPOINT_TOP, JN_FRAMEPOINT_TOPLEFT, .099, -.03, .0275, "war3mapImported\\frame_kakao.blp")
+      set selectButtonSkills[3] = MakeButton(selectBackPreviewInter, SELECT_MENU_PRESKILL, 4, JN_FRAMEPOINT_TOP, JN_FRAMEPOINT_TOPLEFT, .136, -.03, .0275, "war3mapImported\\frame_kakao.blp")
 
-      set selectTextSkillPreviewName = MakeText(select_SkillPreview, JN_FRAMEPOINT_TOPLEFT, JN_FRAMEPOINT_TOPLEFT, .01, -.08, .012, "|cffd5d500분노의 소용돌이 |cffff8000Lv.1")
+      set selectTextSkillPreviewName = MakeText(selectBackPreviewInter, JN_FRAMEPOINT_TOPLEFT, JN_FRAMEPOINT_TOPLEFT, .01, -.08, .012, "|cffd5d500분노의 소용돌이 |cffff8000Lv.1")
       set selectTextSkillPreviewDescription1 = MakeText(selectTextSkillPreviewName, JN_FRAMEPOINT_TOPLEFT, JN_FRAMEPOINT_BOTTOMLEFT, 0., -.005, .008, "창을 크게 휘둘러 주위의 적들에게 공격력의")
       set selectTextSkillPreviewDescription2 = MakeText(selectTextSkillPreviewDescription1, JN_FRAMEPOINT_TOPLEFT, JN_FRAMEPOINT_BOTTOMLEFT, 0., 0., .008, "|cffff800060%|r만큼 마법피해를 최대 |cffff80003|r회 입힙니다.")
 
       // 시작하기
-      set selectButtonStart = DzCreateFrameByTagName("BUTTON", "", select_SkillPreview, "ScoreScreenTabButtonTemplate", CountAdder())
-      call DzFrameSetPoint(selectButtonStart, JN_FRAMEPOINT_TOP, selectTextSkillPreviewDescription2, JN_FRAMEPOINT_BOTTOM, 0., -.005)
-      call DzFrameSetSize(selectButtonStart, .11, .03)
-      call DzFrameSetScriptByCode(selectButtonStart, JN_FRAMEEVENT_MOUSE_UP, function Select.ButtonStart, true)
-
-      set selectBackStart = DzCreateFrameByTagName("BACKDROP", "", selectButtonStart, "", 0)
-      call DzFrameSetAllPoints(selectBackStart, selectButtonStart)
+      set selectBackStart = DzCreateFrameByTagName("BACKDROP", "", select_SkillPreview, "", 0)
+      call DzFrameSetPoint(selectBackStart, JN_FRAMEPOINT_TOP, selectBackPreviewInter, JN_FRAMEPOINT_BOTTOM, 0., -.005)
+      call DzFrameSetSize(selectBackStart, .11, .03)
       call DzFrameSetTexture(selectBackStart, "Select_StartRed.blp", 0)
+
+      call MakeButtonSimple(selectBackStart, SELECT_OTHER, CountAdder(), function Select.ButtonStart)
     endmethod
 
     // (분)을 포맷된 시간 형식으로 변환
@@ -386,15 +384,19 @@ scope Select
     endmethod
     private static method CreateSelectBottom takes nothing returns nothing
       local integer i = 1
+      
       loop
         //아래쪽
-        set selectBackBottoms[i] = MakeBack(select_Main, JN_FRAMEPOINT_CENTER, i * .12, .1, .1, .04, "Select_SlotBack75.blp")
+        set selectBackBottoms[i]          = MakeBack(select_Main, JN_FRAMEPOINT_CENTER, i * .12, .1, .1, .04, "Select_SlotBack75.blp")
         set selectTextBottomNameLevels[i] = MakeText(selectBackBottoms[i], JN_FRAMEPOINT_TOPLEFT, JN_FRAMEPOINT_TOPLEFT, .005, -.005, .010, JNStringSplit(JNStringSplit(CharacterData[i].SelectDatas, "'", 0), " ", 1) + " Lv00")
-        set selectTextBottomPlayTimes[i] = MakeText(selectBackBottoms[i], JN_FRAMEPOINT_TOPRIGHT, JN_FRAMEPOINT_TOPRIGHT, .005, .005, .009, "00분")
-        set selectTextBottomLoadTypes[i] = MakeText(selectBackBottoms[i], JN_FRAMEPOINT_BOTTOMRIGHT, JN_FRAMEPOINT_BOTTOMRIGHT, -.01, .008, .013, "이어하기")
-        set selectButtonBottoms[i] = MakeButtonSimple(selectBackBottoms[i], SELECT_MENU_CHARACTER, i, function MenuQuickSlot.ButtonClickAll)
+        set selectTextBottomPlayTimes[i]  = MakeText(selectBackBottoms[i], JN_FRAMEPOINT_TOPRIGHT, JN_FRAMEPOINT_TOPRIGHT, .005, .005, .009, "00분")
+        set selectTextBottomLoadTypes[i]  = MakeText(selectBackBottoms[i], JN_FRAMEPOINT_BOTTOMRIGHT, JN_FRAMEPOINT_BOTTOMRIGHT, -.01, .008, .013, "이어하기")
+        set selectButtonBottoms[i]        = MakeButtonSimple(selectBackBottoms[i], SELECT_MENU_CHARACTER, i, function MenuQuickSlot.ButtonClickAll)
+        call MsgAll("maked: " + I2S(i) + " / " + I2S(MAX_CHARACTER_COUNT) + " / " + I2S(selectBackBottoms[i]) + " / " + I2S(selectTextBottomNameLevels[i]) + " / " + I2S(selectTextBottomPlayTimes[i]) + " / " + I2S(selectTextBottomLoadTypes[i]) + " / " + I2S(selectButtonBottoms[i]))
+        
         exitwhen MAX_CHARACTER_COUNT - 1 <= i
         set i = i + 1
+        exitwhen ( i == MAX_CHARACTER_COUNT -1 )
       endloop
     endmethod
     private static method CreateSelectBottom2 takes player p, string Input returns nothing
@@ -403,7 +405,7 @@ scope Select
       //아래쪽
       loop
         set cuttedString = JNStringSplit(Input, "/", i)
-        if ( S2I(JNStringSplit(JNStringSplit(cuttedString, "'", 1), ".", 0)) > 0 ) then
+        if ( 0 < S2I(JNStringSplit(JNStringSplit(cuttedString, "'", 1), ".", 0)) ) then
           if ( GetLocalPlayer() == p ) then
             call DzFrameSetTexture(selectBackBottoms[i], "Select_SlotBack75.blp", 0)
             call DzFrameSetFont(selectTextBottomNameLevels[i], "Fonts\\DFHeiMd.ttf", .010, 0)
@@ -449,13 +451,13 @@ scope Select
       call CreateSelectBottom()
       call CreateSelectSkillPreview()
 
-      call DzFrameShow(select_Main, true)         /* 전체 선택 프레임 without 최상단 나만의 알피지 txt */
-      call DzFrameShow(select_LeftPreview, true)   /* 유닛 메인설명(좌측) */
+      call DzFrameShow(select_Main, true)
+      call DzFrameShow(select_LeftPreview, true)
       call DzFrameShow(select_SkillPreview, true)
 
       loop
         if ( PlayerResource[loopA].isPlaying ) then
-          set isSelected[loopA] = true
+          set isSelecting[loopA] = true
           call TriggerRegisterPlayerUnitEvent(selectTrigger, Player(loopA - 1), EVENT_PLAYER_UNIT_SELECTED, null)
           call TriggerRegisterPlayerUnitEvent(deSelectTrigger, Player(loopA - 1), EVENT_PLAYER_UNIT_DESELECTED, null)
         endif

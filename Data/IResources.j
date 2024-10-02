@@ -36,7 +36,7 @@ scope IResources
         call MsgAll("오류/P.R[" + I2S(input) + "]는 설정 범위(1~"+I2S(MAX_PLAYER_COUNT-1)+")를 벗어납니다.")
         return 0
       elseif ( privatePlayerResource[input] == 0 ) then
-        call MsgAll("오류/P.R[" + I2S(input) + "]는 설정되지 않았습니다.")
+        // call MsgAll("오류/P.R[" + I2S(input) + "]는 설정되지 않았습니다.")
         return 0
       endif
       return privatePlayerResource[input]

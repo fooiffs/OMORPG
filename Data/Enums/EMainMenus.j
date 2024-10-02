@@ -10,6 +10,8 @@ scope EMainMenus
     key SKILL_TREE_MAIN
     key SKILL_TREE_EXTEND
 
+    key SELECT_OTHER
+
     constant integer = QUICK_MENU_ITEM_COUNT = 7
     constant integer = QUICK_MENU_SKILL_COUNT = 8
     constant integer = QUICK_MENU_MENU_COUNT = 8
@@ -17,10 +19,9 @@ scope EMainMenus
     constant integer = QUICK_MENU_COUNT_ALL = QUICK_MENU_ITEM_COUNT + QUICK_MENU_SKILL_COUNT + QUICK_MENU_MENU_COUNT
     integer array Quickmenu_Buttons[QUICK_MENU_COUNT_ALL]
     integer array Quickmenu_Backdrops[QUICK_MENU_COUNT_ALL]
-
-
-    integer array Frame_SelectSkills
+    // integer array Frame_SelectSkills
     integer array NowSelect
+
   endglobals
 
   struct EMenus
@@ -31,6 +32,10 @@ scope EMainMenus
     static boolean OX_Skills1 = false
     static boolean OX_Skills2 = false
 
+    static method FrameSaveIDs takes integer frame, integer types, integer subTypes returns nothing
+      call SaveInteger(hash, StringHash("Menu_TypeMain"), frame, types)
+      call SaveInteger(hash, StringHash("Menu_TypeSub"), frame, subTypes)
+    endmethod
     static method GetMainType takes integer frame returns integer
       return LoadInteger(hash, StringHash("Menu_TypeMain"), frame)
     endmethod
@@ -53,9 +58,6 @@ scope EMainMenus
       return ""
     endmethod
 
-    static method FrameSaveIDs takes integer frame, integer types, integer subTypes returns nothing
-      call SaveInteger(hash, StringHash("Menu_TypeMain"), frame, types)
-      call SaveInteger(hash, StringHash("Menu_TypeSub"), frame, subTypes)
-    endmethod
+
   endstruct
 endscope
