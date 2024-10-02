@@ -1,17 +1,11 @@
 scope MenuQuickSlot
   struct MenuQuickSlot
-    static integer currentCount = 1
+    // static integer currentCount = 1
 
     // 4가지 경우의 수에 따라 등록
     // - 단축키[T]가 아이템[7]에 등록되었습니다.
-    // - 단축키[T]가 아이템[7]에 등록되었습니다. (기존 스킬[3] 삭제)
-    // - 단축키[T]가 아이템[7]에 등록되었습니다. (기존 단축키[D] 삭제)
     
-    // - (신규) 아이템[1] 단축키에 <T>가 새로 등록되었습니다.1번째 아이템 단축키: T 등록
     // - (변경) 
-    // - 1번째 아이템 단축키: D→T 변경 (기존 D단축키 삭제, 기존 T단축키 3번째 메뉴삭제)
-    // - 1번째 아이템 단축키: T 등록 (기존 T단축키 3번째 메뉴삭제)
-    // - 1번째 아이템 단축키: T 등록*/
     static method AddReg takes integer P, integer MenuNo, integer Hotkey returns nothing
       local string s = ""
       local integer i = 0
@@ -62,6 +56,56 @@ scope MenuQuickSlot
       method MenuQuickSlot_BaseHotKey takes integer i returns nothing
       endmethod
     endif
+    static method BaseHotKeyRaw takes integer menuIndex returns string
+      if ( menuIndex == EHotkeyMenu.SkillSlot1 ) then
+        return "Q"
+      elseif ( menuIndex == EHotkeyMenu.SkillSlot2 ) then
+        return "W"
+      elseif ( menuIndex == EHotkeyMenu.SkillSlot3 ) then
+        return "E"
+      elseif ( menuIndex == EHotkeyMenu.SkillSlot4 ) then
+        return "R"
+      elseif ( menuIndex == EHotkeyMenu.SkillSlot5 ) then
+        return "T"
+      elseif ( menuIndex == EHotkeyMenu.SkillSlot6 ) then
+        return "D"
+      elseif ( menuIndex == EHotkeyMenu.SkillSlot7 ) then
+        return "F"
+      elseif ( menuIndex == EHotkeyMenu.SkillSlot8 ) then
+        return "G"
+      elseif ( menuIndex == EHotkeyMenu.ItemSlot1 ) then
+        return "1"
+      elseif ( menuIndex == EHotkeyMenu.ItemSlot2 ) then
+        return "2"
+      elseif ( menuIndex == EHotkeyMenu.ItemSlot3 ) then
+        return "3"
+      elseif ( menuIndex == EHotkeyMenu.ItemSlot4 ) then
+        return "4"
+      elseif ( menuIndex == EHotkeyMenu.ItemSlot5 ) then
+        return "5"
+      elseif ( menuIndex == EHotkeyMenu.ItemSlot6 ) then
+        return "6"
+      elseif ( menuIndex == EHotkeyMenu.ItemSlot7 ) then
+        return "7"
+      elseif ( menuIndex == EHotkeyMenu.SubMenuKakaotalk ) then
+        return "F8"
+      elseif ( menuIndex == EHotkeyMenu.SubMenuDiscord ) then
+        return "F7"
+      elseif ( menuIndex == EHotkeyMenu.SubMenuSetting ) then
+        return "F6"
+      elseif ( menuIndex == EHotkeyMenu.SubMenuAutoCombat ) then
+        return "F5"
+      elseif ( menuIndex == EHotkeyMenu.SubMenuInventory ) then
+        return "I"
+      elseif ( menuIndex == EHotkeyMenu.SubMenuStatus ) then
+        return "S"
+      elseif ( menuIndex == EHotkeyMenu.SubMenuSkillTree ) then
+        return "T"
+      elseif ( menuIndex == EHotkeyMenu.SubMenuSmartMode ) then
+        return "V"
+      endif
+      return ""
+    endmethod
     static method BaseHotKey takes integer mainType, integer subTypeId returns string
       if ( mainType == QUICK_MENU_ITEMSLOT ) then
         return I2S(subTypeId)
@@ -104,27 +148,39 @@ scope MenuQuickSlot
       endif
       return ""
     endmethod
-    public static method MenuClick takes integer i returns nothing
-      if ( i == 1 ) then /* Option */
+    private static method IndexToMainType takes integer index returns integer
+      if ( 0 < index and index <= EHotkeyMenu.HOTKEY_SKILL_END ) then
+        return QUICK_MENU_SKILLSLOT
+      elseif ( EHotkeyMenu.HOTKEY_SKILL_END < index and index <= EHotkeyMenu.HOTKEY_ITEM_END ) then
+        return QUICK_MENU_ITEMSLOT
+      elseif ( EHotkeyMenu.HOTKEY_ITEM_END < index and index <= EHotkeyMenu.HOTKEY_MENU_END ) then
+        return QUICK_MENU_MENU
+      endif
+      return 0
+    endmethod
+    public static method MenuClick takes integer index returns nothing
+      if ( index == EHotkeyMenu.SubMenuSetting ) then /* Option */
         set EMenus.OX_Option = not EMenus.OX_Option
-        call DzFrameShow(Option_GetMainFrame.evaluate(), EMenus.OX_Option)
-      elseif ( i == 2 ) then /* Discord */
+        call DzFrameShow(Option_GetSettingFrame.evaluate(), EMenus.OX_Option)
+      elseif ( index == EHotkeyMenu.SubMenuDiscord ) then /* Discord */
         call JNOpenBrowser("https://discord.gg/8FubNC8mZ")
-      elseif ( i == 3 ) then /* KakaoTalk */
+      elseif ( index == EHotkeyMenu.SubMenuKakaotalk ) then /* KakaoTalk */
         call JNOpenBrowser("https://open.kakao.com/o/gM1u4zn")
-      elseif ( i == 4 ) then /* AutoCombat */
-        //! be Sync            
-      elseif ( i == 5 ) then /* Inventory */
+      elseif ( index == EHotkeyMenu.SubMenuAutoCombat ) then /* AutoCombat */
+        //! be Sync
+        call Msg(GetLocalPlayer(), "자동사냥 기능은 준비중입니다.")
+      elseif ( index == EHotkeyMenu.SubMenuInventory ) then /* Inventory */
         set EMenus.OX_Inven = not EMenus.OX_Inven
         call DzFrameShow(Frame_InvenButtonsBackDrop[0], EMenus.OX_Inven)
-      elseif ( i == 6 ) then /* Stats */
+      elseif ( index == EHotkeyMenu.SubMenuStatus ) then /* Stats */
         set EMenus.OX_Stats = not EMenus.OX_Stats
         call DzFrameShow(Frame_Info[0], EMenus.OX_Stats)
-      elseif ( i == 7 ) then /* Skills1 - Main */
+      elseif ( index == EHotkeyMenu.SubMenuSkillTree ) then /* Skills1 - Main */
         set EMenus.OX_Skills1 = not EMenus.OX_Skills1
         call DzFrameShow(SkillTree_TreeMainFrame, EMenus.OX_Skills1)
-      elseif ( i == 8 ) then /* Skills2 - Personal */
+      elseif ( index == EHotkeyMenu.SubMenuSmartMode ) then /* Skills2 - Personal */
         set EMenus.OX_Skills2 = not EMenus.OX_Skills2
+        call Msg(GetLocalPlayer(), "스마트 모드는 준비중입니다.")
       endif
     endmethod
     static method ButtonClickDetail takes player p, integer frame returns nothing
@@ -150,63 +206,64 @@ scope MenuQuickSlot
     static method ButtonClickAll takes nothing returns nothing
       call ButtonClickDetail(DzGetTriggerUIEventPlayer(), DzGetTriggerUIEventFrame())
     endmethod
-    private static method CreateHotKey takes integer frame, integer types, integer subTypes returns nothing
+    private static method CreateHotKey takes integer frame, integer index returns nothing
       local integer HotFrame = DzCreateFrame("CommandButtonHotKeyBackDrop", frame, CountAdder())
       local integer HotFrameTxt = DzCreateFrame("CommandButtonHotKeyText", HotFrame, CountAdder())
       call DzFrameSetTexture(HotFrame, "ui\\widgets\\console\\human\\commandbutton\\human-button-lvls-overlay.blp", 0)
       call DzFrameSetPoint(HotFrame, JN_FRAMEPOINT_TOPLEFT, frame, JN_FRAMEPOINT_TOPLEFT, -.001, .001)
       call DzFrameSetPoint(HotFrameTxt, JN_FRAMEPOINT_CENTER, HotFrame, JN_FRAMEPOINT_CENTER, 0., 0.)
-      call DzFrameSetText(HotFrameTxt, BaseHotKey(types, subTypes))
-      call DzFrameSetScriptByCode(frame, JN_FRAMEEVENT_MOUSE_UP, function MenuQuickSlot.ButtonClickAll, false)
+      call DzFrameSetText(HotFrameTxt, BaseHotKeyRaw(index))
 
-      call SaveInteger(hash, StringHash("FUI_HotKeyBase"), currentCount, frame)
-      call SaveInteger(hash, frame, StringHash("FUI_HotKey"), HotFrameTxt)
+      call SaveInteger(hash, HOTKEY_FRAME_BACK, index, frame)
+      call SaveInteger(hash, HOTKEY_FRAME_TEXT, frame, HotFrameTxt)
       // call AddReg(P, MenuNo, Hotkey) 플레이어 번호 없으니 생략.
     endmethod
-    private static method CreateButtons takes integer types, integer offset, real x, real y, real size, string iconPath returns nothing
-      set currentCount = currentCount + 1
+    private static method CreateButtons takes integer index, real x, real y, real size, string iconPath returns nothing
+      // set currentCount = currentCount + 1
 
       // MainButton
-      set Quickmenu_Buttons[currentCount] = DzCreateFrameByTagName("BUTTON", "", GetMainFrame(), "ScoreScreenTabButtonTemplate", CountAdder())
-      call DzFrameSetAbsolutePoint(Quickmenu_Buttons[currentCount], JN_FRAMEPOINT_BOTTOMLEFT, x, y)
-      call DzFrameSetSize(Quickmenu_Buttons[currentCount], size, size)
+      set Quickmenu_Buttons[index] = DzCreateFrameByTagName("BUTTON", "", GetMainFrame(), "ScoreScreenTabButtonTemplate", CountAdder())
+      call DzFrameSetAbsolutePoint(Quickmenu_Buttons[index], JN_FRAMEPOINT_BOTTOMLEFT, x, y)
+      call DzFrameSetSize(Quickmenu_Buttons[index], size, size)
+      call DzFrameSetScriptByCode(Quickmenu_Buttons[index], JN_FRAMEEVENT_MOUSE_UP, function MenuQuickSlot.ButtonClickAll, false)
 
       // IDs
-      call EMenus.FrameSaveIDs(Quickmenu_Buttons[currentCount], types, currentCount-offset)
-      
-      // HotKey
-      call CreateHotKey(Quickmenu_Buttons[currentCount], types, currentCount-offset)
+      call EMenus.FrameSaveIDs(Quickmenu_Buttons[index], IndexToMainType(index), index)
 
       // Backdrop
-      set Quickmenu_Backdrops[currentCount]=DzCreateFrameByTagName("BACKDROP", "", Quickmenu_Buttons[currentCount], "", CountAdder())
-      call DzFrameSetAllPoints(Quickmenu_Backdrops[currentCount], Quickmenu_Buttons[currentCount])
-      call DzFrameSetTexture(Quickmenu_Backdrops[currentCount], iconPath, 0)
-    endmethod
-    private static method CreateMenuFrames takes integer offset returns nothing
-      call CreateButtons(QUICK_MENU_MENU, offset, .78, .58, .02, "war3mapImported\\frame_setting.blp")  /* 설정 */
-      call CreateButtons(QUICK_MENU_MENU, offset, .76, .58, .02, "war3mapImported\\frame_discord.blp")  /* 디코 */
-      call CreateButtons(QUICK_MENU_MENU, offset, .74, .58, .02, "war3mapImported\\frame_kakao.blp")    /* 카톡 */
+      set Quickmenu_Backdrops[index]=DzCreateFrameByTagName("BACKDROP", "", Quickmenu_Buttons[index], "", CountAdder())
+      call DzFrameSetAllPoints(Quickmenu_Backdrops[index], Quickmenu_Buttons[index])
+      call DzFrameSetTexture(Quickmenu_Backdrops[index], iconPath, 0)
 
-      call CreateButtons(QUICK_MENU_MENU, offset, .63, .01, .03, "war3mapImported\\frame_combat.blp")   /* 자동사냥 */
-      call CreateButtons(QUICK_MENU_MENU, offset, .67, 0., .03, "Inven_Empty.blp")                      /* 인벤 */
-      call CreateButtons(QUICK_MENU_MENU, offset, .70, 0., .03, "war3mapImported\\frame_stats.blp")     /* 능력치 */
-      call CreateButtons(QUICK_MENU_MENU, offset, .73, 0., .03, "war3mapImported\\frame_stats2.blp")    /* 스킬 */
-      call CreateButtons(QUICK_MENU_MENU, offset, .76, 0., .03, "war3mapImported\\frame_skills.blp")    /* 스킬 */
+      // HotKey - BACKDROP 보다 아래에 있어야함
+      call CreateHotKey(Quickmenu_Buttons[index], index)
     endmethod
-    private static method CreateSkillFrames takes integer offset returns nothing
-      call CreateButtons(QUICK_MENU_SKILLSLOT, offset, .3, .03, .025, "ReplaceableTextures\\CommandButtons\\BTNThoriumMelee.blp")
-      call CreateButtons(QUICK_MENU_SKILLSLOT, offset, .33, .03, .025, "ReplaceableTextures\\CommandButtons\\BTNHumanArmorUpOne.blp")
-      call CreateButtons(QUICK_MENU_SKILLSLOT, offset, .36, .03, .025, "ReplaceableTextures\\CommandButtons\\BTNHumanArmorUpTwo.blp")
-      call CreateButtons(QUICK_MENU_SKILLSLOT, offset, .39, .03, .025, "ReplaceableTextures\\CommandButtons\\BTNHumanArmorUpThree.blp")
-      call CreateButtons(QUICK_MENU_SKILLSLOT, offset, .3, .06, .025, "ReplaceableTextures\\CommandButtons\\BTNOrbOfFire.blp")
-      call CreateButtons(QUICK_MENU_SKILLSLOT, offset, .33, .06, .025, "ReplaceableTextures\\CommandButtons\\BTNOrbOfVenom.blp")
-      call CreateButtons(QUICK_MENU_SKILLSLOT, offset, .36, .06, .025, "ReplaceableTextures\\CommandButtons\\BTNOrbOfFrost.blp")
-      call CreateButtons(QUICK_MENU_SKILLSLOT, offset, .39, .06, .025, "ReplaceableTextures\\CommandButtons\\BTNDaggerOfEscape.blp")
+    private static method CreateMenuFrames takes nothing returns nothing
+      call CreateButtons(EHotkeyMenu.SubMenuSetting, .78, .58, .02, "war3mapImported\\frame_setting.blp")  /* 설정 */
+      call CreateButtons(EHotkeyMenu.SubMenuDiscord, .76, .58, .02, "war3mapImported\\frame_discord.blp")  /* 디코 */
+      call CreateButtons(EHotkeyMenu.SubMenuKakaotalk, .74, .58, .02, "war3mapImported\\frame_kakao.blp")    /* 카톡 */
+      call CreateButtons(EHotkeyMenu.SubMenuAutoCombat, .63, .01, .03, "war3mapImported\\frame_combat.blp")   /* 자동사냥 */
+      call CreateButtons(EHotkeyMenu.SubMenuInventory, .67, 0., .03, "Inven_Empty.blp")                      /* 인벤 */
+      call CreateButtons(EHotkeyMenu.SubMenuStatus, .70, 0., .03, "war3mapImported\\frame_stats.blp")     /* 능력치 */
+      call CreateButtons(EHotkeyMenu.SubMenuSkillTree, .73, 0., .03, "war3mapImported\\frame_stats2.blp")    /* 스킬 */
+      call CreateButtons(EHotkeyMenu.SubMenuSmartMode, .76, 0., .03, "war3mapImported\\frame_skills.blp")    /* 스킬 */
     endmethod
-    private static method CreateItemFrames takes integer offset returns nothing
+    private static method CreateSkillFrames takes nothing returns nothing
+      call CreateButtons(EHotkeyMenu.SkillSlot1, .3, .03, .025, "ReplaceableTextures\\CommandButtons\\BTNThoriumMelee.blp")
+      call CreateButtons(EHotkeyMenu.SkillSlot2, .33, .03, .025, "ReplaceableTextures\\CommandButtons\\BTNHumanArmorUpOne.blp")
+      call CreateButtons(EHotkeyMenu.SkillSlot3, .36, .03, .025, "ReplaceableTextures\\CommandButtons\\BTNHumanArmorUpTwo.blp")
+      call CreateButtons(EHotkeyMenu.SkillSlot4, .39, .03, .025, "ReplaceableTextures\\CommandButtons\\BTNHumanArmorUpThree.blp")
+      call CreateButtons(EHotkeyMenu.SkillSlot5, .3, .06, .025, "ReplaceableTextures\\CommandButtons\\BTNOrbOfFire.blp")
+      call CreateButtons(EHotkeyMenu.SkillSlot6, .33, .06, .025, "ReplaceableTextures\\CommandButtons\\BTNOrbOfVenom.blp")
+      call CreateButtons(EHotkeyMenu.SkillSlot7, .36, .06, .025, "ReplaceableTextures\\CommandButtons\\BTNOrbOfFrost.blp")
+      call CreateButtons(EHotkeyMenu.SkillSlot8, .39, .06, .025, "ReplaceableTextures\\CommandButtons\\BTNDaggerOfEscape.blp")
+    endmethod
+    private static method CreateItemFrames takes nothing returns nothing
+      local integer index = EHotkeyMenu.ItemSlot1
       loop
-        call CreateButtons(QUICK_MENU_ITEMSLOT, offset, .4215+(currentCount*.025), .03, .0235, "Inven_Empty.blp")
-        exitwhen QUICK_MENU_ITEM_COUNT <= currentCount
+        call CreateButtons(index, .4215+((index-EHotkeyMenu.HOTKEY_SKILL_END)*.025), .03, .0235, "Inven_Empty.blp")
+        exitwhen EHotkeyMenu.ItemSlot7 <= index
+        set index = index + 1
       endloop
     endmethod
 
@@ -243,16 +300,31 @@ scope MenuQuickSlot
       call DzFrameShow(GetMainFrame(), false)
     endmethod
 
+    private static method delayedInit takes nothing returns nothing
+      local integer P = GetPlayerId(GetTriggerPlayer()) + 1 
+      local integer loopA = 1
+      local integer tempKey = 0 
+      loop
+        set tempKey = EHotkeys.H2I(MenuQuickSlot.BaseHotKeyRaw(loopA))
+        call SaveInteger(hash, P, loopA, tempKey)
+        call SaveInteger(hash, tempKey, P, loopA)
+        call MenuQuickSlot.AddReg(P, loopA, tempKey) 
+        
+        exitwhen loopA >= QUICK_MENU_COUNT_ALL
+        set loopA = loopA + 1 
+      endloop 
+    endmethod
     // 퀵슬롯 메뉴 생성(+단축키 지정)
     private static method onInit takes nothing returns nothing
 
       // 메인 프레임 - 아이템, 스킬, 디코 등
-      call CreateItemFrames(currentCount)
-      call CreateSkillFrames(currentCount)
-      call CreateMenuFrames(currentCount)
+      call CreateItemFrames()
+      call CreateSkillFrames()
+      call CreateMenuFrames()
 
       // 유닛 프레임(조정만)
       call InitUnitDetails()
+      call TimerStart(CreateTimer(), 1., false, function MenuQuickSlot.delayedInit)
     endmethod
   endstruct
 endscope

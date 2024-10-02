@@ -12,7 +12,7 @@ scope Option initializer Init
   //   if ( size != 0. ) then
   //     call DzFrameSetFont(Frame_Setting[no], "Fonts\\DFHeiMd.ttf", size, 1)
   //   endif
-  //   call DzFrameSetPoint(Frame_Setting[no], JN_FRAMEPOINT_LEFT, GetMainFrame(), JN_FRAMEPOINT_TOPLEFT, .02 + x, -.015 - .025 * y)
+  //   call DzFrameSetPoint(Frame_Setting[no], JN_FRAMEPOINT_LEFT, GetSettingFrame(), JN_FRAMEPOINT_TOPLEFT, .02 + x, -.015 - .025 * y)
   //   call DzFrameSetText(Frame_Setting[no], text)
   //   return no + 1
   // endfunction
@@ -23,7 +23,7 @@ scope Option initializer Init
     call DzFrameSetText(temp, text)
     return temp
   endfunction
-  public function GetMainFrame takes nothing returns integer
+  public function GetSettingFrame takes nothing returns integer
     if ( Frame_Setting_Main == 0 ) then
       set Frame_Setting_Main = DzCreateFrameByTagName("BACKDROP", "", DzGetGameUI(), "QuestButtonBaseTemplate", CountAdder())
       call DzFrameSetAbsolutePoint(Frame_Setting_Main, JN_FRAMEPOINT_CENTER, .4, .3)
@@ -32,10 +32,10 @@ scope Option initializer Init
     endif
     return Frame_Setting_Main
   endfunction
-  public function GetSubFrame takes nothing returns integer
+  public function GetSettingFrameSub takes nothing returns integer
     if ( Frame_Setting_Sub == 0 ) then
-      set Frame_Setting_Sub = DzCreateFrameByTagName("BACKDROP", "", GetMainFrame(), "QuestButtonBaseTemplate", CountAdder())
-      call DzFrameSetPoint(Frame_Setting_Sub, JN_FRAMEPOINT_CENTER, GetMainFrame(), JN_FRAMEPOINT_TOP, 0., -0.015)
+      set Frame_Setting_Sub = DzCreateFrameByTagName("BACKDROP", "", GetSettingFrame(), "QuestButtonBaseTemplate", CountAdder())
+      call DzFrameSetPoint(Frame_Setting_Sub, JN_FRAMEPOINT_CENTER, GetSettingFrame(), JN_FRAMEPOINT_TOP, 0., -0.015)
       call DzFrameSetSize(Frame_Setting_Sub, 0.05, 0.04)
       call DzFrameSetAlpha(Frame_Setting_Sub, 196)
       call MakeTextCenter(Frame_Setting_Sub, "|cfffed312설정", .020)
@@ -44,11 +44,11 @@ scope Option initializer Init
   endfunction
 
   private function MakeText takes string text, real size, real x, real y returns integer
-    local integer temp = DzCreateFrameByTagName("TEXT", "", GetSubFrame(), "", CountAdder())
+    local integer temp = DzCreateFrameByTagName("TEXT", "", GetSettingFrameSub(), "", CountAdder())
     if ( size != 0. ) then
       call DzFrameSetFont(temp, "Fonts\\DFHeiMd.ttf", size, 1)
     endif
-    call DzFrameSetPoint(temp, JN_FRAMEPOINT_LEFT, GetMainFrame(), JN_FRAMEPOINT_TOPLEFT, .02 + x, -.015 - .025 * y)
+    call DzFrameSetPoint(temp, JN_FRAMEPOINT_LEFT, GetSettingFrame(), JN_FRAMEPOINT_TOPLEFT, .02 + x, -.015 - .025 * y)
     call DzFrameSetText(temp, text)
     return temp
   endfunction
@@ -68,7 +68,7 @@ scope Option initializer Init
   endfunction
 
   private function SettingButton takes integer index, integer parent, string text returns nothing
-    set Frame_Setting[index] = DzCreateFrameByTagName("GLUETEXTBUTTON", "", GetSubFrame(), "ScriptDialogButton", CountAdder())
+    set Frame_Setting[index] = DzCreateFrameByTagName("GLUETEXTBUTTON", "", GetSettingFrameSub(), "ScriptDialogButton", CountAdder())
     // call SaveNumber(Frame_Setting[index], index)
     call EMenus.FrameSaveIDs(Frame_Setting[index], SELECT_OTHER, index)
     // call MsgAll("생성/옵션["+I2S(number)+"]/" + text)
@@ -85,11 +85,11 @@ scope Option initializer Init
   endfunction
   private function OnClickCloseButton takes nothing returns nothing
     if ( GetLocalPlayer() == DzGetTriggerUIEventPlayer() ) then
-      call DzFrameShow(GetMainFrame(), false)
+      call DzFrameShow(GetSettingFrame(), false)
     endif
   endfunction
   private function SettingHotKey takes integer index, real x, real y returns nothing
-    set Frame_Setting[index] = DzCreateFrameByTagName("GLUETEXTBUTTON", "", GetSubFrame(), "ScriptDialogButton", CountAdder())
+    set Frame_Setting[index] = DzCreateFrameByTagName("GLUETEXTBUTTON", "", GetSettingFrameSub(), "ScriptDialogButton", CountAdder())
     if ( 0 < index and index <= EHotkeyMenu.HOTKEY_SKILL_END ) then
       call EMenus.FrameSaveIDAndHotkey(Frame_Setting[index], QUICK_MENU_SKILLSLOT, index, EHotkeyMenu.SkillSlot1-1)
     elseif ( EHotkeyMenu.HOTKEY_SKILL_END < index and index <= EHotkeyMenu.HOTKEY_ITEM_END ) then
@@ -100,7 +100,7 @@ scope Option initializer Init
       call EMenus.FrameSaveIDs(Frame_Setting[index], SELECT_OTHER, index)
     endif
     call DzFrameSetSize(Frame_Setting[index], .02667, .02667)
-    call DzFrameSetPoint(Frame_Setting[index], JN_FRAMEPOINT_LEFT, GetSubFrame(), JN_FRAMEPOINT_LEFT, .1 + x, y)
+    call DzFrameSetPoint(Frame_Setting[index], JN_FRAMEPOINT_LEFT, GetSettingFrameSub(), JN_FRAMEPOINT_LEFT, .1 + x, y)
     call DzFrameSetScriptByCode(Frame_Setting[index], JN_FRAMEEVENT_MOUSE_UP, function SettingClick, false)
   endfunction
   
@@ -129,14 +129,14 @@ scope Option initializer Init
     call MakeText("자동공격/인벤토리", 0., 0., 12.25)
     call MakeText("상태창/스킬/임시", 0., 0., 13.25)
 
-    set temp = DzCreateFrameByTagName("GLUETEXTBUTTON", "", GetSubFrame(), "ScriptDialogButton", CountAdder())
-    call DzFrameSetPoint(temp, JN_FRAMEPOINT_LEFT, GetMainFrame(), JN_FRAMEPOINT_BOTTOMLEFT, 0.01, .02)
+    set temp = DzCreateFrameByTagName("GLUETEXTBUTTON", "", GetSettingFrameSub(), "ScriptDialogButton", CountAdder())
+    call DzFrameSetPoint(temp, JN_FRAMEPOINT_LEFT, GetSettingFrame(), JN_FRAMEPOINT_BOTTOMLEFT, 0.01, .02)
     call DzFrameSetSize(temp, .14, 0.03)
     call DzFrameSetText(temp, "적용&서버저장(0/2)")
     call DzFrameSetScriptByCode(temp, JN_FRAMEEVENT_MOUSE_UP, function OnClickSaveButton, false)
 
-    set temp = DzCreateFrameByTagName("GLUETEXTBUTTON", "", GetSubFrame(), "ScriptDialogButton", CountAdder())
-    call DzFrameSetPoint(temp, JN_FRAMEPOINT_RIGHT, GetMainFrame(), JN_FRAMEPOINT_BOTTOMRIGHT, -0.01, .02)
+    set temp = DzCreateFrameByTagName("GLUETEXTBUTTON", "", GetSettingFrameSub(), "ScriptDialogButton", CountAdder())
+    call DzFrameSetPoint(temp, JN_FRAMEPOINT_RIGHT, GetSettingFrame(), JN_FRAMEPOINT_BOTTOMRIGHT, -0.01, .02)
     call DzFrameSetSize(temp, .05, 0.03)
     call DzFrameSetText(temp, "닫기")
     call DzFrameSetScriptByCode(temp, JN_FRAMEEVENT_MOUSE_UP, function OnClickCloseButton, false)
@@ -170,7 +170,7 @@ scope Option initializer Init
     call SettingHotKey(EHotkeyMenu.SubMenuStatus, 0., 0.)
     call SettingHotKey(EHotkeyMenu.SubMenuSkillTree, 0.03, 0.)
     call SettingHotKey(EHotkeyMenu.SubMenuSmartMode, 0.06, 0.)
-    call DzFrameShow(GetMainFrame(), false)
+    call DzFrameShow(GetSettingFrame(), false)
   endfunction
   private function Init takes nothing returns nothing
     call CreateInSetting()

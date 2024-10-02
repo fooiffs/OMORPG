@@ -44,7 +44,6 @@ scope MainFrame initializer Init
       set currentCount = currentCount + 1
       return currentCount
     endfunction
-
     
     private function NoSaveNoTime takes nothing returns nothing
      local integer Relative = 0

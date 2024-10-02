@@ -8,7 +8,8 @@ scope AddReg initializer Init
     local integer loopA = 1
     local integer tempKey = 0 
     loop
-      set tempKey = EHotkeys.H2I(MenuQuickSlot.BaseHotKey(EMenus.GetMainType(Quickmenu_Buttons[loopA]), EMenus.GetSubTypeId(Quickmenu_Buttons[loopA])))
+      set tempKey = EHotkeys.H2I(MenuQuickSlot.BaseHotKeyRaw(loopA))
+      // set tempKey = EHotkeys.H2I(MenuQuickSlot.BaseHotKeyRaw(loopA)(EMenus.GetMainType(Quickmenu_Buttons[loopA]), EMenus.GetSubTypeId(Quickmenu_Buttons[loopA])))
       call SaveInteger(hash, P, loopA, tempKey)
       call SaveInteger(hash, tempKey, P, loopA)
       //call BJDebugMsg("기본 등록 - " + I2S(loopA) + "번째 메뉴: " + MenuQuickSlot.BaseHotKey(loopA)) 
