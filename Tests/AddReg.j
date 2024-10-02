@@ -10,7 +10,7 @@ scope AddReg initializer Init
     loop
       set tempKey = EHotkeys.H2I(MenuQuickSlot.BaseHotKey(EMenus.GetMainType(Quickmenu_Buttons[loopA]), EMenus.GetSubTypeId(Quickmenu_Buttons[loopA])))
       call SaveInteger(hash, P, loopA, tempKey)
-      call SaveInteger(hash, tempKey, P, loopA) 
+      call SaveInteger(hash, tempKey, P, loopA)
       //call BJDebugMsg("기본 등록 - " + I2S(loopA) + "번째 메뉴: " + MenuQuickSlot.BaseHotKey(loopA)) 
       call MenuQuickSlot.AddReg(P, loopA, tempKey) 
       

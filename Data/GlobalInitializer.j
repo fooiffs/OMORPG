@@ -379,23 +379,18 @@ scope GlobalInitializer
         call MsgAll("오류/HotKey[" + I2S(input) + "]는 설정 범위(1~" + I2S(MAX_OPTION_MENU_COUNT - 1) + ")를 벗어납니다.")
         return 0
       elseif ( privateHotkeyData[input] == 0 ) then
-        set privateHotkeyData[input] = thistype.allocate()
+        call MsgAll("오류/HotKey[" + I2S(input) + "]는 설정되지 않았습니다.")
+        return 0
       endif
       return privateHotkeyData[input]
     endmethod
     static method Create takes integer input, string name, boolean bool, integer value returns nothing
+      set privateHotkeyData[input] = thistype.allocate()
       set privateHotkeyData[input].Name = name
       set privateHotkeyData[input].IsBoolType = bool
       set privateHotkeyData[input].BaseValue = value
     endmethod
     static method onInit takes nothing returns nothing
-      call HotkeyData.Create(EHotkeyMenu.Main1MiniInfo, "미니 정보창", true, 1)
-      call HotkeyData.Create(EHotkeyMenu.Main2SimpleEffect, "이펙트(개인)", true, 1)
-      call HotkeyData.Create(EHotkeyMenu.Main3GlobalEffect, "이펙트(방장)", true, 0)
-      call HotkeyData.Create(EHotkeyMenu.Main4FeildOfView, "시야 설정", false, 150)
-      call HotkeyData.Create(EHotkeyMenu.Main5HoldFieldOfView, "시야 고정", true, 0)
-      call HotkeyData.Create(EHotkeyMenu.Main6ViewHotkeys, "단축키 표시", true, 1)
-      call HotkeyData.Create(EHotkeyMenu.Main7ServerSaveLeft, "서버저장", false, 2)
       call HotkeyData.Create(EHotkeyMenu.SkillSlot1, "스킬슬롯1", false, EHotkeys.H2I("Q"))
       call HotkeyData.Create(EHotkeyMenu.SkillSlot2, "스킬슬롯2", false, EHotkeys.H2I("W"))
       call HotkeyData.Create(EHotkeyMenu.SkillSlot3, "스킬슬롯3", false, EHotkeys.H2I("E"))
@@ -418,7 +413,15 @@ scope GlobalInitializer
       call HotkeyData.Create(EHotkeyMenu.SubMenuInventory, "인벤토리", false, EHotkeys.H2I("I"))
       call HotkeyData.Create(EHotkeyMenu.SubMenuStatus, "상태창", false, EHotkeys.H2I("S"))
       call HotkeyData.Create(EHotkeyMenu.SubMenuSkillTree, "스킬창", false, EHotkeys.H2I("T"))
+
       call HotkeyData.Create(EHotkeyMenu.SubMenuSmartMode, "스마트모드", true, 0)
+      call HotkeyData.Create(EHotkeyMenu.Main1MiniInfo, "미니 정보창", true, 1)
+      call HotkeyData.Create(EHotkeyMenu.Main2SimpleEffect, "이펙트(개인)", true, 1)
+      call HotkeyData.Create(EHotkeyMenu.Main3GlobalEffect, "이펙트(방장)", true, 0)
+      call HotkeyData.Create(EHotkeyMenu.Main4FeildOfView, "시야 설정", false, 150)
+      call HotkeyData.Create(EHotkeyMenu.Main5HoldFieldOfView, "시야 고정", true, 0)
+      call HotkeyData.Create(EHotkeyMenu.Main6ViewHotkeys, "단축키 표시", true, 1)
+      call HotkeyData.Create(EHotkeyMenu.Main7ServerSaveLeft, "서버저장", false, 2)
     endmethod
   endstruct
 

@@ -1,155 +1,179 @@
 scope Option initializer Init
-    globals
-      private integer array Frame_Setting
-      public integer array Frame_SettingBackdrop
-    endglobals
+  globals
+    // private integer array Frame_Setting
+    // public integer array Frame_SettingBackdrop
+
+    private integer Frame_Setting_Main = 0
+    private integer Frame_Setting_Sub = 0
+  endglobals
+
+  // private function Setting takes integer no, string text, real size, real x, real y returns integer
+  //   set Frame_Setting[no] = DzCreateFrameByTagName("TEXT", "", Frame_Setting_Sub, "", CountAdder())
+  //   if ( size != 0. ) then
+  //     call DzFrameSetFont(Frame_Setting[no], "Fonts\\DFHeiMd.ttf", size, 1)
+  //   endif
+  //   call DzFrameSetPoint(Frame_Setting[no], JN_FRAMEPOINT_LEFT, GetMainFrame(), JN_FRAMEPOINT_TOPLEFT, .02 + x, -.015 - .025 * y)
+  //   call DzFrameSetText(Frame_Setting[no], text)
+  //   return no + 1
+  // endfunction
+  private function MakeTextCenter takes integer parent, string text, real size returns integer
+    local integer temp = DzCreateFrameByTagName("TEXT", "", parent, "", CountAdder())
+    call DzFrameSetPoint(temp, JN_FRAMEPOINT_CENTER, parent, JN_FRAMEPOINT_CENTER, 0., 0.)
+    call DzFrameSetFont(temp, "Fonts\\DFHeiMd.ttf", size, 1)
+    call DzFrameSetText(temp, text)
+    return temp
+  endfunction
+  public function GetMainFrame takes nothing returns integer
+    if ( Frame_Setting_Main == 0 ) then
+      set Frame_Setting_Main = DzCreateFrameByTagName("BACKDROP", "", DzGetGameUI(), "QuestButtonBaseTemplate", CountAdder())
+      call DzFrameSetAbsolutePoint(Frame_Setting_Main, JN_FRAMEPOINT_CENTER, .4, .3)
+      call DzFrameSetSize(Frame_Setting_Main, 0.22, 0.4)
+      call DzFrameSetAlpha(Frame_Setting_Main, 128)
+    endif
+    return Frame_Setting_Main
+  endfunction
+  public function GetSubFrame takes nothing returns integer
+    if ( Frame_Setting_Sub == 0 ) then
+      set Frame_Setting_Sub = DzCreateFrameByTagName("BACKDROP", "", GetMainFrame(), "QuestButtonBaseTemplate", CountAdder())
+      call DzFrameSetPoint(Frame_Setting_Sub, JN_FRAMEPOINT_CENTER, GetMainFrame(), JN_FRAMEPOINT_TOP, 0., -0.015)
+      call DzFrameSetSize(Frame_Setting_Sub, 0.05, 0.04)
+      call DzFrameSetAlpha(Frame_Setting_Sub, 196)
+      call MakeTextCenter(Frame_Setting_Sub, "|cfffed312설정", .020)
+    endif
+    return Frame_Setting_Sub
+  endfunction
+
+  private function MakeText takes string text, real size, real x, real y returns integer
+    local integer temp = DzCreateFrameByTagName("TEXT", "", GetSubFrame(), "", CountAdder())
+    if ( size != 0. ) then
+      call DzFrameSetFont(temp, "Fonts\\DFHeiMd.ttf", size, 1)
+    endif
+    call DzFrameSetPoint(temp, JN_FRAMEPOINT_LEFT, GetMainFrame(), JN_FRAMEPOINT_TOPLEFT, .02 + x, -.015 - .025 * y)
+    call DzFrameSetText(temp, text)
+    return temp
+  endfunction
   
-    private function Setting takes integer no, string text, real size, real x, real y returns integer
-      set Frame_Setting[no] = DzCreateFrameByTagName("TEXT", "", Frame_SettingBackdrop[1], "", CountAdder())
-      if ( size != 0. ) then
-        call DzFrameSetFont(Frame_Setting[no], "Fonts\\DFHeiMd.ttf", size, 1)
-      endif
-      call DzFrameSetPoint(Frame_Setting[no], JN_FRAMEPOINT_LEFT, Frame_SettingBackdrop[0], JN_FRAMEPOINT_TOPLEFT, .02+x, -.015-.025 * y)
-      call DzFrameSetText(Frame_Setting[no], text)
-      return no+1
-    endfunction
-    private function LoadNumber takes integer frame returns integer
-      return LoadInteger(hash, StringHash("F2I"), frame)
-    endfunction
-    private function SaveNumber takes integer frame, integer number returns nothing
-      call SaveInteger(hash, StringHash("F2I"), frame, number)
-    endfunction
-    private function SettingButton takes integer i, integer number, string text, code funcHandle returns integer
-      set Frame_Setting[i] = DzCreateFrameByTagName("GLUETEXTBUTTON", "", Frame_SettingBackdrop[1], "ScriptDialogButton", CountAdder())
-      call SaveNumber(Frame_Setting[i], number)
-      call DzFrameSetSize(Frame_Setting[i], .085, 0.03)
-      call DzFrameSetPoint(Frame_Setting[i], JN_FRAMEPOINT_LEFT, Frame_Setting[number], JN_FRAMEPOINT_LEFT, .1, 0.)
-      call DzFrameSetText(Frame_Setting[i], text)
-      call DzFrameSetScriptByCode(Frame_Setting[i], JN_FRAMEEVENT_MOUSE_UP, funcHandle, false)
-      return i + 1
-    endfunction
-    private function SettingClick takes nothing returns nothing
-      local integer f = DzGetTriggerUIEventFrame()
-      local player p = DzGetTriggerUIEventPlayer()
-      call MsgAll("player: " + GetPlayerName(p) + " clicked Setting")
-      call PlayerResource[GetPlayerId(p)+1].options[LoadNumber(f)].Click(10)
-    endfunction
-    private function SettingSave takes nothing returns nothing
-      local integer f = DzGetTriggerUIEventFrame()
-      local player p = DzGetTriggerUIEventPlayer()
-      call PlayerResource[GetPlayerId(p)+1].options[7].Click(-1)
+  private function SettingHotkeyClick takes player p, integer frame, integer index returns nothing
+    if ( 0 == index ) then
+      call MsgAll("에러/클릭/세팅/p" + GetPlayerName(p) + "/Setting["+I2S(index)+"]")
+    elseif ( PlayerResource[GetPlayerId(p) + 1].options[index] == 0 ) then
+      call MsgAll("에러/클릭/세팅/해당 옵션["+I2S(index)+"] 리소스 없음.")
+    else
+      call PlayerResource[GetPlayerId(p) + 1].options[index].Click(10)
+      call MsgAll("player: " + GetPlayerName(p) + " clicked Setting["+I2S(index)+"] -> " + I2S(PlayerResource[GetPlayerId(p) + 1].options[index].id))
+    endif
+  endfunction
+  private function SettingClick takes nothing returns nothing
+    call SettingHotkeyClick(DzGetTriggerUIEventPlayer(), DzGetTriggerUIEventFrame(), EMenus.GetSubTypeId(DzGetTriggerUIEventFrame()))
+  endfunction
 
-      call MsgAll("player: " + GetPlayerName(p) + " click save server : " + I2S(PlayerResource[GetPlayerId(p)+1].options[7].id))
-    endfunction
-    private function SettingClose takes nothing returns nothing
-      if ( GetLocalPlayer() == DzGetTriggerUIEventPlayer() ) then
-        call DzFrameShow(Frame_SettingBackdrop[0], false)
-      endif
-    endfunction
-    private function SettingHotKey takes integer input, integer parent, real x, real y, string keys returns integer
-      set Frame_Setting[input] = DzCreateFrameByTagName("GLUETEXTBUTTON", "", Frame_SettingBackdrop[1], "ScriptDialogButton", CountAdder())
-      // call EMenus.FrameSaveIDs(Frame_Setting[input], types, input)
-      call DzFrameSetSize(Frame_Setting[input], .02667, .02667)
-      call DzFrameSetPoint(Frame_Setting[input], JN_FRAMEPOINT_LEFT, parent, JN_FRAMEPOINT_LEFT, .1 + x, y)
-      call DzFrameSetText(Frame_Setting[input], keys)
-      // MenuQuickSlot.BaseHotKey(types, input)
-      // function SettingHotKeyClick
-
-      return input + 1
-    endfunction
-    private function SettingHotKeyClick takes nothing returns nothing
-      local integer f = DzGetTriggerUIEventFrame()
-      local player p = DzGetTriggerUIEventPlayer()
-
-      call PlayerResource[GetPlayerId(p)+1].options[LoadNumber(f)].Click(0)
-      call DisplayTimedTextToPlayer(GetLocalPlayer(),0.,0.,7.,"player: " + GetPlayerName(p) + " clicked HotKey Setting - " + I2S(f))
-    endfunction
+  private function SettingButton takes integer index, integer parent, string text returns nothing
+    set Frame_Setting[index] = DzCreateFrameByTagName("GLUETEXTBUTTON", "", GetSubFrame(), "ScriptDialogButton", CountAdder())
+    // call SaveNumber(Frame_Setting[index], index)
+    call EMenus.FrameSaveIDs(Frame_Setting[index], SELECT_OTHER, index)
+    // call MsgAll("생성/옵션["+I2S(number)+"]/" + text)
+    call DzFrameSetSize(Frame_Setting[index], .085, 0.03)
+    call DzFrameSetPoint(Frame_Setting[index], JN_FRAMEPOINT_LEFT, parent, JN_FRAMEPOINT_LEFT, .1, 0.)
+    call DzFrameSetText(Frame_Setting[index], text)
+    call DzFrameSetScriptByCode(Frame_Setting[index], JN_FRAMEEVENT_MOUSE_UP, function SettingClick, false)
+  endfunction
+  private function OnClickSaveButton takes nothing returns nothing
+    local integer f = DzGetTriggerUIEventFrame()
+    local player p = DzGetTriggerUIEventPlayer()
+    call PlayerResource[GetPlayerId(p) + 1].options[EHotkeyMenu.Main7ServerSaveLeft].Click(-1)
+    call MsgAll("player: " + GetPlayerName(p) + " click save server : " + I2S(PlayerResource[GetPlayerId(p) + 1].options[EHotkeyMenu.Main7ServerSaveLeft].id))
+  endfunction
+  private function OnClickCloseButton takes nothing returns nothing
+    if ( GetLocalPlayer() == DzGetTriggerUIEventPlayer() ) then
+      call DzFrameShow(GetMainFrame(), false)
+    endif
+  endfunction
+  private function SettingHotKey takes integer index, real x, real y returns nothing
+    set Frame_Setting[index] = DzCreateFrameByTagName("GLUETEXTBUTTON", "", GetSubFrame(), "ScriptDialogButton", CountAdder())
+    if ( 0 < index and index <= EHotkeyMenu.HOTKEY_SKILL_END ) then
+      call EMenus.FrameSaveIDAndHotkey(Frame_Setting[index], QUICK_MENU_SKILLSLOT, index, EHotkeyMenu.SkillSlot1-1)
+    elseif ( EHotkeyMenu.HOTKEY_SKILL_END < index and index <= EHotkeyMenu.HOTKEY_ITEM_END ) then
+      call EMenus.FrameSaveIDAndHotkey(Frame_Setting[index], QUICK_MENU_ITEMSLOT, index, EHotkeyMenu.ItemSlot1-1)
+    elseif ( EHotkeyMenu.HOTKEY_ITEM_END < index and index <= EHotkeyMenu.HOTKEY_MENU_END ) then
+      call EMenus.FrameSaveIDAndHotkey(Frame_Setting[index], QUICK_MENU_MENU, index, EHotkeyMenu.SubMenuKakaotalk-1)
+    else
+      call EMenus.FrameSaveIDs(Frame_Setting[index], SELECT_OTHER, index)
+    endif
+    call DzFrameSetSize(Frame_Setting[index], .02667, .02667)
+    call DzFrameSetPoint(Frame_Setting[index], JN_FRAMEPOINT_LEFT, GetSubFrame(), JN_FRAMEPOINT_LEFT, .1 + x, y)
+    call DzFrameSetScriptByCode(Frame_Setting[index], JN_FRAMEEVENT_MOUSE_UP, function SettingClick, false)
+  endfunction
   
-    private function CreateSetting takes nothing returns nothing
-     local integer i = 0
-      //미니정보창 배경
-      set Frame_SettingBackdrop[i]=DzCreateFrameByTagName("BACKDROP", "", DzGetGameUI(), "QuestButtonBaseTemplate", CountAdder())
-      call DzFrameSetAbsolutePoint(Frame_SettingBackdrop[0], JN_FRAMEPOINT_CENTER, .4, .3)
-      call DzFrameSetSize(Frame_SettingBackdrop[i], 0.22, 0.4)
-      call DzFrameSetAlpha(Frame_SettingBackdrop[i], 128)
-      set i = i + 1
-      
-      set Frame_SettingBackdrop[i]=DzCreateFrameByTagName("BACKDROP", "", Frame_SettingBackdrop[0], "QuestButtonBaseTemplate", CountAdder())
-      call DzFrameSetPoint(Frame_SettingBackdrop[i], JN_FRAMEPOINT_CENTER, Frame_SettingBackdrop[0], JN_FRAMEPOINT_TOP, 0., -0.015)
-      call DzFrameSetSize(Frame_SettingBackdrop[i], 0.05, 0.04)
-      call DzFrameSetAlpha(Frame_SettingBackdrop[i], 196)
-      set i = i + 1
-      
-      set Frame_Setting[0]=DzCreateFrameByTagName("TEXT", "", Frame_SettingBackdrop[1], "", CountAdder())
-      call DzFrameSetPoint(Frame_Setting[0], JN_FRAMEPOINT_CENTER, Frame_SettingBackdrop[1] , JN_FRAMEPOINT_CENTER, 0., 0.)
-      call DzFrameSetText(Frame_Setting[0], "|cfffed312설정")
-      call DzFrameSetFont(Frame_Setting[0], "Fonts\\DFHeiMd.ttf", .020, 1)
-      
-      set i = Setting(1, HotkeyData[EHotkeyMenu.Main1MiniInfo].Name, .016, 0., 1.)
-      set i = Setting(i, HotkeyData[EHotkeyMenu.Main2SimpleEffect].Name, .016, 0., 2.)
-      set i = Setting(i, HotkeyData[EHotkeyMenu.Main3GlobalEffect].Name, .016, 0., 3.)
-      set i = Setting(i, HotkeyData[EHotkeyMenu.Main4FeildOfView].Name, .016, 0., 4.)
-      set i = Setting(i, HotkeyData[EHotkeyMenu.Main5HoldFieldOfView].Name, .016, 0., 5.)
-      set i = Setting(i, HotkeyData[EHotkeyMenu.Main6ViewHotkeys].Name, .016, 0., 6.)
-      
-      set i = Setting(i, "|cfffed312단축키 설정", 0.015, -.01, 7.)
-      set i = Setting(i, "스킬1~8", .024, 0., 8.)
-      set i = Setting(i, "핫슬롯1~7", .024, 0., 9.75)
-      set i = Setting(i, "카톡/디코/설정", 0., 0., 11.25)
-      set i = Setting(i, "자동공격/인벤토리", 0., 0., 12.25)
-      set i = Setting(i, "상태창/스킬/임시", 0., 0., 13.25)
-      
-      set Frame_Setting[i] = DzCreateFrameByTagName("GLUETEXTBUTTON", "", Frame_SettingBackdrop[1], "ScriptDialogButton", CountAdder())
-      call DzFrameSetPoint(Frame_Setting[i], JN_FRAMEPOINT_LEFT, Frame_SettingBackdrop[0], JN_FRAMEPOINT_BOTTOMLEFT, 0.01, .02)
-      call DzFrameSetSize(Frame_Setting[i], .14, 0.03)
-      call DzFrameSetText(Frame_Setting[i], "적용&서버저장(0/2)")
-      call DzFrameSetScriptByCode(Frame_Setting[i], JN_FRAMEEVENT_MOUSE_UP, function SettingSave, false)
-      set i = i + 1
+
+  private function CreateInSetting takes nothing returns nothing
+    local integer temp = 0
+    //미니정보창 배경
+
+    set temp = MakeText(HotkeyData[EHotkeyMenu.Main1MiniInfo].Name, .016, 0., 1.)
+    call SettingButton(EHotkeyMenu.Main1MiniInfo, temp, "|cfffed312ON |cffffffff/ |c004f4f4fOFF")
+    set temp = MakeText(HotkeyData[EHotkeyMenu.Main2SimpleEffect].Name, .016, 0., 2.)
+    call SettingButton(EHotkeyMenu.Main2SimpleEffect, temp, "|cfffed312기본 |cffffffff/ |c004f4f4f최소화")
+    set temp = MakeText(HotkeyData[EHotkeyMenu.Main3GlobalEffect].Name, .016, 0., 3.)
+    call SettingButton(EHotkeyMenu.Main3GlobalEffect, temp, "|c004f4f4fON |cffffffff/ |cfffed312OFF")
+    set temp = MakeText(HotkeyData[EHotkeyMenu.Main4FeildOfView].Name, .016, 0., 4.)
+    call SettingButton(EHotkeyMenu.Main4FeildOfView, temp, "|cfffed312150")
+    set temp = MakeText(HotkeyData[EHotkeyMenu.Main5HoldFieldOfView].Name, .016, 0., 5.)
+    call SettingButton(EHotkeyMenu.Main5HoldFieldOfView, temp, "|c004f4f4fON |cffffffff/ |cfffed312OFF")
+    set temp = MakeText(HotkeyData[EHotkeyMenu.Main6ViewHotkeys].Name, .016, 0., 6.)
+    call SettingButton(EHotkeyMenu.Main6ViewHotkeys, temp, "|cfffed312ON |cffffffff/ |c004f4f4fOFF")
+
+    call MakeText("|cfffed312단축키 설정", 0.015, -.01, 7.)
+    call MakeText("스킬1~8", .024, 0., 8.)
+    call MakeText("핫슬롯1~7", .024, 0., 9.75)
+    call MakeText("카톡/디코/설정", 0., 0., 11.25)
+    call MakeText("자동공격/인벤토리", 0., 0., 12.25)
+    call MakeText("상태창/스킬/임시", 0., 0., 13.25)
+
+    set temp = DzCreateFrameByTagName("GLUETEXTBUTTON", "", GetSubFrame(), "ScriptDialogButton", CountAdder())
+    call DzFrameSetPoint(temp, JN_FRAMEPOINT_LEFT, GetMainFrame(), JN_FRAMEPOINT_BOTTOMLEFT, 0.01, .02)
+    call DzFrameSetSize(temp, .14, 0.03)
+    call DzFrameSetText(temp, "적용&서버저장(0/2)")
+    call DzFrameSetScriptByCode(temp, JN_FRAMEEVENT_MOUSE_UP, function OnClickSaveButton, false)
+
+    set temp = DzCreateFrameByTagName("GLUETEXTBUTTON", "", GetSubFrame(), "ScriptDialogButton", CountAdder())
+    call DzFrameSetPoint(temp, JN_FRAMEPOINT_RIGHT, GetMainFrame(), JN_FRAMEPOINT_BOTTOMRIGHT, -0.01, .02)
+    call DzFrameSetSize(temp, .05, 0.03)
+    call DzFrameSetText(temp, "닫기")
+    call DzFrameSetScriptByCode(temp, JN_FRAMEEVENT_MOUSE_UP, function OnClickCloseButton, false)
+  endfunction
+  private function CreateHotKeyIcons takes nothing returns nothing
+    // 인덱스 동기화
+    call SettingHotKey(EHotkeyMenu.SkillSlot1, 0., 0.01)
+    call SettingHotKey(EHotkeyMenu.SkillSlot2, 0.02, 0.01)
+    call SettingHotKey(EHotkeyMenu.SkillSlot3, 0.04, 0.01)
+    call SettingHotKey(EHotkeyMenu.SkillSlot4, 0.06, 0.01)
+    call SettingHotKey(EHotkeyMenu.SkillSlot5, 0., -0.01)
+    call SettingHotKey(EHotkeyMenu.SkillSlot6, 0.02, -0.01)
+    call SettingHotKey(EHotkeyMenu.SkillSlot7, 0.04, -0.01)
+    call SettingHotKey(EHotkeyMenu.SkillSlot8, 0.06, -0.01)
+
+    call SettingHotKey(EHotkeyMenu.ItemSlot1, 0., 0.01)
+    call SettingHotKey(EHotkeyMenu.ItemSlot2, 0.02, 0.01)
+    call SettingHotKey(EHotkeyMenu.ItemSlot3, 0.04, 0.01)
+    call SettingHotKey(EHotkeyMenu.ItemSlot4, 0.06, 0.01)
+    call SettingHotKey(EHotkeyMenu.ItemSlot5, 0.01, -0.01)
+    call SettingHotKey(EHotkeyMenu.ItemSlot6, 0.03, -0.01)
+    call SettingHotKey(EHotkeyMenu.ItemSlot7, 0.05, -0.01)
     
-      set Frame_Setting[i] = DzCreateFrameByTagName("GLUETEXTBUTTON", "", Frame_SettingBackdrop[1], "ScriptDialogButton", CountAdder())
-      call DzFrameSetPoint(Frame_Setting[i], JN_FRAMEPOINT_RIGHT, Frame_SettingBackdrop[0], JN_FRAMEPOINT_BOTTOMRIGHT, -0.01, .02)
-      call DzFrameSetSize(Frame_Setting[i], .05, 0.03)
-      call DzFrameSetText(Frame_Setting[i], "닫기")
-      call DzFrameSetScriptByCode(Frame_Setting[i], JN_FRAMEEVENT_MOUSE_UP, function SettingClose, false)
-      set i = i + 1
-      
-      set i = SettingButton(i, 1, "|cfffed312ON |cffffffff/ |c004f4f4fOFF", function SettingClick)
-      set i = SettingButton(i, 2, "|cfffed312기본 |cffffffff/ |c004f4f4f최소화", function SettingClick)
-      set i = SettingButton(i, 3, "|c004f4f4fON |cffffffff/ |cfffed312OFF", function SettingClick)
-      set i = SettingButton(i, 4, "|cfffed312150", function SettingClick)
-      set i = SettingButton(i, 5, "|c004f4f4fON |cffffffff/ |cfffed312OFF", function SettingClick)
-      set i = SettingButton(i, 6, "|cfffed312ON |cffffffff/ |c004f4f4fOFF", function SettingClick)
-      
-      set i = SettingHotKey(i, Frame_Setting[8], 0., 0.01, MenuQuickSlot.BaseHotKey(QUICK_MENU_SKILLSLOT, 1))
-      set i = SettingHotKey(i, Frame_Setting[8], 0.02, 0.01, MenuQuickSlot.BaseHotKey(QUICK_MENU_SKILLSLOT, 2))
-      set i = SettingHotKey(i, Frame_Setting[8], 0.04, 0.01, MenuQuickSlot.BaseHotKey(QUICK_MENU_SKILLSLOT, 3))
-      set i = SettingHotKey(i, Frame_Setting[8], 0.06, 0.01, MenuQuickSlot.BaseHotKey(QUICK_MENU_SKILLSLOT, 4))
-      set i = SettingHotKey(i, Frame_Setting[8], 0., -0.01, MenuQuickSlot.BaseHotKey(QUICK_MENU_SKILLSLOT, 5))
-      set i = SettingHotKey(i, Frame_Setting[8], 0.02, -0.01, MenuQuickSlot.BaseHotKey(QUICK_MENU_SKILLSLOT, 6))
-      set i = SettingHotKey(i, Frame_Setting[8], 0.04, -0.01, MenuQuickSlot.BaseHotKey(QUICK_MENU_SKILLSLOT, 7))
-      set i = SettingHotKey(i, Frame_Setting[8], 0.06, -0.01, MenuQuickSlot.BaseHotKey(QUICK_MENU_SKILLSLOT, 8))
+    call SettingHotKey(EHotkeyMenu.SubMenuKakaotalk, 0., 0.)
+    call SettingHotKey(EHotkeyMenu.SubMenuDiscord, 0.03, 0.)
+    call SettingHotKey(EHotkeyMenu.SubMenuSetting, 0.06, 0.)
 
-      set i = SettingHotKey(i, Frame_Setting[9], 0., 0.01, MenuQuickSlot.BaseHotKey(QUICK_MENU_ITEMSLOT, 1)) 
-      set i = SettingHotKey(i, Frame_Setting[9], 0.02, 0.01, MenuQuickSlot.BaseHotKey(QUICK_MENU_ITEMSLOT, 2)) 
-      set i = SettingHotKey(i, Frame_Setting[9], 0.04, 0.01, MenuQuickSlot.BaseHotKey(QUICK_MENU_ITEMSLOT, 3)) 
-      set i = SettingHotKey(i, Frame_Setting[9], 0.06, 0.01, MenuQuickSlot.BaseHotKey(QUICK_MENU_ITEMSLOT, 4)) 
-      set i = SettingHotKey(i, Frame_Setting[9], 0.01, -0.01, MenuQuickSlot.BaseHotKey(QUICK_MENU_ITEMSLOT, 5)) 
-      set i = SettingHotKey(i, Frame_Setting[9], 0.03, -0.01, MenuQuickSlot.BaseHotKey(QUICK_MENU_ITEMSLOT, 6)) 
-      set i = SettingHotKey(i, Frame_Setting[9], 0.05, -0.01, MenuQuickSlot.BaseHotKey(QUICK_MENU_ITEMSLOT, 7))
+    call SettingHotKey(EHotkeyMenu.SubMenuAutoCombat, 0.01, 0.)
+    call SettingHotKey(EHotkeyMenu.SubMenuInventory, 0.04, 0.)
 
-      set i = SettingHotKey(i, Frame_Setting[10], 0., 0., MenuQuickSlot.BaseHotKey(QUICK_MENU_ITEMSLOT, 1))
-      set i = SettingHotKey(i, Frame_Setting[10], .03, 0., MenuQuickSlot.BaseHotKey(QUICK_MENU_ITEMSLOT, 2))
-      set i = SettingHotKey(i, Frame_Setting[10], .06, 0., MenuQuickSlot.BaseHotKey(QUICK_MENU_ITEMSLOT, 3))
-
-      set i = SettingHotKey(i, Frame_Setting[11], 0.01, 0., MenuQuickSlot.BaseHotKey(QUICK_MENU_ITEMSLOT, 4))
-      set i = SettingHotKey(i, Frame_Setting[11], 0.04, 0., MenuQuickSlot.BaseHotKey(QUICK_MENU_ITEMSLOT, 5))
-
-      set i = SettingHotKey(i, Frame_Setting[12], 0., 0., MenuQuickSlot.BaseHotKey(QUICK_MENU_ITEMSLOT, 6))
-      set i = SettingHotKey(i, Frame_Setting[12], .03, 0., MenuQuickSlot.BaseHotKey(QUICK_MENU_ITEMSLOT, 7))
-      set i = SettingHotKey(i, Frame_Setting[12], .06, 0., MenuQuickSlot.BaseHotKey(QUICK_MENU_ITEMSLOT, 8))
-      call DzFrameShow(Frame_SettingBackdrop[0], false)
-    endfunction
-    private function Init takes nothing returns nothing
-      call CreateSetting()
-    endfunction
-  endscope
+    call SettingHotKey(EHotkeyMenu.SubMenuStatus, 0., 0.)
+    call SettingHotKey(EHotkeyMenu.SubMenuSkillTree, 0.03, 0.)
+    call SettingHotKey(EHotkeyMenu.SubMenuSmartMode, 0.06, 0.)
+    call DzFrameShow(GetMainFrame(), false)
+  endfunction
+  private function Init takes nothing returns nothing
+    call CreateInSetting()
+    call CreateHotKeyIcons()
+  endfunction
+endscope

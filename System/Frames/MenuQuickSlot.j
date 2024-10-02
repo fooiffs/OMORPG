@@ -17,7 +17,9 @@ scope MenuQuickSlot
       local integer i = 0
       if ( EHotkeys.I2H(Hotkey) == "" ) then
         call DisplayTimedTextToPlayer(Player(P-1),0,0,4.,"등록할 수 없는 단축키입니다. -" +I2S(Hotkey) + "=" + EHotkeys.I2H(Hotkey))
-      else        
+      elseif ( MenuNo <= 0 or EHotkeyMenu.HOTKEY_MENU_END < MenuNo ) then
+        call DisplayTimedTextToPlayer(Player(P-1),0,0,4.,"등록할 수 없는 메뉴입니다.. -" +I2S(MenuNo) + "=" + EMenus.GetTypeName(EMenus.GetMainType(Quickmenu_Buttons[MenuNo])) + "[" + I2S(EMenus.GetSubTypeId(Quickmenu_Buttons[MenuNo])) + "]")
+      else
         set s = I2S(MenuNo) + " = " + EMenus.GetTypeName(EMenus.GetMainType(Quickmenu_Buttons[MenuNo])) + "[" + I2S(EMenus.GetSubTypeId(Quickmenu_Buttons[MenuNo])) + "] 단축키: "
         
         //기존 단축키 검사
@@ -49,13 +51,7 @@ scope MenuQuickSlot
         endif
         call DisplayTimedTextToPlayer(Player(P-1),0,0,7.,s)
       endif
-      
-      /*1번째 아이템 단축키: D→T 변경 (기존 D단축키 삭제)
-      1번째 아이템 단축키: D→T 변경 (기존 D단축키 삭제, 기존 T단축키 3번째 메뉴삭제)
-      1번째 아이템 단축키: T 등록 (기존 T단축키 3번째 메뉴삭제)
-      1번째 아이템 단축키: T 등록*/
-      
-      
+
       /*hotkey에서 MenuNo 반환되어야함
       MenuNo에서 hotKey 반환되어야함 (기존거 삭제)*/
       
@@ -111,7 +107,7 @@ scope MenuQuickSlot
     public static method MenuClick takes integer i returns nothing
       if ( i == 1 ) then /* Option */
         set EMenus.OX_Option = not EMenus.OX_Option
-        call DzFrameShow(Option_Frame_SettingBackdrop[0], EMenus.OX_Option)
+        call DzFrameShow(Option_GetMainFrame.evaluate(), EMenus.OX_Option)
       elseif ( i == 2 ) then /* Discord */
         call JNOpenBrowser("https://discord.gg/8FubNC8mZ")
       elseif ( i == 3 ) then /* KakaoTalk */
@@ -145,7 +141,7 @@ scope MenuQuickSlot
         if ( GetLocalPlayer() == p ) then
           call StopSound(gg_snd_BigButtonClick, false, false)
           call StartSound(gg_snd_BigButtonClick)
-          call MenuClick(EMenus.GetSubTypeId(frame))
+          call MenuClick(EMenus.GetAddIndex(frame))
         endif
       elseif ( EMenus.GetMainType(frame) == QUICK_MENU_ITEMSLOT ) then
       elseif ( EMenus.GetMainType(frame) == QUICK_MENU_SKILLSLOT ) then
@@ -154,13 +150,13 @@ scope MenuQuickSlot
     static method ButtonClickAll takes nothing returns nothing
       call ButtonClickDetail(DzGetTriggerUIEventPlayer(), DzGetTriggerUIEventFrame())
     endmethod
-    private static method CreateHotKey takes integer frame returns nothing
+    private static method CreateHotKey takes integer frame, integer types, integer subTypes returns nothing
       local integer HotFrame = DzCreateFrame("CommandButtonHotKeyBackDrop", frame, CountAdder())
       local integer HotFrameTxt = DzCreateFrame("CommandButtonHotKeyText", HotFrame, CountAdder())
       call DzFrameSetTexture(HotFrame, "ui\\widgets\\console\\human\\commandbutton\\human-button-lvls-overlay.blp", 0)
       call DzFrameSetPoint(HotFrame, JN_FRAMEPOINT_TOPLEFT, frame, JN_FRAMEPOINT_TOPLEFT, -.001, .001)
       call DzFrameSetPoint(HotFrameTxt, JN_FRAMEPOINT_CENTER, HotFrame, JN_FRAMEPOINT_CENTER, 0., 0.)
-      call DzFrameSetText(HotFrameTxt, BaseHotKey(QUICK_MENU_MENU, currentCount))
+      call DzFrameSetText(HotFrameTxt, BaseHotKey(types, subTypes))
       call DzFrameSetScriptByCode(frame, JN_FRAMEEVENT_MOUSE_UP, function MenuQuickSlot.ButtonClickAll, false)
 
       call SaveInteger(hash, StringHash("FUI_HotKeyBase"), currentCount, frame)
@@ -179,7 +175,7 @@ scope MenuQuickSlot
       call EMenus.FrameSaveIDs(Quickmenu_Buttons[currentCount], types, currentCount-offset)
       
       // HotKey
-      call CreateHotKey(Quickmenu_Buttons[currentCount])
+      call CreateHotKey(Quickmenu_Buttons[currentCount], types, currentCount-offset)
 
       // Backdrop
       set Quickmenu_Backdrops[currentCount]=DzCreateFrameByTagName("BACKDROP", "", Quickmenu_Buttons[currentCount], "", CountAdder())
@@ -216,6 +212,8 @@ scope MenuQuickSlot
 
     private static method InitUnitDetails takes nothing returns nothing
       local integer i = 0
+
+
       /* 플레이어 이름 */
       set i = DzCreateFrameByTagName("TEXT", "", GetSubFrame(), "", CountAdder())
       call DzFrameSetAbsolutePoint(i, JN_FRAMEPOINT_CENTER , .25, .07)
@@ -247,6 +245,7 @@ scope MenuQuickSlot
 
     // 퀵슬롯 메뉴 생성(+단축키 지정)
     private static method onInit takes nothing returns nothing
+
       // 메인 프레임 - 아이템, 스킬, 디코 등
       call CreateItemFrames(currentCount)
       call CreateSkillFrames(currentCount)

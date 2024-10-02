@@ -34,11 +34,20 @@ scope EMainMenus
       call SaveInteger(hash, StringHash("Menu_TypeMain"), frame, types)
       call SaveInteger(hash, StringHash("Menu_TypeSub"), frame, subTypes)
     endmethod
+    static method FrameSaveIDAndHotkey takes integer frame, integer types, integer subTypes, integer addIndex returns nothing
+      call SaveInteger(hash, StringHash("Menu_TypeMain"), frame, types)
+      call SaveInteger(hash, StringHash("Menu_TypeSub"), frame, subTypes)
+      call SaveInteger(hash, StringHash("Menu_TypeAdd"), frame, subTypes-addIndex)
+      call DzFrameSetText(frame, MenuQuickSlot.BaseHotKey(types, subTypes-addIndex))
+    endmethod
     static method GetMainType takes integer frame returns integer
       return LoadInteger(hash, StringHash("Menu_TypeMain"), frame)
     endmethod
     static method GetSubTypeId takes integer frame returns integer
       return LoadInteger(hash, StringHash("Menu_TypeSub"), frame)
+    endmethod
+    static method GetAddIndex takes integer frame returns integer
+      return LoadInteger(hash, StringHash("Menu_TypeAdd"), frame)
     endmethod
     static method GetTypeName takes integer input returns string
       if ( input == QUICK_MENU_ITEMSLOT ) then
