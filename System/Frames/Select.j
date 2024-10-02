@@ -189,13 +189,14 @@ scope Select
         if ( DzGetTriggerUIEventPlayer() == GetLocalPlayer() ) then
           call DzSyncData("Select", I2S(NowSelect[playerId]))
 
-          call DzFrameShow(select_Main, false)
+          call DzFrameShow(DzFrameGetParent(select_Main), false)
           call DzFrameShow(select_LeftPreview, false)
           call DzFrameShow(select_SkillPreview, false)
           call ResetToGameCamera(0.)
           call SetCameraBoundsToRect(bj_mapInitialPlayableArea)
           call PanCameraTo(startCreateX, startCreateY)
           call EnablePreSelect(true, true)
+          call DzFrameShow(DzFrameGetMinimap(), true)
           call DzFrameShow(DzFrameGetMinimap(), true)
         endif
       endif

@@ -37,7 +37,7 @@ scope MiniInfo initializer Init
     private function CreateMiniInfo takes nothing returns nothing
      local integer i = 0
       //미니정보창 배경
-      set Frame_MiniInfoBackdrop[0]=DzCreateFrameByTagName("BACKDROP", "", Frame_Sub, "QuestButtonBaseTemplate", 0)
+      set Frame_MiniInfoBackdrop[0]=DzCreateFrameByTagName("BACKDROP", "", GetSubFrame(), "QuestButtonBaseTemplate", 0)
       call DzFrameSetAbsolutePoint(Frame_MiniInfoBackdrop[0], JN_FRAMEPOINT_BOTTOMLEFT, 0.67, 0.03)
       call DzFrameSetSize(Frame_MiniInfoBackdrop[0], 0.13, 0.12)
       call DzFrameSetAlpha(Frame_MiniInfoBackdrop[0], 128)
@@ -73,7 +73,7 @@ scope MiniInfo initializer Init
       set i = MiniInfo3(i, 0, "체력많음", "ReplaceableTextures\\CommandButtons\\BTNSkillz.tga")
       set i = MiniInfo3(i, 1, "강한공격", "ReplaceableTextures\\CommandButtons\\BTNGauntletsOfOgrePower.blp")
       set i = MiniInfo3(i, 2, "마법면역", "ReplaceableTextures\\PassiveButtons\\PASBTNGenericSpellImmunity.blp")
-      call DzFrameShow(Frame_Sub, false)
+      call DzFrameShow(GetSubFrame(), false)
     endfunction
     private function Init takes nothing returns nothing
       call CreateMiniInfo()

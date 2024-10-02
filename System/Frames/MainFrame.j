@@ -2,6 +2,9 @@ scope MainFrame initializer Init
     globals
       private dialog NoSaveDialog = DialogCreate()
       
+      private integer Frame_Main = 0
+      private integer Frame_Sub = 0
+
       // integer array Frame_SelectBack
       // integer array Frame_SelectText
 
@@ -18,6 +21,21 @@ scope MainFrame initializer Init
       integer array Frame_Setting
       integer array Frame_SettingBackdrop
     endglobals
+
+    function GetMainFrame takes nothing returns integer
+      if ( Frame_Main == 0 ) then
+        set Frame_Main = DzCreateFrameByTagName("SPRITE", "", DzGetGameUI(), "", 0)
+        call DzFrameSetAbsolutePoint(Frame_Main, JN_FRAMEPOINT_TOPRIGHT, 0., 0.)
+      endif
+      return Frame_Main
+    endfunction
+    function GetSubFrame takes nothing returns integer
+      if ( Frame_Sub == 0 ) then
+        set Frame_Sub = DzCreateFrameByTagName("SPRITE", "", DzGetGameUI(), "", 0)
+        call DzFrameSetAbsolutePoint(Frame_Sub, JN_FRAMEPOINT_TOPRIGHT, 0., 0.)
+      endif
+      return Frame_Sub
+    endfunction
     
     private function NoSaveNoTime takes nothing returns nothing
      local integer Relative = 0

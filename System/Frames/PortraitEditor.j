@@ -106,7 +106,7 @@ scope PortraitEditor initializer Init
       set inputHp = GetPortraitButtonManaText()
       call DzFrameClearAllPoints(inputHp)
       call SetFrameAbsolutePoint(inputHp, JN_FRAMEPOINT_CENTER, .25, .010)
-			call MsgAll("Changed")
+			// call MsgAll("Changed")
 			call ClearSelection()
     endif
   endfunction

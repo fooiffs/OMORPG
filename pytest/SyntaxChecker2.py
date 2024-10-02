@@ -14,7 +14,7 @@ is_print = False
 is_map_test = True
 
 # 컴파일 시간 후 대기 시간(초) - 각자 맵에 맞춰서 적당히 처리하세요.
-wait_time = 3
+wait_time = 2
 
 # 메인 경로 - 파이썬 파일 위치를 기반으로, 상상위 경로를 지정합니다. 직접 지정해도 됩니다.
 base_path = '"' + os.path.dirname(os.path.abspath(os.path.dirname(os.path.abspath(os.path.dirname(__file__)))))

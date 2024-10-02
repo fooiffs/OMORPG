@@ -25,7 +25,7 @@
 //! import "System\MemoryInterferencer\UnitNameChanger.j"
 
 //! import "System\Frames\MainFrame.j"
-//! import "System\Frames\UnitDetailFrame.j"
+// //! import "System\Frames\UnitDetailFrame.j"
 //! import "System\Frames\SkillTree.j"
 //! import "System\Frames\PortraitEditor.j"
 //! import "System\Frames\PushKey.j"

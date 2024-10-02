@@ -30,7 +30,7 @@ scope GlobalInitializer
     // 저장
     constant integer MAX_SAVE_INVENTORY = 49 +1
     constant integer MAX_SAVE_EQUIP = 16 +1
-    constant integer MAX_SAVE_CHARACTER = 6 
+    constant integer MAX_SAVE_CHARACTER = 6
   endglobals
   function IsEmpty takes string s returns boolean
     return (s == "") or (s == null)

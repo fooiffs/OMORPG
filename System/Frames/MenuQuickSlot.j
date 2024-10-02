@@ -171,7 +171,7 @@ scope MenuQuickSlot
       set currentCount = currentCount + 1
 
       // MainButton
-      set Quickmenu_Buttons[currentCount] = DzCreateFrameByTagName("BUTTON", "", Frame_Main, "ScoreScreenTabButtonTemplate", 0)
+      set Quickmenu_Buttons[currentCount] = DzCreateFrameByTagName("BUTTON", "", GetMainFrame(), "ScoreScreenTabButtonTemplate", 0)
       call DzFrameSetAbsolutePoint(Quickmenu_Buttons[currentCount], JN_FRAMEPOINT_BOTTOMLEFT, x, y)
       call DzFrameSetSize(Quickmenu_Buttons[currentCount], size, size)
 
@@ -215,11 +215,49 @@ scope MenuQuickSlot
       endloop
     endmethod
 
+    private static method InitUnitDetails takes nothing returns nothing
+      local integer i = 0
+      /* 플레이어 이름 */
+      set i = DzCreateFrameByTagName("TEXT", "", GetSubFrame(), "", 0)
+      call DzFrameSetAbsolutePoint(i, JN_FRAMEPOINT_CENTER , .25, .07)
+      call DzFrameSetText(i, GetPlayerName(GetLocalPlayer()))
+      
+      /* 경험치바 */
+      set i = MainFrame_Get(DzSimpleFrameFindByName("SimpleHeroLevelBar", 0))
+      call DzFrameSetAbsolutePoint(i, JN_FRAMEPOINT_BOTTOMLEFT, .3, .001)
+      call DzFrameSetAbsolutePoint(i, JN_FRAMEPOINT_TOPRIGHT, .62, .017)
+      
+      /* 영웅 이명 - 카샨 */
+      set i = MainFrame_Get(DzSimpleFontStringFindByName("SimpleNameValue", 0))
+      call DzFrameSetAbsolutePoint(i, JN_FRAMEPOINT_CENTER, .25, .055)
+      
+      /* 유닛 이름 - 피전트  */
+      set i = MainFrame_Get(DzSimpleFontStringFindByName("SimpleClassValue", 0))
+      call DzFrameSetAbsolutePoint(i, JN_FRAMEPOINT_CENTER, .25, .040)
+      
+      /* 레벨 1 마운틴킹 */
+      set i = MainFrame_Get(DzSimpleFrameFindByName("SimpleProgressIndicator", 0))
+      call DzFrameSetAbsolutePoint(i, JN_FRAMEPOINT_CENTER, .25, .035)
+      
+      /* 초상화 */
+      // 초기에 설정 in MainFrame.j
+      // HP & MP - 특수 설정 in Select.j -> PortraitEditor.j
+      
+      call DzFrameShow(GetMainFrame(), false)
+    endmethod
+
     // 퀵슬롯 메뉴 생성(+단축키 지정)
     private static method onInit takes nothing returns nothing
+      /* 메인 프레임 생성 */
+      call MsgAll("made Quickslot1 : " + I2S(currentCount) + "." + I2S(GetMainFrame()))
       call CreateItemFrames(currentCount) /* to FRAME_SLOT_ITEM_COUNT */
+      call MsgAll("made Quickslot2 : " + I2S(currentCount))
       call CreateSkillFrames(currentCount)
+      call MsgAll("made Quickslot3 : " + I2S(currentCount))
       call CreateMenuFrames(currentCount)
+      call MsgAll("made Quickslot4 : " + I2S(currentCount))
+
+      call InitUnitDetails()
     endmethod
   endstruct
 endscope

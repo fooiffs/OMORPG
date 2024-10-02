@@ -88,7 +88,7 @@ scope Load
         call Msg(GetServerPlayer, "로드 |cffff0000실패!|r - 캐릭터가 정보가 비어 있습니다. 다시 선택해주세요.")
         return
       endif
-
+      
       // 데이터 설정
         // 현재 로드중인 플레이어 설정
       set JN_LoaderNow = currentPlayerId
@@ -97,6 +97,8 @@ scope Load
 
         // 불러올 레벨 : [1_0'1.2500] 에서, '1. 의 1을 추출
       set tempInteger = S2I(JNStringSplit(JNStringSplit(tempString, "'", 1), ".", 0))
+
+      call Msg(GetServerPlayer, "로드/플레이어["+I2S(JN_LoaderNow)+"], 슬롯["+I2S(receivedData)+"] 로드, Lv("+I2S(tempInteger)+") 진행중: " + tempString)
 
       // 생성
       set udg_hero[currentPlayerId] = CreateUnit(GetServerPlayer, CharacterData[receivedData].UnitCode, Select.startCreateX, Select.startCreateY, bj_UNIT_FACING)
@@ -111,10 +113,12 @@ scope Load
       endif
 
       // 집 이름 설정
-      set tempString = GetObjectName('nefm')
+      set tempString = GetObjectName('n000')
       if ( GetServerPlayer == GetLocalPlayer() ) then
-        set tempString = GetPlayerName(GetServerPlayer) + "가문의 " + GetObjectName(CharacterData[receivedData].UnitCode) + "네 집"
+        set tempString = GetPlayerName(GetServerPlayer) + " 가문의 " + GetObjectName(CharacterData[receivedData].UnitCode) + "네 집"
       endif
+      call SetUnitTypeName('n000', tempString)
+
 
       // 영웅 이름 설정
       set tempString = LoadStr(hash, currentPlayerId, StringHash(I2S(receivedData) + "_Name"))
@@ -137,7 +141,8 @@ scope Load
 
       // 메인 프레임 보임
       if ( GetLocalPlayer() == GetServerPlayer ) then
-        call DzFrameShow(Frame_Main, true)
+        call DzFrameShow(GetMainFrame(), true)
+        call DzFrameShow(GetSubFrame(), true)
       endif
       
       set currentPlayerId = 0
