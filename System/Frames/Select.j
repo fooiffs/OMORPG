@@ -156,10 +156,9 @@ scope Select
     endmethod
     private static method ButtonJustUp takes nothing returns nothing
       local integer characterId = NowSelect[GetPlayerId(DzGetTriggerUIEventPlayer())+1]
-      local integer frameId = EMenus.GetMainType(DzGetTriggerUIEventFrame()) * 3 + 12
+      local integer frameId = EMenus.GetSubTypeId(DzGetTriggerUIEventFrame()) * 3 + 15
+      call MsgAll("Input: " + I2S(characterId) + " / " + I2S(EMenus.GetSubTypeId(DzGetTriggerUIEventFrame())) + " -> " + I2S(frameId))
       if ( 0 < frameId and DzGetTriggerUIEventPlayer() == GetLocalPlayer() ) then
-        set frameId = frameId * 3 + 12
-
         call DzFrameSetText(selectTextSkillPreviewName, "|cffd5d500" + JNStringSplit(CharacterData[characterId].SelectDatas, "'", frameId))
         call DzFrameSetText(selectTextSkillPreviewDescription1, JNStringSplit(CharacterData[characterId].SelectDatas, "'", frameId + 1))
         call DzFrameSetText(selectTextSkillPreviewDescription2, JNStringSplit(CharacterData[characterId].SelectDatas, "'", frameId + 2))
@@ -298,8 +297,8 @@ scope Select
       set select_LeftPreview              = MakeBack(select_Main, JN_FRAMEPOINT_TOPLEFT, .05, .45, .18, .25, "Select_Back.blp")
       set selectTextCharacterNameEnglish  = MakeText(select_LeftPreview, JN_FRAMEPOINT_TOP, JN_FRAMEPOINT_TOP, 0., -.013, .015, "DarkElf Mage")
       set selectTextCharacterNameKorean   = MakeText(select_LeftPreview, JN_FRAMEPOINT_TOPRIGHT, JN_FRAMEPOINT_TOPRIGHT, -.020, -.035, .010, "다크엘프 마법사")
-      set selectTextCharacterDescription1 = MakeText(select_LeftPreview, JN_FRAMEPOINT_TOP, JN_FRAMEPOINT_TOP, 0., -.050, .008, "마법사는 강력한 마법 공격과 디버프를 사용해")
-      set selectTextCharacterDescription2 = MakeText(selectTextCharacterDescription1, JN_FRAMEPOINT_TOPLEFT, JN_FRAMEPOINT_BOTTOMLEFT, 0., 0., .008, "적을 괴롭히고 다대다 전투에 강한 직업입니다.")
+      set selectTextCharacterDescription1 = MakeText(select_LeftPreview, JN_FRAMEPOINT_LEFT, JN_FRAMEPOINT_TOPLEFT, .20, -.050, .008, "마법사는 강력한 마법 공격과 디버프를 사용해")
+      set selectTextCharacterDescription2 = MakeText(select_LeftPreview, JN_FRAMEPOINT_LEFT, JN_FRAMEPOINT_TOPLEFT, .20, -.060, .008, "적을 괴롭히고 다대다 전투에 강한 직업입니다.")
 
       set temp = MakeText(select_LeftPreview, JN_FRAMEPOINT_TOPLEFT, JN_FRAMEPOINT_TOPLEFT, .020, -.080, .012, "공격")
       set selectBackStars[0][0] = MakeStars(temp, JN_FRAMEPOINT_LEFT, JN_FRAMEPOINT_LEFT, .040, 0., .020, "Select_stars1.tga")
@@ -346,10 +345,10 @@ scope Select
 
       set selectBackPreviewInter = MakeBack(select_SkillPreview, JN_FRAMEPOINT_TOPLEFT, .62, .34, .16, .12, "Select_BackRedRed.blp")
       call MakeText(selectBackPreviewInter, JN_FRAMEPOINT_TOPLEFT, JN_FRAMEPOINT_TOPLEFT, .01, -.01, .010, "|cff8f8f8f주요 스킬 보기")
-      set selectButtonSkills[0] = MakeButton(selectBackPreviewInter, SELECT_MENU_PRESKILL, 1, JN_FRAMEPOINT_TOP, JN_FRAMEPOINT_TOPLEFT, .024, -.03, .0275, "war3mapImported\\frame_kakao.blp")
-      set selectButtonSkills[1] = MakeButton(selectBackPreviewInter, SELECT_MENU_PRESKILL, 2, JN_FRAMEPOINT_TOP, JN_FRAMEPOINT_TOPLEFT, .061, -.03, .0275, "war3mapImported\\frame_kakao.blp")
-      set selectButtonSkills[2] = MakeButton(selectBackPreviewInter, SELECT_MENU_PRESKILL, 3, JN_FRAMEPOINT_TOP, JN_FRAMEPOINT_TOPLEFT, .099, -.03, .0275, "war3mapImported\\frame_kakao.blp")
-      set selectButtonSkills[3] = MakeButton(selectBackPreviewInter, SELECT_MENU_PRESKILL, 4, JN_FRAMEPOINT_TOP, JN_FRAMEPOINT_TOPLEFT, .136, -.03, .0275, "war3mapImported\\frame_kakao.blp")
+      set selectButtonSkills[0] = MakeButton(selectBackPreviewInter, SELECT_MENU_PRESKILL, 0, JN_FRAMEPOINT_TOP, JN_FRAMEPOINT_TOPLEFT, .024, -.03, .0275, "war3mapImported\\frame_kakao.blp")
+      set selectButtonSkills[1] = MakeButton(selectBackPreviewInter, SELECT_MENU_PRESKILL, 1, JN_FRAMEPOINT_TOP, JN_FRAMEPOINT_TOPLEFT, .061, -.03, .0275, "war3mapImported\\frame_kakao.blp")
+      set selectButtonSkills[2] = MakeButton(selectBackPreviewInter, SELECT_MENU_PRESKILL, 2, JN_FRAMEPOINT_TOP, JN_FRAMEPOINT_TOPLEFT, .099, -.03, .0275, "war3mapImported\\frame_kakao.blp")
+      set selectButtonSkills[3] = MakeButton(selectBackPreviewInter, SELECT_MENU_PRESKILL, 3, JN_FRAMEPOINT_TOP, JN_FRAMEPOINT_TOPLEFT, .136, -.03, .0275, "war3mapImported\\frame_kakao.blp")
 
       set selectTextSkillPreviewName = MakeText(selectBackPreviewInter, JN_FRAMEPOINT_TOPLEFT, JN_FRAMEPOINT_TOPLEFT, .01, -.08, .012, "|cffd5d500분노의 소용돌이 |cffff8000Lv.1")
       set selectTextSkillPreviewDescription1 = MakeText(selectTextSkillPreviewName, JN_FRAMEPOINT_TOPLEFT, JN_FRAMEPOINT_BOTTOMLEFT, 0., -.005, .008, "창을 크게 휘둘러 주위의 적들에게 공격력의")
@@ -395,6 +394,7 @@ scope Select
         set selectTextBottomPlayTimes[i]  = MakeText(selectBackBottoms[i], JN_FRAMEPOINT_TOPRIGHT, JN_FRAMEPOINT_TOPRIGHT, .005, .005, .009, "00분")
         set selectTextBottomLoadTypes[i]  = MakeText(selectBackBottoms[i], JN_FRAMEPOINT_BOTTOMRIGHT, JN_FRAMEPOINT_BOTTOMRIGHT, -.01, .008, .013, "이어하기")
         set selectButtonBottoms[i]        = MakeButtonSimple(selectBackBottoms[i], SELECT_MENU_CHARACTER, i, function MenuQuickSlot.ButtonClickAll)
+        call MsgAll("made bottom: " + JNStringSplit(JNStringSplit(CharacterData[i].SelectDatas, "'", 0), " ", 1))
         // call MsgAll("maked: " + I2S(i) + " / " + I2S(MAX_CHARACTER_COUNT) + " / " + I2S(selectBackBottoms[i]) + " / " + I2S(selectTextBottomNameLevels[i]) + " / " + I2S(selectTextBottomPlayTimes[i]) + " / " + I2S(selectTextBottomLoadTypes[i]) + " / " + I2S(selectButtonBottoms[i]))
         
         set i = i + 1
@@ -421,7 +421,7 @@ scope Select
           if ( GetLocalPlayer() == p ) then
             call DzFrameSetTexture(selectBackBottoms[i], "Select_SlotBack50.blp", 0)
             call DzFrameSetFont(selectTextBottomNameLevels[i], "Fonts\\DFHeiMd.ttf", .009, 0)
-            call DzFrameSetText(selectTextBottomNameLevels[i], JNStringSplit(input, "'", 0) + " (신규)")
+            call DzFrameSetText(selectTextBottomNameLevels[i], JNStringSplit(JNStringSplit(CharacterData[i].SelectDatas, "'", 0), " ", 1) + " (신규)")
             call DzFrameSetText(selectTextBottomPlayTimes[i], "")
             call DzFrameSetFont(selectTextBottomLoadTypes[i], "Fonts\\DFHeiMd.ttf", .008, 0)
             call DzFrameSetText(selectTextBottomLoadTypes[i], "미리보기")
