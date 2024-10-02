@@ -46,7 +46,7 @@ scope Select
     private static integer selectBackStart = 0
 
     private static integer array selectBackBottoms[MAX_CHARACTER_COUNT]
-    private static integer array selectBackStars[5] [5]
+    private static integer array selectBackStars[5][5]
     private static integer array selectBackSkills[4]
 
     private static integer array selectButtonBottoms[MAX_CHARACTER_COUNT]
@@ -61,9 +61,9 @@ scope Select
       local integer i = 0
       loop
         if ( val > i ) then
-          call DzFrameSetTexture(selectBackStars[startnum] [i], texture, 0)
+          call DzFrameSetTexture(selectBackStars[startnum][i], texture, 0)
         else
-          call DzFrameSetTexture(selectBackStars[startnum] [i], "Select_stars0.tga", 0)
+          call DzFrameSetTexture(selectBackStars[startnum][i], "Select_stars0.tga", 0)
         endif
         exitwhen i >= 4
         set i = i + 1
@@ -215,7 +215,9 @@ scope Select
     endmethod
     private static method MakeText takes integer parent, integer point, integer point2, real x, real y, real size, string text returns integer
       local integer temp = DzCreateFrameByTagName("TEXT", "", parent, "", CountAdder())
-      if ( size != 0. ) then
+      if ( currentCount <= 2 ) then
+        call DzFrameSetFont(temp, "Fonts\\MoonEpi2.ttf", size, 0)
+      else
         call DzFrameSetFont(temp, "Fonts\\DFHeiMd.ttf", size, 0)
       endif
       call DzFrameSetPoint(temp, point, parent, point2, x, y)
@@ -277,68 +279,70 @@ scope Select
       call CameraBounds(selectX, selectY)
     endmethod
     private static method CreateSelectMain takes nothing returns nothing
-      local integer Text = 1
+      local integer temp
       call InitCamera()
 
       if ( GetRandomReal(0., 99.) <= 33. ) then
-        set Text = MakeText(DzGetGameUI(), JN_FRAMEPOINT_CENTER, JN_FRAMEPOINT_BOTTOMLEFT, .4, .55, .038, "|cffFF7CBFThe Only My Own RPG")
+        set temp = MakeText(DzGetGameUI(), JN_FRAMEPOINT_CENTER, JN_FRAMEPOINT_BOTTOMLEFT, .4, .55, .038, "|cffFF7CBFThe Only My Own RPG")
       elseif ( GetRandomReal(0., 66.) <= 33. ) then
-        set Text = MakeText(DzGetGameUI(), JN_FRAMEPOINT_CENTER, JN_FRAMEPOINT_BOTTOMLEFT, .4, .55, .038, "|cff28FF0DThe Only My Own RPG")
+        set temp = MakeText(DzGetGameUI(), JN_FRAMEPOINT_CENTER, JN_FRAMEPOINT_BOTTOMLEFT, .4, .55, .038, "|cff28FF0DThe Only My Own RPG")
       else
-        set Text = MakeText(DzGetGameUI(), JN_FRAMEPOINT_CENTER, JN_FRAMEPOINT_BOTTOMLEFT, .4, .55, .038, "|cff0085FFThe Only My Own RPG")
+        set temp = MakeText(DzGetGameUI(), JN_FRAMEPOINT_CENTER, JN_FRAMEPOINT_BOTTOMLEFT, .4, .55, .038, "|cff0085FFThe Only My Own RPG")
       endif
-      set select_Main = MakeText(Text, JN_FRAMEPOINT_TOPRIGHT, JN_FRAMEPOINT_BOTTOMRIGHT, 0., 0., 0136, "나만의 알피지")
+      set select_Main = MakeText(temp, JN_FRAMEPOINT_TOPRIGHT, JN_FRAMEPOINT_BOTTOMRIGHT, 0., 0., 0136, "나만의 알피지")
 
       //call DzFrameSetTexture(select_Main, "ui\\Title-R.blp", 0)
-      set select_LeftPreview = MakeBack(select_Main, JN_FRAMEPOINT_TOPLEFT, .05, .45, .18, .25, "Select_Back.blp")
-      set selectTextCharacterNameEnglish = MakeText(select_LeftPreview, JN_FRAMEPOINT_TOP, JN_FRAMEPOINT_TOP, 0., -.013, .015, "DarkElf Mage")
-      set selectTextCharacterNameKorean = MakeText(select_LeftPreview, JN_FRAMEPOINT_TOPRIGHT, JN_FRAMEPOINT_TOPRIGHT, -.020, -.035, .010, "다크엘프 마법사")
-      set selectTextCharacterDescription1 = MakeText(select_LeftPreview, JN_FRAMEPOINT_TOPLEFT, JN_FRAMEPOINT_BOTTOMLEFT, .020, -.050, .008, "마법사는 강력한 마법 공격과 디버프를 사용해")
+      set select_LeftPreview              = MakeBack(select_Main, JN_FRAMEPOINT_TOPLEFT, .05, .45, .18, .25, "Select_Back.blp")
+      set selectTextCharacterNameEnglish  = MakeText(select_LeftPreview, JN_FRAMEPOINT_TOP, JN_FRAMEPOINT_TOP, 0., -.013, .015, "DarkElf Mage")
+      set selectTextCharacterNameKorean   = MakeText(select_LeftPreview, JN_FRAMEPOINT_TOPRIGHT, JN_FRAMEPOINT_TOPRIGHT, -.020, -.035, .010, "다크엘프 마법사")
+      set selectTextCharacterDescription1 = MakeText(select_LeftPreview, JN_FRAMEPOINT_TOP, JN_FRAMEPOINT_TOP, 0., -.050, .008, "마법사는 강력한 마법 공격과 디버프를 사용해")
       set selectTextCharacterDescription2 = MakeText(selectTextCharacterDescription1, JN_FRAMEPOINT_TOPLEFT, JN_FRAMEPOINT_BOTTOMLEFT, 0., 0., .008, "적을 괴롭히고 다대다 전투에 강한 직업입니다.")
 
-      set Text = MakeText(Text, JN_FRAMEPOINT_TOPLEFT, JN_FRAMEPOINT_TOPLEFT, .020, -.080, .012, "공격")
-      set selectBackStars[0] [0] = MakeStars(Text, JN_FRAMEPOINT_LEFT, JN_FRAMEPOINT_LEFT, .040, 0., .020, "Select_stars1.tga")
-      set selectBackStars[0] [1] = MakeStars(Text, JN_FRAMEPOINT_LEFT, JN_FRAMEPOINT_LEFT, .060, 0., .020, "Select_stars1.tga")
-      set selectBackStars[0] [2] = MakeStars(Text, JN_FRAMEPOINT_LEFT, JN_FRAMEPOINT_LEFT, .080, 0., .020, "Select_stars1.tga")
-      set selectBackStars[0] [3] = MakeStars(Text, JN_FRAMEPOINT_LEFT, JN_FRAMEPOINT_LEFT, .100, 0., .020, "Select_stars1.tga")
-      set selectBackStars[0] [4] = MakeStars(Text, JN_FRAMEPOINT_LEFT, JN_FRAMEPOINT_LEFT, .120, 0., .020, "Select_stars1.tga")
+      set temp = MakeText(select_LeftPreview, JN_FRAMEPOINT_TOPLEFT, JN_FRAMEPOINT_TOPLEFT, .020, -.080, .012, "공격")
+      set selectBackStars[0][0] = MakeStars(temp, JN_FRAMEPOINT_LEFT, JN_FRAMEPOINT_LEFT, .040, 0., .020, "Select_stars1.tga")
+      set selectBackStars[0][1] = MakeStars(temp, JN_FRAMEPOINT_LEFT, JN_FRAMEPOINT_LEFT, .060, 0., .020, "Select_stars1.tga")
+      set selectBackStars[0][2] = MakeStars(temp, JN_FRAMEPOINT_LEFT, JN_FRAMEPOINT_LEFT, .080, 0., .020, "Select_stars1.tga")
+      set selectBackStars[0][3] = MakeStars(temp, JN_FRAMEPOINT_LEFT, JN_FRAMEPOINT_LEFT, .100, 0., .020, "Select_stars1.tga")
+      set selectBackStars[0][4] = MakeStars(temp, JN_FRAMEPOINT_LEFT, JN_FRAMEPOINT_LEFT, .120, 0., .020, "Select_stars1.tga")
 
-      set Text = MakeText(Text, JN_FRAMEPOINT_TOPLEFT, JN_FRAMEPOINT_BOTTOMLEFT, 0., -.02, .012, "방어")
-      set selectBackStars[1] [0] = MakeStars(Text, JN_FRAMEPOINT_LEFT, JN_FRAMEPOINT_LEFT, .040, 0., .020, "Select_stars1.tga")
-      set selectBackStars[1] [1] = MakeStars(Text, JN_FRAMEPOINT_LEFT, JN_FRAMEPOINT_LEFT, .060, 0., .020, "Select_stars1.tga")
-      set selectBackStars[1] [2] = MakeStars(Text, JN_FRAMEPOINT_LEFT, JN_FRAMEPOINT_LEFT, .080, 0., .020, "Select_stars1.tga")
-      set selectBackStars[1] [3] = MakeStars(Text, JN_FRAMEPOINT_LEFT, JN_FRAMEPOINT_LEFT, .100, 0., .020, "Select_stars1.tga")
-      set selectBackStars[1] [4] = MakeStars(Text, JN_FRAMEPOINT_LEFT, JN_FRAMEPOINT_LEFT, .120, 0., .020, "Select_stars1.tga")
+      set temp = MakeText(temp, JN_FRAMEPOINT_TOPLEFT, JN_FRAMEPOINT_BOTTOMLEFT, 0., -.02, .012, "방어")
+      set selectBackStars[1][0] = MakeStars(temp, JN_FRAMEPOINT_LEFT, JN_FRAMEPOINT_LEFT, .040, 0., .020, "Select_stars1.tga")
+      set selectBackStars[1][1] = MakeStars(temp, JN_FRAMEPOINT_LEFT, JN_FRAMEPOINT_LEFT, .060, 0., .020, "Select_stars1.tga")
+      set selectBackStars[1][2] = MakeStars(temp, JN_FRAMEPOINT_LEFT, JN_FRAMEPOINT_LEFT, .080, 0., .020, "Select_stars1.tga")
+      set selectBackStars[1][3] = MakeStars(temp, JN_FRAMEPOINT_LEFT, JN_FRAMEPOINT_LEFT, .100, 0., .020, "Select_stars1.tga")
+      set selectBackStars[1][4] = MakeStars(temp, JN_FRAMEPOINT_LEFT, JN_FRAMEPOINT_LEFT, .120, 0., .020, "Select_stars1.tga")
 
-      set Text = MakeText(Text, JN_FRAMEPOINT_TOPLEFT, JN_FRAMEPOINT_BOTTOMLEFT, 0., -.02, .012, "보조")
-      set selectBackStars[2] [0] = MakeStars(Text, JN_FRAMEPOINT_LEFT, JN_FRAMEPOINT_LEFT, .040, 0., .020, "Select_stars1.tga")
-      set selectBackStars[2] [1] = MakeStars(Text, JN_FRAMEPOINT_LEFT, JN_FRAMEPOINT_LEFT, .060, 0., .020, "Select_stars1.tga")
-      set selectBackStars[2] [2] = MakeStars(Text, JN_FRAMEPOINT_LEFT, JN_FRAMEPOINT_LEFT, .080, 0., .020, "Select_stars1.tga")
-      set selectBackStars[2] [3] = MakeStars(Text, JN_FRAMEPOINT_LEFT, JN_FRAMEPOINT_LEFT, .100, 0., .020, "Select_stars1.tga")
-      set selectBackStars[2] [4] = MakeStars(Text, JN_FRAMEPOINT_LEFT, JN_FRAMEPOINT_LEFT, .120, 0., .020, "Select_stars1.tga")
+      set temp = MakeText(temp, JN_FRAMEPOINT_TOPLEFT, JN_FRAMEPOINT_BOTTOMLEFT, 0., -.02, .012, "보조")
+      set selectBackStars[2][0] = MakeStars(temp, JN_FRAMEPOINT_LEFT, JN_FRAMEPOINT_LEFT, .040, 0., .020, "Select_stars1.tga")
+      set selectBackStars[2][1] = MakeStars(temp, JN_FRAMEPOINT_LEFT, JN_FRAMEPOINT_LEFT, .060, 0., .020, "Select_stars1.tga")
+      set selectBackStars[2][2] = MakeStars(temp, JN_FRAMEPOINT_LEFT, JN_FRAMEPOINT_LEFT, .080, 0., .020, "Select_stars1.tga")
+      set selectBackStars[2][3] = MakeStars(temp, JN_FRAMEPOINT_LEFT, JN_FRAMEPOINT_LEFT, .100, 0., .020, "Select_stars1.tga")
+      set selectBackStars[2][4] = MakeStars(temp, JN_FRAMEPOINT_LEFT, JN_FRAMEPOINT_LEFT, .120, 0., .020, "Select_stars1.tga")
 
-      set Text = MakeText(Text, JN_FRAMEPOINT_TOPLEFT, JN_FRAMEPOINT_BOTTOMLEFT, 0., -.02, .012, "방해")
-      set selectBackStars[3] [0] = MakeStars(Text, JN_FRAMEPOINT_LEFT, JN_FRAMEPOINT_LEFT, .040, 0., .020, "Select_stars1.tga")
-      set selectBackStars[3] [1] = MakeStars(Text, JN_FRAMEPOINT_LEFT, JN_FRAMEPOINT_LEFT, .060, 0., .020, "Select_stars1.tga")
-      set selectBackStars[3] [2] = MakeStars(Text, JN_FRAMEPOINT_LEFT, JN_FRAMEPOINT_LEFT, .080, 0., .020, "Select_stars1.tga")
-      set selectBackStars[3] [3] = MakeStars(Text, JN_FRAMEPOINT_LEFT, JN_FRAMEPOINT_LEFT, .100, 0., .020, "Select_stars1.tga")
-      set selectBackStars[3] [4] = MakeStars(Text, JN_FRAMEPOINT_LEFT, JN_FRAMEPOINT_LEFT, .120, 0., .020, "Select_stars1.tga")
+      set temp = MakeText(temp, JN_FRAMEPOINT_TOPLEFT, JN_FRAMEPOINT_BOTTOMLEFT, 0., -.02, .012, "방해")
+      set selectBackStars[3][0] = MakeStars(temp, JN_FRAMEPOINT_LEFT, JN_FRAMEPOINT_LEFT, .040, 0., .020, "Select_stars1.tga")
+      set selectBackStars[3][1] = MakeStars(temp, JN_FRAMEPOINT_LEFT, JN_FRAMEPOINT_LEFT, .060, 0., .020, "Select_stars1.tga")
+      set selectBackStars[3][2] = MakeStars(temp, JN_FRAMEPOINT_LEFT, JN_FRAMEPOINT_LEFT, .080, 0., .020, "Select_stars1.tga")
+      set selectBackStars[3][3] = MakeStars(temp, JN_FRAMEPOINT_LEFT, JN_FRAMEPOINT_LEFT, .100, 0., .020, "Select_stars1.tga")
+      set selectBackStars[3][4] = MakeStars(temp, JN_FRAMEPOINT_LEFT, JN_FRAMEPOINT_LEFT, .120, 0., .020, "Select_stars1.tga")
 
-      set Text = MakeText(Text, JN_FRAMEPOINT_TOPLEFT, JN_FRAMEPOINT_BOTTOMLEFT, 0., -.02, .012, "난이도")
-      set selectBackStars[4] [0] = MakeStars(Text, JN_FRAMEPOINT_LEFT, JN_FRAMEPOINT_LEFT, .040, 0., .020, "Select_stars2.tga")
-      set selectBackStars[4] [1] = MakeStars(Text, JN_FRAMEPOINT_LEFT, JN_FRAMEPOINT_LEFT, .060, 0., .020, "Select_stars2.tga")
-      set selectBackStars[4] [2] = MakeStars(Text, JN_FRAMEPOINT_LEFT, JN_FRAMEPOINT_LEFT, .080, 0., .020, "Select_stars2.tga")
-      set selectBackStars[4] [3] = MakeStars(Text, JN_FRAMEPOINT_LEFT, JN_FRAMEPOINT_LEFT, .100, 0., .020, "Select_stars2.tga")
-      set selectBackStars[4] [4] = MakeStars(Text, JN_FRAMEPOINT_LEFT, JN_FRAMEPOINT_LEFT, .120, 0., .020, "Select_stars2.tga")
-
-      set Text = MakeText(select_Main, JN_FRAMEPOINT_TOPLEFT, JN_FRAMEPOINT_TOPLEFT, .02, -.02, .010, "|cff8f8f8f피해 유형")
-      set selectTextCharacterDamageType = MakeText(Text, JN_FRAMEPOINT_LEFT, JN_FRAMEPOINT_LEFT, .07, 0., .015, "|cff0080c0마법 데미지")
-      set Text = MakeText(select_Main, JN_FRAMEPOINT_TOPLEFT, JN_FRAMEPOINT_TOPLEFT, .02, -.04, .010, "|cff8f8f8f사용(전용)무기")
-      set selectTextCharacterMainWeapon = MakeText(Text, JN_FRAMEPOINT_LEFT, JN_FRAMEPOINT_LEFT, .07, 0., .012, "[완드] [지팡이]")
+      set temp = MakeText(temp, JN_FRAMEPOINT_TOPLEFT, JN_FRAMEPOINT_BOTTOMLEFT, 0., -.02, .012, "난이도")
+      set selectBackStars[4][0] = MakeStars(temp, JN_FRAMEPOINT_LEFT, JN_FRAMEPOINT_LEFT, .040, 0., .020, "Select_stars2.tga")
+      set selectBackStars[4][1] = MakeStars(temp, JN_FRAMEPOINT_LEFT, JN_FRAMEPOINT_LEFT, .060, 0., .020, "Select_stars2.tga")
+      set selectBackStars[4][2] = MakeStars(temp, JN_FRAMEPOINT_LEFT, JN_FRAMEPOINT_LEFT, .080, 0., .020, "Select_stars2.tga")
+      set selectBackStars[4][3] = MakeStars(temp, JN_FRAMEPOINT_LEFT, JN_FRAMEPOINT_LEFT, .100, 0., .020, "Select_stars2.tga")
+      set selectBackStars[4][4] = MakeStars(temp, JN_FRAMEPOINT_LEFT, JN_FRAMEPOINT_LEFT, .120, 0., .020, "Select_stars2.tga")
     endmethod
     private static method CreateSelectSkillPreview takes nothing returns nothing
+      local integer temp = 1
       set select_SkillPreview = MakeBack(DzGetGameUI(), JN_FRAMEPOINT_TOPLEFT, .62, .34, .16, .12, "Select_BackRedRed.blp")
       call MakeText(select_SkillPreview, JN_FRAMEPOINT_TOPLEFT, JN_FRAMEPOINT_TOPLEFT, .01, -.01, .010, "|cff8f8f8f주요 스킬 보기")
+
+      set temp = MakeText(select_LeftPreview, JN_FRAMEPOINT_TOPLEFT, JN_FRAMEPOINT_TOPLEFT, .02, -.02, .010, "|cff8f8f8f피해 유형")
+      set selectTextCharacterDamageType = MakeText(temp, JN_FRAMEPOINT_LEFT, JN_FRAMEPOINT_LEFT, .07, 0., .015, "|cff0080c0마법 데미지")
+      set temp = MakeText(select_LeftPreview, JN_FRAMEPOINT_TOPLEFT, JN_FRAMEPOINT_TOPLEFT, .02, -.04, .010, "|cff8f8f8f사용(전용)무기")
+      set selectTextCharacterMainWeapon = MakeText(temp, JN_FRAMEPOINT_LEFT, JN_FRAMEPOINT_LEFT, .07, 0., .012, "[완드][지팡이]")
+
       set selectButtonSkills[0] = MakeButton(select_SkillPreview, SELECT_MENU_PRESKILL, 1, JN_FRAMEPOINT_TOP, JN_FRAMEPOINT_TOPLEFT, .024, -.03, .0275, "war3mapImported\\frame_kakao.blp")
       set selectButtonSkills[1] = MakeButton(select_SkillPreview, SELECT_MENU_PRESKILL, 2, JN_FRAMEPOINT_TOP, JN_FRAMEPOINT_TOPLEFT, .061, -.03, .0275, "war3mapImported\\frame_kakao.blp")
       set selectButtonSkills[2] = MakeButton(select_SkillPreview, SELECT_MENU_PRESKILL, 3, JN_FRAMEPOINT_TOP, JN_FRAMEPOINT_TOPLEFT, .099, -.03, .0275, "war3mapImported\\frame_kakao.blp")
@@ -349,7 +353,7 @@ scope Select
       set selectTextSkillPreviewDescription2 = MakeText(selectTextSkillPreviewDescription1, JN_FRAMEPOINT_TOPLEFT, JN_FRAMEPOINT_BOTTOMLEFT, 0., 0., .008, "|cffff800060%|r만큼 마법피해를 최대 |cffff80003|r회 입힙니다.")
 
       // 시작하기
-      set selectButtonStart = DzCreateFrameByTagName("BUTTON", "", select_Main, "ScoreScreenTabButtonTemplate", CountAdder())
+      set selectButtonStart = DzCreateFrameByTagName("BUTTON", "", select_SkillPreview, "ScoreScreenTabButtonTemplate", CountAdder())
       call DzFrameSetPoint(selectButtonStart, JN_FRAMEPOINT_TOP, selectTextSkillPreviewDescription2, JN_FRAMEPOINT_BOTTOM, 0., -.005)
       call DzFrameSetSize(selectButtonStart, .11, .03)
       call DzFrameSetScriptByCode(selectButtonStart, JN_FRAMEEVENT_MOUSE_UP, function Select.ButtonStart, true)
@@ -436,7 +440,7 @@ scope Select
     private static method onInit takes nothing returns nothing
       local integer loopA = 1
       if ( PlayerResource.ALL_PLAYING_COUNT <= 0 ) then
-        call MsgAll("오류 / 플레이어 초기값이 설정되지 않았습니다.")
+        call MsgAll("오류 / 플레이어[전체] 초기값이 설정되지 않았습니다.")
         return
       endif
 
