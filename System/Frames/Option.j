@@ -88,7 +88,7 @@ scope Option initializer Init
       call DzFrameShow(GetSettingFrame(), false)
     endif
   endfunction
-  private function SettingHotKey takes integer index, real x, real y returns nothing
+  private function SettingHotKey takes integer index, integer parent, real x, real y returns nothing
     set Frame_Setting[index] = DzCreateFrameByTagName("GLUETEXTBUTTON", "", GetSettingFrameSub(), "ScriptDialogButton", CountAdder())
     if ( 0 < index and index <= EHotkeyMenu.HOTKEY_SKILL_END ) then
       call EMenus.FrameSaveIDAndHotkey(Frame_Setting[index], QUICK_MENU_SKILLSLOT, index, EHotkeyMenu.SkillSlot1-1)
@@ -100,7 +100,7 @@ scope Option initializer Init
       call EMenus.FrameSaveIDs(Frame_Setting[index], SELECT_OTHER, index)
     endif
     call DzFrameSetSize(Frame_Setting[index], .02667, .02667)
-    call DzFrameSetPoint(Frame_Setting[index], JN_FRAMEPOINT_LEFT, GetSettingFrameSub(), JN_FRAMEPOINT_LEFT, .1 + x, y)
+    call DzFrameSetPoint(Frame_Setting[index], JN_FRAMEPOINT_LEFT, parent, JN_FRAMEPOINT_LEFT, .1 + x, y)
     call DzFrameSetScriptByCode(Frame_Setting[index], JN_FRAMEEVENT_MOUSE_UP, function SettingClick, false)
   endfunction
   
@@ -122,13 +122,6 @@ scope Option initializer Init
     set temp = MakeText(HotkeyData[EHotkeyMenu.Main6ViewHotkeys].Name, .016, 0., 6.)
     call SettingButton(EHotkeyMenu.Main6ViewHotkeys, temp, "|cfffed312ON |cffffffff/ |c004f4f4fOFF")
 
-    call MakeText("|cfffed312단축키 설정", 0.015, -.01, 7.)
-    call MakeText("스킬1~8", .024, 0., 8.)
-    call MakeText("핫슬롯1~7", .024, 0., 9.75)
-    call MakeText("카톡/디코/설정", 0., 0., 11.25)
-    call MakeText("자동공격/인벤토리", 0., 0., 12.25)
-    call MakeText("상태창/스킬/임시", 0., 0., 13.25)
-
     set temp = DzCreateFrameByTagName("GLUETEXTBUTTON", "", GetSettingFrameSub(), "ScriptDialogButton", CountAdder())
     call DzFrameSetPoint(temp, JN_FRAMEPOINT_LEFT, GetSettingFrame(), JN_FRAMEPOINT_BOTTOMLEFT, 0.01, .02)
     call DzFrameSetSize(temp, .14, 0.03)
@@ -141,35 +134,43 @@ scope Option initializer Init
     call DzFrameSetText(temp, "닫기")
     call DzFrameSetScriptByCode(temp, JN_FRAMEEVENT_MOUSE_UP, function OnClickCloseButton, false)
   endfunction
+
   private function CreateHotKeyIcons takes nothing returns nothing
-    // 인덱스 동기화
-    call SettingHotKey(EHotkeyMenu.SkillSlot1, 0., 0.01)
-    call SettingHotKey(EHotkeyMenu.SkillSlot2, 0.02, 0.01)
-    call SettingHotKey(EHotkeyMenu.SkillSlot3, 0.04, 0.01)
-    call SettingHotKey(EHotkeyMenu.SkillSlot4, 0.06, 0.01)
-    call SettingHotKey(EHotkeyMenu.SkillSlot5, 0., -0.01)
-    call SettingHotKey(EHotkeyMenu.SkillSlot6, 0.02, -0.01)
-    call SettingHotKey(EHotkeyMenu.SkillSlot7, 0.04, -0.01)
-    call SettingHotKey(EHotkeyMenu.SkillSlot8, 0.06, -0.01)
+    local integer temp = 0
+    call MakeText("|cfffed312단축키 설정", 0.015, -.01, 7.)
+    set temp = MakeText("스킬1~8", .024, 0., 8.)
+    call SettingHotKey(EHotkeyMenu.SkillSlot1, temp, 0., 0.01)
+    call SettingHotKey(EHotkeyMenu.SkillSlot2, temp, 0.02, 0.01)
+    call SettingHotKey(EHotkeyMenu.SkillSlot3, temp, 0.04, 0.01)
+    call SettingHotKey(EHotkeyMenu.SkillSlot4, temp, 0.06, 0.01)
+    call SettingHotKey(EHotkeyMenu.SkillSlot5, temp, 0., -0.01)
+    call SettingHotKey(EHotkeyMenu.SkillSlot6, temp, 0.02, -0.01)
+    call SettingHotKey(EHotkeyMenu.SkillSlot7, temp, 0.04, -0.01)
+    call SettingHotKey(EHotkeyMenu.SkillSlot8, temp, 0.06, -0.01)
 
-    call SettingHotKey(EHotkeyMenu.ItemSlot1, 0., 0.01)
-    call SettingHotKey(EHotkeyMenu.ItemSlot2, 0.02, 0.01)
-    call SettingHotKey(EHotkeyMenu.ItemSlot3, 0.04, 0.01)
-    call SettingHotKey(EHotkeyMenu.ItemSlot4, 0.06, 0.01)
-    call SettingHotKey(EHotkeyMenu.ItemSlot5, 0.01, -0.01)
-    call SettingHotKey(EHotkeyMenu.ItemSlot6, 0.03, -0.01)
-    call SettingHotKey(EHotkeyMenu.ItemSlot7, 0.05, -0.01)
+    set temp = MakeText("핫슬롯1~7", .024, 0., 9.75)
+    call SettingHotKey(EHotkeyMenu.ItemSlot1, temp, 0., 0.01)
+    call SettingHotKey(EHotkeyMenu.ItemSlot2, temp, 0.02, 0.01)
+    call SettingHotKey(EHotkeyMenu.ItemSlot3, temp, 0.04, 0.01)
+    call SettingHotKey(EHotkeyMenu.ItemSlot4, temp, 0.06, 0.01)
+    call SettingHotKey(EHotkeyMenu.ItemSlot5, temp, 0.01, -0.01)
+    call SettingHotKey(EHotkeyMenu.ItemSlot6, temp, 0.03, -0.01)
+    call SettingHotKey(EHotkeyMenu.ItemSlot7, temp, 0.05, -0.01)
     
-    call SettingHotKey(EHotkeyMenu.SubMenuKakaotalk, 0., 0.)
-    call SettingHotKey(EHotkeyMenu.SubMenuDiscord, 0.03, 0.)
-    call SettingHotKey(EHotkeyMenu.SubMenuSetting, 0.06, 0.)
+    set temp = MakeText("카톡/디코/설정", 0., 0., 11.25)
+    call SettingHotKey(EHotkeyMenu.SubMenuKakaotalk, temp, 0., 0.)
+    call SettingHotKey(EHotkeyMenu.SubMenuDiscord, temp, 0.03, 0.)
+    call SettingHotKey(EHotkeyMenu.SubMenuSetting, temp, 0.06, 0.)
 
-    call SettingHotKey(EHotkeyMenu.SubMenuAutoCombat, 0.01, 0.)
-    call SettingHotKey(EHotkeyMenu.SubMenuInventory, 0.04, 0.)
+    set temp = MakeText("자동공격/인벤토리", 0., 0., 12.25)
+    call SettingHotKey(EHotkeyMenu.SubMenuAutoCombat, temp, 0.01, 0.)
+    call SettingHotKey(EHotkeyMenu.SubMenuInventory, temp, 0.04, 0.)
 
-    call SettingHotKey(EHotkeyMenu.SubMenuStatus, 0., 0.)
-    call SettingHotKey(EHotkeyMenu.SubMenuSkillTree, 0.03, 0.)
-    call SettingHotKey(EHotkeyMenu.SubMenuSmartMode, 0.06, 0.)
+    set temp = MakeText("상태창/스킬/임시", 0., 0., 13.25)
+    call SettingHotKey(EHotkeyMenu.SubMenuStatus, temp, 0., 0.)
+    call SettingHotKey(EHotkeyMenu.SubMenuSkillTree, temp, 0.03, 0.)
+    call SettingHotKey(EHotkeyMenu.SubMenuSmartMode, temp, 0.06, 0.)
+
     call DzFrameShow(GetSettingFrame(), false)
   endfunction
   private function Init takes nothing returns nothing

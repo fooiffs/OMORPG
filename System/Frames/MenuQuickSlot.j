@@ -6,13 +6,15 @@ scope MenuQuickSlot
     // - 단축키[T]가 아이템[7]에 등록되었습니다.
     
     // - (변경) 
-    static method AddReg takes integer P, integer MenuNo, integer Hotkey returns nothing
+    static method AddReg takes integer P, integer MenuNo, integer Hotkey, boolean showMessage returns nothing
       local string s = ""
       local integer i = 0
       if ( EHotkeys.I2H(Hotkey) == "" ) then
-        call DisplayTimedTextToPlayer(Player(P-1),0,0,4.,"등록할 수 없는 단축키입니다. -" +I2S(Hotkey) + "=" + EHotkeys.I2H(Hotkey))
+        call Msg(Player(P-1), "오류/단축키/등록할 수 없는 단축키입니다. -" +I2S(Hotkey) + "=" + EHotkeys.I2H(Hotkey))
       elseif ( MenuNo <= 0 or EHotkeyMenu.HOTKEY_MENU_END < MenuNo ) then
-        call DisplayTimedTextToPlayer(Player(P-1),0,0,4.,"등록할 수 없는 메뉴입니다.. -" +I2S(MenuNo) + "=" + EMenus.GetTypeName(EMenus.GetMainType(Quickmenu_Buttons[MenuNo])) + "[" + I2S(EMenus.GetSubTypeId(Quickmenu_Buttons[MenuNo])) + "]")
+        call Msg(Player(P-1), "오류/단축키/등록할 수 없는 메뉴입니다.. -" +I2S(MenuNo) + "=" + EMenus.GetTypeName(EMenus.GetMainType(Quickmenu_Buttons[MenuNo])) + "[" + I2S(EMenus.GetSubTypeId(Quickmenu_Buttons[MenuNo])) + "]")
+      elseif ( MenuNo == LoadInteger(hash, P, Hotkey) and Hotkey == LoadInteger(hash, P, MenuNo) ) then
+        call Msg(Player(P-1), "오류/단축키/같은 단축키. 메뉴[" + I2S(MenuNo) + "]와 단축키[" + EHotkeys.I2H(Hotkey) + "(" +I2S(Hotkey)+ ")]")
       else
         set s = I2S(MenuNo) + " = " + EMenus.GetTypeName(EMenus.GetMainType(Quickmenu_Buttons[MenuNo])) + "[" + I2S(EMenus.GetSubTypeId(Quickmenu_Buttons[MenuNo])) + "] 단축키: "
         
@@ -43,7 +45,9 @@ scope MenuQuickSlot
         if ( GetLocalPlayer() == Player(P-1) ) then
           call DzFrameSetText(LoadInteger(hash, LoadInteger(hash, StringHash("FUI_HotKeyBase"), MenuNo), StringHash("FUI_HotKey")), EHotkeys.I2H(Hotkey))
         endif
-        call DisplayTimedTextToPlayer(Player(P-1),0,0,7.,s)
+        if ( showMessage ) then
+          call DisplayTimedTextToPlayer(Player(P-1),0,0,7.,s)
+        endif
       endif
 
       /*hotkey에서 MenuNo 반환되어야함
@@ -308,7 +312,7 @@ scope MenuQuickSlot
         set tempKey = EHotkeys.H2I(MenuQuickSlot.BaseHotKeyRaw(loopA))
         call SaveInteger(hash, P, loopA, tempKey)
         call SaveInteger(hash, tempKey, P, loopA)
-        call MenuQuickSlot.AddReg(P, loopA, tempKey) 
+        call MenuQuickSlot.AddReg(P, loopA, tempKey, false) 
         
         exitwhen loopA >= QUICK_MENU_COUNT_ALL
         set loopA = loopA + 1 

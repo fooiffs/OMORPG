@@ -13,7 +13,7 @@ scope AddReg initializer Init
       call SaveInteger(hash, P, loopA, tempKey)
       call SaveInteger(hash, tempKey, P, loopA)
       //call BJDebugMsg("기본 등록 - " + I2S(loopA) + "번째 메뉴: " + MenuQuickSlot.BaseHotKey(loopA)) 
-      call MenuQuickSlot.AddReg(P, loopA, tempKey) 
+      call MenuQuickSlot.AddReg(P, loopA, tempKey, true) 
       
       exitwhen loopA >= QUICK_MENU_COUNT_ALL
       set loopA = loopA + 1 
