@@ -26,7 +26,6 @@ scope Select
     private static constant real defaultY = 5440.
 
     // 프레임 선언
-    private static integer currentCount = 0
     
     private static integer select_Main = 0
     private static integer select_LeftPreview = 0
@@ -209,11 +208,6 @@ scope Select
       call DzFrameSetTexture(temp, texture, 0)
       return temp
     endmethod
-    private static method CountAdder takes nothing returns integer
-      set currentCount = currentCount + 1
-      return currentCount
-    endmethod
-
     private static method MakeBack takes integer parent, integer point, real x, real y, real xx, real yy, string texture returns integer
       local integer temp = DzCreateFrameByTagName("BACKDROP", "", parent, "", CountAdder())
       call DzFrameSetAbsolutePoint(temp, point, x, y)
@@ -223,7 +217,7 @@ scope Select
     endmethod
     private static method MakeText takes integer parent, integer point, integer point2, real x, real y, real size, string text returns integer
       local integer temp = DzCreateFrameByTagName("TEXT", "", parent, "", CountAdder())
-      if ( currentCount <= 2 ) then
+      if ( select_Main == 0 ) then
         call DzFrameSetFont(temp, "Fonts\\MoonEpi2.ttf", size, 0)
       else
         call DzFrameSetFont(temp, "Fonts\\DFHeiMd.ttf", size, 0)

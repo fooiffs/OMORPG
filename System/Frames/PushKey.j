@@ -31,7 +31,7 @@ scope PushKey initializer Init
         endif
       endif
     elseif ( 0 < LoadInteger(hash, P, Clicked) ) then
-      call MsgAll(GetPlayerName(p) + " Click2: " + EHotkeys.I2H(Clicked) + " = " + I2S(LoadInteger(hash, P, Clicked)) + " = " + EMenus.GetTypeName(EMenus.GetMainType(Clicked)) + "." + I2S(EMenus.GetSubTypeId(Clicked)))
+      call MsgAll(GetPlayerName(p) + " 단축키: [" + EHotkeys.I2H(Clicked) + "] = " + I2S(LoadInteger(hash, P, Clicked)) + " = " + EMenus.GetTypeName(EMenus.GetMainType(Clicked)) + "." + I2S(EMenus.GetSubTypeId(Clicked)))
 
       set Clicked = Quickmenu_Buttons[LoadInteger(hash, P, Clicked)]
       if ( EMenus.GetMainType(Clicked) == QUICK_MENU_MENU ) then

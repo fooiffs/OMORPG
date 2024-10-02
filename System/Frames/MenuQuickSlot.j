@@ -155,8 +155,8 @@ scope MenuQuickSlot
       call ButtonClickDetail(DzGetTriggerUIEventPlayer(), DzGetTriggerUIEventFrame())
     endmethod
     private static method CreateHotKey takes integer frame returns nothing
-      local integer HotFrame = DzCreateFrame("CommandButtonHotKeyBackDrop", frame, currentCount)
-      local integer HotFrameTxt = DzCreateFrame("CommandButtonHotKeyText", HotFrame, currentCount)
+      local integer HotFrame = DzCreateFrame("CommandButtonHotKeyBackDrop", frame, CountAdder())
+      local integer HotFrameTxt = DzCreateFrame("CommandButtonHotKeyText", HotFrame, CountAdder())
       call DzFrameSetTexture(HotFrame, "ui\\widgets\\console\\human\\commandbutton\\human-button-lvls-overlay.blp", 0)
       call DzFrameSetPoint(HotFrame, JN_FRAMEPOINT_TOPLEFT, frame, JN_FRAMEPOINT_TOPLEFT, -.001, .001)
       call DzFrameSetPoint(HotFrameTxt, JN_FRAMEPOINT_CENTER, HotFrame, JN_FRAMEPOINT_CENTER, 0., 0.)
@@ -171,7 +171,7 @@ scope MenuQuickSlot
       set currentCount = currentCount + 1
 
       // MainButton
-      set Quickmenu_Buttons[currentCount] = DzCreateFrameByTagName("BUTTON", "", GetMainFrame(), "ScoreScreenTabButtonTemplate", 0)
+      set Quickmenu_Buttons[currentCount] = DzCreateFrameByTagName("BUTTON", "", GetMainFrame(), "ScoreScreenTabButtonTemplate", CountAdder())
       call DzFrameSetAbsolutePoint(Quickmenu_Buttons[currentCount], JN_FRAMEPOINT_BOTTOMLEFT, x, y)
       call DzFrameSetSize(Quickmenu_Buttons[currentCount], size, size)
 
@@ -182,7 +182,7 @@ scope MenuQuickSlot
       call CreateHotKey(Quickmenu_Buttons[currentCount])
 
       // Backdrop
-      set Quickmenu_Backdrops[currentCount]=DzCreateFrameByTagName("BACKDROP", "", Quickmenu_Buttons[currentCount], "", 0)
+      set Quickmenu_Backdrops[currentCount]=DzCreateFrameByTagName("BACKDROP", "", Quickmenu_Buttons[currentCount], "", CountAdder())
       call DzFrameSetAllPoints(Quickmenu_Backdrops[currentCount], Quickmenu_Buttons[currentCount])
       call DzFrameSetTexture(Quickmenu_Backdrops[currentCount], iconPath, 0)
     endmethod
@@ -210,15 +210,14 @@ scope MenuQuickSlot
     private static method CreateItemFrames takes integer offset returns nothing
       loop
         call CreateButtons(QUICK_MENU_ITEMSLOT, offset, .4215+(currentCount*.025), .03, .0235, "Inven_Empty.blp")
-        exitwhen currentCount >= QUICK_MENU_ITEM_COUNT
-        set currentCount = currentCount + 1
+        exitwhen QUICK_MENU_ITEM_COUNT <= currentCount
       endloop
     endmethod
 
     private static method InitUnitDetails takes nothing returns nothing
       local integer i = 0
       /* 플레이어 이름 */
-      set i = DzCreateFrameByTagName("TEXT", "", GetSubFrame(), "", 0)
+      set i = DzCreateFrameByTagName("TEXT", "", GetSubFrame(), "", CountAdder())
       call DzFrameSetAbsolutePoint(i, JN_FRAMEPOINT_CENTER , .25, .07)
       call DzFrameSetText(i, GetPlayerName(GetLocalPlayer()))
       
@@ -248,15 +247,12 @@ scope MenuQuickSlot
 
     // 퀵슬롯 메뉴 생성(+단축키 지정)
     private static method onInit takes nothing returns nothing
-      /* 메인 프레임 생성 */
-      call MsgAll("made Quickslot1 : " + I2S(currentCount) + "." + I2S(GetMainFrame()))
-      call CreateItemFrames(currentCount) /* to FRAME_SLOT_ITEM_COUNT */
-      call MsgAll("made Quickslot2 : " + I2S(currentCount))
+      // 메인 프레임 - 아이템, 스킬, 디코 등
+      call CreateItemFrames(currentCount)
       call CreateSkillFrames(currentCount)
-      call MsgAll("made Quickslot3 : " + I2S(currentCount))
       call CreateMenuFrames(currentCount)
-      call MsgAll("made Quickslot4 : " + I2S(currentCount))
 
+      // 유닛 프레임(조정만)
       call InitUnitDetails()
     endmethod
   endstruct

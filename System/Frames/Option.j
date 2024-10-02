@@ -5,7 +5,7 @@ scope Option initializer Init
     endglobals
   
     private function Setting takes integer no, string text, real size, real x, real y returns integer
-      set Frame_Setting[no] = DzCreateFrameByTagName("TEXT", "", Frame_SettingBackdrop[1], "", no)
+      set Frame_Setting[no] = DzCreateFrameByTagName("TEXT", "", Frame_SettingBackdrop[1], "", CountAdder())
       if ( size != 0. ) then
         call DzFrameSetFont(Frame_Setting[no], "Fonts\\DFHeiMd.ttf", size, 1)
       endif
@@ -20,7 +20,7 @@ scope Option initializer Init
       call SaveInteger(hash, StringHash("F2I"), frame, number)
     endfunction
     private function SettingButton takes integer i, integer number, string text, code funcHandle returns integer
-      set Frame_Setting[i] = DzCreateFrameByTagName("GLUETEXTBUTTON", "", Frame_SettingBackdrop[1], "ScriptDialogButton", 0)
+      set Frame_Setting[i] = DzCreateFrameByTagName("GLUETEXTBUTTON", "", Frame_SettingBackdrop[1], "ScriptDialogButton", CountAdder())
       call SaveNumber(Frame_Setting[i], number)
       call DzFrameSetSize(Frame_Setting[i], .085, 0.03)
       call DzFrameSetPoint(Frame_Setting[i], JN_FRAMEPOINT_LEFT, Frame_Setting[number], JN_FRAMEPOINT_LEFT, .1, 0.)
@@ -47,7 +47,7 @@ scope Option initializer Init
       endif
     endfunction
     private function SettingHotKey takes integer input, integer parent, real x, real y, string keys returns integer
-      set Frame_Setting[input] = DzCreateFrameByTagName("GLUETEXTBUTTON", "", Frame_SettingBackdrop[1], "ScriptDialogButton", 0)
+      set Frame_Setting[input] = DzCreateFrameByTagName("GLUETEXTBUTTON", "", Frame_SettingBackdrop[1], "ScriptDialogButton", CountAdder())
       // call EMenus.FrameSaveIDs(Frame_Setting[input], types, input)
       call DzFrameSetSize(Frame_Setting[input], .02667, .02667)
       call DzFrameSetPoint(Frame_Setting[input], JN_FRAMEPOINT_LEFT, parent, JN_FRAMEPOINT_LEFT, .1 + x, y)
@@ -68,29 +68,29 @@ scope Option initializer Init
     private function CreateSetting takes nothing returns nothing
      local integer i = 0
       //미니정보창 배경
-      set Frame_SettingBackdrop[i]=DzCreateFrameByTagName("BACKDROP", "", DzGetGameUI(), "QuestButtonBaseTemplate", 0)
+      set Frame_SettingBackdrop[i]=DzCreateFrameByTagName("BACKDROP", "", DzGetGameUI(), "QuestButtonBaseTemplate", CountAdder())
       call DzFrameSetAbsolutePoint(Frame_SettingBackdrop[0], JN_FRAMEPOINT_CENTER, .4, .3)
       call DzFrameSetSize(Frame_SettingBackdrop[i], 0.22, 0.4)
       call DzFrameSetAlpha(Frame_SettingBackdrop[i], 128)
       set i = i + 1
       
-      set Frame_SettingBackdrop[i]=DzCreateFrameByTagName("BACKDROP", "", Frame_SettingBackdrop[0], "QuestButtonBaseTemplate", 0)
+      set Frame_SettingBackdrop[i]=DzCreateFrameByTagName("BACKDROP", "", Frame_SettingBackdrop[0], "QuestButtonBaseTemplate", CountAdder())
       call DzFrameSetPoint(Frame_SettingBackdrop[i], JN_FRAMEPOINT_CENTER, Frame_SettingBackdrop[0], JN_FRAMEPOINT_TOP, 0., -0.015)
       call DzFrameSetSize(Frame_SettingBackdrop[i], 0.05, 0.04)
       call DzFrameSetAlpha(Frame_SettingBackdrop[i], 196)
       set i = i + 1
       
-      set Frame_Setting[0]=DzCreateFrameByTagName("TEXT", "", Frame_SettingBackdrop[1], "", 0)
+      set Frame_Setting[0]=DzCreateFrameByTagName("TEXT", "", Frame_SettingBackdrop[1], "", CountAdder())
       call DzFrameSetPoint(Frame_Setting[0], JN_FRAMEPOINT_CENTER, Frame_SettingBackdrop[1] , JN_FRAMEPOINT_CENTER, 0., 0.)
       call DzFrameSetText(Frame_Setting[0], "|cfffed312설정")
       call DzFrameSetFont(Frame_Setting[0], "Fonts\\DFHeiMd.ttf", .020, 1)
       
-      set i = Setting(1, HotkeyData[1].Name, .016, 0., 1.)
-      set i = Setting(i, HotkeyData[2].Name, .016, 0., 2.)
-      set i = Setting(i, HotkeyData[3].Name, .016, 0., 3.)
-      set i = Setting(i, HotkeyData[4].Name, .016, 0., 4.)
-      set i = Setting(i, HotkeyData[5].Name, .016, 0., 5.)
-      set i = Setting(i, HotkeyData[6].Name, .016, 0., 6.)
+      set i = Setting(1, HotkeyData[EHotkeyMenu.Main1MiniInfo].Name, .016, 0., 1.)
+      set i = Setting(i, HotkeyData[EHotkeyMenu.Main2SimpleEffect].Name, .016, 0., 2.)
+      set i = Setting(i, HotkeyData[EHotkeyMenu.Main3GlobalEffect].Name, .016, 0., 3.)
+      set i = Setting(i, HotkeyData[EHotkeyMenu.Main4FeildOfView].Name, .016, 0., 4.)
+      set i = Setting(i, HotkeyData[EHotkeyMenu.Main5HoldFieldOfView].Name, .016, 0., 5.)
+      set i = Setting(i, HotkeyData[EHotkeyMenu.Main6ViewHotkeys].Name, .016, 0., 6.)
       
       set i = Setting(i, "|cfffed312단축키 설정", 0.015, -.01, 7.)
       set i = Setting(i, "스킬1~8", .024, 0., 8.)
@@ -99,14 +99,14 @@ scope Option initializer Init
       set i = Setting(i, "자동공격/인벤토리", 0., 0., 12.25)
       set i = Setting(i, "상태창/스킬/임시", 0., 0., 13.25)
       
-      set Frame_Setting[i] = DzCreateFrameByTagName("GLUETEXTBUTTON", "", Frame_SettingBackdrop[1], "ScriptDialogButton", 0)
+      set Frame_Setting[i] = DzCreateFrameByTagName("GLUETEXTBUTTON", "", Frame_SettingBackdrop[1], "ScriptDialogButton", CountAdder())
       call DzFrameSetPoint(Frame_Setting[i], JN_FRAMEPOINT_LEFT, Frame_SettingBackdrop[0], JN_FRAMEPOINT_BOTTOMLEFT, 0.01, .02)
       call DzFrameSetSize(Frame_Setting[i], .14, 0.03)
       call DzFrameSetText(Frame_Setting[i], "적용&서버저장(0/2)")
       call DzFrameSetScriptByCode(Frame_Setting[i], JN_FRAMEEVENT_MOUSE_UP, function SettingSave, false)
       set i = i + 1
     
-      set Frame_Setting[i] = DzCreateFrameByTagName("GLUETEXTBUTTON", "", Frame_SettingBackdrop[1], "ScriptDialogButton", 0)
+      set Frame_Setting[i] = DzCreateFrameByTagName("GLUETEXTBUTTON", "", Frame_SettingBackdrop[1], "ScriptDialogButton", CountAdder())
       call DzFrameSetPoint(Frame_Setting[i], JN_FRAMEPOINT_RIGHT, Frame_SettingBackdrop[0], JN_FRAMEPOINT_BOTTOMRIGHT, -0.01, .02)
       call DzFrameSetSize(Frame_Setting[i], .05, 0.03)
       call DzFrameSetText(Frame_Setting[i], "닫기")

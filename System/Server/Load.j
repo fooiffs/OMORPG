@@ -98,7 +98,7 @@ scope Load
         // 불러올 레벨 : [1_0'1.2500] 에서, '1. 의 1을 추출
       set tempInteger = S2I(JNStringSplit(JNStringSplit(tempString, "'", 1), ".", 0))
 
-      call Msg(GetServerPlayer, "로드/플레이어["+I2S(JN_LoaderNow)+"], 슬롯["+I2S(receivedData)+"] 로드, Lv("+I2S(tempInteger)+") 진행중: " + tempString)
+      // call Msg(GetServerPlayer, "로드/플레이어["+I2S(JN_LoaderNow)+"], 슬롯["+I2S(receivedData)+"] 로드, Lv("+I2S(tempInteger)+") 진행중: " + tempString)
 
       // 생성
       set udg_hero[currentPlayerId] = CreateUnit(GetServerPlayer, CharacterData[receivedData].UnitCode, Select.startCreateX, Select.startCreateY, bj_UNIT_FACING)

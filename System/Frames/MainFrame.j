@@ -4,7 +4,9 @@ scope MainFrame initializer Init
       
       private integer Frame_Main = 0
       private integer Frame_Sub = 0
+      private integer currentCount = 0
 
+      
       // integer array Frame_SelectBack
       // integer array Frame_SelectText
 
@@ -36,6 +38,11 @@ scope MainFrame initializer Init
       endif
       return Frame_Sub
     endfunction
+    function CountAdder takes nothing returns integer
+      set currentCount = currentCount + 1
+      return currentCount
+    endfunction
+
     
     private function NoSaveNoTime takes nothing returns nothing
      local integer Relative = 0
@@ -57,6 +64,7 @@ scope MainFrame initializer Init
       call DzFrameSetEnable(DzFrameFindByName("SaveGameFileEditBox", 0), false)
       call DzFrameShow(DzFrameFindByName("SaveGameFileEditBox", 0), false)
     endfunction
+    
     private function Exit takes nothing returns nothing
       call DialogDisplay(GetLocalPlayer(), NoSaveDialog, false)
       call DestroyTimer(GetExpiredTimer())
