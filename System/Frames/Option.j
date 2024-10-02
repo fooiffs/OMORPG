@@ -63,6 +63,8 @@ scope Option initializer Init
       call MsgAll("player: " + GetPlayerName(p) + " clicked Setting["+I2S(index)+"] -> " + I2S(PlayerResource[GetPlayerId(p) + 1].options[index].id))
     endif
   endfunction
+  
+  // 옵션창 안의 버튼 클릭했을때 반응
   private function SettingClick takes nothing returns nothing
     call SettingHotkeyClick(DzGetTriggerUIEventPlayer(), DzGetTriggerUIEventFrame(), EMenus.GetSubTypeId(DzGetTriggerUIEventFrame()))
   endfunction

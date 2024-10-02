@@ -20,9 +20,9 @@ scope EMenuButtons
     static constant integer ItemSlot7 = 15
     static constant integer HOTKEY_ITEM_END = ItemSlot7
     
-    static constant integer SubMenuSetting = 16
+    static constant integer SubMenuKakaotalk = 16
     static constant integer SubMenuDiscord = 17
-    static constant integer SubMenuKakaotalk = 18
+    static constant integer SubMenuSetting = 18
     static constant integer SubMenuAutoCombat = 19
     static constant integer SubMenuInventory = 20
     static constant integer SubMenuStatus = 21

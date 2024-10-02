@@ -92,11 +92,11 @@ scope MenuQuickSlot
       elseif ( menuIndex == EHotkeyMenu.ItemSlot7 ) then
         return "7"
       elseif ( menuIndex == EHotkeyMenu.SubMenuKakaotalk ) then
-        return "F8"
+        return "F6"
       elseif ( menuIndex == EHotkeyMenu.SubMenuDiscord ) then
         return "F7"
       elseif ( menuIndex == EHotkeyMenu.SubMenuSetting ) then
-        return "F6"
+        return "F8"
       elseif ( menuIndex == EHotkeyMenu.SubMenuAutoCombat ) then
         return "F5"
       elseif ( menuIndex == EHotkeyMenu.SubMenuInventory ) then
@@ -133,11 +133,11 @@ scope MenuQuickSlot
         endif
       elseif ( mainType == QUICK_MENU_MENU ) then
         if ( subTypeId == 1 ) then
-          return "F8"
+          return "F6"
         elseif ( subTypeId == 2 ) then
           return "F7"
         elseif ( subTypeId == 3 ) then
-          return "F6"
+          return "F8"
         elseif ( subTypeId == 4 ) then
           return "F5"
         elseif ( subTypeId == 5 ) then
@@ -189,6 +189,7 @@ scope MenuQuickSlot
     endmethod
     static method ButtonClickDetail takes player p, integer frame returns nothing
       local integer playerId = GetPlayerId(p)+1
+      // local integer frameIndex = EMenus.GetSubTypeId(DzGetTriggerUIEventFrame())
       if ( EMenus.GetMainType(frame) == SELECT_MENU_CHARACTER ) then
         set Select.NowSelect[playerId] = EMenus.GetSubTypeId(frame)
         // call MsgAll("플레이어["+I2S(playerId)+"]클릭/캐릭터["+I2S(Select.NowSelect[playerId])+ "] \n   =" +CharacterData[Select.NowSelect[playerId]].SelectDatas)
@@ -201,12 +202,15 @@ scope MenuQuickSlot
         if ( GetLocalPlayer() == p ) then
           call StopSound(gg_snd_BigButtonClick, false, false)
           call StartSound(gg_snd_BigButtonClick)
-          call MenuClick(EMenus.GetAddIndex(frame))
+          call MenuClick(EMenus.GetSubTypeId(frame))
         endif
       elseif ( EMenus.GetMainType(frame) == QUICK_MENU_ITEMSLOT ) then
+        call MsgAll("플레이어["+I2S(playerId)+"]/아이템["+I2S(EMenus.GetSubTypeId(frame)-EHotkeyMenu.ItemSlot1+1)+ "]클릭=메뉴["+I2S(EMenus.GetSubTypeId(frame))+"]")
       elseif ( EMenus.GetMainType(frame) == QUICK_MENU_SKILLSLOT ) then
+        call MsgAll("플레이어["+I2S(playerId)+"]/스킬["+I2S(EMenus.GetSubTypeId(frame)-EHotkeyMenu.SkillSlot1+1)+ "]클릭=메뉴["+I2S(EMenus.GetSubTypeId(frame))+"]")
       endif
     endmethod
+
     static method ButtonClickAll takes nothing returns nothing
       call ButtonClickDetail(DzGetTriggerUIEventPlayer(), DzGetTriggerUIEventFrame())
     endmethod

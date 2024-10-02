@@ -44,12 +44,19 @@ scope IResources
 
     static method onInit takes nothing returns nothing
       local integer loopA = 1
+      local integer loopB = 1
       loop
         if ( GetPlayerController(Player(loopA-1)) == MAP_CONTROL_USER ) and ( GetPlayerSlotState(Player(loopA-1)) == PLAYER_SLOT_STATE_PLAYING ) then
           set ALL_PLAYING_COUNT = ALL_PLAYING_COUNT + 1
           set privatePlayerResource[loopA] = IResource.create(thistype.typeid)
           set privatePlayerResource[loopA].id = loopA
           set privatePlayerResource[loopA].isPlaying = true
+          set loopB = 1
+          loop
+            set privatePlayerResource[loopA].options[loopB] = OptionResource.Create(HotkeyData[loopB].BaseValue, HotkeyData[loopB].IsBoolType)
+            set loopB = loopB + 1
+            exitwhen privatePlayerResource[loopA].options.size <= loopB 
+          endloop
         endif
         exitwhen MAX_PLAYER_COUNT-1 <= loopA
         set loopA = loopA + 1
