@@ -115,7 +115,7 @@ scope Select
       call DzFrameSetTexture(selectBackSkills[3], JNStringSplit(s, "'", 14), 0)
 
       call DzFrameShow(select_Main, true)
-      call DzFrameShow(select_LeftPreview, false)
+      call DzFrameShow(select_LeftPreview, true)
     endmethod
 
     // 유닛 선택 해제 시 갱신 함수
@@ -392,11 +392,10 @@ scope Select
         set selectTextBottomPlayTimes[i]  = MakeText(selectBackBottoms[i], JN_FRAMEPOINT_TOPRIGHT, JN_FRAMEPOINT_TOPRIGHT, .005, .005, .009, "00분")
         set selectTextBottomLoadTypes[i]  = MakeText(selectBackBottoms[i], JN_FRAMEPOINT_BOTTOMRIGHT, JN_FRAMEPOINT_BOTTOMRIGHT, -.01, .008, .013, "이어하기")
         set selectButtonBottoms[i]        = MakeButtonSimple(selectBackBottoms[i], SELECT_MENU_CHARACTER, i, function MenuQuickSlot.ButtonClickAll)
-        call MsgAll("maked: " + I2S(i) + " / " + I2S(MAX_CHARACTER_COUNT) + " / " + I2S(selectBackBottoms[i]) + " / " + I2S(selectTextBottomNameLevels[i]) + " / " + I2S(selectTextBottomPlayTimes[i]) + " / " + I2S(selectTextBottomLoadTypes[i]) + " / " + I2S(selectButtonBottoms[i]))
+        // call MsgAll("maked: " + I2S(i) + " / " + I2S(MAX_CHARACTER_COUNT) + " / " + I2S(selectBackBottoms[i]) + " / " + I2S(selectTextBottomNameLevels[i]) + " / " + I2S(selectTextBottomPlayTimes[i]) + " / " + I2S(selectTextBottomLoadTypes[i]) + " / " + I2S(selectButtonBottoms[i]))
         
-        exitwhen MAX_CHARACTER_COUNT - 1 <= i
         set i = i + 1
-        exitwhen ( i == MAX_CHARACTER_COUNT -1 )
+        exitwhen MAX_CHARACTER_COUNT <= i /* 1~6 */
       endloop
     endmethod
     private static method CreateSelectBottom2 takes player p, string Input returns nothing
@@ -452,8 +451,9 @@ scope Select
       call CreateSelectSkillPreview()
 
       call DzFrameShow(select_Main, true)
-      call DzFrameShow(select_LeftPreview, true)
-      call DzFrameShow(select_SkillPreview, true)
+      call DzFrameShow(select_LeftPreview, false) /* 클릭시 보이게 */
+      call DzFrameShow(select_SkillPreview, false)
+      call DzFrameShow(selectTextSkillPreviewName, false)
 
       loop
         if ( PlayerResource[loopA].isPlaying ) then
