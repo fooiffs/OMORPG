@@ -5,6 +5,7 @@ scope Select
     private static trigger syncTrigger = CreateTrigger()
 
     private static boolean array isSelecting[MAX_PLAYER_COUNT]
+    public static integer array NowSelect[MAX_PLAYER_COUNT]
 
     public static constant string DEFAULT_DATA = "0'0/1_0'1.2500/2_0'0/3_0'0/4_0'0/5_0'0/6_0'0/"
                                           //      ^ Last Slot              (1~6)
@@ -54,6 +55,7 @@ scope Select
     private static integer array selectTextBottomNameLevels[MAX_CHARACTER_COUNT]
     private static integer array selectTextBottomPlayTimes[MAX_CHARACTER_COUNT]
     private static integer array selectTextBottomLoadTypes[MAX_CHARACTER_COUNT]
+    
 
 
     static method SetStars takes integer startnum, integer val, string texture returns nothing
@@ -70,6 +72,7 @@ scope Select
     endmethod
 
     static method ViewInfo takes string s, boolean Continue returns nothing
+      // 좌측 팝업
       // 이름 영어 설명x2
       call DzFrameSetText(selectTextCharacterNameKorean, JNStringSplit(s, "'", 0))
       call DzFrameSetText(selectTextCharacterNameEnglish, JNStringSplit(s, "'", 1))
@@ -83,12 +86,11 @@ scope Select
       call SetStars(3, S2I(JNStringSplit(s, "'", 7)), "Select_stars1.tga")
       call SetStars(4, S2I(JNStringSplit(s, "'", 8)), "Select_stars2.tga")
 
-      // 미리보기 창
+      // 우측 팝업
       if ( SubString(JNStringSplit(s, "'", 9), 0, 10) == "|cffff8000" ) then
         call DzFrameSetTexture(select_SkillPreview, "Select_BackRed.blp", 0)
         call DzFrameSetTexture(selectBackPreviewInter, "Select_BackRedRed.blp", 0)
         
-
         if ( Continue ) then
           call DzFrameSetTexture(selectBackStart, "Select_ContinueRed.blp", 0)
         else
@@ -114,17 +116,18 @@ scope Select
       call DzFrameSetTexture(selectBackSkills[2], JNStringSplit(s, "'", 13), 0)
       call DzFrameSetTexture(selectBackSkills[3], JNStringSplit(s, "'", 14), 0)
 
-      call DzFrameShow(select_Main, true)
+      // call DzFrameShow(select_Main, true)
       call DzFrameShow(select_LeftPreview, true)
+      call DzFrameShow(select_SkillPreview, true)
     endmethod
 
     // 유닛 선택 해제 시 갱신 함수
-    private static method Deselected takes nothing returns nothing
-      if ( GetTriggerPlayer() == GetLocalPlayer() ) then
-        call DzFrameShow(Frame_Sub, false)
-      endif
-      // set SelectedUnit[GetPlayerId(GetTriggerPlayer()) + 1] = null
-    endmethod
+    // private static method Deselected takes nothing returns nothing
+    //   if ( GetTriggerPlayer() == GetLocalPlayer() ) then
+    //     call DzFrameShow(Frame_Sub, false)
+    //   endif
+    //   // set SelectedUnit[GetPlayerId(GetTriggerPlayer()) + 1] = null
+    // endmethod
 
     // // 유닛 선택수 초기화 함수
     // private static method Inter takes nothing returns nothing
@@ -152,14 +155,14 @@ scope Select
       endif
     endmethod
     private static method ButtonJustUp takes nothing returns nothing
-      local integer f = DzGetTriggerUIEventFrame()
-      local integer nowSelectNum = EMenus.GetSubTypeId(f)
-      if ( DzGetTriggerUIEventPlayer() == GetLocalPlayer() ) then
-        set f = 12 + 3 * nowSelectNum
+      local integer characterId = NowSelect[GetPlayerId(DzGetTriggerUIEventPlayer())+1]
+      local integer frameId = EMenus.GetMainType(DzGetTriggerUIEventFrame()) * 3 + 12
+      if ( 0 < frameId and DzGetTriggerUIEventPlayer() == GetLocalPlayer() ) then
+        set frameId = frameId * 3 + 12
 
-        call DzFrameSetText(selectTextSkillPreviewName, "|cffd5d500" + JNStringSplit(CharacterData[nowSelectNum].SelectDatas, "'", f))
-        call DzFrameSetText(selectTextSkillPreviewDescription1, JNStringSplit(CharacterData[nowSelectNum].SelectDatas, "'", f + 1))
-        call DzFrameSetText(selectTextSkillPreviewDescription2, JNStringSplit(CharacterData[nowSelectNum].SelectDatas, "'", f + 2))
+        call DzFrameSetText(selectTextSkillPreviewName, "|cffd5d500" + JNStringSplit(CharacterData[characterId].SelectDatas, "'", frameId))
+        call DzFrameSetText(selectTextSkillPreviewDescription1, JNStringSplit(CharacterData[characterId].SelectDatas, "'", frameId + 1))
+        call DzFrameSetText(selectTextSkillPreviewDescription2, JNStringSplit(CharacterData[characterId].SelectDatas, "'", frameId + 2))
 
         call DzFrameShow(selectTextSkillPreviewName, true)
       endif
@@ -336,12 +339,12 @@ scope Select
     private static method CreateSelectSkillPreview takes nothing returns nothing
       local integer temp = 0
       set select_SkillPreview = MakeBack(DzGetGameUI(), JN_FRAMEPOINT_TOPLEFT, .6, .4, .20, .23, "Select_BackRed.blp")
-      set temp = MakeText(select_SkillPreview, JN_FRAMEPOINT_TOPLEFT, JN_FRAMEPOINT_TOPLEFT, .02, -.02, .010, "|cff8f8f8f피해 유형")
-      set selectTextCharacterDamageType = MakeText(temp, JN_FRAMEPOINT_LEFT, JN_FRAMEPOINT_LEFT, .07, 0., .015, "|cff0080c0마법 데미지")
-      set temp = MakeText(select_SkillPreview, JN_FRAMEPOINT_TOPLEFT, JN_FRAMEPOINT_TOPLEFT, .02, -.04, .010, "|cff8f8f8f사용(전용)무기")
-      set selectTextCharacterMainWeapon = MakeText(temp, JN_FRAMEPOINT_LEFT, JN_FRAMEPOINT_LEFT, .07, 0., .012, "[완드][지팡이]")
+      set temp = MakeText(select_SkillPreview, JN_FRAMEPOINT_TOPLEFT, JN_FRAMEPOINT_TOPLEFT, .02, -.02, .009, "|cff8f8f8f피해 유형")
+      set selectTextCharacterDamageType = MakeText(temp, JN_FRAMEPOINT_LEFT, JN_FRAMEPOINT_LEFT, .07, 0., .011, "|cff0080c0마법 데미지")
+      set temp = MakeText(select_SkillPreview, JN_FRAMEPOINT_TOPLEFT, JN_FRAMEPOINT_TOPLEFT, .02, -.04, .009, "|cff8f8f8f사용(전용)무기")
+      set selectTextCharacterMainWeapon = MakeText(temp, JN_FRAMEPOINT_LEFT, JN_FRAMEPOINT_LEFT, .07, 0., .011, "[완드][지팡이]")
 
-      set selectBackPreviewInter = MakeBack(DzGetGameUI(), JN_FRAMEPOINT_TOPLEFT, .62, .34, .16, .12, "Select_BackRedRed.blp")
+      set selectBackPreviewInter = MakeBack(select_SkillPreview, JN_FRAMEPOINT_TOPLEFT, .62, .34, .16, .12, "Select_BackRedRed.blp")
       call MakeText(selectBackPreviewInter, JN_FRAMEPOINT_TOPLEFT, JN_FRAMEPOINT_TOPLEFT, .01, -.01, .010, "|cff8f8f8f주요 스킬 보기")
       set selectButtonSkills[0] = MakeButton(selectBackPreviewInter, SELECT_MENU_PRESKILL, 1, JN_FRAMEPOINT_TOP, JN_FRAMEPOINT_TOPLEFT, .024, -.03, .0275, "war3mapImported\\frame_kakao.blp")
       set selectButtonSkills[1] = MakeButton(selectBackPreviewInter, SELECT_MENU_PRESKILL, 2, JN_FRAMEPOINT_TOP, JN_FRAMEPOINT_TOPLEFT, .061, -.03, .0275, "war3mapImported\\frame_kakao.blp")
@@ -398,17 +401,17 @@ scope Select
         exitwhen MAX_CHARACTER_COUNT <= i /* 1~6 */
       endloop
     endmethod
-    private static method CreateSelectBottom2 takes player p, string Input returns nothing
+    private static method ChangeSelectBottom takes player p, string input returns nothing
       local string cuttedString
       local integer i = 1
       //아래쪽
       loop
-        set cuttedString = JNStringSplit(Input, "/", i)
+        set cuttedString = JNStringSplit(input, "/", i)
         if ( 0 < S2I(JNStringSplit(JNStringSplit(cuttedString, "'", 1), ".", 0)) ) then
           if ( GetLocalPlayer() == p ) then
             call DzFrameSetTexture(selectBackBottoms[i], "Select_SlotBack75.blp", 0)
             call DzFrameSetFont(selectTextBottomNameLevels[i], "Fonts\\DFHeiMd.ttf", .010, 0)
-            call DzFrameSetText(selectTextBottomNameLevels[i], JNStringSplit(JNStringSplit(CharacterData[i].SelectDatas, "'", 0), " ", 1) + " Lv" + JNStringSplit(JNStringSplit(cuttedString, "'", 1), ".", 0))
+            call DzFrameSetText(selectTextBottomNameLevels[i], JNStringSplit(JNStringSplit(input, "'", 0), " ", 1) + " Lv" + JNStringSplit(JNStringSplit(cuttedString, "'", 1), ".", 0))
             call DzFrameSetFont(selectTextBottomPlayTimes[i], "Fonts\\DFHeiMd.ttf", .009, 0)
             call DzFrameSetText(selectTextBottomPlayTimes[i], MinutesToFormattedTime(S2I(JNStringSplit(JNStringSplit(cuttedString, "'", 0), "_", 1))))
             call DzFrameSetFont(selectTextBottomLoadTypes[i], "Fonts\\DFHeiMd.ttf", .013, 0)
@@ -418,7 +421,7 @@ scope Select
           if ( GetLocalPlayer() == p ) then
             call DzFrameSetTexture(selectBackBottoms[i], "Select_SlotBack50.blp", 0)
             call DzFrameSetFont(selectTextBottomNameLevels[i], "Fonts\\DFHeiMd.ttf", .009, 0)
-            call DzFrameSetText(selectTextBottomNameLevels[i], JNStringSplit(CharacterData[i].SelectDatas, "'", 0) + " (신규)")
+            call DzFrameSetText(selectTextBottomNameLevels[i], JNStringSplit(input, "'", 0) + " (신규)")
             call DzFrameSetText(selectTextBottomPlayTimes[i], "")
             call DzFrameSetFont(selectTextBottomLoadTypes[i], "Fonts\\DFHeiMd.ttf", .008, 0)
             call DzFrameSetText(selectTextBottomLoadTypes[i], "미리보기")
@@ -432,8 +435,12 @@ scope Select
 
     public static method GetSaveData takes player p, string input returns nothing
       set input = IfEmpty(input, DEFAULT_DATA)
+      if ( IsEmpty(input) ) then
+        call Msg(p, "데이터가 비어있습니다.")
+        return
+      endif
       call SaveStr(hash, GetPlayerId(p) + 1, StringHash("Data"), input)
-      call CreateSelectBottom2(p, input)
+      call ChangeSelectBottom(p, input)
       /* 1_시간'레벨.경험치  / 2_시간'레벨.경험치 ... */
     endmethod
 
@@ -459,13 +466,13 @@ scope Select
         if ( PlayerResource[loopA].isPlaying ) then
           set isSelecting[loopA] = true
           call TriggerRegisterPlayerUnitEvent(selectTrigger, Player(loopA - 1), EVENT_PLAYER_UNIT_SELECTED, null)
-          call TriggerRegisterPlayerUnitEvent(deSelectTrigger, Player(loopA - 1), EVENT_PLAYER_UNIT_DESELECTED, null)
+          // call TriggerRegisterPlayerUnitEvent(deSelectTrigger, Player(loopA - 1), EVENT_PLAYER_UNIT_DESELECTED, null)
         endif
         exitwhen MAX_PLAYER_COUNT - 1 <= loopA
         set loopA = loopA + 1
       endloop
       call TriggerAddAction(selectTrigger, function Select.Selected)
-      call TriggerAddAction(deSelectTrigger, function Select.Deselected)
+      // call TriggerAddAction(deSelectTrigger, function Select.Deselected)
 
       call DzTriggerRegisterSyncData(syncTrigger, "Select", false)
       call TriggerAddAction(syncTrigger, function Select.SendSyncedData)

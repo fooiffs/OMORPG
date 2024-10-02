@@ -12,7 +12,7 @@ scope TestScope initializer Init
   endfunction 
   
   private function Init takes nothing returns nothing 
-    call MsgAll("Start") 
+    call MsgAll("- TEST MODE - ")
     // call TimerStart(CreateTimer(), 1., true, function DelayedInit3) 
   endfunction 
 endscope

@@ -443,7 +443,7 @@ scope GlobalInitializer
       set privateCharacterData[index].SelectUnit  = base
       set privateCharacterData[index].UnitCode    = unitCode
       set privateCharacterData[index].SelectDatas = strings
-      call MsgAll(I2S(index) + "설정완료")
+      // call MsgAll(I2S(index) + "설정완료")
     endmethod
     static method onInit takes nothing returns nothing
       set gg_unit_H005_0003 = CreateUnit(Player(PLAYER_NEUTRAL_PASSIVE), 'H005', -9509.4, 5613.9, 243.624 )

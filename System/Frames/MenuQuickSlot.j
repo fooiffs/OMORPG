@@ -134,12 +134,12 @@ scope MenuQuickSlot
     static method ButtonClickDetail takes player p, integer frame returns nothing
       local integer playerId = GetPlayerId(p)+1
       if ( EMenus.GetMainType(frame) == SELECT_MENU_CHARACTER ) then
-        set NowSelect[playerId] = EMenus.GetSubTypeId(frame)
-        // call MsgAll("플레이어["+I2S(playerId)+"]클릭/캐릭터["+I2S(NowSelect[playerId])+ "] \n   =" +CharacterData[NowSelect[playerId]].SelectDatas)
+        set Select.NowSelect[playerId] = EMenus.GetSubTypeId(frame)
+        // call MsgAll("플레이어["+I2S(playerId)+"]클릭/캐릭터["+I2S(Select.NowSelect[playerId])+ "] \n   =" +CharacterData[Select.NowSelect[playerId]].SelectDatas)
         if ( GetLocalPlayer() == p ) then
           call StopSound(gg_snd_MouseClick1, false, false)
           call StartSound(gg_snd_MouseClick1)
-          call Select.ViewInfo(CharacterData[NowSelect[playerId]].SelectDatas, ( 0 < S2I(JNStringSplit(JNStringSplit(LoadStr(hash, playerId, StringHash("Data")),"/",NowSelect[playerId]),"'",1)) ))
+          call Select.ViewInfo(CharacterData[Select.NowSelect[playerId]].SelectDatas, ( 0 < S2I(JNStringSplit(JNStringSplit(LoadStr(hash, playerId, StringHash("Data")),"/",Select.NowSelect[playerId]),"'",1)) ))
         endif
       elseif ( EMenus.GetMainType(frame) == QUICK_MENU_MENU ) then
         if ( GetLocalPlayer() == p ) then

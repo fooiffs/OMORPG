@@ -1,13 +1,4 @@
 scope Load
-  static if false then
-    function Load_ExecuteAction takes player target, integer data returns nothing
-    endfunction
-  endif
-  public function ExecuteAction takes player target, integer data returns nothing
-    set GetServerPlayer = target
-    set NowSelect[GetPlayerId(target)+1] = data
-    call TriggerExecute(Load.triggerLoad)
-  endfunction
   struct Load
     private static string array EquipData2[MAX_SAVE_EQUIP]
     private static string array InvenData2[MAX_SAVE_INVENTORY]
@@ -83,7 +74,7 @@ scope Load
     endmethod
     private static method Actions takes nothing returns nothing
       local integer currentPlayerId = GetPlayerId(GetServerPlayer) + 1
-      local integer receivedData = NowSelect[currentPlayerId]
+      local integer receivedData = Select.NowSelect[currentPlayerId]
       local integer tempInteger = 0
       local string tempString = ""
       
@@ -158,4 +149,13 @@ scope Load
       call TriggerAddAction(triggerLoad, function Load.Actions)
     endmethod
   endstruct
+  static if false then
+    function Load_ExecuteAction takes player target, integer data returns nothing
+    endfunction
+  endif
+  public function ExecuteAction takes player target, integer data returns nothing
+    set GetServerPlayer = target
+    set Select.NowSelect[GetPlayerId(target)+1] = data
+    call TriggerExecute(Load.triggerLoad)
+  endfunction
 endscope

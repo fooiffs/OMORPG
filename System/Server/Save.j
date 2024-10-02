@@ -105,7 +105,7 @@ scope Save initializer Init
     set u = null 
   endfunction 
   private function SaveAction takes nothing returns nothing 
-    call Saving(GetTriggerPlayer(), NowSelect[GetPlayerId(GetTriggerPlayer()) + 1]) 
+    call Saving(GetTriggerPlayer(), Select.NowSelect[GetPlayerId(GetTriggerPlayer()) + 1]) 
   endfunction 
   private function Init takes nothing returns nothing 
     local integer i = 0 

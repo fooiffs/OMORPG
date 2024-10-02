@@ -20,8 +20,6 @@ scope EMainMenus
     integer array Quickmenu_Buttons[QUICK_MENU_COUNT_ALL]
     integer array Quickmenu_Backdrops[QUICK_MENU_COUNT_ALL]
     // integer array Frame_SelectSkills
-    integer array NowSelect
-
   endglobals
 
   struct EMenus
