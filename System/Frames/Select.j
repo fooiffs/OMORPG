@@ -157,8 +157,12 @@ scope Select
     private static method ButtonJustUp takes nothing returns nothing
       local integer characterId = NowSelect[GetPlayerId(DzGetTriggerUIEventPlayer())+1]
       local integer frameId = EMenus.GetSubTypeId(DzGetTriggerUIEventFrame()) * 3 + 15
-      call MsgAll("Input: " + I2S(characterId) + " / " + I2S(EMenus.GetSubTypeId(DzGetTriggerUIEventFrame())) + " -> " + I2S(frameId))
-      if ( 0 < frameId and DzGetTriggerUIEventPlayer() == GetLocalPlayer() ) then
+      if ( EMenus.GetMainType(DzGetTriggerUIEventFrame()) != SELECT_MENU_PRESKILL ) then
+        call MsgAll("등록되지않음/버튼올림/스킬미리보기/" + I2S(characterId) + " / (" + I2S(SELECT_MENU_PRESKILL) + "!=" + I2S(EMenus.GetMainType(DzGetTriggerUIEventFrame())) + "), " + I2S(EMenus.GetSubTypeId(DzGetTriggerUIEventFrame())) + " -> " + I2S(frameId))
+        return
+      endif
+
+      if ( DzGetTriggerUIEventPlayer() == GetLocalPlayer() ) then
         call DzFrameSetText(selectTextSkillPreviewName, "|cffd5d500" + JNStringSplit(CharacterData[characterId].SelectDatas, "'", frameId))
         call DzFrameSetText(selectTextSkillPreviewDescription1, JNStringSplit(CharacterData[characterId].SelectDatas, "'", frameId + 1))
         call DzFrameSetText(selectTextSkillPreviewDescription2, JNStringSplit(CharacterData[characterId].SelectDatas, "'", frameId + 2))
@@ -297,8 +301,8 @@ scope Select
       set select_LeftPreview              = MakeBack(select_Main, JN_FRAMEPOINT_TOPLEFT, .05, .45, .18, .25, "Select_Back.blp")
       set selectTextCharacterNameEnglish  = MakeText(select_LeftPreview, JN_FRAMEPOINT_TOP, JN_FRAMEPOINT_TOP, 0., -.013, .015, "DarkElf Mage")
       set selectTextCharacterNameKorean   = MakeText(select_LeftPreview, JN_FRAMEPOINT_TOPRIGHT, JN_FRAMEPOINT_TOPRIGHT, -.020, -.035, .010, "다크엘프 마법사")
-      set selectTextCharacterDescription1 = MakeText(select_LeftPreview, JN_FRAMEPOINT_LEFT, JN_FRAMEPOINT_TOPLEFT, .20, -.050, .008, "마법사는 강력한 마법 공격과 디버프를 사용해")
-      set selectTextCharacterDescription2 = MakeText(select_LeftPreview, JN_FRAMEPOINT_LEFT, JN_FRAMEPOINT_TOPLEFT, .20, -.060, .008, "적을 괴롭히고 다대다 전투에 강한 직업입니다.")
+      set selectTextCharacterDescription1 = MakeText(select_LeftPreview, JN_FRAMEPOINT_LEFT, JN_FRAMEPOINT_TOPLEFT, .02, -.050, .009, "마법사는 강력한 마법 공격과 디버프를 사용해")
+      set selectTextCharacterDescription2 = MakeText(select_LeftPreview, JN_FRAMEPOINT_LEFT, JN_FRAMEPOINT_TOPLEFT, .02, -.060, .009, "적을 괴롭히고 다대다 전투에 강한 직업입니다.")
 
       set temp = MakeText(select_LeftPreview, JN_FRAMEPOINT_TOPLEFT, JN_FRAMEPOINT_TOPLEFT, .020, -.080, .012, "공격")
       set selectBackStars[0][0] = MakeStars(temp, JN_FRAMEPOINT_LEFT, JN_FRAMEPOINT_LEFT, .040, 0., .020, "Select_stars1.tga")
@@ -394,7 +398,7 @@ scope Select
         set selectTextBottomPlayTimes[i]  = MakeText(selectBackBottoms[i], JN_FRAMEPOINT_TOPRIGHT, JN_FRAMEPOINT_TOPRIGHT, .005, .005, .009, "00분")
         set selectTextBottomLoadTypes[i]  = MakeText(selectBackBottoms[i], JN_FRAMEPOINT_BOTTOMRIGHT, JN_FRAMEPOINT_BOTTOMRIGHT, -.01, .008, .013, "이어하기")
         set selectButtonBottoms[i]        = MakeButtonSimple(selectBackBottoms[i], SELECT_MENU_CHARACTER, i, function MenuQuickSlot.ButtonClickAll)
-        call MsgAll("made bottom: " + JNStringSplit(JNStringSplit(CharacterData[i].SelectDatas, "'", 0), " ", 1))
+        // call MsgAll("made bottom: " + JNStringSplit(JNStringSplit(CharacterData[i].SelectDatas, "'", 0), " ", 1))
         // call MsgAll("maked: " + I2S(i) + " / " + I2S(MAX_CHARACTER_COUNT) + " / " + I2S(selectBackBottoms[i]) + " / " + I2S(selectTextBottomNameLevels[i]) + " / " + I2S(selectTextBottomPlayTimes[i]) + " / " + I2S(selectTextBottomLoadTypes[i]) + " / " + I2S(selectButtonBottoms[i]))
         
         set i = i + 1
@@ -411,7 +415,7 @@ scope Select
           if ( GetLocalPlayer() == p ) then
             call DzFrameSetTexture(selectBackBottoms[i], "Select_SlotBack75.blp", 0)
             call DzFrameSetFont(selectTextBottomNameLevels[i], "Fonts\\DFHeiMd.ttf", .010, 0)
-            call DzFrameSetText(selectTextBottomNameLevels[i], JNStringSplit(JNStringSplit(input, "'", 0), " ", 1) + " Lv" + JNStringSplit(JNStringSplit(cuttedString, "'", 1), ".", 0))
+            call DzFrameSetText(selectTextBottomNameLevels[i], JNStringSplit(JNStringSplit(CharacterData[S2I(JNStringSplit(cuttedString, "'", 0))].SelectDatas, "'", 0), " ", 1) + " Lv" + JNStringSplit(JNStringSplit(cuttedString, "'", 1), ".", 0))
             call DzFrameSetFont(selectTextBottomPlayTimes[i], "Fonts\\DFHeiMd.ttf", .009, 0)
             call DzFrameSetText(selectTextBottomPlayTimes[i], MinutesToFormattedTime(S2I(JNStringSplit(JNStringSplit(cuttedString, "'", 0), "_", 1))))
             call DzFrameSetFont(selectTextBottomLoadTypes[i], "Fonts\\DFHeiMd.ttf", .013, 0)
