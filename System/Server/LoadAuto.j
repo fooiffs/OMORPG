@@ -26,7 +26,7 @@ scope LoadAuto initializer Init
     return false
   endfunction
   function ResetEquip takes integer P returns nothing
-   local integer i = Save_MAX_EQUIP
+   local integer i = MAX_SAVE_EQUIP
     /* 장비 비우기 16~1 */
     loop
       if ( RemoveItemData(LoadItemHandle(hash, P, StringHash("ItemData"+I2S(-i)))) ) then
@@ -39,7 +39,7 @@ scope LoadAuto initializer Init
     endloop
   endfunction
   function ResetInven takes integer P returns nothing
-   local integer i = Save_MAX_INVENTORY
+   local integer i = MAX_SAVE_INVENTORY
    /* 인벤 비우기 1~49 */
     call SaveInteger(hash, P, StringHash("ItemData0"), 1)
     loop
@@ -84,7 +84,7 @@ scope LoadAuto initializer Init
                 call DzSyncData("JNStrSync", I2S(loopB)+"e"+I2S(loopA)+"!"+s)
               endif
             
-              exitwhen loopA >= Save_MAX_EQUIP
+              exitwhen loopA >= MAX_SAVE_EQUIP
               set loopA = loopA + 1
             endloop
             
@@ -92,7 +92,7 @@ scope LoadAuto initializer Init
             if ( s != "" ) then
               call DzSyncData("JNStrSync", I2S(loopB)+"_Name[P]"+"!"+s)
             endif
-            exitwhen loopB >= Save_MAX_CHARACTER
+            exitwhen loopB >= MAX_SAVE_CHARACTER
             set loopB = loopB + 1
           endloop
           set loopA = 1 /* 인벤토리 1~49 */
@@ -101,7 +101,7 @@ scope LoadAuto initializer Init
             if ( s != "" ) then
               call DzSyncData("JNStrSync", "i"+I2S(loopA)+"!"+s)
             endif
-            exitwhen loopA >= Save_MAX_INVENTORY
+            exitwhen loopA >= MAX_SAVE_INVENTORY
             set loopA = loopA + 1
           endloop
         endif
@@ -110,7 +110,7 @@ scope LoadAuto initializer Init
     endif
   endfunction
   private function DataSync takes nothing returns nothing
-    call Select_GetSaveData(DzGetTriggerSyncPlayer(), DzGetTriggerSyncData())
+    call Select.GetSaveData(DzGetTriggerSyncPlayer(), DzGetTriggerSyncData())
   endfunction
   private function AfterLoad takes nothing returns nothing
     if ( udg_hero[GetPlayerId(GetTriggerPlayer())+1] != null ) then

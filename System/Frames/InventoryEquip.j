@@ -723,7 +723,7 @@ scope Equip initializer Init
         call StartSound(gg_snd_HeroDropItem1)
       endif
       if ( Slot == -99 ) then  /* 전체버리기 */
-        set Slot = Save_MAX_INVENTORY
+        set Slot = MAX_SAVE_INVENTORY
         loop
           if ( HaveSavedHandle(hash, P, StringHash("ItemData"+I2S(Slot))) ) then
             set t = LoadItemHandle(hash, P, StringHash("ItemData"+I2S(Slot)))
@@ -777,7 +777,7 @@ scope Equip initializer Init
           call SaveInteger(hash, P, StringHash("ItemData0"), loopA)
           return loopA
         endif
-        exitwhen loopA >= Save_MAX_INVENTORY
+        exitwhen loopA >= MAX_SAVE_INVENTORY
         set loopA = loopA + 1
       endloop
       return 0

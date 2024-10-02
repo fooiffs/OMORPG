@@ -13,7 +13,7 @@ scope Time initializer Init
       if ( GetLocalPlayer() == p ) then
         loop
           set Original[loopA] = S2I(JNStringSplit(JNStringSplit(Data, I2S(loopA)+"_", 1), "'", 0))
-          exitwhen loopA >= Save_MAX_CHARACTER
+          exitwhen loopA >= MAX_SAVE_CHARACTER
           set loopA = loopA + 1
         endloop
         set Original[0] = Original[1] + Original[2] + Original[3] + Original[4] + Original[5] + Original[6]
@@ -34,9 +34,7 @@ scope Time initializer Init
     local string Data = LoadStr(hash, GetPlayerId(p)+1, StringHash("Data"))
     local integer P = GetPlayerId(p)+1
     call Load(p, Slot)
-    if ( Data == null ) or ( Data == "" ) then
-      set Data = Select_DEFAULT_DATA
-    endif
+    set Data = IfEmpty(Data, Select.DEFAULT_DATA)
     /*포맷: LastSlot ' 플탐All */
     set Data = I2S(Slot)+"'"+I2S(Original[0])  +  JNStringSub(Data, JNStringPos(Data, "/"), JNStringLength(Data))
     /*포맷: Slot _ 플탐 ' 레벨 . 경험치 */

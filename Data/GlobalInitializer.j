@@ -3,7 +3,7 @@ scope GlobalInitializer
     // 전역 설정, 초기 설정 관련 scope, like DataBase  
     hashtable hash = InitHashtable()
     constant integer MAX_PLAYER_COUNT = 12 + 1
-    constant integer MAX_CHARACTER_COUNT = 6 + 1
+    constant integer MAX_CHARACTER_COUNT = 6 + 1 /* Save에도 연동됨 */
     constant integer MAX_STAT_COUNT = 32 + 1
     constant integer MAX_SKILL_COUNT = 205 + 1 /* 배열 1 시작, +1 */
     constant integer MAX_OPTION_MENU_COUNT = 30 + 1

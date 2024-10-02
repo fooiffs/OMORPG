@@ -203,7 +203,7 @@ scope ItemRandomEnchanter
       if(GetLocalPlayer() == Player(P - 1)) then 
         call DzFrameSetTexture(Frame_InvenButtonsBackDrop[Slot], EXGetItemDataString(GetItemTypeId(GetManipulatedItem()), 1), 0) 
       endif 
-      call SetItemPosition(GetManipulatedItem(), XX, YY) 
+      call SetItemPosition(GetManipulatedItem(), StoreX, StoreY) 
     else 
       call RemoveItem(GetManipulatedItem()) 
     endif 

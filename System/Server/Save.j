@@ -4,7 +4,7 @@ scope Save initializer Init
     private string array EquipData 
   endglobals 
     
-  private function GetEquipData takes integer P returns nothing 
+  private function LoadEquipData takes integer P returns nothing 
     local integer loopA = 1 
     local item t = null 
     loop 
@@ -14,12 +14,12 @@ scope Save initializer Init
       else 
         set EquipData[loopA] = "" 
       endif 
-      exitwhen MAX_EQUIP-1 <= loopA
+      exitwhen MAX_SAVE_EQUIP-1 <= loopA
       set loopA = loopA + 1 
     endloop 
     set t = null 
   endfunction 
-  private function GetInvenData takes integer P returns nothing 
+  private function LoadInvenData takes integer P returns nothing 
     local integer loopA = 1 
     local item t = null 
     loop 
@@ -29,7 +29,7 @@ scope Save initializer Init
       else 
         set InvenData[loopA] = "" 
       endif 
-      exitwhen MAX_INVENTORY-1 <= loopA
+      exitwhen MAX_SAVE_INVENTORY-1 <= loopA
       set loopA = loopA + 1 
     endloop 
     set t = null 
@@ -59,10 +59,10 @@ scope Save initializer Init
           call JNObjectCharacterSetString(name, I2S(loopB) + "e" + I2S(loopA), s) 
         endif 
           
-        exitwhen MAX_EQUIP-1 <= loopA 
+        exitwhen MAX_SAVE_EQUIP - 1 <= loopA 
         set loopA = loopA + 1 
       endloop 
-      exitwhen loopB >= MAX_CHARACTER 
+      exitwhen MAX_SAVE_CHARACTER-1 <= loopB 
       set loopB = loopB + 1 
     endloop 
   endfunction 
@@ -73,8 +73,8 @@ scope Save initializer Init
     local unit u = udg_hero[P] 
     local boolean SpecialName = GetHeroProperNameIndex(u) > 0 
     local integer loopA = 1 
-    call GetEquipData(P) 
-    call GetInvenData(P) 
+    call LoadEquipData(P) 
+    call LoadInvenData(P) 
     if(GetLocalPlayer() == p) then 
       //if ( first ) then 
       //call JNObjectCharacterResetCharacter(name) 
@@ -97,7 +97,7 @@ scope Save initializer Init
         else 
           call JNObjectCharacterRemoveField(Name[P], "i" + I2S(loopA)) 
         endif 
-        exitwhen MAX_INVENTORY-1 <= loopA 
+        exitwhen MAX_SAVE_INVENTORY-1 <= loopA 
         set loopA = loopA + 1 
       endloop 
       call msgCheck(p, JNObjectCharacterSave(JN_MAPID, Name[P], JN_SECRETKEY, "Save")) 

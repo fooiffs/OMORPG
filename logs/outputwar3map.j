@@ -47,8 +47,8 @@ sound gg_snd_BigButtonClick= null
 sound gg_snd_MouseClick1= null
 sound gg_snd_HeroDropItem1= null
 trigger gg_trg_Import_File= null
-integer JNMemory__FrameMouseXOffset
-integer JNMemory__FrameMouseYOffset
+integer JNMemory___FrameMouseXOffset
+integer JNMemory___FrameMouseYOffset
 constant integer JN_FRAMEPOINT_TOPLEFT= 0
 constant integer JN_FRAMEPOINT_TOP= 1
 constant integer JN_FRAMEPOINT_TOPRIGHT= 2
@@ -88,15 +88,15 @@ constant integer JN_OSKEY_OEM_6= $DD
 constant integer JN_OSKEY_OEM_7= $DE
     
 constant integer JN_MOUSE_BUTTON_TYPE_RIGHT= 2
-constant integer QUICK_MENU_ITEMSLOT=9
+constant integer QUICK_MENU_ITEMSLOT=10
 constant integer QUICK_MENU_SKILLSLOT=11
-constant integer QUICK_MENU_MENU=13
+constant integer QUICK_MENU_MENU=12
 
-constant integer SELECT_MENU_PRESKILL=15
-constant integer SELECT_MENU_CHARACTER=17
+constant integer SELECT_MENU_PRESKILL=13
+constant integer SELECT_MENU_CHARACTER=14
 
-constant integer SKILL_TREE_MAIN=19
-constant integer SKILL_TREE_EXTEND=21
+constant integer SKILL_TREE_MAIN=15
+constant integer SKILL_TREE_EXTEND=16
 
 constant integer QUICK_MENU_ITEM_COUNT= 7
 constant integer QUICK_MENU_SKILL_COUNT= 8
@@ -121,12 +121,12 @@ constant real StoreX= 1280.
 constant real StoreY= 1024.
 
     // 지역 설정  
-// processed:     SkillData array GlobalInitializer__privateSkillData[MAX_SKILL_COUNT]
-// processed:     StatData array GlobalInitializer__privateStatData[MAX_STAT_COUNT]
-// processed:     SlotData array GlobalInitializer__privateSkillSlotData[MAX_SKILL_SLOT]
-// processed:     HotkeyData array GlobalInitializer__privateHotkeyData[MAX_OPTION_MENU_COUNT]
-// processed:     CharacterData array GlobalInitializer__privateCharacterData[MAX_CHARACTER_COUNT]
-// processed:     TreeMainCoreData array GlobalInitializer__privateTreeMainData[MAX_CHARACTER_COUNT]
+// processed:     SkillData array GlobalInitializer___privateSkillData[MAX_SKILL_COUNT]
+// processed:     StatData array GlobalInitializer___privateStatData[MAX_STAT_COUNT]
+// processed:     SlotData array GlobalInitializer___privateSkillSlotData[MAX_SKILL_SLOT]
+// processed:     HotkeyData array GlobalInitializer___privateHotkeyData[MAX_OPTION_MENU_COUNT]
+// processed:     CharacterData array GlobalInitializer___privateCharacterData[MAX_CHARACTER_COUNT]
+// processed:     TreeMainCoreData array GlobalInitializer___privateTreeMainData[MAX_CHARACTER_COUNT]
 
     // 캐릭터
 unit gg_unit_H005_0003= null
@@ -151,21 +151,21 @@ code l__Code
 integer l__Int
 string l__Str
 boolean l__Bool
-integer EndGameHook__pGameWar3
-integer EndGameHook__pSub_35FDF0
-integer EndGameHook__pTrampoline
-integer EndGameHook__pCallback
-integer EndGameHook__pCallbackCodeIndex
-integer EndGameHook__MemoryBlockOldProtect
-integer EndGameHook__pDummy1
-integer EndGameHook__pDummy2
-integer array EndGameHook__originalSub_35FDF0
+integer EndGameHook___pGameWar3
+integer EndGameHook___pSub_35FDF0
+integer EndGameHook___pTrampoline
+integer EndGameHook___pCallback
+integer EndGameHook___pCallbackCodeIndex
+integer EndGameHook___MemoryBlockOldProtect
+integer EndGameHook___pDummy1
+integer EndGameHook___pDummy2
+integer array EndGameHook___originalSub_35FDF0
 
-string EndGameHook__userCallbackName= null
-code EndGameHook__userCallbackCode= null
+string EndGameHook___userCallbackName= null
+code EndGameHook___userCallbackCode= null
 integer GameExitHook__MemoryBlock_block
 integer array l__GameExitHook__MemoryBlock_block
-dialog MainFrame__NoSaveDialog= DialogCreate()
+dialog MainFrame___NoSaveDialog= DialogCreate()
       
       // integer array Frame_SelectBack
       // integer array Frame_SelectText
@@ -185,15 +185,15 @@ integer array Frame_SettingBackdrop
 integer Frame_Main
 integer Frame_Sub
 integer SkillTree_TreeMainFrame
-integer SkillTree__TreePopupFrame
-integer SkillTree__TreeExtendFrame
+integer SkillTree___TreePopupFrame
+integer SkillTree___TreeExtendFrame
 
       // Link : ESkillTree.MainCharacterName 등
-integer array SkillTree__TreeChangeableFrame
-integer array SkillTree__TreeMainSkillButtons
-integer array SkillTree__TreeExtendSmallButtons
+integer array SkillTree___TreeChangeableFrame
+integer array SkillTree___TreeMainSkillButtons
+integer array SkillTree___TreeExtendSmallButtons
 
-integer SkillTree__SkillTreeNow
+integer SkillTree___SkillTreeNow
 
       // private integer array SkillTreeButton
       // public integer array SkillTreeBackdrop
@@ -206,27 +206,27 @@ integer SkillTree__SkillTreeNow
       // private integer array SkillTree2Popup
       
       // public integer array Info
-trigger SkillTree__skillTreeTrigger= CreateTrigger()
+trigger SkillTree___skillTreeTrigger= CreateTrigger()
 
-integer SkillTree__currentPlayerId= 0
-integer SkillTree__currentTreeTypeId= 0
-integer SkillTree__currentContentsId= 0
-integer PortraitEditor__pGameDll
-integer PortraitEditor__pGameUI
-constant integer PortraitEditor__JNProc__fastcall= 3
-boolean PortraitEditor__initializered= false
-boolean array PushKey__ChatState
-integer array Option__Frame_Setting
+integer SkillTree___currentPlayerId= 0
+integer SkillTree___currentTreeTypeId= 0
+integer SkillTree___currentContentsId= 0
+integer PortraitEditor___pGameDll
+integer PortraitEditor___pGameUI
+constant integer PortraitEditor___JNProc__fastcall= 3
+boolean PortraitEditor___initializered= false
+boolean array PushKey___ChatState
+integer array Option___Frame_Setting
 integer array Option_Frame_SettingBackdrop
-constant real Equip__EQUIPSPACEGAP= 0.040
-constant real Equip__EQUIPEDGEGAP=  0.003
+constant real Equip___EQUIPSPACEGAP= 0.040
+constant real Equip___EQUIPEDGEGAP=  0.003
       
-integer array Equip__Equip
+integer array Equip___Equip
 integer array Equip_EquipBackdrop
       
 constant integer JN_FRAMEEVENT_MOUSE_DOUBLECLICK= 12
-boolean array Equip__AllowRightClick
-integer array Equip__OnButtonNumber
+boolean array Equip___AllowRightClick
+integer array Equip___OnButtonNumber
       
       
 constant real Equip_EDGEGAP=  0.0015
@@ -236,26 +236,26 @@ constant real Equip_EDGEGAP2= 0.008
 constant integer ITEM_TOOLTIP_MAXIMUM= 25
 constant integer ITEM_TOOLTIP_HIDE= 8
       
-integer array Equip__Frame_InvenInfo
-integer array Equip__Frame_EquipInfo
-integer array Equip__Frame_Equip2Info
-string array Equip__InvenInfo
+integer array Equip___Frame_InvenInfo
+integer array Equip___Frame_EquipInfo
+integer array Equip___Frame_Equip2Info
+string array Equip___InvenInfo
       
 integer array Frame_InvenButtons
 integer array Frame_InvenButtonsBackDrop
       
-integer array Equip__ClickNow
+integer array Equip___ClickNow
       
-integer Equip__ClickView= 0
+integer Equip___ClickView= 0
       
-constant real Equip__GRADE_BONUS= 1.08
+constant real Equip___GRADE_BONUS= 1.08
       
-string array Equip__STATS_ALL
+string array Equip___STATS_ALL
       
-integer Equip__FrameMouseXOffset
-integer Equip__FrameMouseYOffset
-integer array MiniInfo__Frame_MiniInfoBackdrop
-integer array MiniInfo__Frame_MiniInfo
+integer Equip___FrameMouseXOffset
+integer Equip___FrameMouseYOffset
+integer array MiniInfo___Frame_MiniInfoBackdrop
+integer array MiniInfo___Frame_MiniInfo
 constant string JN_MAPID= "LoD"
 constant string JN_SECRETKEY= "9d316ce7-eb22-4637-8dd0-9d869aabfb7a"
 player GetServerPlayer
@@ -265,9 +265,9 @@ integer Time_StopWatch= 0
 integer array Time_last
 integer array Time_Original
 string array Name
-integer LoadAuto__int= 0
-string array Save__InvenData
-string array Save__EquipData
+integer LoadAuto___int= 0
+string array Save___InvenData
+string array Save___EquipData
 region Hunting__tempRegion= null
 rect array Hunting__PlayerRect
 trigger Hunting__tempEnterTrigger= CreateTrigger()
@@ -277,16 +277,16 @@ integer array Hunting__PlayerDecorationNumber
     
 constant integer Hunting__MAX_ROW= 10
 constant integer Hunting__MAX_COL= 8
-trigger Enchant___triggerEnchant= CreateTrigger()
+trigger Enchant__triggerEnchant= CreateTrigger()
 trigger exitTrigger= CreateTrigger()
 trigger gg_trg_test_1_add= null
-constant integer DisplayGrid___GRID_ALPHA= 255
+constant integer DisplayGrid__GRID_ALPHA= 255
       
-integer DisplayGrid___GridLine
-integer DisplayGrid___GridLine_Small
-integer DisplayGrid___GridLine_Medium
-integer DisplayGrid___GridLine_Large
-trigger ItemRandomEnchanter___triggerItemRandomEnchanter= CreateTrigger()
+integer DisplayGrid__GridLine
+integer DisplayGrid__GridLine_Small
+integer DisplayGrid__GridLine_Medium
+integer DisplayGrid__GridLine_Large
+trigger ItemRandomEnchanter__triggerItemRandomEnchanter= CreateTrigger()
 
 trigger l__library_init
 
@@ -490,46 +490,46 @@ constant integer si__ECharacter=10
 integer si__ECharacter_F=0
 integer si__ECharacter_I=0
 integer array si__ECharacter_V
-constant integer s__ECharacter_ICHIGO=23
-constant integer s__ECharacter_RUKIA=25
-constant integer s__ECharacter_URYU=27
-constant integer s__ECharacter_ORIHIME=29
-constant integer s__ECharacter_RENJI=31
-constant integer s__ECharacter_SADO=33
+constant integer s__ECharacter_ICHIGO=17
+constant integer s__ECharacter_RUKIA=18
+constant integer s__ECharacter_URYU=19
+constant integer s__ECharacter_ORIHIME=20
+constant integer s__ECharacter_RENJI=21
+constant integer s__ECharacter_SADO=22
 constant integer si__EHotkeyMenu=11
 integer si__EHotkeyMenu_F=0
 integer si__EHotkeyMenu_I=0
 integer array si__EHotkeyMenu_V
-constant integer s__EHotkeyMenu_Main1MiniInfo=35
-constant integer s__EHotkeyMenu_Main2SimpleEffect=37
-constant integer s__EHotkeyMenu_Main3GlobalEffect=39
-constant integer s__EHotkeyMenu_Main4FeildOfView=41
-constant integer s__EHotkeyMenu_Main5HoldFieldOfView=43
-constant integer s__EHotkeyMenu_Main6ViewHotkeys=45
-constant integer s__EHotkeyMenu_Main7ServerSaveLeft=47
-constant integer s__EHotkeyMenu_SkillSlot1=49
-constant integer s__EHotkeyMenu_SkillSlot2=51
-constant integer s__EHotkeyMenu_SkillSlot3=53
-constant integer s__EHotkeyMenu_SkillSlot4=55
-constant integer s__EHotkeyMenu_SkillSlot5=57
-constant integer s__EHotkeyMenu_SkillSlot6=59
-constant integer s__EHotkeyMenu_SkillSlot7=61
-constant integer s__EHotkeyMenu_SkillSlot8=63
-constant integer s__EHotkeyMenu_ItemSlot1=65
-constant integer s__EHotkeyMenu_ItemSlot2=67
-constant integer s__EHotkeyMenu_ItemSlot3=69
-constant integer s__EHotkeyMenu_ItemSlot4=71
-constant integer s__EHotkeyMenu_ItemSlot5=73
-constant integer s__EHotkeyMenu_ItemSlot6=75
-constant integer s__EHotkeyMenu_ItemSlot7=77
-constant integer s__EHotkeyMenu_SubMenuKakaotalk=79
-constant integer s__EHotkeyMenu_SubMenuDiscord=81
-constant integer s__EHotkeyMenu_SubMenuSetting=83
-constant integer s__EHotkeyMenu_SubMenuAutoCombat=85
-constant integer s__EHotkeyMenu_SubMenuInventory=87
-constant integer s__EHotkeyMenu_SubMenuStatus=89
-constant integer s__EHotkeyMenu_SubMenuSkillTree=91
-constant integer s__EHotkeyMenu_SubMenuSmartMode=93
+constant integer s__EHotkeyMenu_Main1MiniInfo=23
+constant integer s__EHotkeyMenu_Main2SimpleEffect=24
+constant integer s__EHotkeyMenu_Main3GlobalEffect=25
+constant integer s__EHotkeyMenu_Main4FeildOfView=26
+constant integer s__EHotkeyMenu_Main5HoldFieldOfView=27
+constant integer s__EHotkeyMenu_Main6ViewHotkeys=28
+constant integer s__EHotkeyMenu_Main7ServerSaveLeft=29
+constant integer s__EHotkeyMenu_SkillSlot1=30
+constant integer s__EHotkeyMenu_SkillSlot2=31
+constant integer s__EHotkeyMenu_SkillSlot3=32
+constant integer s__EHotkeyMenu_SkillSlot4=33
+constant integer s__EHotkeyMenu_SkillSlot5=34
+constant integer s__EHotkeyMenu_SkillSlot6=35
+constant integer s__EHotkeyMenu_SkillSlot7=36
+constant integer s__EHotkeyMenu_SkillSlot8=37
+constant integer s__EHotkeyMenu_ItemSlot1=38
+constant integer s__EHotkeyMenu_ItemSlot2=39
+constant integer s__EHotkeyMenu_ItemSlot3=40
+constant integer s__EHotkeyMenu_ItemSlot4=41
+constant integer s__EHotkeyMenu_ItemSlot5=42
+constant integer s__EHotkeyMenu_ItemSlot6=43
+constant integer s__EHotkeyMenu_ItemSlot7=44
+constant integer s__EHotkeyMenu_SubMenuKakaotalk=45
+constant integer s__EHotkeyMenu_SubMenuDiscord=46
+constant integer s__EHotkeyMenu_SubMenuSetting=47
+constant integer s__EHotkeyMenu_SubMenuAutoCombat=48
+constant integer s__EHotkeyMenu_SubMenuInventory=49
+constant integer s__EHotkeyMenu_SubMenuStatus=50
+constant integer s__EHotkeyMenu_SubMenuSkillTree=51
+constant integer s__EHotkeyMenu_SubMenuSmartMode=52
 constant integer si__ESkillClass=12
 integer si__ESkillClass_F=0
 integer si__ESkillClass_I=0
@@ -643,25 +643,25 @@ constant integer si__ESkillTree=19
 integer si__ESkillTree_F=0
 integer si__ESkillTree_I=0
 integer array si__ESkillTree_V
-constant integer s__ESkillTree_MainCharacterName=94
-constant integer s__ESkillTree_MainTreeTypeLeft=95
-constant integer s__ESkillTree_MainTreeTypeCenter=96
-constant integer s__ESkillTree_MainTreeTypeRight=97
-constant integer s__ESkillTree_PopupTitle=98
-constant integer s__ESkillTree_PopupDetailPoint=99
-constant integer s__ESkillTree_PopupDetailCurrentLevel=100
-constant integer s__ESkillTree_SubIcon=101
-constant integer s__ESkillTree_SubTitle=102
-constant integer s__ESkillTree_SubShortDescriptionTop=103
-constant integer s__ESkillTree_SubShortDescriptionMiddle=104
-constant integer s__ESkillTree_SubShortDescriptionLow=105
-constant integer s__ESkillTree_SubLongDescriptionCost=106
-constant integer s__ESkillTree_SubLongDescriptionDetials=107
-constant integer s__ESkillTree_SubLongDescriptionNextLevels=108
-constant integer s__ESkillTree_SubSkillMinusAll=109
-constant integer s__ESkillTree_SubSkillMinusOne=110
-constant integer s__ESkillTree_SubSkillPlusOne=111
-constant integer s__ESkillTree_SubSkillPlusAll=112
+constant integer s__ESkillTree_MainCharacterName=54
+constant integer s__ESkillTree_MainTreeTypeLeft=56
+constant integer s__ESkillTree_MainTreeTypeCenter=58
+constant integer s__ESkillTree_MainTreeTypeRight=60
+constant integer s__ESkillTree_PopupTitle=62
+constant integer s__ESkillTree_PopupDetailPoint=64
+constant integer s__ESkillTree_PopupDetailCurrentLevel=66
+constant integer s__ESkillTree_SubIcon=68
+constant integer s__ESkillTree_SubTitle=70
+constant integer s__ESkillTree_SubShortDescriptionTop=72
+constant integer s__ESkillTree_SubShortDescriptionMiddle=74
+constant integer s__ESkillTree_SubShortDescriptionLow=76
+constant integer s__ESkillTree_SubLongDescriptionCost=78
+constant integer s__ESkillTree_SubLongDescriptionDetials=80
+constant integer s__ESkillTree_SubLongDescriptionNextLevels=82
+constant integer s__ESkillTree_SubSkillMinusAll=84
+constant integer s__ESkillTree_SubSkillMinusOne=86
+constant integer s__ESkillTree_SubSkillPlusOne=88
+constant integer s__ESkillTree_SubSkillPlusAll=90
 constant integer s__ESkillTree_MAX_SUBTYPE_COUNT= 3
 string s__ESkillTree_tempString= ""
 constant integer si__StatData=20
@@ -788,14 +788,14 @@ integer array si__IResource_V
 integer array si__IResource_type
 trigger array st__IResource_onDestroy
 integer array s__IResource_id
-constant integer si__EndGameHook__MemoryBlock=39
-integer s__EndGameHook__MemoryBlock_pHead
-integer s__EndGameHook__MemoryBlock_size
-constant integer si__EndGameHook__AssemblyWriter=40
-integer si__EndGameHook__AssemblyWriter_F=0
-integer si__EndGameHook__AssemblyWriter_I=0
-integer array si__EndGameHook__AssemblyWriter_V
-integer array s__EndGameHook__AssemblyWriter_pCursor
+constant integer si__EndGameHook___MemoryBlock=39
+integer s__EndGameHook___MemoryBlock_pHead
+integer s__EndGameHook___MemoryBlock_size
+constant integer si__EndGameHook___AssemblyWriter=40
+integer si__EndGameHook___AssemblyWriter_F=0
+integer si__EndGameHook___AssemblyWriter_I=0
+integer array si__EndGameHook___AssemblyWriter_V
+integer array s__EndGameHook___AssemblyWriter_pCursor
 constant integer si__MenuQuickSlot=41
 integer si__MenuQuickSlot_F=0
 integer si__MenuQuickSlot_I=0
@@ -815,14 +815,14 @@ constant real s__Select_selectX= - 9664.
 constant real s__Select_selectY= 5440.
 integer s__Select_currentCount= 0
 integer s__Select_select_Main= 0
-integer s__Select_select_Preview= 0
+integer s__Select_select_LeftPreview= 0
+integer s__Select_select_SkillPreview= 0
 integer s__Select_selectTextCharacterNameEnglish= 0
 integer s__Select_selectTextCharacterNameKorean= 0
 integer s__Select_selectTextCharacterDescription1= 0
 integer s__Select_selectTextCharacterDescription2= 0
 integer s__Select_selectTextCharacterDamageType= 0
 integer s__Select_selectTextCharacterMainWeapon= 0
-integer s__Select_selectBackSkillPreview= 0
 integer s__Select_selectTextSkillPreviewName= 0
 integer s__Select_selectTextSkillPreviewDescription1= 0
 integer s__Select_selectTextSkillPreviewDescription2= 0
@@ -835,12 +835,12 @@ integer array si__Load_V
 trigger s__Load_triggerLoad= CreateTrigger()
 integer array s__Quickmenu_Buttons
 integer array s__Quickmenu_Backdrops
-integer array s__GlobalInitializer__privateSkillData
-integer array s__GlobalInitializer__privateStatData
-integer array s__GlobalInitializer__privateSkillSlotData
-integer array s__GlobalInitializer__privateHotkeyData
-integer array s__GlobalInitializer__privateCharacterData
-integer array s__GlobalInitializer__privateTreeMainData
+integer array s__GlobalInitializer___privateSkillData
+integer array s__GlobalInitializer___privateStatData
+integer array s__GlobalInitializer___privateSkillSlotData
+integer array s__GlobalInitializer___privateHotkeyData
+integer array s__GlobalInitializer___privateCharacterData
+integer array s__GlobalInitializer___privateTreeMainData
 string array s__s__SkillData_ranks
 integer array s__s__PlayerResource_privatePlayerResource
 boolean array s__s__Select_isSelected
@@ -849,7 +849,7 @@ integer array s__s__Select_selectBackStars
 integer array s__s__Select_selectBackSkills
 integer array s__s__Select_selectButtonBottoms
 integer array s__s__Select_selectButtonSkills
-integer array s__s__Select_selectTextBottoms
+integer array s__s__Select_selectTextBottomNameLevels
 integer array s__s__Select_selectTextBottomPlayTimes
 integer array s__s__Select_selectTextBottomLoadTypes
 string array s__s__Load_EquipData2
@@ -1112,35 +1112,35 @@ function s__MenuQuickSlot_deallocate takes integer this returns nothing
     set si__MenuQuickSlot_F=this
 endfunction
 
-//Generated allocator of EndGameHook__AssemblyWriter
-function s__EndGameHook__AssemblyWriter__allocate takes nothing returns integer
- local integer this=si__EndGameHook__AssemblyWriter_F
+//Generated allocator of EndGameHook___AssemblyWriter
+function s__EndGameHook___AssemblyWriter__allocate takes nothing returns integer
+ local integer this=si__EndGameHook___AssemblyWriter_F
     if (this!=0) then
-        set si__EndGameHook__AssemblyWriter_F=si__EndGameHook__AssemblyWriter_V[this]
+        set si__EndGameHook___AssemblyWriter_F=si__EndGameHook___AssemblyWriter_V[this]
     else
-        set si__EndGameHook__AssemblyWriter_I=si__EndGameHook__AssemblyWriter_I+1
-        set this=si__EndGameHook__AssemblyWriter_I
+        set si__EndGameHook___AssemblyWriter_I=si__EndGameHook___AssemblyWriter_I+1
+        set this=si__EndGameHook___AssemblyWriter_I
     endif
     if (this>8190) then
-        call DisplayTimedTextToPlayer(GetLocalPlayer(),0,0,1000.,"Unable to allocate id for an object of type: EndGameHook__AssemblyWriter")
+        call DisplayTimedTextToPlayer(GetLocalPlayer(),0,0,1000.,"Unable to allocate id for an object of type: EndGameHook___AssemblyWriter")
         return 0
     endif
 
-    set si__EndGameHook__AssemblyWriter_V[this]=-1
+    set si__EndGameHook___AssemblyWriter_V[this]=-1
  return this
 endfunction
 
-//Generated destructor of EndGameHook__AssemblyWriter
-function s__EndGameHook__AssemblyWriter_deallocate takes integer this returns nothing
+//Generated destructor of EndGameHook___AssemblyWriter
+function s__EndGameHook___AssemblyWriter_deallocate takes integer this returns nothing
     if this==null then
-            call DisplayTimedTextToPlayer(GetLocalPlayer(),0,0,1000.,"Attempt to destroy a null struct of type: EndGameHook__AssemblyWriter")
+            call DisplayTimedTextToPlayer(GetLocalPlayer(),0,0,1000.,"Attempt to destroy a null struct of type: EndGameHook___AssemblyWriter")
         return
-    elseif (si__EndGameHook__AssemblyWriter_V[this]!=-1) then
-            call DisplayTimedTextToPlayer(GetLocalPlayer(),0,0,1000.,"Double free of type: EndGameHook__AssemblyWriter")
+    elseif (si__EndGameHook___AssemblyWriter_V[this]!=-1) then
+            call DisplayTimedTextToPlayer(GetLocalPlayer(),0,0,1000.,"Double free of type: EndGameHook___AssemblyWriter")
         return
     endif
-    set si__EndGameHook__AssemblyWriter_V[this]=si__EndGameHook__AssemblyWriter_F
-    set si__EndGameHook__AssemblyWriter_F=this
+    set si__EndGameHook___AssemblyWriter_V[this]=si__EndGameHook___AssemblyWriter_F
+    set si__EndGameHook___AssemblyWriter_F=this
 endfunction
 //generated factory of IResource
 function sc__IResource__factory takes integer typeid returns integer
@@ -2086,7 +2086,7 @@ endfunction
 //library MemoryLibBase:
 
 
-    function MemoryLibBase__Init takes nothing returns nothing
+    function MemoryLibBase___Init takes nothing returns nothing
         set pGameDll=JNGetModuleHandle("Game.dll")
     endfunction
 
@@ -2560,15 +2560,15 @@ endfunction
   
   //프레임 UI단위로 마우스 X축 반환(0.0 ~ 0.8)   
   function GetFrameMouseX takes nothing returns real
-    return JNMemoryGetReal(JNMemory__FrameMouseXOffset)
+    return JNMemoryGetReal(JNMemory___FrameMouseXOffset)
   endfunction 
   //프레임 UI단위로 마우스 Y축 반환(0.0 ~ 0.6)   
   function GetFrameMouseY takes nothing returns real
-    return JNMemoryGetReal(JNMemory__FrameMouseYOffset)
+    return JNMemoryGetReal(JNMemory___FrameMouseYOffset)
   endfunction 
-  function JNMemory__Init takes nothing returns nothing
-    set JNMemory__FrameMouseXOffset=JNGetModuleHandle("Game.dll") + 0xCB1AF8
-    set JNMemory__FrameMouseYOffset=JNGetModuleHandle("Game.dll") + 0xCB1AFC
+  function JNMemory___Init takes nothing returns nothing
+    set JNMemory___FrameMouseXOffset=JNGetModuleHandle("Game.dll") + 0xCB1AF8
+    set JNMemory___FrameMouseYOffset=JNGetModuleHandle("Game.dll") + 0xCB1AFC
   endfunction 
 // scope JNMemory ends
 // END IMPORT OF Native\DzAPIs.j
@@ -3290,45 +3290,45 @@ endfunction
       if ( input <= 0 or MAX_STAT_COUNT <= input ) then
         call MsgAll("오류9-3B, 스텟(" + I2S(input) + ")는 설정값(1~" + I2S(MAX_STAT_COUNT) + ")을 벗어납니다")
         return 0
-      elseif ( s__GlobalInitializer__privateStatData[input] == 0 ) then
+      elseif ( s__GlobalInitializer___privateStatData[input] == 0 ) then
         call MsgAll("오류9-3C, 스텟(" + I2S(input) + ")는 설정되지 않았습니다")
         return 0
       endif
-      return s__GlobalInitializer__privateStatData[input]
+      return s__GlobalInitializer___privateStatData[input]
     endfunction
     function s__StatData_onInit takes nothing returns nothing
-      set s__GlobalInitializer__privateStatData[s__EStatType_MainPower]= s__StatData_Create("파워")
-      set s__GlobalInitializer__privateStatData[s__EStatType_MainFocus]= s__StatData_Create("집중")
-      set s__GlobalInitializer__privateStatData[s__EStatType_MainVitality]= s__StatData_Create("활력")
-      set s__GlobalInitializer__privateStatData[s__EStatType_AttackPower]= s__StatData_Create("공격력")
-      set s__GlobalInitializer__privateStatData[s__EStatType_AttackSpeedPercent]= s__StatData_Create("공격속도")
-      set s__GlobalInitializer__privateStatData[s__EStatType_CriticalChance]= s__StatData_Create("치명타 기회")
-      set s__GlobalInitializer__privateStatData[s__EStatType_CriticalMultiplier]= s__StatData_Create("치명타 증폭")
-      set s__GlobalInitializer__privateStatData[s__EStatType_LifeSteal]= s__StatData_Create("흡혈 고정값")
-      set s__GlobalInitializer__privateStatData[s__EStatType_LifeStealPercent]= s__StatData_Create("흡혈 비례값")
-      set s__GlobalInitializer__privateStatData[s__EStatType_MeleeDefense]= s__StatData_Create("근접 방어")
-      set s__GlobalInitializer__privateStatData[s__EStatType_MeleeReduce]= s__StatData_Create("근접 감소")
-      set s__GlobalInitializer__privateStatData[s__EStatType_MeleeEvationChance]= s__StatData_Create("근접 차단")
-      set s__GlobalInitializer__privateStatData[s__EStatType_RangedDefense]= s__StatData_Create("원격 방어")
-      set s__GlobalInitializer__privateStatData[s__EStatType_RangedReduce]= s__StatData_Create("원격 감소")
-      set s__GlobalInitializer__privateStatData[s__EStatType_RangeImmuneChance]= s__StatData_Create("원격 차단")
-      set s__GlobalInitializer__privateStatData[s__EStatType_MysticReduce]= s__StatData_Create("주술 지속 감소")
-      set s__GlobalInitializer__privateStatData[s__EStatType_MysticDispellChance]= s__StatData_Create("주술 차단")
-      set s__GlobalInitializer__privateStatData[s__EStatType_MovementSpeedPercent]= s__StatData_Create("이동속도")
-      set s__GlobalInitializer__privateStatData[s__EStatType_HpRegenPerSecond]= s__StatData_Create("체력 회복")
-      set s__GlobalInitializer__privateStatData[s__EStatType_HpRegenMultiplier]= s__StatData_Create("체력 회복 증폭")
-      set s__GlobalInitializer__privateStatData[s__EStatType_MpRegenPerSecond]= s__StatData_Create("마나 회복")
-      set s__GlobalInitializer__privateStatData[s__EStatType_MpRegenMultiplier]= s__StatData_Create("마나 회복 증폭")
-      set s__GlobalInitializer__privateStatData[s__EStatType_PhysicalMultiplier]= s__StatData_Create("기술 증폭")
-      set s__GlobalInitializer__privateStatData[s__EStatType_PhysicalCooldownReduce]= s__StatData_Create("기술 가속")
-      set s__GlobalInitializer__privateStatData[s__EStatType_MagicalPower]= s__StatData_Create("마법 데미지")
-      set s__GlobalInitializer__privateStatData[s__EStatType_MagicalMultiplier]= s__StatData_Create("마법 증폭")
-      set s__GlobalInitializer__privateStatData[s__EStatType_MagicalCooldownReduce]= s__StatData_Create("마법 가속")
-      set s__GlobalInitializer__privateStatData[s__EStatType_MagicalCastingReduce]= s__StatData_Create("마법 시전 가속")
-      set s__GlobalInitializer__privateStatData[s__EStatType_AilibtyLevelAdd]= s__StatData_Create("능력 레벨")
-      set s__GlobalInitializer__privateStatData[s__EStatType_GoldDropMultiplier]= s__StatData_Create("골드 드랍률")
-      set s__GlobalInitializer__privateStatData[s__EStatType_ItemDropMultiplier]= s__StatData_Create("아이템 드랍률")
-      set s__GlobalInitializer__privateStatData[s__EStatType_ExperienceMultiplier]= s__StatData_Create("경험치 획득률")
+      set s__GlobalInitializer___privateStatData[s__EStatType_MainPower]= s__StatData_Create("파워")
+      set s__GlobalInitializer___privateStatData[s__EStatType_MainFocus]= s__StatData_Create("집중")
+      set s__GlobalInitializer___privateStatData[s__EStatType_MainVitality]= s__StatData_Create("활력")
+      set s__GlobalInitializer___privateStatData[s__EStatType_AttackPower]= s__StatData_Create("공격력")
+      set s__GlobalInitializer___privateStatData[s__EStatType_AttackSpeedPercent]= s__StatData_Create("공격속도")
+      set s__GlobalInitializer___privateStatData[s__EStatType_CriticalChance]= s__StatData_Create("치명타 기회")
+      set s__GlobalInitializer___privateStatData[s__EStatType_CriticalMultiplier]= s__StatData_Create("치명타 증폭")
+      set s__GlobalInitializer___privateStatData[s__EStatType_LifeSteal]= s__StatData_Create("흡혈 고정값")
+      set s__GlobalInitializer___privateStatData[s__EStatType_LifeStealPercent]= s__StatData_Create("흡혈 비례값")
+      set s__GlobalInitializer___privateStatData[s__EStatType_MeleeDefense]= s__StatData_Create("근접 방어")
+      set s__GlobalInitializer___privateStatData[s__EStatType_MeleeReduce]= s__StatData_Create("근접 감소")
+      set s__GlobalInitializer___privateStatData[s__EStatType_MeleeEvationChance]= s__StatData_Create("근접 차단")
+      set s__GlobalInitializer___privateStatData[s__EStatType_RangedDefense]= s__StatData_Create("원격 방어")
+      set s__GlobalInitializer___privateStatData[s__EStatType_RangedReduce]= s__StatData_Create("원격 감소")
+      set s__GlobalInitializer___privateStatData[s__EStatType_RangeImmuneChance]= s__StatData_Create("원격 차단")
+      set s__GlobalInitializer___privateStatData[s__EStatType_MysticReduce]= s__StatData_Create("주술 지속 감소")
+      set s__GlobalInitializer___privateStatData[s__EStatType_MysticDispellChance]= s__StatData_Create("주술 차단")
+      set s__GlobalInitializer___privateStatData[s__EStatType_MovementSpeedPercent]= s__StatData_Create("이동속도")
+      set s__GlobalInitializer___privateStatData[s__EStatType_HpRegenPerSecond]= s__StatData_Create("체력 회복")
+      set s__GlobalInitializer___privateStatData[s__EStatType_HpRegenMultiplier]= s__StatData_Create("체력 회복 증폭")
+      set s__GlobalInitializer___privateStatData[s__EStatType_MpRegenPerSecond]= s__StatData_Create("마나 회복")
+      set s__GlobalInitializer___privateStatData[s__EStatType_MpRegenMultiplier]= s__StatData_Create("마나 회복 증폭")
+      set s__GlobalInitializer___privateStatData[s__EStatType_PhysicalMultiplier]= s__StatData_Create("기술 증폭")
+      set s__GlobalInitializer___privateStatData[s__EStatType_PhysicalCooldownReduce]= s__StatData_Create("기술 가속")
+      set s__GlobalInitializer___privateStatData[s__EStatType_MagicalPower]= s__StatData_Create("마법 데미지")
+      set s__GlobalInitializer___privateStatData[s__EStatType_MagicalMultiplier]= s__StatData_Create("마법 증폭")
+      set s__GlobalInitializer___privateStatData[s__EStatType_MagicalCooldownReduce]= s__StatData_Create("마법 가속")
+      set s__GlobalInitializer___privateStatData[s__EStatType_MagicalCastingReduce]= s__StatData_Create("마법 시전 가속")
+      set s__GlobalInitializer___privateStatData[s__EStatType_AilibtyLevelAdd]= s__StatData_Create("능력 레벨")
+      set s__GlobalInitializer___privateStatData[s__EStatType_GoldDropMultiplier]= s__StatData_Create("골드 드랍률")
+      set s__GlobalInitializer___privateStatData[s__EStatType_ItemDropMultiplier]= s__StatData_Create("아이템 드랍률")
+      set s__GlobalInitializer___privateStatData[s__EStatType_ExperienceMultiplier]= s__StatData_Create("경험치 획득률")
     endfunction
  
     // string IconPath --- 모든 스킬이 아이콘이 있지 않으니 생략.
@@ -3338,21 +3338,21 @@ endfunction
       if ( input <= 0 or MAX_SKILL_COUNT <= input ) then
         call MsgAll("오류/SkillData[" + I2S(input) + "]는 설정 범위(1~" + I2S(MAX_SKILL_COUNT - 1) + ")를 벗어납니다.")
         return 0
-      elseif ( s__GlobalInitializer__privateSkillData[input] == 0 ) then
+      elseif ( s__GlobalInitializer___privateSkillData[input] == 0 ) then
         call MsgAll("오류/SkillData[" + I2S(input) + "]는 설정되지 않았습니다.")
         return 0
       else
-        return s__GlobalInitializer__privateSkillData[input]
+        return s__GlobalInitializer___privateSkillData[input]
       endif
     endfunction
     function s__SkillData_getFromKey takes integer input returns integer
       if ( input <= 0 or MAX_SKILL_COUNT <= input ) then
         call MsgAll("오류/GFK/스킬(" + I2S(input) + ")는 설정 범위(1~" + I2S(MAX_SKILL_COUNT - 1) + ")를 벗어납니다.")
         return 0
-      elseif ( s__GlobalInitializer__privateSkillData[input] == 0 ) then
-        set s__GlobalInitializer__privateSkillData[input]= s__SkillData__allocate()
+      elseif ( s__GlobalInitializer___privateSkillData[input] == 0 ) then
+        set s__GlobalInitializer___privateSkillData[input]= s__SkillData__allocate()
       endif
-      return s__GlobalInitializer__privateSkillData[input]
+      return s__GlobalInitializer___privateSkillData[input]
     endfunction
     function s__SkillData_onInit takes nothing returns nothing
       set s__s__SkillData_ranks[0]= "미습득"
@@ -3453,20 +3453,20 @@ endfunction
       if ( input <= 0 or MAX_SKILL_SLOT <= input ) then
         call MsgAll("오류/SkillSlot[" + I2S(input) + "]는 설정 범위(1~" + I2S(MAX_SKILL_SLOT - 1) + ")를 벗어납니다.")
         return 0
-      elseif ( s__GlobalInitializer__privateSkillSlotData[input] == 0 ) then
+      elseif ( s__GlobalInitializer___privateSkillSlotData[input] == 0 ) then
         call MsgAll("오류/SkillSlot[" + I2S(input) + "]는 설정되지 않았습니다.")
         return 0
       else
-        return s__GlobalInitializer__privateSkillSlotData[input]
+        return s__GlobalInitializer___privateSkillSlotData[input]
       endif
     endfunction
     function s__SlotData_Create takes integer index,integer skillId,integer smartId,integer hotkeyId,integer orderId returns nothing
-      set s__GlobalInitializer__privateSkillSlotData[index]= s__SlotData__allocate()
-      set s__SlotData_slot[s__GlobalInitializer__privateSkillSlotData[index]]=index
-      set s__SlotData_SkillCode[s__GlobalInitializer__privateSkillSlotData[index]]=skillId
-      set s__SlotData_SmartCode[s__GlobalInitializer__privateSkillSlotData[index]]=smartId
-      set s__SlotData_SelfHotkeyID[s__GlobalInitializer__privateSkillSlotData[index]]=hotkeyId
-      set s__SlotData_OrderID[s__GlobalInitializer__privateSkillSlotData[index]]=orderId
+      set s__GlobalInitializer___privateSkillSlotData[index]= s__SlotData__allocate()
+      set s__SlotData_slot[s__GlobalInitializer___privateSkillSlotData[index]]=index
+      set s__SlotData_SkillCode[s__GlobalInitializer___privateSkillSlotData[index]]=skillId
+      set s__SlotData_SmartCode[s__GlobalInitializer___privateSkillSlotData[index]]=smartId
+      set s__SlotData_SelfHotkeyID[s__GlobalInitializer___privateSkillSlotData[index]]=hotkeyId
+      set s__SlotData_OrderID[s__GlobalInitializer___privateSkillSlotData[index]]=orderId
     endfunction
     function s__SlotData_onInit takes nothing returns nothing
 //#       static if false then
@@ -3527,15 +3527,15 @@ endfunction
       if ( input <= 0 or MAX_OPTION_MENU_COUNT <= input ) then
         call MsgAll("오류/HotKey[" + I2S(input) + "]는 설정 범위(1~" + I2S(MAX_OPTION_MENU_COUNT - 1) + ")를 벗어납니다.")
         return 0
-      elseif ( s__GlobalInitializer__privateHotkeyData[input] == 0 ) then
-        set s__GlobalInitializer__privateHotkeyData[input]= s__HotkeyData__allocate()
+      elseif ( s__GlobalInitializer___privateHotkeyData[input] == 0 ) then
+        set s__GlobalInitializer___privateHotkeyData[input]= s__HotkeyData__allocate()
       endif
-      return s__GlobalInitializer__privateHotkeyData[input]
+      return s__GlobalInitializer___privateHotkeyData[input]
     endfunction
     function s__HotkeyData_Create takes integer input,string name,boolean bool,integer value returns nothing
-      set s__HotkeyData_Name[s__GlobalInitializer__privateHotkeyData[input]]=name
-      set s__HotkeyData_IsBoolType[s__GlobalInitializer__privateHotkeyData[input]]=bool
-      set s__HotkeyData_BaseValue[s__GlobalInitializer__privateHotkeyData[input]]=value
+      set s__HotkeyData_Name[s__GlobalInitializer___privateHotkeyData[input]]=name
+      set s__HotkeyData_IsBoolType[s__GlobalInitializer___privateHotkeyData[input]]=bool
+      set s__HotkeyData_BaseValue[s__GlobalInitializer___privateHotkeyData[input]]=value
     endfunction
     function s__HotkeyData_onInit takes nothing returns nothing
       call s__HotkeyData_Create(s__EHotkeyMenu_Main1MiniInfo , "미니 정보창" , true , 1)
@@ -3575,15 +3575,15 @@ endfunction
       if ( input <= 0 or MAX_CHARACTER_COUNT <= input ) then
         call MsgAll("오류/CharacterData[" + I2S(input) + "]는 설정 범위(1~" + I2S(MAX_CHARACTER_COUNT - 1) + ")를 벗어납니다.")
         return 0
-      elseif ( s__GlobalInitializer__privateCharacterData[input] == 0 ) then
-        set s__GlobalInitializer__privateCharacterData[input]= s__CharacterData__allocate()
+      elseif ( s__GlobalInitializer___privateCharacterData[input] == 0 ) then
+        set s__GlobalInitializer___privateCharacterData[input]= s__CharacterData__allocate()
       endif
-      return s__GlobalInitializer__privateCharacterData[input]
+      return s__GlobalInitializer___privateCharacterData[input]
     endfunction
     function s__CharacterData_Create takes integer index,unit base,integer unitCode,string strings returns nothing
-      set s__CharacterData_SelectUnit[s__GlobalInitializer__privateCharacterData[index]]=base
-      set s__CharacterData_UnitCode[s__GlobalInitializer__privateCharacterData[index]]=unitCode
-      set s__CharacterData_SelectDatas[s__GlobalInitializer__privateCharacterData[index]]=strings
+      set s__CharacterData_SelectUnit[s__GlobalInitializer___privateCharacterData[index]]=base
+      set s__CharacterData_UnitCode[s__GlobalInitializer___privateCharacterData[index]]=unitCode
+      set s__CharacterData_SelectDatas[s__GlobalInitializer___privateCharacterData[index]]=strings
     endfunction
     function s__CharacterData_onInit takes nothing returns nothing
       set gg_unit_H005_0003=CreateUnit(Player(PLAYER_NEUTRAL_PASSIVE), 'H005', - 9509.4, 5613.9, 243.624)
@@ -3615,10 +3615,10 @@ endfunction
       if ( input <= 0 or 8190 <= input ) then
         call MsgAll("오류/TreeMainCoreData[" + I2S(input) + "]는 설정 범위(1~" + I2S(MAX_CHARACTER_COUNT - 1) + ")를 벗어납니다.")
         return 0
-      elseif ( s__GlobalInitializer__privateTreeMainData[input] == 0 ) then
-        set s__GlobalInitializer__privateCharacterData[input]= s__TreeMainCoreData__allocate()
+      elseif ( s__GlobalInitializer___privateTreeMainData[input] == 0 ) then
+        set s__GlobalInitializer___privateCharacterData[input]= s__TreeMainCoreData__allocate()
       endif
-      return s__GlobalInitializer__privateTreeMainData[input]
+      return s__GlobalInitializer___privateTreeMainData[input]
     endfunction
     function s__TreeMainCoreData_CreateSub takes integer this,integer number,real inputX,real inputY,string iconPath returns nothing
       set s__TreeMainCoreData_MAX_TREE_SKILL_COUNT[this]=s__TreeMainCoreData_MAX_TREE_SKILL_COUNT[this] + 1
@@ -3629,17 +3629,17 @@ endfunction
     endfunction
     function s__TreeMainCoreData_Create takes integer characterId returns nothing
       if ( characterId == s__ECharacter_ICHIGO ) then
-        call s__TreeMainCoreData_CreateSub(s__GlobalInitializer__privateTreeMainData[characterId],16 , .085 , - .10 , "SkillTree_ichi_01.blp")
-        call s__TreeMainCoreData_CreateSub(s__GlobalInitializer__privateTreeMainData[characterId],20 , .135 , - .10 , "SkillTree_ichi_02.blp")
-        call s__TreeMainCoreData_CreateSub(s__GlobalInitializer__privateTreeMainData[characterId],21 , .135 , - .14 , "SkillTree_ichi_03.blp")
-        call s__TreeMainCoreData_CreateSub(s__GlobalInitializer__privateTreeMainData[characterId],25 , .185 , - .14 , "SkillTree_ichi_04.blp")
-        call s__TreeMainCoreData_CreateSub(s__GlobalInitializer__privateTreeMainData[characterId],17 , .085 , - .18 , "SkillTree_ichi_05.blp")
-        call s__TreeMainCoreData_CreateSub(s__GlobalInitializer__privateTreeMainData[characterId],22 , .135 , - .22 , "SkillTree_ichi_06.blp")
-        call s__TreeMainCoreData_CreateSub(s__GlobalInitializer__privateTreeMainData[characterId],18 , .085 , - .26 , "SkillTree_ichi_07_DIS.blp")
-        call s__TreeMainCoreData_CreateSub(s__GlobalInitializer__privateTreeMainData[characterId],23 , .135 , - .34 , "SkillTree_ichi_08_DIS.blp")
-        call s__TreeMainCoreData_CreateSub(s__GlobalInitializer__privateTreeMainData[characterId],19 , .085 , - .38 , "SkillTree_ichi_09_DIS.blp")
-        call s__TreeMainCoreData_CreateSub(s__GlobalInitializer__privateTreeMainData[characterId],26 , .185 , - .38 , "SkillTree_ichi_10_DIS.blp")
-        call s__TreeMainCoreData_CreateSub(s__GlobalInitializer__privateTreeMainData[characterId],24 , .135 , - .42 , "SkillTree_ichi_11_DIS.blp")
+        call s__TreeMainCoreData_CreateSub(s__GlobalInitializer___privateTreeMainData[characterId],16 , .085 , - .10 , "SkillTree_ichi_01.blp")
+        call s__TreeMainCoreData_CreateSub(s__GlobalInitializer___privateTreeMainData[characterId],20 , .135 , - .10 , "SkillTree_ichi_02.blp")
+        call s__TreeMainCoreData_CreateSub(s__GlobalInitializer___privateTreeMainData[characterId],21 , .135 , - .14 , "SkillTree_ichi_03.blp")
+        call s__TreeMainCoreData_CreateSub(s__GlobalInitializer___privateTreeMainData[characterId],25 , .185 , - .14 , "SkillTree_ichi_04.blp")
+        call s__TreeMainCoreData_CreateSub(s__GlobalInitializer___privateTreeMainData[characterId],17 , .085 , - .18 , "SkillTree_ichi_05.blp")
+        call s__TreeMainCoreData_CreateSub(s__GlobalInitializer___privateTreeMainData[characterId],22 , .135 , - .22 , "SkillTree_ichi_06.blp")
+        call s__TreeMainCoreData_CreateSub(s__GlobalInitializer___privateTreeMainData[characterId],18 , .085 , - .26 , "SkillTree_ichi_07_DIS.blp")
+        call s__TreeMainCoreData_CreateSub(s__GlobalInitializer___privateTreeMainData[characterId],23 , .135 , - .34 , "SkillTree_ichi_08_DIS.blp")
+        call s__TreeMainCoreData_CreateSub(s__GlobalInitializer___privateTreeMainData[characterId],19 , .085 , - .38 , "SkillTree_ichi_09_DIS.blp")
+        call s__TreeMainCoreData_CreateSub(s__GlobalInitializer___privateTreeMainData[characterId],26 , .185 , - .38 , "SkillTree_ichi_10_DIS.blp")
+        call s__TreeMainCoreData_CreateSub(s__GlobalInitializer___privateTreeMainData[characterId],24 , .135 , - .42 , "SkillTree_ichi_11_DIS.blp")
       endif
     endfunction
     function s__TreeMainCoreData_onInit takes nothing returns nothing
@@ -3651,7 +3651,7 @@ endfunction
 // scope SkillDataStr begins
 // 추가한 시간: 24.09.25 22:55:01
 
-  function SkillDataStr__Init takes nothing returns nothing
+  function SkillDataStr___Init takes nothing returns nothing
     set s__SkillData_Name[1]="대쉬"
     set s__SkillData_Detail[1]="앞으로 #Distance 거리만큼 빠르게 내달립니다."
     set s__SkillData_Name[2]="순보"
@@ -4395,9 +4395,9 @@ function setBool takes boolean b returns nothing
 endfunction
 
 //Jasshelper will append an "l__" prefix to all Typecast locals
-function Typecast__Typecast1 takes nothing returns nothing
-    local integer Str
-    local string Int
+function Typecast___Typecast1 takes nothing returns nothing
+    local integer l__Str
+    local string l__Int
 endfunction
 
 //# +nosemanticerror
@@ -4412,9 +4412,9 @@ function I2SH takes integer i returns string
     return l__Int
 endfunction
 
-function Typecast__Typecast2 takes nothing returns nothing
-    local integer Bool
-    local boolean Int
+function Typecast___Typecast2 takes nothing returns nothing
+    local integer l__Bool
+    local boolean l__Int
 endfunction
 
 //# +nosemanticerror
@@ -4429,9 +4429,9 @@ function I2B takes integer i returns boolean
     return l__Int
 endfunction
 
-function Typecast__Typecast3 takes nothing returns nothing
-    local integer Code
-    local code Int
+function Typecast___Typecast3 takes nothing returns nothing
+    local integer l__Code
+    local code l__Int
 endfunction
 
 //# +nosemanticerror
@@ -4506,38 +4506,38 @@ endfunction
 
 
   function SetGameEndCallback takes string func returns nothing
-    set EndGameHook__userCallbackName=func
-    set EndGameHook__userCallbackCode=null
+    set EndGameHook___userCallbackName=func
+    set EndGameHook___userCallbackCode=null
   endfunction 
 
   function SetGameEndCallbackByCode takes code funcHandle returns nothing
-    set EndGameHook__userCallbackName=null
-    set EndGameHook__userCallbackCode=funcHandle
+    set EndGameHook___userCallbackName=null
+    set EndGameHook___userCallbackCode=funcHandle
   endfunction 
 
 
 
-    function s__EndGameHook__MemoryBlock_initSize takes nothing returns nothing
+    function s__EndGameHook___MemoryBlock_initSize takes nothing returns nothing
       local integer lastIndex= ( 400 - 1 ) / 4
       set l__GameExitHook__MemoryBlock_block[lastIndex]=0
     endfunction 
 
-    function s__EndGameHook__MemoryBlock_typecast takes nothing returns nothing
-      local integer GameExitHook__MemoryBlock_block
+    function s__EndGameHook___MemoryBlock_typecast takes nothing returns nothing
+      local integer l__GameExitHook__MemoryBlock_block
     endfunction 
 
     //# +nosemanticerror 
-    function s__EndGameHook__MemoryBlock_onInit takes nothing returns nothing
-      call s__EndGameHook__MemoryBlock_initSize()
-      set s__EndGameHook__MemoryBlock_pHead=s__PtrPtr__getindex((l__GameExitHook__MemoryBlock_block),3)
-      set s__EndGameHook__MemoryBlock_size=400
+    function s__EndGameHook___MemoryBlock_onInit takes nothing returns nothing
+      call s__EndGameHook___MemoryBlock_initSize()
+      set s__EndGameHook___MemoryBlock_pHead=s__PtrPtr__getindex((l__GameExitHook__MemoryBlock_block),3)
+      set s__EndGameHook___MemoryBlock_size=400
     endfunction 
 
-  function EndGameHook__GetGameWar3 takes nothing returns integer
+  function EndGameHook___GetGameWar3 takes nothing returns integer
     return s__PtrPtr__staticgetindex(pGameDll + 0xD305E0)
   endfunction 
 
-  function EndGameHook__VirtualProtect takes integer lpAddress,integer dwSize,integer flNewProtect,integer pflOldProtect returns integer
+  function EndGameHook___VirtualProtect takes integer lpAddress,integer dwSize,integer flNewProtect,integer pflOldProtect returns integer
     local integer pFunc= s__IntPtr__staticgetindex(pGameDll + 0xA6B384)
     call SaveStr(JNProc_ht, JNProc_key, 0, "(IIII)I")
     call SaveInteger(JNProc_ht, JNProc_key, 1, lpAddress)
@@ -4550,7 +4550,7 @@ endfunction
     return 0
   endfunction 
 
-  function EndGameHook__sub_8BED60 takes integer this returns integer
+  function EndGameHook___sub_8BED60 takes integer this returns integer
     local integer pFunc= pGameDll + 0x8BED60
     call SaveStr(JNProc_ht, JNProc_key, 0, "(I)I")
     call SaveInteger(JNProc_ht, JNProc_key, 1, this)
@@ -4560,7 +4560,7 @@ endfunction
     return 0
   endfunction 
 
-  function EndGameHook__sub_8CB7D0 takes integer this,integer a2 returns integer
+  function EndGameHook___sub_8CB7D0 takes integer this,integer a2 returns integer
     local integer pFunc= pGameDll + 0x8CB7D0
     call SaveStr(JNProc_ht, JNProc_key, 0, "(II)I")
     call SaveInteger(JNProc_ht, JNProc_key, 1, this)
@@ -4571,69 +4571,69 @@ endfunction
     return 0
   endfunction 
 
-  function EndGameHook__GetCodeIndex takes code c returns integer
+  function EndGameHook___GetCodeIndex takes code c returns integer
     local integer pCode= C2I(c)
-    local integer v1= s__IntPtr__staticgetindex(EndGameHook__pGameWar3 + 8)
-    local integer v2= EndGameHook__sub_8BED60(v1)
-    local integer index= EndGameHook__sub_8CB7D0(v2 , pCode)
+    local integer v1= s__IntPtr__staticgetindex(EndGameHook___pGameWar3 + 8)
+    local integer v2= EndGameHook___sub_8BED60(v1)
+    local integer index= EndGameHook___sub_8CB7D0(v2 , pCode)
     return index
   endfunction 
 
-  function EndGameHook__MakeMemoryBlockExecutable takes nothing returns nothing
-    call EndGameHook__VirtualProtect(s__EndGameHook__MemoryBlock_pHead , s__EndGameHook__MemoryBlock_size , 0x40 , s__EndGameHook__MemoryBlock_pHead)
-    set EndGameHook__MemoryBlockOldProtect=s__IntPtr__staticgetindex(s__EndGameHook__MemoryBlock_pHead)
+  function EndGameHook___MakeMemoryBlockExecutable takes nothing returns nothing
+    call EndGameHook___VirtualProtect(s__EndGameHook___MemoryBlock_pHead , s__EndGameHook___MemoryBlock_size , 0x40 , s__EndGameHook___MemoryBlock_pHead)
+    set EndGameHook___MemoryBlockOldProtect=s__IntPtr__staticgetindex(s__EndGameHook___MemoryBlock_pHead)
   endfunction 
 
 
-    function s__EndGameHook__AssemblyWriter_create takes integer pHead returns integer
-      local integer this= s__EndGameHook__AssemblyWriter__allocate()
-      set s__EndGameHook__AssemblyWriter_pCursor[this]=pHead
+    function s__EndGameHook___AssemblyWriter_create takes integer pHead returns integer
+      local integer this= s__EndGameHook___AssemblyWriter__allocate()
+      set s__EndGameHook___AssemblyWriter_pCursor[this]=pHead
       return this
     endfunction 
 
-    function s__EndGameHook__AssemblyWriter_malloc takes integer this,integer size returns integer
-      local integer pBlock= s__EndGameHook__AssemblyWriter_pCursor[this]
-      set s__EndGameHook__AssemblyWriter_pCursor[this]=s__EndGameHook__AssemblyWriter_pCursor[this] + size
+    function s__EndGameHook___AssemblyWriter_malloc takes integer this,integer size returns integer
+      local integer pBlock= s__EndGameHook___AssemblyWriter_pCursor[this]
+      set s__EndGameHook___AssemblyWriter_pCursor[this]=s__EndGameHook___AssemblyWriter_pCursor[this] + size
       return pBlock
     endfunction 
 
-    function s__EndGameHook__AssemblyWriter_writePadding takes integer this,integer size returns nothing
+    function s__EndGameHook___AssemblyWriter_writePadding takes integer this,integer size returns nothing
       local integer i= 0
       loop
         exitwhen i >= size
-        call s__BytePtr__staticsetindex(s__EndGameHook__AssemblyWriter_pCursor[this], 0xCC)
-        set s__EndGameHook__AssemblyWriter_pCursor[this]=s__EndGameHook__AssemblyWriter_pCursor[this] + 1
+        call s__BytePtr__staticsetindex(s__EndGameHook___AssemblyWriter_pCursor[this], 0xCC)
+        set s__EndGameHook___AssemblyWriter_pCursor[this]=s__EndGameHook___AssemblyWriter_pCursor[this] + 1
         set i=i + 1
       endloop
     endfunction 
 
-    function s__EndGameHook__AssemblyWriter_writeByte takes integer this,integer byteValue returns nothing
-      call s__BytePtr__staticsetindex(s__EndGameHook__AssemblyWriter_pCursor[this], byteValue)
-      set s__EndGameHook__AssemblyWriter_pCursor[this]=s__EndGameHook__AssemblyWriter_pCursor[this] + 1
+    function s__EndGameHook___AssemblyWriter_writeByte takes integer this,integer byteValue returns nothing
+      call s__BytePtr__staticsetindex(s__EndGameHook___AssemblyWriter_pCursor[this], byteValue)
+      set s__EndGameHook___AssemblyWriter_pCursor[this]=s__EndGameHook___AssemblyWriter_pCursor[this] + 1
     endfunction 
 
-    function s__EndGameHook__AssemblyWriter_writeInt takes integer this,integer intValue returns nothing
-      call s__IntPtr__staticsetindex(s__EndGameHook__AssemblyWriter_pCursor[this], intValue)
-      set s__EndGameHook__AssemblyWriter_pCursor[this]=s__EndGameHook__AssemblyWriter_pCursor[this] + 4
+    function s__EndGameHook___AssemblyWriter_writeInt takes integer this,integer intValue returns nothing
+      call s__IntPtr__staticsetindex(s__EndGameHook___AssemblyWriter_pCursor[this], intValue)
+      set s__EndGameHook___AssemblyWriter_pCursor[this]=s__EndGameHook___AssemblyWriter_pCursor[this] + 4
     endfunction 
 
-    function s__EndGameHook__AssemblyWriter_writeOffset takes integer this,integer address returns nothing
-      call s__IntPtr__staticsetindex(s__EndGameHook__AssemblyWriter_pCursor[this], address - ( s__EndGameHook__AssemblyWriter_pCursor[this] + 4 ))
-      set s__EndGameHook__AssemblyWriter_pCursor[this]=s__EndGameHook__AssemblyWriter_pCursor[this] + 4
+    function s__EndGameHook___AssemblyWriter_writeOffset takes integer this,integer address returns nothing
+      call s__IntPtr__staticsetindex(s__EndGameHook___AssemblyWriter_pCursor[this], address - ( s__EndGameHook___AssemblyWriter_pCursor[this] + 4 ))
+      set s__EndGameHook___AssemblyWriter_pCursor[this]=s__EndGameHook___AssemblyWriter_pCursor[this] + 4
     endfunction 
 
-  function EndGameHook__InitMemoryBlock takes nothing returns nothing
+  function EndGameHook___InitMemoryBlock takes nothing returns nothing
     local integer asm
     local integer headerSize
 
-    call EndGameHook__MakeMemoryBlockExecutable()
+    call EndGameHook___MakeMemoryBlockExecutable()
 
-    set asm=s__EndGameHook__AssemblyWriter_create(s__EndGameHook__MemoryBlock_pHead)
+    set asm=s__EndGameHook___AssemblyWriter_create(s__EndGameHook___MemoryBlock_pHead)
 
-    set EndGameHook__pDummy1=s__EndGameHook__AssemblyWriter_malloc(asm,4)
-    set EndGameHook__pDummy2=s__EndGameHook__AssemblyWriter_malloc(asm,4)
+    set EndGameHook___pDummy1=s__EndGameHook___AssemblyWriter_malloc(asm,4)
+    set EndGameHook___pDummy2=s__EndGameHook___AssemblyWriter_malloc(asm,4)
 
-    call s__EndGameHook__AssemblyWriter_writePadding(asm,8)
+    call s__EndGameHook___AssemblyWriter_writePadding(asm,8)
 
     // [callback function]  
     //  void callback() {  
@@ -4649,160 +4649,160 @@ endfunction
     //          }  
     //      }  
     //  }  
-    set EndGameHook__pCallback=s__EndGameHook__AssemblyWriter_pCursor[asm]
+    set EndGameHook___pCallback=s__EndGameHook___AssemblyWriter_pCursor[asm]
     // Function header  
-    call s__EndGameHook__AssemblyWriter_writeByte(asm,0x55) // push ebp  
-    call s__EndGameHook__AssemblyWriter_writeByte(asm,0x8B) // mov ebp, esp  
-    call s__EndGameHook__AssemblyWriter_writeByte(asm,0xEC) // -  
-    call s__EndGameHook__AssemblyWriter_writeByte(asm,0x53) // push ebx  
-    call s__EndGameHook__AssemblyWriter_writeByte(asm,0x51) // push ecx  
-    call s__EndGameHook__AssemblyWriter_writeByte(asm,0x52) // push edx  
+    call s__EndGameHook___AssemblyWriter_writeByte(asm,0x55) // push ebp  
+    call s__EndGameHook___AssemblyWriter_writeByte(asm,0x8B) // mov ebp, esp  
+    call s__EndGameHook___AssemblyWriter_writeByte(asm,0xEC) // -  
+    call s__EndGameHook___AssemblyWriter_writeByte(asm,0x53) // push ebx  
+    call s__EndGameHook___AssemblyWriter_writeByte(asm,0x51) // push ecx  
+    call s__EndGameHook___AssemblyWriter_writeByte(asm,0x52) // push edx  
 
     // Check callback is not 0  
-    set EndGameHook__pCallbackCodeIndex=s__EndGameHook__AssemblyWriter_pCursor[asm] + 1
-    call s__EndGameHook__AssemblyWriter_writeByte(asm,0xBB) // mov ebx, 0x00000000  
-    call s__EndGameHook__AssemblyWriter_writeInt(asm,0x00000000) // -  
-    call s__EndGameHook__AssemblyWriter_writeByte(asm,0x85) // test ebx, ebx  
-    call s__EndGameHook__AssemblyWriter_writeByte(asm,0xDB) // -  
-    call s__EndGameHook__AssemblyWriter_writeByte(asm,0x74) // je +60  
-    call s__EndGameHook__AssemblyWriter_writeByte(asm,60) // -  
+    set EndGameHook___pCallbackCodeIndex=s__EndGameHook___AssemblyWriter_pCursor[asm] + 1
+    call s__EndGameHook___AssemblyWriter_writeByte(asm,0xBB) // mov ebx, 0x00000000  
+    call s__EndGameHook___AssemblyWriter_writeInt(asm,0x00000000) // -  
+    call s__EndGameHook___AssemblyWriter_writeByte(asm,0x85) // test ebx, ebx  
+    call s__EndGameHook___AssemblyWriter_writeByte(asm,0xDB) // -  
+    call s__EndGameHook___AssemblyWriter_writeByte(asm,0x74) // je +60  
+    call s__EndGameHook___AssemblyWriter_writeByte(asm,60) // -  
 
     // Get GameState  
-    call s__EndGameHook__AssemblyWriter_writeByte(asm,0xB9) // mov ecx, pGameWar3  
-    call s__EndGameHook__AssemblyWriter_writeInt(asm,EndGameHook__pGameWar3) // -  
-    call s__EndGameHook__AssemblyWriter_writeByte(asm,0xE8) // call sub_2135F0  
-    call s__EndGameHook__AssemblyWriter_writeOffset(asm,pGameDll + 0x2135F0) // -  
+    call s__EndGameHook___AssemblyWriter_writeByte(asm,0xB9) // mov ecx, pGameWar3  
+    call s__EndGameHook___AssemblyWriter_writeInt(asm,EndGameHook___pGameWar3) // -  
+    call s__EndGameHook___AssemblyWriter_writeByte(asm,0xE8) // call sub_2135F0  
+    call s__EndGameHook___AssemblyWriter_writeOffset(asm,pGameDll + 0x2135F0) // -  
 
     // Get JassFunc  
-    call s__EndGameHook__AssemblyWriter_writeByte(asm,0x53) // push ebx  
-    call s__EndGameHook__AssemblyWriter_writeByte(asm,0x8B) // mov ecx, eax  
-    call s__EndGameHook__AssemblyWriter_writeByte(asm,0xC8) // -  
-    call s__EndGameHook__AssemblyWriter_writeByte(asm,0xE8) // call sub_2B97A0  
-    call s__EndGameHook__AssemblyWriter_writeOffset(asm,pGameDll + 0x2B97A0) // -  
+    call s__EndGameHook___AssemblyWriter_writeByte(asm,0x53) // push ebx  
+    call s__EndGameHook___AssemblyWriter_writeByte(asm,0x8B) // mov ecx, eax  
+    call s__EndGameHook___AssemblyWriter_writeByte(asm,0xC8) // -  
+    call s__EndGameHook___AssemblyWriter_writeByte(asm,0xE8) // call sub_2B97A0  
+    call s__EndGameHook___AssemblyWriter_writeOffset(asm,pGameDll + 0x2B97A0) // -  
 
     // Execute JassFunc  
-    call s__EndGameHook__AssemblyWriter_writeByte(asm,0x8B) // mov ecx, eax  
-    call s__EndGameHook__AssemblyWriter_writeByte(asm,0xC8) // -  
-    call s__EndGameHook__AssemblyWriter_writeByte(asm,0x6A) // push 0  
-    call s__EndGameHook__AssemblyWriter_writeByte(asm,0x00) // -  
-    call s__EndGameHook__AssemblyWriter_writeByte(asm,0x6A) // push 0  
-    call s__EndGameHook__AssemblyWriter_writeByte(asm,0x00) // -  
-    call s__EndGameHook__AssemblyWriter_writeByte(asm,0x6A) // push 1  
-    call s__EndGameHook__AssemblyWriter_writeByte(asm,0x01) // -  
-    call s__EndGameHook__AssemblyWriter_writeByte(asm,0x68) // push pDummy2  
-    call s__EndGameHook__AssemblyWriter_writeInt(asm,EndGameHook__pDummy2) // -  
-    call s__EndGameHook__AssemblyWriter_writeByte(asm,0x68) // push pDummy1  
-    call s__EndGameHook__AssemblyWriter_writeInt(asm,EndGameHook__pDummy1) // -  
-    call s__EndGameHook__AssemblyWriter_writeByte(asm,0xE8) // call sub_22ABF0  
-    call s__EndGameHook__AssemblyWriter_writeOffset(asm,pGameDll + 0x22ABF0) // -  
+    call s__EndGameHook___AssemblyWriter_writeByte(asm,0x8B) // mov ecx, eax  
+    call s__EndGameHook___AssemblyWriter_writeByte(asm,0xC8) // -  
+    call s__EndGameHook___AssemblyWriter_writeByte(asm,0x6A) // push 0  
+    call s__EndGameHook___AssemblyWriter_writeByte(asm,0x00) // -  
+    call s__EndGameHook___AssemblyWriter_writeByte(asm,0x6A) // push 0  
+    call s__EndGameHook___AssemblyWriter_writeByte(asm,0x00) // -  
+    call s__EndGameHook___AssemblyWriter_writeByte(asm,0x6A) // push 1  
+    call s__EndGameHook___AssemblyWriter_writeByte(asm,0x01) // -  
+    call s__EndGameHook___AssemblyWriter_writeByte(asm,0x68) // push pDummy2  
+    call s__EndGameHook___AssemblyWriter_writeInt(asm,EndGameHook___pDummy2) // -  
+    call s__EndGameHook___AssemblyWriter_writeByte(asm,0x68) // push pDummy1  
+    call s__EndGameHook___AssemblyWriter_writeInt(asm,EndGameHook___pDummy1) // -  
+    call s__EndGameHook___AssemblyWriter_writeByte(asm,0xE8) // call sub_22ABF0  
+    call s__EndGameHook___AssemblyWriter_writeOffset(asm,pGameDll + 0x22ABF0) // -  
 
     // Check dummy2 is not 0  
-    call s__EndGameHook__AssemblyWriter_writeByte(asm,0xA1) // mov eax, [pDummy2]  
-    call s__EndGameHook__AssemblyWriter_writeInt(asm,EndGameHook__pDummy2) // -  
-    call s__EndGameHook__AssemblyWriter_writeByte(asm,0x85) // test eax, eax  
-    call s__EndGameHook__AssemblyWriter_writeByte(asm,0xC0) // -  
-    call s__EndGameHook__AssemblyWriter_writeByte(asm,0x74) // je +10  
-    call s__EndGameHook__AssemblyWriter_writeByte(asm,10) // -  
+    call s__EndGameHook___AssemblyWriter_writeByte(asm,0xA1) // mov eax, [pDummy2]  
+    call s__EndGameHook___AssemblyWriter_writeInt(asm,EndGameHook___pDummy2) // -  
+    call s__EndGameHook___AssemblyWriter_writeByte(asm,0x85) // test eax, eax  
+    call s__EndGameHook___AssemblyWriter_writeByte(asm,0xC0) // -  
+    call s__EndGameHook___AssemblyWriter_writeByte(asm,0x74) // je +10  
+    call s__EndGameHook___AssemblyWriter_writeByte(asm,10) // -  
 
     // Call sub_8C2260(dummy2)  
-    call s__EndGameHook__AssemblyWriter_writeByte(asm,0xB9) // mov ecx, [pDummy2]  
-    call s__EndGameHook__AssemblyWriter_writeInt(asm,EndGameHook__pDummy2) // -  
-    call s__EndGameHook__AssemblyWriter_writeByte(asm,0xE8) // call sub_8C2260  
-    call s__EndGameHook__AssemblyWriter_writeOffset(asm,pGameDll + 0x8C2260) // -  
+    call s__EndGameHook___AssemblyWriter_writeByte(asm,0xB9) // mov ecx, [pDummy2]  
+    call s__EndGameHook___AssemblyWriter_writeInt(asm,EndGameHook___pDummy2) // -  
+    call s__EndGameHook___AssemblyWriter_writeByte(asm,0xE8) // call sub_8C2260  
+    call s__EndGameHook___AssemblyWriter_writeOffset(asm,pGameDll + 0x8C2260) // -  
 
     // Function footer  
-    call s__EndGameHook__AssemblyWriter_writeByte(asm,0x5A) // pop edx  
-    call s__EndGameHook__AssemblyWriter_writeByte(asm,0x59) // pop ecx  
-    call s__EndGameHook__AssemblyWriter_writeByte(asm,0x5B) // pop ebx  
+    call s__EndGameHook___AssemblyWriter_writeByte(asm,0x5A) // pop edx  
+    call s__EndGameHook___AssemblyWriter_writeByte(asm,0x59) // pop ecx  
+    call s__EndGameHook___AssemblyWriter_writeByte(asm,0x5B) // pop ebx  
 
-    call s__EndGameHook__AssemblyWriter_writeByte(asm,0x8B) // mov esp, ebp  
-    call s__EndGameHook__AssemblyWriter_writeByte(asm,0xE5) // -  
-    call s__EndGameHook__AssemblyWriter_writeByte(asm,0x5D) // pop ebp  
-    call s__EndGameHook__AssemblyWriter_writeByte(asm,0xC3) // ret  
+    call s__EndGameHook___AssemblyWriter_writeByte(asm,0x8B) // mov esp, ebp  
+    call s__EndGameHook___AssemblyWriter_writeByte(asm,0xE5) // -  
+    call s__EndGameHook___AssemblyWriter_writeByte(asm,0x5D) // pop ebp  
+    call s__EndGameHook___AssemblyWriter_writeByte(asm,0xC3) // ret  
 
-    call s__EndGameHook__AssemblyWriter_writePadding(asm,8)
+    call s__EndGameHook___AssemblyWriter_writePadding(asm,8)
 
     // [trampoline block]  
-    set EndGameHook__pTrampoline=s__EndGameHook__AssemblyWriter_pCursor[asm]
+    set EndGameHook___pTrampoline=s__EndGameHook___AssemblyWriter_pCursor[asm]
     // Function header  
-    call s__EndGameHook__AssemblyWriter_writeByte(asm,0x55) // push ebp  
-    call s__EndGameHook__AssemblyWriter_writeByte(asm,0x8B) // mov ebp, esp  
-    call s__EndGameHook__AssemblyWriter_writeByte(asm,0xEC) // -  
-    call s__EndGameHook__AssemblyWriter_writeByte(asm,0x83) // sub esp, 08  
-    call s__EndGameHook__AssemblyWriter_writeByte(asm,0xEC) // -  
-    call s__EndGameHook__AssemblyWriter_writeByte(asm,0x08) // -  
+    call s__EndGameHook___AssemblyWriter_writeByte(asm,0x55) // push ebp  
+    call s__EndGameHook___AssemblyWriter_writeByte(asm,0x8B) // mov ebp, esp  
+    call s__EndGameHook___AssemblyWriter_writeByte(asm,0xEC) // -  
+    call s__EndGameHook___AssemblyWriter_writeByte(asm,0x83) // sub esp, 08  
+    call s__EndGameHook___AssemblyWriter_writeByte(asm,0xEC) // -  
+    call s__EndGameHook___AssemblyWriter_writeByte(asm,0x08) // -  
 
-    set headerSize=s__EndGameHook__AssemblyWriter_pCursor[asm] - EndGameHook__pTrampoline
+    set headerSize=s__EndGameHook___AssemblyWriter_pCursor[asm] - EndGameHook___pTrampoline
 
-    call s__EndGameHook__AssemblyWriter_writeByte(asm,0xE8) // call pCallback  
-    call s__EndGameHook__AssemblyWriter_writeOffset(asm,EndGameHook__pCallback) // -  
+    call s__EndGameHook___AssemblyWriter_writeByte(asm,0xE8) // call pCallback  
+    call s__EndGameHook___AssemblyWriter_writeOffset(asm,EndGameHook___pCallback) // -  
 
-    call s__EndGameHook__AssemblyWriter_writeByte(asm,0xE9) // jmp pReturn  
-    call s__EndGameHook__AssemblyWriter_writeOffset(asm,EndGameHook__pSub_35FDF0 + headerSize) // -  
+    call s__EndGameHook___AssemblyWriter_writeByte(asm,0xE9) // jmp pReturn  
+    call s__EndGameHook___AssemblyWriter_writeOffset(asm,EndGameHook___pSub_35FDF0 + headerSize) // -  
 
-    call s__EndGameHook__AssemblyWriter_writePadding(asm,8)
+    call s__EndGameHook___AssemblyWriter_writePadding(asm,8)
 
     // Initialize globals  
-    call s__IntPtr__staticsetindex(EndGameHook__pDummy1, 0)
-    call s__IntPtr__staticsetindex(EndGameHook__pDummy2, 0)
+    call s__IntPtr__staticsetindex(EndGameHook___pDummy1, 0)
+    call s__IntPtr__staticsetindex(EndGameHook___pDummy2, 0)
 
-    call s__EndGameHook__AssemblyWriter_deallocate(asm)
+    call s__EndGameHook___AssemblyWriter_deallocate(asm)
   endfunction 
 
-  function EndGameHook__IsHookedAlready takes nothing returns boolean
-    return s__IntPtr__staticgetindex(EndGameHook__pSub_35FDF0) != 0x83EC8B55
+  function EndGameHook___IsHookedAlready takes nothing returns boolean
+    return s__IntPtr__staticgetindex(EndGameHook___pSub_35FDF0) != 0x83EC8B55
   endfunction 
 
-  function EndGameHook__HookEndGame takes nothing returns nothing
+  function EndGameHook___HookEndGame takes nothing returns nothing
     local integer asm
 
     // Backup sub_35FDF0  
-    set EndGameHook__originalSub_35FDF0[0]=s__IntPtr__getindex((EndGameHook__pSub_35FDF0),0)
-    set EndGameHook__originalSub_35FDF0[1]=s__IntPtr__getindex((EndGameHook__pSub_35FDF0),1)
+    set EndGameHook___originalSub_35FDF0[0]=s__IntPtr__getindex((EndGameHook___pSub_35FDF0),0)
+    set EndGameHook___originalSub_35FDF0[1]=s__IntPtr__getindex((EndGameHook___pSub_35FDF0),1)
 
     // Inject trampoline into sub_35FDF0  
-    set asm=s__EndGameHook__AssemblyWriter_create(EndGameHook__pSub_35FDF0)
-    call s__EndGameHook__AssemblyWriter_writeByte(asm,0xE9) // jmp pTrampoline  
-    call s__EndGameHook__AssemblyWriter_writeOffset(asm,EndGameHook__pTrampoline) // -  
-    call s__EndGameHook__AssemblyWriter_writeByte(asm,0x90) // nop  
-    call s__EndGameHook__AssemblyWriter_deallocate(asm)
+    set asm=s__EndGameHook___AssemblyWriter_create(EndGameHook___pSub_35FDF0)
+    call s__EndGameHook___AssemblyWriter_writeByte(asm,0xE9) // jmp pTrampoline  
+    call s__EndGameHook___AssemblyWriter_writeOffset(asm,EndGameHook___pTrampoline) // -  
+    call s__EndGameHook___AssemblyWriter_writeByte(asm,0x90) // nop  
+    call s__EndGameHook___AssemblyWriter_deallocate(asm)
   endfunction 
 
-  function EndGameHook__UnhookEndGame takes nothing returns nothing
+  function EndGameHook___UnhookEndGame takes nothing returns nothing
     // Restore sub_35FDF0  
-    call s__IntPtr__setindex((EndGameHook__pSub_35FDF0),0, EndGameHook__originalSub_35FDF0[0])
-    call s__IntPtr__setindex((EndGameHook__pSub_35FDF0),1, EndGameHook__originalSub_35FDF0[1])
+    call s__IntPtr__setindex((EndGameHook___pSub_35FDF0),0, EndGameHook___originalSub_35FDF0[0])
+    call s__IntPtr__setindex((EndGameHook___pSub_35FDF0),1, EndGameHook___originalSub_35FDF0[1])
   endfunction 
 
-  function EndGameHook__SetEndGameHookCallback takes code func returns nothing
-    call s__IntPtr__staticsetindex(EndGameHook__pCallbackCodeIndex, EndGameHook__GetCodeIndex(func))
+  function EndGameHook___SetEndGameHookCallback takes code func returns nothing
+    call s__IntPtr__staticsetindex(EndGameHook___pCallbackCodeIndex, EndGameHook___GetCodeIndex(func))
   endfunction 
 
-  function EndGameHook__Callback takes nothing returns nothing
-    call EndGameHook__UnhookEndGame()
+  function EndGameHook___Callback takes nothing returns nothing
+    call EndGameHook___UnhookEndGame()
 
-    if ( EndGameHook__userCallbackName != null ) then
-      call ExecuteFunc(EndGameHook__userCallbackName)
-    elseif ( EndGameHook__userCallbackCode != null ) then
-      call ForForce(GetForceOfPlayer(Player(0)), EndGameHook__userCallbackCode)
+    if ( EndGameHook___userCallbackName != null ) then
+      call ExecuteFunc(EndGameHook___userCallbackName)
+    elseif ( EndGameHook___userCallbackCode != null ) then
+      call ForForce(GetForceOfPlayer(Player(0)), EndGameHook___userCallbackCode)
     endif
   endfunction 
 
-  function EndGameHook__InitHook takes nothing returns nothing
-    if EndGameHook__IsHookedAlready() then
+  function EndGameHook___InitHook takes nothing returns nothing
+    if EndGameHook___IsHookedAlready() then
        call JNWriteLog("[EndGameHook] The function is hooked already.")
       return
     endif
 
-    call EndGameHook__InitMemoryBlock()
-    call EndGameHook__HookEndGame()
+    call EndGameHook___InitMemoryBlock()
+    call EndGameHook___HookEndGame()
   endfunction 
 
-  function EndGameHook__Init takes nothing returns nothing
-    set EndGameHook__pGameWar3=EndGameHook__GetGameWar3()
-    set EndGameHook__pSub_35FDF0=pGameDll + 0x35FDF0
-    call EndGameHook__InitHook()
-    call EndGameHook__SetEndGameHookCallback(function EndGameHook__Callback)
+  function EndGameHook___Init takes nothing returns nothing
+    set EndGameHook___pGameWar3=EndGameHook___GetGameWar3()
+    set EndGameHook___pSub_35FDF0=pGameDll + 0x35FDF0
+    call EndGameHook___InitHook()
+    call EndGameHook___SetEndGameHookCallback(function EndGameHook___Callback)
   endfunction 
 
 // scope EndGameHook ends
@@ -4818,7 +4818,7 @@ endfunction
 // scope UnitNameChanger begins
 
 
-  function UnitNameChanger__sub_2217A0 takes integer this returns integer
+  function UnitNameChanger___sub_2217A0 takes integer this returns integer
     local integer pFunc= pGameDll + 0x2217A0
     call SaveStr(JNProc_ht, JNProc_key, 0, "(I)I")
     call SaveInteger(JNProc_ht, JNProc_key, 1, this)
@@ -4828,7 +4828,7 @@ endfunction
     return 0
   endfunction
   
-  function UnitNameChanger__sub_378720 takes integer this returns integer
+  function UnitNameChanger___sub_378720 takes integer this returns integer
     local integer pFunc= pGameDll + 0x378720
     call SaveStr(JNProc_ht, JNProc_key, 0, "(I)I")
     call SaveInteger(JNProc_ht, JNProc_key, 1, this)
@@ -4839,7 +4839,7 @@ endfunction
   endfunction
   
   // sub_3782B0의 변형
-  function UnitNameChanger__GetObjectNamePtr takes integer rawcode returns integer
+  function UnitNameChanger___GetObjectNamePtr takes integer rawcode returns integer
     local integer a1= rawcode
     local integer a2= 0
     local integer result
@@ -4848,7 +4848,7 @@ endfunction
     local integer v5
     local integer v6
 
-    set v3=UnitNameChanger__sub_378720(a1)
+    set v3=UnitNameChanger___sub_378720(a1)
     if ( v3 == 0 ) then
       return 0
     endif
@@ -4867,8 +4867,8 @@ endfunction
   endfunction
   
   // sub_376CA0의 변형
-  function UnitNameChanger__GetHeroTypeProperNamePtr takes integer heroTypeId,integer index returns integer
-    local integer pUnitTypeData= UnitNameChanger__sub_378720(heroTypeId)
+  function UnitNameChanger___GetHeroTypeProperNamePtr takes integer heroTypeId,integer index returns integer
+    local integer pUnitTypeData= UnitNameChanger___sub_378720(heroTypeId)
     local integer nHeroNames= s__IntPtr__staticgetindex(pUnitTypeData + 0xF4)
     local integer pHeroNames= s__PtrPtr__staticgetindex(pUnitTypeData + 0xF8)
 
@@ -4879,8 +4879,8 @@ endfunction
     endif
   endfunction
 
-  function UnitNameChanger__GetHeroTypeProperNamesSize takes integer heroTypeId returns integer
-    local integer pUnitTypeData= UnitNameChanger__sub_378720(heroTypeId)
+  function UnitNameChanger___GetHeroTypeProperNamesSize takes integer heroTypeId returns integer
+    local integer pUnitTypeData= UnitNameChanger___sub_378720(heroTypeId)
     local integer nHeroNames= s__IntPtr__staticgetindex(pUnitTypeData + 0xF4)
     return nHeroNames
   endfunction
@@ -4889,7 +4889,7 @@ endfunction
 
   
   function SetObjectName takes integer rawcode,string newName returns nothing
-    local integer pName= UnitNameChanger__GetObjectNamePtr(rawcode)
+    local integer pName= UnitNameChanger___GetObjectNamePtr(rawcode)
     call JNMemorySetString(pName, newName)
   endfunction
 
@@ -4900,10 +4900,10 @@ endfunction
 
   
   function GetHeroProperNameIndex takes unit whichHero returns integer
-    local integer pUnit= UnitNameChanger__sub_2217A0(GetHandleId(whichHero))
+    local integer pUnit= UnitNameChanger___sub_2217A0(GetHandleId(whichHero))
     local integer pAbilityHero= s__PtrPtr__staticgetindex(pUnit + 0x1F0)
     local integer index= BitAnd(s__IntPtr__staticgetindex(pAbilityHero + 0xE8), 0xFFFF)
-    local integer nHeroNames= UnitNameChanger__GetHeroTypeProperNamesSize(GetUnitTypeId(whichHero))
+    local integer nHeroNames= UnitNameChanger___GetHeroTypeProperNamesSize(GetUnitTypeId(whichHero))
 
     if ( nHeroNames > 0 ) then
       return ModuloInteger(index, nHeroNames)
@@ -4914,9 +4914,9 @@ endfunction
 
   
   function SetHeroProperNameIndex takes unit whichHero,integer index returns nothing
-    local integer pUnit= UnitNameChanger__sub_2217A0(GetHandleId(whichHero))
+    local integer pUnit= UnitNameChanger___sub_2217A0(GetHandleId(whichHero))
     local integer pAbilityHero= s__PtrPtr__staticgetindex(pUnit + 0x1F0)
-    local integer nHeroNames= UnitNameChanger__GetHeroTypeProperNamesSize(GetUnitTypeId(whichHero))
+    local integer nHeroNames= UnitNameChanger___GetHeroTypeProperNamesSize(GetUnitTypeId(whichHero))
     local integer hiBits
     local integer loBits
 
@@ -4929,7 +4929,7 @@ endfunction
 
   
   function SetHeroTypeProperName takes integer heroTypeId,integer index,string newName returns nothing
-    local integer pName= UnitNameChanger__GetHeroTypeProperNamePtr(heroTypeId , index)
+    local integer pName= UnitNameChanger___GetHeroTypeProperNamePtr(heroTypeId , index)
     if ( pName != 0 ) then
       call JNMemorySetString(pName, newName)
     endif
@@ -4937,7 +4937,7 @@ endfunction
 
   
   function GetHeroTypeProperName takes integer heroTypeId,integer index returns string
-    local integer pName= UnitNameChanger__GetHeroTypeProperNamePtr(heroTypeId , index)
+    local integer pName= UnitNameChanger___GetHeroTypeProperNamePtr(heroTypeId , index)
     if ( pName != 0 ) then
       return JNMemoryGetString(pName, 0)
     else
@@ -4957,7 +4957,7 @@ endfunction
 // BEGIN IMPORT OF System\Frames\MainFrame.j
 // scope MainFrame begins
     
-    function MainFrame__NoSaveNoTime takes nothing returns nothing
+    function MainFrame___NoSaveNoTime takes nothing returns nothing
      local integer Relative= 0
       call DestroyTrigger(GetTriggeringTrigger())
       //일시 정지 버튼 비활성화 & 숨김
@@ -4977,19 +4977,19 @@ endfunction
       call DzFrameSetEnable(DzFrameFindByName("SaveGameFileEditBox", 0), false)
       call DzFrameShow(DzFrameFindByName("SaveGameFileEditBox", 0), false)
     endfunction
-    function MainFrame__Exit takes nothing returns nothing
-      call DialogDisplay(GetLocalPlayer(), MainFrame__NoSaveDialog, false)
+    function MainFrame___Exit takes nothing returns nothing
+      call DialogDisplay(GetLocalPlayer(), MainFrame___NoSaveDialog, false)
       call DestroyTimer(GetExpiredTimer())
     endfunction
-    function MainFrame__StopSave takes nothing returns nothing
-      call DialogDisplay(GetLocalPlayer(), MainFrame__NoSaveDialog, true)
-      call TimerStart(CreateTimer(), 0., false, function MainFrame__Exit)
+    function MainFrame___StopSave takes nothing returns nothing
+      call DialogDisplay(GetLocalPlayer(), MainFrame___NoSaveDialog, true)
+      call TimerStart(CreateTimer(), 0., false, function MainFrame___Exit)
     endfunction
-    function MainFrame__StopLoad takes nothing returns nothing
+    function MainFrame___StopLoad takes nothing returns nothing
       call MsgAll(GetPlayerName(Player(7 - 8)))
     endfunction
     
-    function MainFrame__RemoveFrame takes integer frameID returns nothing
+    function MainFrame___RemoveFrame takes integer frameID returns nothing
       call DzFrameClearAllPoints(frameID)
       call DzFrameSetAbsolutePoint(frameID, JN_FRAMEPOINT_TOPRIGHT, 0, 0)
     endfunction
@@ -4998,7 +4998,7 @@ endfunction
       return Frame
     endfunction
     
-    function MainFrame__Init takes nothing returns nothing
+    function MainFrame___Init takes nothing returns nothing
      local integer i= 0
      local trigger trg
       
@@ -5012,9 +5012,9 @@ endfunction
       call DzFrameEditBlackBorders(0, 0)
 
       
-      call MainFrame__RemoveFrame(DzFrameGetUpperButtonBarButton(0))
-      call MainFrame__RemoveFrame(DzFrameGetUpperButtonBarButton(1))
-      call MainFrame__RemoveFrame(DzFrameGetUpperButtonBarButton(2))
+      call MainFrame___RemoveFrame(DzFrameGetUpperButtonBarButton(0))
+      call MainFrame___RemoveFrame(DzFrameGetUpperButtonBarButton(1))
+      call MainFrame___RemoveFrame(DzFrameGetUpperButtonBarButton(2))
       
       set i=MainFrame_Get(DzFrameGetUpperButtonBarButton(3))
       call DzFrameSetSize(i, .022, .024)
@@ -5060,15 +5060,15 @@ endfunction
       
       set trg=CreateTrigger()
       call TriggerRegisterTimerEvent(trg, 0., false)
-      call TriggerAddAction(trg, function MainFrame__NoSaveNoTime)
+      call TriggerAddAction(trg, function MainFrame___NoSaveNoTime)
     
       set trg=CreateTrigger()
       call TriggerRegisterGameEvent(trg, EVENT_GAME_SAVE)
-      call TriggerAddAction(trg, function MainFrame__StopSave)
+      call TriggerAddAction(trg, function MainFrame___StopSave)
       
       set trg=CreateTrigger()
       call TriggerRegisterGameEvent(trg, EVENT_GAME_LOADED)
-      call TriggerAddAction(trg, function MainFrame__StopLoad)
+      call TriggerAddAction(trg, function MainFrame___StopLoad)
       set trg=null
 
       
@@ -5106,10 +5106,10 @@ endfunction
 //#         
 //# 
 //#         
-//#         call MainFrame__RemoveFrame(DzSimpleFrameFindByName("SimpleInfoPanelUnitDetail", 0))
+//#         call MainFrame___RemoveFrame(DzSimpleFrameFindByName("SimpleInfoPanelUnitDetail", 0))
 //#         
 //#         
-//#         call MainFrame__RemoveFrame(DzFrameGetParent(DzSimpleFrameFindByName("SimpleInfoPanelUnitDetail", 0)))
+//#         call MainFrame___RemoveFrame(DzFrameGetParent(DzSimpleFrameFindByName("SimpleInfoPanelUnitDetail", 0)))
 //#         
 //#         // call MsgAll("setted :: " + I2S(DzFrameGetPortrait()))
 //#     
@@ -5131,7 +5131,7 @@ endfunction
 // END IMPORT OF System\Frames\MainFrame.j
 // BEGIN IMPORT OF System\Frames\UnitDetailFrame.j
 // scope UnitDetailFrame begins
-    function UnitDetailFrame__Init takes nothing returns nothing
+    function UnitDetailFrame___Init takes nothing returns nothing
      local integer i= 0
       
       set Frame_Main=DzCreateFrameByTagName("SPRITE", "", DzGetGameUI(), "", 0)
@@ -5174,17 +5174,17 @@ endfunction
 // END IMPORT OF System\Frames\UnitDetailFrame.j
 // BEGIN IMPORT OF System\Frames\SkillTree.j
 // scope SkillTree begins
-    function SkillTree__f2I takes integer f returns integer
+    function SkillTree___f2I takes integer f returns integer
       return s__EMenus_GetSubTypeId(f)
     endfunction
-    function SkillTree__MaxRow3 takes integer kor,integer eng,integer space,boolean isColored returns real
+    function SkillTree___MaxRow3 takes integer kor,integer eng,integer space,boolean isColored returns real
       if ( isColored ) then
       return .0222 + kor * .01 + ( eng - 9 ) * .00735 + space * .0033
       else
       return .0222 + kor * .01 + eng * .00735 + space * .0033
       endif
     endfunction
-    function SkillTree__MaxRow takes real title,string s,integer i2 returns real
+    function SkillTree___MaxRow takes real title,string s,integer i2 returns real
       local string temp_s
       local real return_x= 0.07
 
@@ -5195,45 +5195,45 @@ endfunction
         set temp_s=JNStringSplit(s, "\n", i2)
         // set return_x = RMaxBJ(return_x, MaxRow2(JNStringLength(temp_s), JNStringCount(temp_s, " ")))
         // call BJDebugMsg("MaxRow: " + I2S(JNStringLength(temp_s)) + ", " + I2S(JNStringCount(temp_s, " ")) + ", " + I2S(JNStringCount(temp_s, "[가-힣]")) + ", " + I2S(JNStringCount(temp_s, "[a-zA-Z_0-9]")))
-        set return_x=RMaxBJ(return_x, SkillTree__MaxRow3(JNStringCount(temp_s, "[가-힣]") , JNStringCount(temp_s, "[a-zA-Z_0-9]") , JNStringCount(temp_s, " ") , JNStringContains(temp_s, "|c")))
+        set return_x=RMaxBJ(return_x, SkillTree___MaxRow3(JNStringCount(temp_s, "[가-힣]") , JNStringCount(temp_s, "[a-zA-Z_0-9]") , JNStringCount(temp_s, " ") , JNStringContains(temp_s, "|c")))
         exitwhen i2 <= 1
         set i2=i2 - 1
       endloop
       set temp_s=null
       return RMaxBJ(title, return_x)
     endfunction
-    constant function SkillTree__MaxHeight takes integer count returns real
+    constant function SkillTree___MaxHeight takes integer count returns real
       return count * .01
     endfunction
 
     function SkillTree_MakeLineX takes integer base,real x,real y,real size returns nothing
-      set SkillTree__SkillTreeNow=DzCreateFrameByTagName("BACKDROP", "", base, "", 0)
-      call DzFrameSetTexture(SkillTree__SkillTreeNow, "ReplaceableTextures\\TeamColor\\TeamColor04.blp", 0)
-      call DzFrameSetPoint(SkillTree__SkillTreeNow, JN_FRAMEPOINT_LEFT, base, JN_FRAMEPOINT_TOPLEFT, x, y)
-      call DzFrameSetSize(SkillTree__SkillTreeNow, size, 0.0005)
+      set SkillTree___SkillTreeNow=DzCreateFrameByTagName("BACKDROP", "", base, "", 0)
+      call DzFrameSetTexture(SkillTree___SkillTreeNow, "ReplaceableTextures\\TeamColor\\TeamColor04.blp", 0)
+      call DzFrameSetPoint(SkillTree___SkillTreeNow, JN_FRAMEPOINT_LEFT, base, JN_FRAMEPOINT_TOPLEFT, x, y)
+      call DzFrameSetSize(SkillTree___SkillTreeNow, size, 0.0005)
     endfunction
     function SkillTree_MakeLineY takes integer base,real x,real y,real size returns nothing
-      set SkillTree__SkillTreeNow=DzCreateFrameByTagName("BACKDROP", "", base, "", 0)
-      call DzFrameSetTexture(SkillTree__SkillTreeNow, "ReplaceableTextures\\TeamColor\\TeamColor04.blp", 0)
-      call DzFrameSetPoint(SkillTree__SkillTreeNow, JN_FRAMEPOINT_TOP, base, JN_FRAMEPOINT_TOPLEFT, x, y)
-      call DzFrameSetPoint(SkillTree__SkillTreeNow, JN_FRAMEPOINT_LEFT, base, JN_FRAMEPOINT_TOPLEFT, x, y)
-      call DzFrameSetSize(SkillTree__SkillTreeNow, .0005, size)
+      set SkillTree___SkillTreeNow=DzCreateFrameByTagName("BACKDROP", "", base, "", 0)
+      call DzFrameSetTexture(SkillTree___SkillTreeNow, "ReplaceableTextures\\TeamColor\\TeamColor04.blp", 0)
+      call DzFrameSetPoint(SkillTree___SkillTreeNow, JN_FRAMEPOINT_TOP, base, JN_FRAMEPOINT_TOPLEFT, x, y)
+      call DzFrameSetPoint(SkillTree___SkillTreeNow, JN_FRAMEPOINT_LEFT, base, JN_FRAMEPOINT_TOPLEFT, x, y)
+      call DzFrameSetSize(SkillTree___SkillTreeNow, .0005, size)
     endfunction
 
-    function SkillTree__ChangeSmallLevelFrame takes integer playerId,integer frameNumber,integer level returns nothing
+    function SkillTree___ChangeSmallLevelFrame takes integer playerId,integer frameNumber,integer level returns nothing
       if ( 0 < level and GetLocalPlayer() == Player(playerId - 1) ) then
         call DzFrameShow(LoadInteger(hash, StringHash("Tree_HotkeyBase"), frameNumber), true)
         call DzFrameSetText(LoadInteger(hash, LoadInteger(hash, StringHash("Tree_HotkeyBase"), frameNumber), StringHash("Tree_Hotkey")), I2S(level))
       endif
     endfunction
-    function SkillTree__MakeSmallLevelFrame takes integer frame returns nothing
+    function SkillTree___MakeSmallLevelFrame takes integer frame returns nothing
       local integer HotFrame= DzCreateFrame("CommandButtonHotKeyBackDrop", frame, StringHash("TreeHotkey"))
       local integer HotFrameTxt= DzCreateFrame("CommandButtonHotKeyText", HotFrame, 1)
       call DzFrameSetTexture(HotFrame, "ui\\widgets\\console\\human\\commandbutton\\human-button-lvls-overlay.blp", 0)
       call DzFrameSetPoint(HotFrame, JN_FRAMEPOINT_BOTTOM, frame, JN_FRAMEPOINT_TOP, 0., - 0.008)
       call DzFrameSetSize(HotFrame, 0.015, 0.01)
       call DzFrameSetPoint(HotFrameTxt, JN_FRAMEPOINT_CENTER, HotFrame, JN_FRAMEPOINT_CENTER, 0., 0.)
-      call SaveInteger(hash, StringHash("Tree_HotkeyBase"), SkillTree__f2I(frame), frame)
+      call SaveInteger(hash, StringHash("Tree_HotkeyBase"), SkillTree___f2I(frame), frame)
       call SaveInteger(hash, frame, StringHash("Tree_Hotkey"), HotFrameTxt)
       call DzFrameSetText(HotFrameTxt, I2S(GetRandomInt(1, 9)))
       call DzFrameShow(HotFrame, false)
@@ -5266,63 +5266,63 @@ endfunction
     //   call DzFrameSetPoint(SkillTreeBackdrop[i], JN_FRAMEPOINT_LEFT, SkillTreeNow, JN_FRAMEPOINT_TOPLEFT, x, y)
     //   call DzFrameSetSize(SkillTreeBackdrop[i], size+.02, 0.005)
     // endfunction
-    function SkillTree__SkillTreeSync takes nothing returns nothing
+    function SkillTree___SkillTreeSync takes nothing returns nothing
       local player clickedPlayer= DzGetTriggerSyncPlayer()
       local integer syncData= S2I(DzGetTriggerSyncData())
       call MsgAll("플레이어 " + GetPlayerName(clickedPlayer) + ", (스킬트리) 클릭, " + I2S(syncData))
     endfunction
-    function SkillTree__SkillTreeClick takes nothing returns nothing
+    function SkillTree___SkillTreeClick takes nothing returns nothing
       local integer f= DzGetTriggerUIEventFrame()
       local integer playerId= GetPlayerId(DzGetTriggerUIEventPlayer()) + 1
-      local integer clickedNumber= SkillTree__f2I(f)
+      local integer clickedNumber= SkillTree___f2I(f)
       // call MsgAll("플레이어 " + GetPlayerName(Player(playerId-1)) + ", "+I2S(EMenus.F2It(f))+"(스킬트리) 클릭, " + I2S(clickedNumber))
       if ( 0 < clickedNumber and GetLocalPlayer() == DzGetTriggerUIEventPlayer() ) then
         call StopSound(gg_snd_BigButtonClick, false, false)
         call StartSound(gg_snd_BigButtonClick)
 
-        call DzFrameShow(SkillTree__TreeExtendFrame, true)
+        call DzFrameShow(SkillTree___TreeExtendFrame, true)
          call DzSyncData("TreeSync", I2S(clickedNumber))
           // => SkillTreeSync()
       endif
     endfunction
     
-    function SkillTree__ButtonJustUp takes nothing returns nothing
+    function SkillTree___ButtonJustUp takes nothing returns nothing
      local integer f= DzGetTriggerUIEventFrame()
      local integer skillNumber= LoadInteger(hash, StringHash("Menu_TypeSub"), f)
      local string s= s__SkillData_Name[s__SkillData__staticgetindex(skillNumber)]
-     local integer need= JNStringCount(DzFrameGetText(SkillTree__TreeChangeableFrame[s__ESkillTree_PopupDetailPoint]), "\n")
-     call DzFrameSetAbsolutePoint(SkillTree__TreeExtendFrame, JN_FRAMEPOINT_BOTTOMLEFT, GetFrameMouseX(), GetFrameMouseY())
-     call DzFrameShow(SkillTree__TreeExtendFrame, true)
+     local integer need= JNStringCount(DzFrameGetText(SkillTree___TreeChangeableFrame[s__ESkillTree_PopupDetailPoint]), "\n")
+     call DzFrameSetAbsolutePoint(SkillTree___TreeExtendFrame, JN_FRAMEPOINT_BOTTOMLEFT, GetFrameMouseX(), GetFrameMouseY())
+     call DzFrameShow(SkillTree___TreeExtendFrame, true)
      
       if ( GetLocalPlayer() == DzGetTriggerUIEventPlayer() ) then
-        call DzFrameSetText(SkillTree__TreeChangeableFrame[s__ESkillTree_PopupTitle], "|cffffcc00" + s)
-        call DzFrameSetAbsolutePoint(SkillTree__TreePopupFrame, JN_FRAMEPOINT_BOTTOMLEFT, GetFrameMouseX(), GetFrameMouseY())
-        call DzFrameSetSize(SkillTree__TreePopupFrame, SkillTree__MaxRow(.015 + JNStringLength(s) * .012 - JNStringCount(s, " ") * .008 , DzFrameGetText(SkillTree__TreeChangeableFrame[s__ESkillTree_PopupDetailPoint]) , need), .06 + SkillTree__MaxHeight(need))
-        call DzFrameSetPoint(SkillTree__TreeChangeableFrame[s__ESkillTree_PopupDetailCurrentLevel], JN_FRAMEPOINT_TOPLEFT, SkillTree__TreePopupFrame, JN_FRAMEPOINT_TOPLEFT, .01, - DzFrameGetHeight(SkillTree__TreePopupFrame) + .0175)
-        call DzFrameShow(SkillTree__TreePopupFrame, true)
+        call DzFrameSetText(SkillTree___TreeChangeableFrame[s__ESkillTree_PopupTitle], "|cffffcc00" + s)
+        call DzFrameSetAbsolutePoint(SkillTree___TreePopupFrame, JN_FRAMEPOINT_BOTTOMLEFT, GetFrameMouseX(), GetFrameMouseY())
+        call DzFrameSetSize(SkillTree___TreePopupFrame, SkillTree___MaxRow(.015 + JNStringLength(s) * .012 - JNStringCount(s, " ") * .008 , DzFrameGetText(SkillTree___TreeChangeableFrame[s__ESkillTree_PopupDetailPoint]) , need), .06 + SkillTree___MaxHeight(need))
+        call DzFrameSetPoint(SkillTree___TreeChangeableFrame[s__ESkillTree_PopupDetailCurrentLevel], JN_FRAMEPOINT_TOPLEFT, SkillTree___TreePopupFrame, JN_FRAMEPOINT_TOPLEFT, .01, - DzFrameGetHeight(SkillTree___TreePopupFrame) + .0175)
+        call DzFrameShow(SkillTree___TreePopupFrame, true)
       endif
     endfunction
-    function SkillTree__ButtonJustDown takes nothing returns nothing
+    function SkillTree___ButtonJustDown takes nothing returns nothing
       if ( GetLocalPlayer() == DzGetTriggerUIEventPlayer() ) then
-        call DzFrameShow(SkillTree__TreePopupFrame, false)
-        call DzFrameShow(SkillTree__TreeExtendFrame, false)
+        call DzFrameShow(SkillTree___TreePopupFrame, false)
+        call DzFrameShow(SkillTree___TreeExtendFrame, false)
       endif
     endfunction
 
-    function SkillTree__GetMadeText takes integer base,real x,real y,string contents,real size,boolean center returns integer
-      set SkillTree__SkillTreeNow=DzCreateFrameByTagName("TEXT", "", base, "", 0)
+    function SkillTree___GetMadeText takes integer base,real x,real y,string contents,real size,boolean center returns integer
+      set SkillTree___SkillTreeNow=DzCreateFrameByTagName("TEXT", "", base, "", 0)
       if ( center ) then
-        call DzFrameSetPoint(SkillTree__SkillTreeNow, JN_FRAMEPOINT_CENTER, base, JN_FRAMEPOINT_TOPLEFT, x, y)
+        call DzFrameSetPoint(SkillTree___SkillTreeNow, JN_FRAMEPOINT_CENTER, base, JN_FRAMEPOINT_TOPLEFT, x, y)
       else
-        call DzFrameSetPoint(SkillTree__SkillTreeNow, JN_FRAMEPOINT_LEFT, base, JN_FRAMEPOINT_TOPLEFT, x, y)
+        call DzFrameSetPoint(SkillTree___SkillTreeNow, JN_FRAMEPOINT_LEFT, base, JN_FRAMEPOINT_TOPLEFT, x, y)
       endif
       if ( size != 0. ) then
-        call DzFrameSetFont(SkillTree__SkillTreeNow, "Fonts\\DFHeiMd.ttf", size, 0)
+        call DzFrameSetFont(SkillTree___SkillTreeNow, "Fonts\\DFHeiMd.ttf", size, 0)
       endif
-      call DzFrameSetText(SkillTree__SkillTreeNow, contents)
-      return SkillTree__SkillTreeNow
+      call DzFrameSetText(SkillTree___SkillTreeNow, contents)
+      return SkillTree___SkillTreeNow
     endfunction
-    function SkillTree__TreeMainIcon takes integer characterId returns nothing
+    function SkillTree___TreeMainIcon takes integer characterId returns nothing
       local integer loopA= s__TreeMainCoreData_MAX_TREE_SKILL_COUNT[s__TreeMainCoreData__staticgetindex(characterId)]
       local integer lastFrame= 0
       if ( loopA <= 0 ) then
@@ -5330,39 +5330,39 @@ endfunction
         return
       else
         loop
-          set SkillTree__TreeMainSkillButtons[loopA]=DzCreateFrameByTagName("BACKDROP", "", SkillTree__SkillTreeNow, "", 0)
-          call DzFrameSetPoint(SkillTree__TreeMainSkillButtons[loopA], JN_FRAMEPOINT_CENTER, SkillTree__SkillTreeNow, JN_FRAMEPOINT_TOPLEFT, s___TreeMainCoreData_positionX[s__TreeMainCoreData_positionX[s__TreeMainCoreData__staticgetindex(characterId)]+loopA], s___TreeMainCoreData_positionY[s__TreeMainCoreData_positionY[s__TreeMainCoreData__staticgetindex(characterId)]+loopA])
-          call DzFrameSetTexture(SkillTree__TreeMainSkillButtons[loopA], s___TreeMainCoreData_iconPath[s__TreeMainCoreData_iconPath[s__TreeMainCoreData__staticgetindex(characterId)]+s___TreeMainCoreData_SkillNumber[s__TreeMainCoreData_SkillNumber[s__TreeMainCoreData__staticgetindex(characterId)]+loopA]], 0)
-          call DzFrameSetSize(SkillTree__TreeMainSkillButtons[loopA], .03, .03)
-          call s__EMenus_FrameSaveIDs(SkillTree__TreeMainSkillButtons[loopA] , SKILL_TREE_MAIN , s___TreeMainCoreData_SkillNumber[s__TreeMainCoreData_SkillNumber[s__TreeMainCoreData__staticgetindex(characterId)]+loopA])
+          set SkillTree___TreeMainSkillButtons[loopA]=DzCreateFrameByTagName("BACKDROP", "", SkillTree___SkillTreeNow, "", 0)
+          call DzFrameSetPoint(SkillTree___TreeMainSkillButtons[loopA], JN_FRAMEPOINT_CENTER, SkillTree___SkillTreeNow, JN_FRAMEPOINT_TOPLEFT, s___TreeMainCoreData_positionX[s__TreeMainCoreData_positionX[s__TreeMainCoreData__staticgetindex(characterId)]+loopA], s___TreeMainCoreData_positionY[s__TreeMainCoreData_positionY[s__TreeMainCoreData__staticgetindex(characterId)]+loopA])
+          call DzFrameSetTexture(SkillTree___TreeMainSkillButtons[loopA], s___TreeMainCoreData_iconPath[s__TreeMainCoreData_iconPath[s__TreeMainCoreData__staticgetindex(characterId)]+s___TreeMainCoreData_SkillNumber[s__TreeMainCoreData_SkillNumber[s__TreeMainCoreData__staticgetindex(characterId)]+loopA]], 0)
+          call DzFrameSetSize(SkillTree___TreeMainSkillButtons[loopA], .03, .03)
+          call s__EMenus_FrameSaveIDs(SkillTree___TreeMainSkillButtons[loopA] , SKILL_TREE_MAIN , s___TreeMainCoreData_SkillNumber[s__TreeMainCoreData_SkillNumber[s__TreeMainCoreData__staticgetindex(characterId)]+loopA])
 
-          set lastFrame=DzCreateFrameByTagName("BUTTON", "", SkillTree__TreeMainSkillButtons[loopA], "", 0)
-          call DzFrameSetAllPoints(lastFrame, SkillTree__TreeMainSkillButtons[loopA])
-          call DzFrameSetScriptByCode(lastFrame, JN_FRAMEEVENT_MOUSE_UP, function SkillTree__SkillTreeClick, false)
-          call DzFrameSetScriptByCode(lastFrame, JN_FRAMEEVENT_MOUSE_ENTER, function SkillTree__ButtonJustUp, false)
-          call DzFrameSetScriptByCode(lastFrame, JN_FRAMEEVENT_MOUSE_LEAVE, function SkillTree__ButtonJustDown, false)
-          call SkillTree__MakeSmallLevelFrame(lastFrame)
+          set lastFrame=DzCreateFrameByTagName("BUTTON", "", SkillTree___TreeMainSkillButtons[loopA], "", 0)
+          call DzFrameSetAllPoints(lastFrame, SkillTree___TreeMainSkillButtons[loopA])
+          call DzFrameSetScriptByCode(lastFrame, JN_FRAMEEVENT_MOUSE_UP, function SkillTree___SkillTreeClick, false)
+          call DzFrameSetScriptByCode(lastFrame, JN_FRAMEEVENT_MOUSE_ENTER, function SkillTree___ButtonJustUp, false)
+          call DzFrameSetScriptByCode(lastFrame, JN_FRAMEEVENT_MOUSE_LEAVE, function SkillTree___ButtonJustDown, false)
+          call SkillTree___MakeSmallLevelFrame(lastFrame)
 
           exitwhen loopA <= 1
           set loopA=loopA - 1
         endloop
       endif
     endfunction
-    function SkillTree__TreeExtendIcon takes integer input,real x,real y,real size,string texture returns nothing
-      set SkillTree__TreeChangeableFrame[input]=DzCreateFrameByTagName("BACKDROP", "", SkillTree__TreeExtendFrame, "", 0)
-      call DzFrameSetPoint(SkillTree__TreeChangeableFrame[input], JN_FRAMEPOINT_CENTER, SkillTree__TreeExtendFrame, JN_FRAMEPOINT_TOPLEFT, x, y)
-      call DzFrameSetTexture(SkillTree__TreeChangeableFrame[input], texture, 0)
-      call DzFrameSetSize(SkillTree__TreeChangeableFrame[input], .03, .03)
+    function SkillTree___TreeExtendIcon takes integer input,real x,real y,real size,string texture returns nothing
+      set SkillTree___TreeChangeableFrame[input]=DzCreateFrameByTagName("BACKDROP", "", SkillTree___TreeExtendFrame, "", 0)
+      call DzFrameSetPoint(SkillTree___TreeChangeableFrame[input], JN_FRAMEPOINT_CENTER, SkillTree___TreeExtendFrame, JN_FRAMEPOINT_TOPLEFT, x, y)
+      call DzFrameSetTexture(SkillTree___TreeChangeableFrame[input], texture, 0)
+      call DzFrameSetSize(SkillTree___TreeChangeableFrame[input], .03, .03)
 
-      set SkillTree__SkillTreeNow=DzCreateFrameByTagName("BUTTON", "", SkillTree__TreeChangeableFrame[input], "", 0)
-      call DzFrameSetAllPoints(SkillTree__SkillTreeNow, SkillTree__TreeChangeableFrame[input])
-      call DzFrameSetScriptByCode(SkillTree__SkillTreeNow, JN_FRAMEEVENT_MOUSE_UP, function SkillTree__SkillTreeClick, false)
-      call DzFrameSetScriptByCode(SkillTree__SkillTreeNow, JN_FRAMEEVENT_MOUSE_ENTER, function SkillTree__ButtonJustUp, false)
-      call DzFrameSetScriptByCode(SkillTree__SkillTreeNow, JN_FRAMEEVENT_MOUSE_LEAVE, function SkillTree__ButtonJustDown, false)
-      call s__EMenus_FrameSaveIDs(SkillTree__SkillTreeNow , SKILL_TREE_EXTEND , input)
+      set SkillTree___SkillTreeNow=DzCreateFrameByTagName("BUTTON", "", SkillTree___TreeChangeableFrame[input], "", 0)
+      call DzFrameSetAllPoints(SkillTree___SkillTreeNow, SkillTree___TreeChangeableFrame[input])
+      call DzFrameSetScriptByCode(SkillTree___SkillTreeNow, JN_FRAMEEVENT_MOUSE_UP, function SkillTree___SkillTreeClick, false)
+      call DzFrameSetScriptByCode(SkillTree___SkillTreeNow, JN_FRAMEEVENT_MOUSE_ENTER, function SkillTree___ButtonJustUp, false)
+      call DzFrameSetScriptByCode(SkillTree___SkillTreeNow, JN_FRAMEEVENT_MOUSE_LEAVE, function SkillTree___ButtonJustDown, false)
+      call s__EMenus_FrameSaveIDs(SkillTree___SkillTreeNow , SKILL_TREE_EXTEND , input)
     endfunction
   
-    function SkillTree__CreateFrameSkillTreeMain takes nothing returns nothing
+    function SkillTree___CreateFrameSkillTreeMain takes nothing returns nothing
       set SkillTree_TreeMainFrame=DzCreateFrameByTagName("BACKDROP", "", DzGetGameUI(), "QuestButtonBaseTemplate", 0)
       call DzFrameSetAbsolutePoint(SkillTree_TreeMainFrame, JN_FRAMEPOINT_TOPLEFT, 0.14, 0.55)
       call DzFrameSetSize(SkillTree_TreeMainFrame, .22, .45)
@@ -5374,32 +5374,32 @@ endfunction
       call SkillTree_MakeLineY(SkillTree_TreeMainFrame , .11 , - .04 , .02)
       call SkillTree_MakeLineY(SkillTree_TreeMainFrame , .16 , - .04 , .02)
       
-      set SkillTree__SkillTreeNow=DzCreateFrameByTagName("BACKDROP", "", SkillTree_TreeMainFrame, "", 0)
-      call DzFrameSetAllPoints(SkillTree__SkillTreeNow, SkillTree_TreeMainFrame)
-      call DzFrameSetTexture(SkillTree__SkillTreeNow, "SkillTree_Transparency.blp", 0)
-      call DzFrameSetAlpha(SkillTree__SkillTreeNow, 204)
+      set SkillTree___SkillTreeNow=DzCreateFrameByTagName("BACKDROP", "", SkillTree_TreeMainFrame, "", 0)
+      call DzFrameSetAllPoints(SkillTree___SkillTreeNow, SkillTree_TreeMainFrame)
+      call DzFrameSetTexture(SkillTree___SkillTreeNow, "SkillTree_Transparency.blp", 0)
+      call DzFrameSetAlpha(SkillTree___SkillTreeNow, 204)
   
-      set SkillTree__TreeChangeableFrame[s__ESkillTree_MainCharacterName]=SkillTree__GetMadeText(SkillTree_TreeMainFrame , .035 , - .03 , "이치고" , .015 , true)
+      set SkillTree___TreeChangeableFrame[s__ESkillTree_MainCharacterName]=SkillTree___GetMadeText(SkillTree_TreeMainFrame , .035 , - .03 , "이치고" , .015 , true)
 
-      call SkillTree__GetMadeText(SkillTree_TreeMainFrame , .135 , - .02 , "스킬트리" , .020 , true)
-      call SkillTree__GetMadeText(SkillTree_TreeMainFrame , .085 , - .05 , "[기본]" , 0. , true)
-      call SkillTree__GetMadeText(SkillTree_TreeMainFrame , .135 , - .05 , "[핵심]" , 0. , true)
-      call SkillTree__GetMadeText(SkillTree_TreeMainFrame , .185 , - .05 , "[변신]" , 0. , true)
+      call SkillTree___GetMadeText(SkillTree_TreeMainFrame , .135 , - .02 , "스킬트리" , .020 , true)
+      call SkillTree___GetMadeText(SkillTree_TreeMainFrame , .085 , - .05 , "[기본]" , 0. , true)
+      call SkillTree___GetMadeText(SkillTree_TreeMainFrame , .135 , - .05 , "[핵심]" , 0. , true)
+      call SkillTree___GetMadeText(SkillTree_TreeMainFrame , .185 , - .05 , "[변신]" , 0. , true)
 
-      set SkillTree__TreeChangeableFrame[s__ESkillTree_MainTreeTypeLeft]=SkillTree__GetMadeText(SkillTree_TreeMainFrame , .085 , - .07 , "종베기" , .01 , true)
-      set SkillTree__TreeChangeableFrame[s__ESkillTree_MainTreeTypeCenter]=SkillTree__GetMadeText(SkillTree_TreeMainFrame , .135 , - .07 , "횡베기" , .01 , true)
-      set SkillTree__TreeChangeableFrame[s__ESkillTree_MainTreeTypeRight]=SkillTree__GetMadeText(SkillTree_TreeMainFrame , .185 , - .07 , "찌르기" , .01 , true)
+      set SkillTree___TreeChangeableFrame[s__ESkillTree_MainTreeTypeLeft]=SkillTree___GetMadeText(SkillTree_TreeMainFrame , .085 , - .07 , "종베기" , .01 , true)
+      set SkillTree___TreeChangeableFrame[s__ESkillTree_MainTreeTypeCenter]=SkillTree___GetMadeText(SkillTree_TreeMainFrame , .135 , - .07 , "횡베기" , .01 , true)
+      set SkillTree___TreeChangeableFrame[s__ESkillTree_MainTreeTypeRight]=SkillTree___GetMadeText(SkillTree_TreeMainFrame , .185 , - .07 , "찌르기" , .01 , true)
 
-      call SkillTree__GetMadeText(SkillTree_TreeMainFrame , .035 , - .07 , "필요 변신" , .01 , true)
-      call SkillTree__GetMadeText(SkillTree_TreeMainFrame , .035 , - .10 , "기본" , 0. , true)
-      call SkillTree__GetMadeText(SkillTree_TreeMainFrame , .035 , - .14 , "1단계" , 0. , true)
-      call SkillTree__GetMadeText(SkillTree_TreeMainFrame , .035 , - .18 , "2단계" , 0. , true)
-      call SkillTree__GetMadeText(SkillTree_TreeMainFrame , .035 , - .22 , "3단계" , 0. , true)
-      call SkillTree__GetMadeText(SkillTree_TreeMainFrame , .035 , - .26 , "4단계" , 0. , true)
-      call SkillTree__GetMadeText(SkillTree_TreeMainFrame , .035 , - .30 , "5단계" , 0. , true)
-      call SkillTree__GetMadeText(SkillTree_TreeMainFrame , .035 , - .34 , "6단계" , 0. , true)
-      call SkillTree__GetMadeText(SkillTree_TreeMainFrame , .035 , - .38 , "7단계" , 0. , true)
-      call SkillTree__GetMadeText(SkillTree_TreeMainFrame , .035 , - .42 , "8단계" , 0. , true)
+      call SkillTree___GetMadeText(SkillTree_TreeMainFrame , .035 , - .07 , "필요 변신" , .01 , true)
+      call SkillTree___GetMadeText(SkillTree_TreeMainFrame , .035 , - .10 , "기본" , 0. , true)
+      call SkillTree___GetMadeText(SkillTree_TreeMainFrame , .035 , - .14 , "1단계" , 0. , true)
+      call SkillTree___GetMadeText(SkillTree_TreeMainFrame , .035 , - .18 , "2단계" , 0. , true)
+      call SkillTree___GetMadeText(SkillTree_TreeMainFrame , .035 , - .22 , "3단계" , 0. , true)
+      call SkillTree___GetMadeText(SkillTree_TreeMainFrame , .035 , - .26 , "4단계" , 0. , true)
+      call SkillTree___GetMadeText(SkillTree_TreeMainFrame , .035 , - .30 , "5단계" , 0. , true)
+      call SkillTree___GetMadeText(SkillTree_TreeMainFrame , .035 , - .34 , "6단계" , 0. , true)
+      call SkillTree___GetMadeText(SkillTree_TreeMainFrame , .035 , - .38 , "7단계" , 0. , true)
+      call SkillTree___GetMadeText(SkillTree_TreeMainFrame , .035 , - .42 , "8단계" , 0. , true)
       
       call DzFrameShow(SkillTree_TreeMainFrame, false)
       //call MakeText(19, .035, -.46, "9단계", 0., true)
@@ -5416,58 +5416,58 @@ endfunction
       // call MakeLink(38, .135, -.40, .04, "UI\\Widgets\\Console\\Human\\human-inventory-slotfiller.blp")
     endfunction
 
-    function SkillTree__CreateSkillTreePopupDetails takes integer i,real x,real y,string contents,real size returns nothing
-      set SkillTree__TreeChangeableFrame[i]=DzCreateFrameByTagName("TEXT", "", SkillTree__TreePopupFrame, "", 0)
-      call DzFrameSetPoint(SkillTree__TreeChangeableFrame[i], JN_FRAMEPOINT_TOPLEFT, SkillTree__TreePopupFrame, JN_FRAMEPOINT_TOPLEFT, x, y)
-      call DzFrameSetText(SkillTree__TreeChangeableFrame[i], contents)
-      call DzFrameSetFont(SkillTree__TreeChangeableFrame[i], "Fonts\\DFHeiMd.ttf", size, 0)
+    function SkillTree___CreateSkillTreePopupDetails takes integer i,real x,real y,string contents,real size returns nothing
+      set SkillTree___TreeChangeableFrame[i]=DzCreateFrameByTagName("TEXT", "", SkillTree___TreePopupFrame, "", 0)
+      call DzFrameSetPoint(SkillTree___TreeChangeableFrame[i], JN_FRAMEPOINT_TOPLEFT, SkillTree___TreePopupFrame, JN_FRAMEPOINT_TOPLEFT, x, y)
+      call DzFrameSetText(SkillTree___TreeChangeableFrame[i], contents)
+      call DzFrameSetFont(SkillTree___TreeChangeableFrame[i], "Fonts\\DFHeiMd.ttf", size, 0)
     endfunction
-    function SkillTree__CreateSkillTreePopup takes nothing returns nothing
-      set SkillTree__TreePopupFrame=DzCreateFrameByTagName("BACKDROP", "", SkillTree_TreeMainFrame, "QuestButtonBaseTemplate", 0)
-      call DzFrameSetAbsolutePoint(SkillTree__TreePopupFrame, JN_FRAMEPOINT_BOTTOMLEFT, 0.14, 0.55)
-      call DzFrameSetSize(SkillTree__TreePopupFrame, .07, .06)
-      call SkillTree__CreateSkillTreePopupDetails(s__ESkillTree_PopupTitle , .01 , - .010 , "|cffffcc00세로베기|r" , 0.015)
-      call SkillTree__CreateSkillTreePopupDetails(s__ESkillTree_PopupDetailPoint , .01 , - .025 , "|cffff3315변신레벨 12 이상 필요" , 0.010)
-      call SkillTree__CreateSkillTreePopupDetails(s__ESkillTree_PopupDetailCurrentLevel , .01 , - .025 , "Lv: 10|cff00ff00+2|r/10" , 0.010)
+    function SkillTree___CreateSkillTreePopup takes nothing returns nothing
+      set SkillTree___TreePopupFrame=DzCreateFrameByTagName("BACKDROP", "", SkillTree_TreeMainFrame, "QuestButtonBaseTemplate", 0)
+      call DzFrameSetAbsolutePoint(SkillTree___TreePopupFrame, JN_FRAMEPOINT_BOTTOMLEFT, 0.14, 0.55)
+      call DzFrameSetSize(SkillTree___TreePopupFrame, .07, .06)
+      call SkillTree___CreateSkillTreePopupDetails(s__ESkillTree_PopupTitle , .01 , - .010 , "|cffffcc00세로베기|r" , 0.015)
+      call SkillTree___CreateSkillTreePopupDetails(s__ESkillTree_PopupDetailPoint , .01 , - .025 , "|cffff3315변신레벨 12 이상 필요" , 0.010)
+      call SkillTree___CreateSkillTreePopupDetails(s__ESkillTree_PopupDetailCurrentLevel , .01 , - .025 , "Lv: 10|cff00ff00+2|r/10" , 0.010)
 
-      set SkillTree__SkillTreeNow=DzCreateFrameByTagName("TEXT", "", SkillTree__TreePopupFrame, "", 0)
-      call DzFrameSetPoint(SkillTree__SkillTreeNow, JN_FRAMEPOINT_TOPLEFT, SkillTree__TreePopupFrame, JN_FRAMEPOINT_TOPLEFT, .01, - .075)
-      call DzFrameSetText(SkillTree__SkillTreeNow, "|c000080c0자세히.. (클릭)|r")
-      call DzFrameSetFont(SkillTree__SkillTreeNow, "Fonts\\DFHeiMd.ttf", 0.010, 0)
+      set SkillTree___SkillTreeNow=DzCreateFrameByTagName("TEXT", "", SkillTree___TreePopupFrame, "", 0)
+      call DzFrameSetPoint(SkillTree___SkillTreeNow, JN_FRAMEPOINT_TOPLEFT, SkillTree___TreePopupFrame, JN_FRAMEPOINT_TOPLEFT, .01, - .075)
+      call DzFrameSetText(SkillTree___SkillTreeNow, "|c000080c0자세히.. (클릭)|r")
+      call DzFrameSetFont(SkillTree___SkillTreeNow, "Fonts\\DFHeiMd.ttf", 0.010, 0)
 
-      call DzFrameShow(SkillTree__TreePopupFrame, false)
+      call DzFrameShow(SkillTree___TreePopupFrame, false)
     endfunction
 
-    function SkillTree__CreateFrameSkillTreeExtend takes nothing returns nothing
-      set SkillTree__TreeExtendFrame=DzCreateFrameByTagName("BACKDROP", "", SkillTree_TreeMainFrame, "QuestButtonBaseTemplate", 0)
-      call DzFrameSetAbsolutePoint(SkillTree__TreeExtendFrame, JN_FRAMEPOINT_TOPLEFT, 0.45, 0.55)
-      call DzFrameSetSize(SkillTree__TreeExtendFrame, .2, .31)
-      call DzFrameSetAlpha(SkillTree__TreeExtendFrame, 128)
+    function SkillTree___CreateFrameSkillTreeExtend takes nothing returns nothing
+      set SkillTree___TreeExtendFrame=DzCreateFrameByTagName("BACKDROP", "", SkillTree_TreeMainFrame, "QuestButtonBaseTemplate", 0)
+      call DzFrameSetAbsolutePoint(SkillTree___TreeExtendFrame, JN_FRAMEPOINT_TOPLEFT, 0.45, 0.55)
+      call DzFrameSetSize(SkillTree___TreeExtendFrame, .2, .31)
+      call DzFrameSetAlpha(SkillTree___TreeExtendFrame, 128)
       
-      call SkillTree_MakeLineY(SkillTree__TreeExtendFrame , .06 , - .01 , .09)
-      call SkillTree_MakeLineX(SkillTree__TreeExtendFrame , .06 , - .035 , .13)
-      call SkillTree_MakeLineX(SkillTree__TreeExtendFrame , .06 , - .065 , .13)
-      call SkillTree_MakeLineX(SkillTree__TreeExtendFrame , .01 , - .10 , .18)
+      call SkillTree_MakeLineY(SkillTree___TreeExtendFrame , .06 , - .01 , .09)
+      call SkillTree_MakeLineX(SkillTree___TreeExtendFrame , .06 , - .035 , .13)
+      call SkillTree_MakeLineX(SkillTree___TreeExtendFrame , .06 , - .065 , .13)
+      call SkillTree_MakeLineX(SkillTree___TreeExtendFrame , .01 , - .10 , .18)
       
-      set SkillTree__SkillTreeNow=DzCreateFrameByTagName("BACKDROP", "", SkillTree__TreeExtendFrame, "", 0)
-      call DzFrameSetAllPoints(SkillTree__SkillTreeNow, SkillTree__TreeExtendFrame)
-      call DzFrameSetTexture(SkillTree__SkillTreeNow, "SkillTree_Transparency.blp", 0)
-      call DzFrameSetAlpha(SkillTree__SkillTreeNow, 204)
+      set SkillTree___SkillTreeNow=DzCreateFrameByTagName("BACKDROP", "", SkillTree___TreeExtendFrame, "", 0)
+      call DzFrameSetAllPoints(SkillTree___SkillTreeNow, SkillTree___TreeExtendFrame)
+      call DzFrameSetTexture(SkillTree___SkillTreeNow, "SkillTree_Transparency.blp", 0)
+      call DzFrameSetAlpha(SkillTree___SkillTreeNow, 204)
 
-      call SkillTree__TreeExtendIcon(s__ESkillTree_SubIcon , .035 , - .035 , .05 , "SkillTree_ichi_01.blp")
-      set SkillTree__TreeChangeableFrame[s__ESkillTree_SubTitle]=SkillTree__GetMadeText(SkillTree__TreeExtendFrame , .125 , - .020 , "세로베기" , .020 , true)
-      set SkillTree__TreeChangeableFrame[s__ESkillTree_SubShortDescriptionTop]=SkillTree__GetMadeText(SkillTree__TreeExtendFrame , .125 , - .030 , "현재레벨" , .010 , true)
-      set SkillTree__TreeChangeableFrame[s__ESkillTree_SubShortDescriptionMiddle]=SkillTree__GetMadeText(SkillTree__TreeExtendFrame , .125 , - .040 , "7/10" , .010 , true)
-      set SkillTree__TreeChangeableFrame[s__ESkillTree_SubShortDescriptionLow]=SkillTree__GetMadeText(SkillTree__TreeExtendFrame , .125 , - .050 , "B+ Rank" , .010 , true)
+      call SkillTree___TreeExtendIcon(s__ESkillTree_SubIcon , .035 , - .035 , .05 , "SkillTree_ichi_01.blp")
+      set SkillTree___TreeChangeableFrame[s__ESkillTree_SubTitle]=SkillTree___GetMadeText(SkillTree___TreeExtendFrame , .125 , - .020 , "세로베기" , .020 , true)
+      set SkillTree___TreeChangeableFrame[s__ESkillTree_SubShortDescriptionTop]=SkillTree___GetMadeText(SkillTree___TreeExtendFrame , .125 , - .030 , "현재레벨" , .010 , true)
+      set SkillTree___TreeChangeableFrame[s__ESkillTree_SubShortDescriptionMiddle]=SkillTree___GetMadeText(SkillTree___TreeExtendFrame , .125 , - .040 , "7/10" , .010 , true)
+      set SkillTree___TreeChangeableFrame[s__ESkillTree_SubShortDescriptionLow]=SkillTree___GetMadeText(SkillTree___TreeExtendFrame , .125 , - .050 , "B+ Rank" , .010 , true)
 
-      set SkillTree__TreeChangeableFrame[s__ESkillTree_SubLongDescriptionCost]=SkillTree__GetMadeText(SkillTree__TreeExtendFrame , .125 , - .065 , "소모마나 240, 쿨다운 70초" , .010 , true)
-      set SkillTree__TreeChangeableFrame[s__ESkillTree_SubLongDescriptionDetials]=SkillTree__GetMadeText(SkillTree__TreeExtendFrame , .125 , - .075 , "잠재능력을 모두 해방시켜 참격을 발사합니다.\n750범위에 1427% 데미지를 가합니다." , .010 , true)
-      set SkillTree__TreeChangeableFrame[s__ESkillTree_SubLongDescriptionNextLevels]=SkillTree__GetMadeText(SkillTree__TreeExtendFrame , .125 , - .085 , "데미지 상승 +11%, \n소모마나 +4.4" , .010 , true)
+      set SkillTree___TreeChangeableFrame[s__ESkillTree_SubLongDescriptionCost]=SkillTree___GetMadeText(SkillTree___TreeExtendFrame , .125 , - .065 , "소모마나 240, 쿨다운 70초" , .010 , true)
+      set SkillTree___TreeChangeableFrame[s__ESkillTree_SubLongDescriptionDetials]=SkillTree___GetMadeText(SkillTree___TreeExtendFrame , .125 , - .075 , "잠재능력을 모두 해방시켜 참격을 발사합니다.\n750범위에 1427% 데미지를 가합니다." , .010 , true)
+      set SkillTree___TreeChangeableFrame[s__ESkillTree_SubLongDescriptionNextLevels]=SkillTree___GetMadeText(SkillTree___TreeExtendFrame , .125 , - .085 , "데미지 상승 +11%, \n소모마나 +4.4" , .010 , true)
 
-      call SkillTree__TreeExtendIcon(s__ESkillTree_SubSkillMinusAll , .035 , - .035 , .02 , "SkillTree_PlusMinus01.blp")
-      call SkillTree__TreeExtendIcon(s__ESkillTree_SubSkillMinusOne , .035 , - .035 , .02 , "SkillTree_PlusMinus01.blp")
-      call SkillTree__TreeExtendIcon(s__ESkillTree_SubSkillPlusOne , .035 , - .035 , .02 , "SkillTree_PlusMinus01.blp")
-      call SkillTree__TreeExtendIcon(s__ESkillTree_SubSkillPlusAll , .035 , - .035 , .02 , "SkillTree_PlusMinus01.blp")
+      call SkillTree___TreeExtendIcon(s__ESkillTree_SubSkillMinusAll , .035 , - .035 , .02 , "SkillTree_PlusMinus01.blp")
+      call SkillTree___TreeExtendIcon(s__ESkillTree_SubSkillMinusOne , .035 , - .035 , .02 , "SkillTree_PlusMinus01.blp")
+      call SkillTree___TreeExtendIcon(s__ESkillTree_SubSkillPlusOne , .035 , - .035 , .02 , "SkillTree_PlusMinus01.blp")
+      call SkillTree___TreeExtendIcon(s__ESkillTree_SubSkillPlusAll , .035 , - .035 , .02 , "SkillTree_PlusMinus01.blp")
 
   //     call MakeText(46, .035, -.088, "Lv 12/10", .010, true)
       
@@ -5555,20 +5555,20 @@ endfunction
 //       call DzFrameShow(TreeExtendFrame, false)
 //     endfunction
     
-    function SkillTree__Init takes nothing returns nothing
+    function SkillTree___Init takes nothing returns nothing
 
-      call SkillTree__CreateFrameSkillTreeMain()
-      call SkillTree__TreeMainIcon(s__ECharacter_ICHIGO)
-      call SkillTree__CreateSkillTreePopup()
+      call SkillTree___CreateFrameSkillTreeMain()
+      call SkillTree___TreeMainIcon(s__ECharacter_ICHIGO)
+      call SkillTree___CreateSkillTreePopup()
 
-      call SkillTree__CreateFrameSkillTreeExtend()
+      call SkillTree___CreateFrameSkillTreeExtend()
 
       // call CreateSkillTree2()
       // call DzFrameShow(TreeExtendFrame, false)
       // call CreateSkillTree2Popup()
 
-      call DzTriggerRegisterSyncData(SkillTree__skillTreeTrigger, "TreeSync", false)
-      call TriggerAddAction(SkillTree__skillTreeTrigger, function SkillTree__SkillTreeSync)
+      call DzTriggerRegisterSyncData(SkillTree___skillTreeTrigger, "TreeSync", false)
+      call TriggerAddAction(SkillTree___skillTreeTrigger, function SkillTree___SkillTreeSync)
     endfunction
 // scope SkillTree ends
 // END IMPORT OF System\Frames\SkillTree.j
@@ -5577,23 +5577,23 @@ endfunction
 // scope PortraitEditor begins
 
 	// = DzFrameGetPortrait
- function PortraitEditor__GetPortraitButton takes nothing returns integer
-		if PortraitEditor__pGameUI != 0 then
-			return JNMemoryGetInteger(PortraitEditor__pGameUI + 0x3F4)
+ function PortraitEditor___GetPortraitButton takes nothing returns integer
+		if PortraitEditor___pGameUI != 0 then
+			return JNMemoryGetInteger(PortraitEditor___pGameUI + 0x3F4)
 		endif
 		return 0
 	endfunction
 	// SimpleFontString
- function PortraitEditor__GetPortraitButtonHPText takes nothing returns integer
-  local integer pData= PortraitEditor__GetPortraitButton()
+ function PortraitEditor___GetPortraitButtonHPText takes nothing returns integer
+  local integer pData= PortraitEditor___GetPortraitButton()
 		if pData != 0 then
 			return JNMemoryGetInteger(pData + 0x240)
 		endif
 		return 0
 	endfunction
 	// SimpleFontString
- function PortraitEditor__GetPortraitButtonManaText takes nothing returns integer
-  local integer pData= PortraitEditor__GetPortraitButton()
+ function PortraitEditor___GetPortraitButtonManaText takes nothing returns integer
+  local integer pData= PortraitEditor___GetPortraitButton()
 		if pData != 0 then
 			return JNMemoryGetInteger(pData + 0x244)
 		endif
@@ -5620,17 +5620,17 @@ endfunction
 		
 	// 	return 0
 	// endfunction
- function PortraitEditor__IsFrameLayout takes integer pFrame returns boolean
+ function PortraitEditor___IsFrameLayout takes integer pFrame returns boolean
   local integer addr
 		if pFrame != 0 then
 			set addr=JNMemoryGetInteger(JNMemoryGetInteger(pFrame) + 0x1C)
-			return addr == ( PortraitEditor__pGameDll + 0x13F170 ) or addr == ( PortraitEditor__pGameDll + 0x1428A0 )
+			return addr == ( PortraitEditor___pGameDll + 0x13F170 ) or addr == ( PortraitEditor___pGameDll + 0x1428A0 )
 		endif
 		return false
 	endfunction
- function PortraitEditor__GetFrameLayout takes integer pFrame returns integer
+ function PortraitEditor___GetFrameLayout takes integer pFrame returns integer
 		if pFrame != 0 then
-			if not PortraitEditor__IsFrameLayout(pFrame) then
+			if not PortraitEditor___IsFrameLayout(pFrame) then
 				return pFrame + 0xB4 // if 1.29+ 0xBC
 			else
 				return pFrame
@@ -5638,8 +5638,8 @@ endfunction
 		endif
 		return 0
 	endfunction
- function PortraitEditor__SetCLayoutFrameAbsolutePoint takes integer pFrame,integer point,real offsetX,real offsetY returns integer
-  local integer addr= PortraitEditor__pGameDll + 0x13FBB0
+ function PortraitEditor___SetCLayoutFrameAbsolutePoint takes integer pFrame,integer point,real offsetX,real offsetY returns integer
+  local integer addr= PortraitEditor___pGameDll + 0x13FBB0
 		
 		if pFrame != 0 then
 			call SaveStr(JNProc_ht, JNProc_key, 0, "(IIRRI)I")
@@ -5655,9 +5655,9 @@ endfunction
 		
 		return 0
 	endfunction
- function PortraitEditor__SetFrameAbsolutePoint takes integer pFrame,integer point,real offsetX,real offsetY returns integer
+ function PortraitEditor___SetFrameAbsolutePoint takes integer pFrame,integer point,real offsetX,real offsetY returns integer
 		if pFrame != 0 then
-			return PortraitEditor__SetCLayoutFrameAbsolutePoint(PortraitEditor__GetFrameLayout(pFrame) , point , offsetX , offsetY)
+			return PortraitEditor___SetCLayoutFrameAbsolutePoint(PortraitEditor___GetFrameLayout(pFrame) , point , offsetX , offsetY)
 		endif
 		return 0
 	endfunction
@@ -5667,60 +5667,60 @@ endfunction
 	// 	endif
 	// 	return 0
 	// endfunction
-  function PortraitEditor__Change2 takes integer inputHp returns nothing
+  function PortraitEditor___Change2 takes integer inputHp returns nothing
     if ( inputHp != 0 ) then
-      set PortraitEditor__initializered=true
+      set PortraitEditor___initializered=true
       call DzFrameClearAllPoints(inputHp)
-      call PortraitEditor__SetFrameAbsolutePoint(inputHp , JN_FRAMEPOINT_CENTER , .25 , .025)
-      set inputHp=PortraitEditor__GetPortraitButtonManaText()
+      call PortraitEditor___SetFrameAbsolutePoint(inputHp , JN_FRAMEPOINT_CENTER , .25 , .025)
+      set inputHp=PortraitEditor___GetPortraitButtonManaText()
       call DzFrameClearAllPoints(inputHp)
-      call PortraitEditor__SetFrameAbsolutePoint(inputHp , JN_FRAMEPOINT_CENTER , .25 , .010)
+      call PortraitEditor___SetFrameAbsolutePoint(inputHp , JN_FRAMEPOINT_CENTER , .25 , .010)
 			call MsgAll("Changed")
 			call ClearSelection()
     endif
   endfunction
-  function PortraitEditor__GetGameUI2 takes integer bInit,integer bRelease returns integer
-  local integer addr= PortraitEditor__pGameDll + 0x3A0B70
+  function PortraitEditor___GetGameUI2 takes integer bInit,integer bRelease returns integer
+  local integer addr= PortraitEditor___pGameDll + 0x3A0B70
 		call SaveStr(JNProc_ht, JNProc_key, 0, "(II)I")
 		call SaveInteger(JNProc_ht, JNProc_key, 1, bInit)
 		call SaveInteger(JNProc_ht, JNProc_key, 2, bRelease)
-		if JNProcCall(PortraitEditor__JNProc__fastcall, addr, JNProc_ht) then
+		if JNProcCall(PortraitEditor___JNProc__fastcall, addr, JNProc_ht) then
 			return LoadInteger(JNProc_ht, JNProc_key, 0)
 		endif
 		return 0
 	endfunction
- function PortraitEditor__Init takes nothing returns nothing
-		set PortraitEditor__pGameDll=JNGetModuleHandle("Game.dll")
-		set PortraitEditor__pGameUI=PortraitEditor__GetGameUI2(0 , 0)
+ function PortraitEditor___Init takes nothing returns nothing
+		set PortraitEditor___pGameDll=JNGetModuleHandle("Game.dll")
+		set PortraitEditor___pGameUI=PortraitEditor___GetGameUI2(0 , 0)
 	endfunction
 
  function PortraitEditor_Change takes nothing returns nothing
-		if ( not PortraitEditor__initializered ) then
-			call PortraitEditor__Change2(PortraitEditor__GetPortraitButtonHPText())
+		if ( not PortraitEditor___initializered ) then
+			call PortraitEditor___Change2(PortraitEditor___GetPortraitButtonHPText())
 		endif
 	endfunction
 // scope PortraitEditor ends
 // END IMPORT OF System\Frames\PortraitEditor.j
 // BEGIN IMPORT OF System\Frames\PushKey.j
 // scope PushKey begins
-  function PushKey__ChatCheck takes nothing returns nothing
-    set PushKey__ChatState[GetPlayerId(DzGetTriggerSyncPlayer()) + 1]=S2I(DzGetTriggerSyncData()) != 0
+  function PushKey___ChatCheck takes nothing returns nothing
+    set PushKey___ChatState[GetPlayerId(DzGetTriggerSyncPlayer()) + 1]=S2I(DzGetTriggerSyncData()) != 0
     
   endfunction
-  function PushKey__AllKey takes nothing returns nothing
+  function PushKey___AllKey takes nothing returns nothing
     local player p= DzGetTriggerKeyPlayer()
     local integer Clicked= DzGetTriggerKey()
     local integer P= GetPlayerId(p) + 1
     //단축키 x - m번째 메뉴 실행            
     if ( Clicked == JN_OSKEY_RETURN ) then
       if ( GetLocalPlayer() == p ) then
-        if ( ( JNMemoryGetByte(JNGetModuleHandle("Game.dll") + 0xD04FEC) == 1 ) != PushKey__ChatState[P] ) then
+        if ( ( JNMemoryGetByte(JNGetModuleHandle("Game.dll") + 0xD04FEC) == 1 ) != PushKey___ChatState[P] ) then
           call DzSyncData("NowChat", I2S(JNMemoryGetByte(JNGetModuleHandle("Game.dll") + 0xD04FEC)))
         endif
       endif
-    elseif ( PushKey__ChatState[P] ) then
+    elseif ( PushKey___ChatState[P] ) then
       if ( GetLocalPlayer() == p ) then
-        if ( ( JNMemoryGetByte(JNGetModuleHandle("Game.dll") + 0xD04FEC) == 1 ) != PushKey__ChatState[P] ) then
+        if ( ( JNMemoryGetByte(JNGetModuleHandle("Game.dll") + 0xD04FEC) == 1 ) != PushKey___ChatState[P] ) then
           // call MsgAll("채팅창 이상하게 닫고 단축키 - " + I2S(JNMemoryGetByte(JNGetModuleHandle("Game.dll") + 0xD04FEC)) + "_" + EHotkeys.I2H(Clicked))
           call DzSyncData("NowChat", I2S(JNMemoryGetByte(JNGetModuleHandle("Game.dll") + 0xD04FEC)))
         endif
@@ -5739,7 +5739,7 @@ endfunction
     endif
     set p=null
   endfunction
-  function PushKey__Init takes nothing returns nothing
+  function PushKey___Init takes nothing returns nothing
     local trigger trig= CreateTrigger()
     local integer i= 0
     set trig=CreateTrigger()
@@ -5748,8 +5748,8 @@ endfunction
     //0~9(48~57), 핫키 0~9(96~105)            
     set i=$30
     loop
-      call DzTriggerRegisterKeyEventByCode(trig, i, 0, false, function PushKey__AllKey)
-      call DzTriggerRegisterKeyEventByCode(trig, i + $30, 0, false, function PushKey__AllKey)
+      call DzTriggerRegisterKeyEventByCode(trig, i, 0, false, function PushKey___AllKey)
+      call DzTriggerRegisterKeyEventByCode(trig, i + $30, 0, false, function PushKey___AllKey)
       exitwhen i >= $39
       set i=i + 1
     endloop
@@ -5757,7 +5757,7 @@ endfunction
     //a~z 65~90            
     set i=$41
     loop
-      call DzTriggerRegisterKeyEventByCode(trig, i, 0, false, function PushKey__AllKey)
+      call DzTriggerRegisterKeyEventByCode(trig, i, 0, false, function PushKey___AllKey)
       exitwhen i >= $5A
       set i=i + 1
     endloop
@@ -5765,18 +5765,18 @@ endfunction
     //f1~f8 112~119            
     set i=$70
     loop
-      call DzTriggerRegisterKeyEventByCode(trig, i, 0, false, function PushKey__AllKey)
+      call DzTriggerRegisterKeyEventByCode(trig, i, 0, false, function PushKey___AllKey)
       exitwhen i >= $77
       set i=i + 1
     endloop
          
     //탭 캡 쉬 컨 알 스 9 20 16 17 18 32            
-    call DzTriggerRegisterKeyEventByCode(trig, JN_OSKEY_TAB, 0, false, function PushKey__AllKey)
-    call DzTriggerRegisterKeyEventByCode(trig, JN_OSKEY_CAPSLOCK, 0, false, function PushKey__AllKey)
-    call DzTriggerRegisterKeyEventByCode(trig, JN_OSKEY_SHIFT, 0, false, function PushKey__AllKey)
-    call DzTriggerRegisterKeyEventByCode(trig, JN_OSKEY_CONTROL, 0, false, function PushKey__AllKey)
-    call DzTriggerRegisterKeyEventByCode(trig, JN_OSKEY_ALT, 0, false, function PushKey__AllKey)
-    call DzTriggerRegisterKeyEventByCode(trig, JN_OSKEY_SPACE, 0, false, function PushKey__AllKey)
+    call DzTriggerRegisterKeyEventByCode(trig, JN_OSKEY_TAB, 0, false, function PushKey___AllKey)
+    call DzTriggerRegisterKeyEventByCode(trig, JN_OSKEY_CAPSLOCK, 0, false, function PushKey___AllKey)
+    call DzTriggerRegisterKeyEventByCode(trig, JN_OSKEY_SHIFT, 0, false, function PushKey___AllKey)
+    call DzTriggerRegisterKeyEventByCode(trig, JN_OSKEY_CONTROL, 0, false, function PushKey___AllKey)
+    call DzTriggerRegisterKeyEventByCode(trig, JN_OSKEY_ALT, 0, false, function PushKey___AllKey)
+    call DzTriggerRegisterKeyEventByCode(trig, JN_OSKEY_SPACE, 0, false, function PushKey___AllKey)
          
     //키패드 /*-+. 111 106 109 107 110            
     //엔터키인 $6C(108)키 제외            
@@ -5784,7 +5784,7 @@ endfunction
     loop
       if ( i != JN_OSKEY_SEPARATOR ) then
 
-        call DzTriggerRegisterKeyEventByCode(trig, i, 0, false, function PushKey__AllKey)
+        call DzTriggerRegisterKeyEventByCode(trig, i, 0, false, function PushKey___AllKey)
       endif
       exitwhen i >= $6F
       set i=i + 1
@@ -5793,27 +5793,27 @@ endfunction
     //` -=\(백스) []    192  189 187 220 8  219 221            
     //;' ,./ (쉬프트)   186 222  188 190 191  16            
     
-    call DzTriggerRegisterKeyEventByCode(trig, JN_OSKEY_OEM_3, 0, false, function PushKey__AllKey)
-    call DzTriggerRegisterKeyEventByCode(trig, JN_OSKEY_OEM_MINUS, 0, false, function PushKey__AllKey)
-    call DzTriggerRegisterKeyEventByCode(trig, JN_OSKEY_OEM_PLUS, 0, false, function PushKey__AllKey)
-    call DzTriggerRegisterKeyEventByCode(trig, JN_OSKEY_OEM_5, 0, false, function PushKey__AllKey)
-    call DzTriggerRegisterKeyEventByCode(trig, JN_OSKEY_BACKSPACE, 0, false, function PushKey__AllKey)
-    call DzTriggerRegisterKeyEventByCode(trig, JN_OSKEY_OEM_4, 0, false, function PushKey__AllKey)
-    call DzTriggerRegisterKeyEventByCode(trig, JN_OSKEY_OEM_6, 0, false, function PushKey__AllKey)
-    call DzTriggerRegisterKeyEventByCode(trig, JN_OSKEY_OEM_1, 0, false, function PushKey__AllKey)
-    call DzTriggerRegisterKeyEventByCode(trig, JN_OSKEY_OEM_7, 0, false, function PushKey__AllKey)
-    call DzTriggerRegisterKeyEventByCode(trig, JN_OSKEY_OEM_COMMA, 0, false, function PushKey__AllKey)
-    call DzTriggerRegisterKeyEventByCode(trig, JN_OSKEY_OEM_PERIOD, 0, false, function PushKey__AllKey)
-    call DzTriggerRegisterKeyEventByCode(trig, JN_OSKEY_OEM_2, 0, false, function PushKey__AllKey)
-    call DzTriggerRegisterKeyEventByCode(trig, JN_OSKEY_RSHIFT, 0, false, function PushKey__AllKey)
-    call DzTriggerRegisterKeyEventByCode(trig, JN_OSKEY_RALT, 0, false, function PushKey__AllKey)
-    call DzTriggerRegisterKeyEventByCode(trig, JN_OSKEY_RCONTROL, 0, false, function PushKey__AllKey)
+    call DzTriggerRegisterKeyEventByCode(trig, JN_OSKEY_OEM_3, 0, false, function PushKey___AllKey)
+    call DzTriggerRegisterKeyEventByCode(trig, JN_OSKEY_OEM_MINUS, 0, false, function PushKey___AllKey)
+    call DzTriggerRegisterKeyEventByCode(trig, JN_OSKEY_OEM_PLUS, 0, false, function PushKey___AllKey)
+    call DzTriggerRegisterKeyEventByCode(trig, JN_OSKEY_OEM_5, 0, false, function PushKey___AllKey)
+    call DzTriggerRegisterKeyEventByCode(trig, JN_OSKEY_BACKSPACE, 0, false, function PushKey___AllKey)
+    call DzTriggerRegisterKeyEventByCode(trig, JN_OSKEY_OEM_4, 0, false, function PushKey___AllKey)
+    call DzTriggerRegisterKeyEventByCode(trig, JN_OSKEY_OEM_6, 0, false, function PushKey___AllKey)
+    call DzTriggerRegisterKeyEventByCode(trig, JN_OSKEY_OEM_1, 0, false, function PushKey___AllKey)
+    call DzTriggerRegisterKeyEventByCode(trig, JN_OSKEY_OEM_7, 0, false, function PushKey___AllKey)
+    call DzTriggerRegisterKeyEventByCode(trig, JN_OSKEY_OEM_COMMA, 0, false, function PushKey___AllKey)
+    call DzTriggerRegisterKeyEventByCode(trig, JN_OSKEY_OEM_PERIOD, 0, false, function PushKey___AllKey)
+    call DzTriggerRegisterKeyEventByCode(trig, JN_OSKEY_OEM_2, 0, false, function PushKey___AllKey)
+    call DzTriggerRegisterKeyEventByCode(trig, JN_OSKEY_RSHIFT, 0, false, function PushKey___AllKey)
+    call DzTriggerRegisterKeyEventByCode(trig, JN_OSKEY_RALT, 0, false, function PushKey___AllKey)
+    call DzTriggerRegisterKeyEventByCode(trig, JN_OSKEY_RCONTROL, 0, false, function PushKey___AllKey)
          
-    call DzTriggerRegisterKeyEventByCode(trig, JN_OSKEY_RETURN, 0, false, function PushKey__AllKey)
+    call DzTriggerRegisterKeyEventByCode(trig, JN_OSKEY_RETURN, 0, false, function PushKey___AllKey)
          
     set trig=CreateTrigger()
     call DzTriggerRegisterSyncData(trig, "NowChat", false)
-    call TriggerAddAction(trig, function PushKey__ChatCheck)
+    call TriggerAddAction(trig, function PushKey___ChatCheck)
          
     set trig=null
   endfunction
@@ -6038,24 +6038,31 @@ endfunction
 // END IMPORT OF System\Frames\MenuQuickSlot.j
 // BEGIN IMPORT OF System\Frames\Select.j
 // scope Select begins
-    
 
-                                              //  ^ Last Slot       + '
-                                              //' + ^ 플탐All
-                                              // / +  ^ 1번슬롯      + _
-                                              // _ +    ^ 플탐
-                                              // ' +       ^ Lv       + .
-                                              // . +         ^ 경험치
+
+                                          //      ^ Last Slot              (1~6)
+                                          //       '  슬롯 내 구분자        '
+                                          //        ^ 플탐All              (0~999999)
+                                          //         / 슬롯간 구분자        /
+                                          //          ^ 1번슬롯            (1, 다른슬롯은 2~6)
+                                          //           _ 슬롯-번호 구분자   _
+                                          //            ^ 플탐             (0~999999)
+                                          //             '  슬롯 내 구분자  '
+                                          //               ^ Lv            (1~99)
+                                          //                . 렙/경 구분자  .
+                                          //                 ^ 경험치       (0~9999999)
 
 
     // 프레임 선언
+    
 
 
 
 
 
 
-      
+
+
     function s__Select_SetStars takes integer startnum,integer val,string texture returns nothing
       local integer i= 0
       loop
@@ -6070,31 +6077,31 @@ endfunction
     endfunction
 
     function s__Select_ViewInfo takes string s,boolean Continue returns nothing
-      //이름 영어 설명x2
+      // 이름 영어 설명x2
       call DzFrameSetText(s__Select_selectTextCharacterNameKorean, JNStringSplit(s, "'", 0))
       call DzFrameSetText(s__Select_selectTextCharacterNameEnglish, JNStringSplit(s, "'", 1))
       call DzFrameSetText(s__Select_selectTextCharacterDescription1, JNStringSplit(s, "'", 2))
       call DzFrameSetText(s__Select_selectTextCharacterDescription2, JNStringSplit(s, "'", 3))
 
-      //별표
+      // 별 설정 x25
       call s__Select_SetStars(0 , S2I(JNStringSplit(s, "'", 4)) , "Select_stars1.tga")
       call s__Select_SetStars(1 , S2I(JNStringSplit(s, "'", 5)) , "Select_stars1.tga")
       call s__Select_SetStars(2 , S2I(JNStringSplit(s, "'", 6)) , "Select_stars1.tga")
       call s__Select_SetStars(3 , S2I(JNStringSplit(s, "'", 7)) , "Select_stars1.tga")
       call s__Select_SetStars(4 , S2I(JNStringSplit(s, "'", 8)) , "Select_stars2.tga")
-          
-      //피해, 무기, 스킬아이콘
+
+      // 미리보기 창
       if ( SubString(JNStringSplit(s, "'", 9), 0, 10) == "|cffff8000" ) then
-        call DzFrameSetTexture(s__Select_select_Preview, "Select_BackRed.blp", 0)
-        call DzFrameSetTexture(s__Select_selectBackSkillPreview, "Select_BackRedRed.blp", 0)
+        call DzFrameSetTexture(s__Select_select_LeftPreview, "Select_BackRed.blp", 0)
+        call DzFrameSetTexture(s__Select_select_SkillPreview, "Select_BackRedRed.blp", 0)
         if ( Continue ) then
           call DzFrameSetTexture(s__Select_selectBackStart, "Select_ContinueRed.blp", 0)
         else
           call DzFrameSetTexture(s__Select_selectBackStart, "Select_StartRed.blp", 0)
         endif
       else
-        call DzFrameSetTexture(s__Select_select_Preview, "Select_BackBlue.blp", 0)
-        call DzFrameSetTexture(s__Select_selectBackSkillPreview, "Select_BackBlueBlue.blp", 0)
+        call DzFrameSetTexture(s__Select_select_LeftPreview, "Select_BackBlue.blp", 0)
+        call DzFrameSetTexture(s__Select_select_SkillPreview, "Select_BackBlueBlue.blp", 0)
         if ( Continue ) then
           call DzFrameSetTexture(s__Select_selectBackStart, "Select_ContinueBlue.blp", 0)
         else
@@ -6102,16 +6109,18 @@ endfunction
         endif
       endif
 
+      // 피해타입, 전용무기
       call DzFrameSetText(s__Select_selectTextCharacterDamageType, JNStringSplit(s, "'", 9))
       call DzFrameSetText(s__Select_selectTextCharacterMainWeapon, JNStringSplit(s, "'", 10))
 
+      // 스킬 미리보기 아이콘 x4
       call DzFrameSetTexture(s__s__Select_selectBackSkills[0], JNStringSplit(s, "'", 11), 0)
       call DzFrameSetTexture(s__s__Select_selectBackSkills[1], JNStringSplit(s, "'", 12), 0)
       call DzFrameSetTexture(s__s__Select_selectBackSkills[2], JNStringSplit(s, "'", 13), 0)
       call DzFrameSetTexture(s__s__Select_selectBackSkills[3], JNStringSplit(s, "'", 14), 0)
-          
+
       call DzFrameShow(s__Select_select_Main, true)
-      call DzFrameShow(s__Select_select_Preview, false)
+      call DzFrameShow(s__Select_select_LeftPreview, false)
     endfunction
 
     // 유닛 선택 해제 시 갱신 함수
@@ -6119,9 +6128,9 @@ endfunction
       if ( GetTriggerPlayer() == GetLocalPlayer() ) then
         call DzFrameShow(Frame_Sub, false)
       endif
-      set SelectedUnit[GetPlayerId(GetTriggerPlayer()) + 1]=null
+      // set SelectedUnit[GetPlayerId(GetTriggerPlayer()) + 1] = null
     endfunction
-    
+
     // // 유닛 선택수 초기화 함수
     // private static method Inter takes nothing returns nothing
     //   local timer t = GetExpiredTimer()
@@ -6152,18 +6161,18 @@ endfunction
       local integer nowSelectNum= NowSelect[GetPlayerId(DzGetTriggerUIEventPlayer()) + 1]
       if ( DzGetTriggerUIEventPlayer() == GetLocalPlayer() ) then
         set f=12 + 3 * s__EMenus_GetSubTypeId(f)
-        
-        call DzFrameSetText(Frame_SelectText[16], "|cffd5d500" + JNStringSplit(s__CharacterData_SelectDatas[s__CharacterData__staticgetindex(nowSelectNum)], "'", f))
-        call DzFrameSetText(Frame_SelectText[17], JNStringSplit(s__CharacterData_SelectDatas[s__CharacterData__staticgetindex(nowSelectNum)], "'", f + 1))
-        call DzFrameSetText(Frame_SelectText[18], JNStringSplit(s__CharacterData_SelectDatas[s__CharacterData__staticgetindex(nowSelectNum)], "'", f + 2))
-        
-        call DzFrameShow(Frame_SelectText[16], true)
+
+        call DzFrameSetText(s__Select_selectTextSkillPreviewName, "|cffd5d500" + JNStringSplit(s__CharacterData_SelectDatas[s__CharacterData__staticgetindex(nowSelectNum)], "'", f))
+        call DzFrameSetText(s__Select_selectTextSkillPreviewDescription1, JNStringSplit(s__CharacterData_SelectDatas[s__CharacterData__staticgetindex(nowSelectNum)], "'", f + 1))
+        call DzFrameSetText(s__Select_selectTextSkillPreviewDescription2, JNStringSplit(s__CharacterData_SelectDatas[s__CharacterData__staticgetindex(nowSelectNum)], "'", f + 2))
+
+        call DzFrameShow(s__Select_selectTextSkillPreviewName, true)
       endif
     endfunction
     function s__Select_ButtonJustDown takes nothing returns nothing
       local integer f= DzGetTriggerUIEventFrame()
       if ( DzGetTriggerUIEventPlayer() == GetLocalPlayer() ) then
-        call DzFrameShow(Frame_SelectText[16], false)
+        call DzFrameShow(s__Select_selectTextSkillPreviewName, false)
       endif
     endfunction
     function s__Select_SendSyncedData takes nothing returns nothing
@@ -6180,8 +6189,8 @@ endfunction
           call DzSyncData("Select", I2S(NowSelect[playerId]))
 
           call DzFrameShow(s__Select_select_Main, false)
-          call DzFrameShow(Frame_SelectBack[1], false)
-          call DzFrameShow(Frame_Info[0], false)
+          call DzFrameShow(s__Select_select_LeftPreview, false)
+          call DzFrameShow(s__Select_select_SkillPreview, false)
           call ResetToGameCamera(0.)
           call SetCameraBoundsToRect(bj_mapInitialPlayableArea)
           call PanCameraTo(s__Select_selectX, s__Select_selectY)
@@ -6192,7 +6201,7 @@ endfunction
     endfunction
 
     function s__Select_MakeStars takes integer parent,integer point,integer point2,real x,real y,real size,string texture returns integer
-      local integer temp= DzCreateFrame("BACKDROP", parent, sc__Select_CountAdder())
+      local integer temp= DzCreateFrameByTagName("BACKDROP", "", parent, "", sc__Select_CountAdder())
       call DzFrameSetPoint(temp, point, parent, point2, x, y)
       call DzFrameSetSize(temp, size, size)
       call DzFrameSetTexture(temp, texture, 0)
@@ -6204,14 +6213,14 @@ endfunction
     endfunction
 
     function s__Select_MakeBack takes integer parent,integer point,real x,real y,real xx,real yy,string texture returns integer
-      local integer temp= DzCreateFrame("BACKDROP", parent, s__Select_CountAdder())
+      local integer temp= DzCreateFrameByTagName("BACKDROP", "", parent, "", s__Select_CountAdder())
       call DzFrameSetAbsolutePoint(temp, point, x, y)
       call DzFrameSetSize(temp, xx, yy)
       call DzFrameSetTexture(temp, texture, 0)
       return temp
     endfunction
     function s__Select_MakeText takes integer parent,integer point,integer point2,real x,real y,real size,string text returns integer
-      local integer temp= DzCreateFrame("TEXT", parent, s__Select_CountAdder())
+      local integer temp= DzCreateFrameByTagName("TEXT", "", parent, "", s__Select_CountAdder())
       if ( size != 0. ) then
         call DzFrameSetFont(temp, "Fonts\\DFHeiMd.ttf", size, 0)
       endif
@@ -6219,51 +6228,47 @@ endfunction
       call DzFrameSetText(temp, text)
       return temp
     endfunction
-    function s__Select_MakeButton takes integer parent,integer types,integer input,integer point,integer point2,real x,real y,real size,string iconPath returns nothing
-      local integer temp= 0
-      if ( types != SELECT_MENU_PRESKILL and types != SELECT_MENU_SKILL ) then
-        call MsgAll("선택/버튼생성/타입오류." + I2S(types) + "," + I2S(input))
-        return
-      endif
-      set temp=DzCreateFrameByTagName("BUTTON", "", Frame_Main, "ScoreScreenTabButtonTemplate", s__Select_CountAdder())
-      if ( size == 0. ) then
-        call DzFrameSetAllPoints(temp, parent)
-        call s__EMenus_FrameSaveIDs(temp , types , input)
-        return temp
-      else
-        call DzFrameSetPoint(temp, point, parent, point2, x, y)
-        call DzFrameSetSize(temp, size, size)
-      endif
+    function s__Select_MakeButtonSimple takes integer parent,integer types,integer input,code func returns integer
+      local integer temp= DzCreateFrameByTagName("BUTTON", "", Frame_Main, "ScoreScreenTabButtonTemplate", s__Select_CountAdder())
+      call DzFrameSetAllPoints(temp, parent)
+      call s__EMenus_FrameSaveIDs(temp , types , input)
 
+      call DzFrameSetScriptByCode(temp, JN_FRAMEEVENT_MOUSE_UP, func, false)
+      return temp
+    endfunction
+    function s__Select_MakeButton takes integer parent,integer types,integer input,integer point,integer point2,real x,real y,real size,string iconPath returns integer
+      local integer temp= DzCreateFrameByTagName("BUTTON", "", Frame_Main, "ScoreScreenTabButtonTemplate", s__Select_CountAdder())
+      call DzFrameSetPoint(temp, point, parent, point2, x, y)
+      call DzFrameSetSize(temp, size, size)
+        
       // IDs
       call s__EMenus_FrameSaveIDs(temp , types , input)
 
       // 배경
-      set s__s__Select_selectBackSkills[input]= DzCreateFrame("BACKDROP", temp, 0)
+      set s__s__Select_selectBackSkills[input]= DzCreateFrameByTagName("BACKDROP", "", temp, "", 0)
       call DzFrameSetAllPoints(s__s__Select_selectBackSkills[input], temp)
       call DzFrameSetTexture(s__s__Select_selectBackSkills[input], iconPath, 0)
 
+      // 이벤트 등록
       call DzFrameSetScriptByCode(temp, JN_FRAMEEVENT_MOUSE_UP, function s__MenuQuickSlot_ButtonClickAll, false)
-      if ( types == SELECT_MENU_SKILL ) then
-        call DzFrameSetScriptByCode(temp, JN_FRAMEEVENT_MOUSE_ENTER, function s__Select_ButtonJustUp, false)
-        call DzFrameSetScriptByCode(temp, JN_FRAMEEVENT_MOUSE_LEAVE, function s__Select_ButtonJustDown, false)
-      endif
+      call DzFrameSetScriptByCode(temp, JN_FRAMEEVENT_MOUSE_ENTER, function s__Select_ButtonJustUp, false)
+      call DzFrameSetScriptByCode(temp, JN_FRAMEEVENT_MOUSE_LEAVE, function s__Select_ButtonJustDown, false)
 
       return temp
     endfunction
-    
-    function s__Select_CreateSelectIcon2 takes integer types,integer parent,integer point,integer point2,real x,real y,real size,string IconTexture returns integer
-      set Frame_SelectSkills[types]=DzCreateFrameByTagName("BUTTON", "", Frame_SelectBack[1], "ScoreScreenTabButtonTemplate", 0)
-      call DzFrameSetPoint(Frame_SelectSkills[types], point, parent, point2, x, y)
-      call DzFrameSetSize(Frame_SelectSkills[types], size, size)
-        
-      set types=types + 1
-      //배경
-      set Frame_SelectSkills[types]=DzCreateFrameByTagName("BACKDROP", "", Frame_SelectSkills[types - 1], "", 0)
-      call DzFrameSetAllPoints(Frame_SelectSkills[types], Frame_SelectSkills[types - 1])
-      call DzFrameSetTexture(Frame_SelectSkills[types], IconTexture, 0)
-      return types + 1
-    endfunction
+
+    // private static method CreateSelectIcon2 takes integer types, integer parent, integer point, integer point2, real x, real y, real size, string IconTexture returns integer
+    //   set Frame_SelectSkills[types] = DzCreateFrameByTagName("BUTTON", "", Frame_SelectBack[1], "ScoreScreenTabButtonTemplate", 0)
+    //   call DzFrameSetPoint(Frame_SelectSkills[types], point, parent, point2, x, y)
+    //   call DzFrameSetSize(Frame_SelectSkills[types], size, size)
+
+    //   set types = types + 1
+    //   //배경
+    //   set Frame_SelectSkills[types] = DzCreateFrameByTagName("BACKDROP", "", Frame_SelectSkills[types - 1], "", 0)
+    //   call DzFrameSetAllPoints(Frame_SelectSkills[types], Frame_SelectSkills[types - 1])
+    //   call DzFrameSetTexture(Frame_SelectSkills[types], IconTexture, 0)
+    //   return types + 1
+    // endmethod
 
     function s__Select_CameraBounds takes real x,real y returns nothing
       call SetCameraBounds(x, y, x, y, x, y, x, y)
@@ -6275,9 +6280,9 @@ endfunction
       call SetCameraField(CAMERA_FIELD_FIELD_OF_VIEW, 70., 0.)
       call SetCameraField(CAMERA_FIELD_FARZ, 5000., 0.)
 
-      call s__Select_CameraBounds(selextX , s__Select_selectY)
+      call s__Select_CameraBounds(s__Select_selectX , s__Select_selectY)
     endfunction
-    function s__Select_CreateSelect takes nothing returns nothing
+    function s__Select_CreateSelectMain takes nothing returns nothing
       local integer Text= 1
       call s__Select_InitCamera()
 
@@ -6289,145 +6294,150 @@ endfunction
         set Text=s__Select_MakeText(DzGetGameUI() , JN_FRAMEPOINT_CENTER , JN_FRAMEPOINT_BOTTOMLEFT , .4 , .55 , .038 , "|cff0085FFThe Only My Own RPG")
       endif
       set s__Select_select_Main=s__Select_MakeText(Text , JN_FRAMEPOINT_TOPRIGHT , JN_FRAMEPOINT_BOTTOMRIGHT , 0. , 0. , 0136 , "나만의 알피지")
-       
+
       //call DzFrameSetTexture(select_Main, "ui\\Title-R.blp", 0)
-      set s__Select_select_Preview=s__Select_MakeBack(s__Select_select_Main , JN_FRAMEPOINT_TOPLEFT , .05 , .45 , .18 , .25 , "Select_Back.blp")
-      set s__Select_selectTextCharacterNameEnglish=s__Select_MakeText(s__Select_select_Preview , JN_FRAMEPOINT_TOP , JN_FRAMEPOINT_TOP , 0. , - .013 , .015 , "DarkElf Mage")
-      set s__Select_selectTextCharacterNameKorean=s__Select_MakeText(s__Select_select_Preview , JN_FRAMEPOINT_TOPRIGHT , JN_FRAMEPOINT_TOPRIGHT , - .020 , - .035 , .010 , "다크엘프 마법사")
-      set s__Select_selectTextCharacterDescription1=s__Select_MakeText(s__Select_select_Preview , JN_FRAMEPOINT_TOPLEFT , JN_FRAMEPOINT_BOTTOMLEFT , .020 , - .050 , .008 , "마법사는 강력한 마법 공격과 디버프를 사용해")
-      set s__Select_selectTextCharacterDescription2=s__Select_MakeText(selectTextCharacterDescription , JN_FRAMEPOINT_TOPLEFT , JN_FRAMEPOINT_BOTTOMLEFT , 0. , 0. , .008 , "적을 괴롭히고 다대다 전투에 강한 직업입니다.")
+      set s__Select_select_LeftPreview=s__Select_MakeBack(s__Select_select_Main , JN_FRAMEPOINT_TOPLEFT , .05 , .45 , .18 , .25 , "Select_Back.blp")
+      set s__Select_selectTextCharacterNameEnglish=s__Select_MakeText(s__Select_select_LeftPreview , JN_FRAMEPOINT_TOP , JN_FRAMEPOINT_TOP , 0. , - .013 , .015 , "DarkElf Mage")
+      set s__Select_selectTextCharacterNameKorean=s__Select_MakeText(s__Select_select_LeftPreview , JN_FRAMEPOINT_TOPRIGHT , JN_FRAMEPOINT_TOPRIGHT , - .020 , - .035 , .010 , "다크엘프 마법사")
+      set s__Select_selectTextCharacterDescription1=s__Select_MakeText(s__Select_select_LeftPreview , JN_FRAMEPOINT_TOPLEFT , JN_FRAMEPOINT_BOTTOMLEFT , .020 , - .050 , .008 , "마법사는 강력한 마법 공격과 디버프를 사용해")
+      set s__Select_selectTextCharacterDescription2=s__Select_MakeText(s__Select_selectTextCharacterDescription1 , JN_FRAMEPOINT_TOPLEFT , JN_FRAMEPOINT_BOTTOMLEFT , 0. , 0. , .008 , "적을 괴롭히고 다대다 전투에 강한 직업입니다.")
 
       set Text=s__Select_MakeText(Text , JN_FRAMEPOINT_TOPLEFT , JN_FRAMEPOINT_TOPLEFT , .020 , - .080 , .012 , "공격")
-      set selectTextStarBacks[0][0]=s__Select_MakeStars(Text , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_LEFT , .040 , 0. , .020 , "Select_stars1.tga")
-      set selectTextStarBacks[0][1]=s__Select_MakeStars(Text , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_LEFT , .060 , 0. , .020 , "Select_stars1.tga")
-      set selectTextStarBacks[0][2]=s__Select_MakeStars(Text , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_LEFT , .080 , 0. , .020 , "Select_stars1.tga")
-      set selectTextStarBacks[0][3]=s__Select_MakeStars(Text , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_LEFT , .100 , 0. , .020 , "Select_stars1.tga")
-      set selectTextStarBacks[0][4]=s__Select_MakeStars(Text , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_LEFT , .120 , 0. , .020 , "Select_stars1.tga")
+      set s__s__Select_selectBackStars[(0)*(5)+0]= s__Select_MakeStars(Text , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_LEFT , .040 , 0. , .020 , "Select_stars1.tga")
+      set s__s__Select_selectBackStars[(0)*(5)+1]= s__Select_MakeStars(Text , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_LEFT , .060 , 0. , .020 , "Select_stars1.tga")
+      set s__s__Select_selectBackStars[(0)*(5)+2]= s__Select_MakeStars(Text , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_LEFT , .080 , 0. , .020 , "Select_stars1.tga")
+      set s__s__Select_selectBackStars[(0)*(5)+3]= s__Select_MakeStars(Text , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_LEFT , .100 , 0. , .020 , "Select_stars1.tga")
+      set s__s__Select_selectBackStars[(0)*(5)+4]= s__Select_MakeStars(Text , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_LEFT , .120 , 0. , .020 , "Select_stars1.tga")
 
       set Text=s__Select_MakeText(Text , JN_FRAMEPOINT_TOPLEFT , JN_FRAMEPOINT_BOTTOMLEFT , 0. , - .02 , .012 , "방어")
-      set selectTextStarBacks[1][0]=s__Select_MakeStars(Text , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_LEFT , .040 , 0. , .020 , "Select_stars1.tga")
-      set selectTextStarBacks[1][1]=s__Select_MakeStars(Text , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_LEFT , .060 , 0. , .020 , "Select_stars1.tga")
-      set selectTextStarBacks[1][2]=s__Select_MakeStars(Text , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_LEFT , .080 , 0. , .020 , "Select_stars1.tga")
-      set selectTextStarBacks[1][3]=s__Select_MakeStars(Text , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_LEFT , .100 , 0. , .020 , "Select_stars1.tga")
-      set selectTextStarBacks[1][4]=s__Select_MakeStars(Text , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_LEFT , .120 , 0. , .020 , "Select_stars1.tga")
+      set s__s__Select_selectBackStars[(1)*(5)+0]= s__Select_MakeStars(Text , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_LEFT , .040 , 0. , .020 , "Select_stars1.tga")
+      set s__s__Select_selectBackStars[(1)*(5)+1]= s__Select_MakeStars(Text , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_LEFT , .060 , 0. , .020 , "Select_stars1.tga")
+      set s__s__Select_selectBackStars[(1)*(5)+2]= s__Select_MakeStars(Text , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_LEFT , .080 , 0. , .020 , "Select_stars1.tga")
+      set s__s__Select_selectBackStars[(1)*(5)+3]= s__Select_MakeStars(Text , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_LEFT , .100 , 0. , .020 , "Select_stars1.tga")
+      set s__s__Select_selectBackStars[(1)*(5)+4]= s__Select_MakeStars(Text , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_LEFT , .120 , 0. , .020 , "Select_stars1.tga")
 
       set Text=s__Select_MakeText(Text , JN_FRAMEPOINT_TOPLEFT , JN_FRAMEPOINT_BOTTOMLEFT , 0. , - .02 , .012 , "보조")
-      set selectTextStarBacks[2][0]=s__Select_MakeStars(Text , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_LEFT , .040 , 0. , .020 , "Select_stars1.tga")
-      set selectTextStarBacks[2][1]=s__Select_MakeStars(Text , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_LEFT , .060 , 0. , .020 , "Select_stars1.tga")
-      set selectTextStarBacks[2][2]=s__Select_MakeStars(Text , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_LEFT , .080 , 0. , .020 , "Select_stars1.tga")
-      set selectTextStarBacks[2][3]=s__Select_MakeStars(Text , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_LEFT , .100 , 0. , .020 , "Select_stars1.tga")
-      set selectTextStarBacks[2][4]=s__Select_MakeStars(Text , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_LEFT , .120 , 0. , .020 , "Select_stars1.tga")
+      set s__s__Select_selectBackStars[(2)*(5)+0]= s__Select_MakeStars(Text , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_LEFT , .040 , 0. , .020 , "Select_stars1.tga")
+      set s__s__Select_selectBackStars[(2)*(5)+1]= s__Select_MakeStars(Text , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_LEFT , .060 , 0. , .020 , "Select_stars1.tga")
+      set s__s__Select_selectBackStars[(2)*(5)+2]= s__Select_MakeStars(Text , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_LEFT , .080 , 0. , .020 , "Select_stars1.tga")
+      set s__s__Select_selectBackStars[(2)*(5)+3]= s__Select_MakeStars(Text , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_LEFT , .100 , 0. , .020 , "Select_stars1.tga")
+      set s__s__Select_selectBackStars[(2)*(5)+4]= s__Select_MakeStars(Text , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_LEFT , .120 , 0. , .020 , "Select_stars1.tga")
 
       set Text=s__Select_MakeText(Text , JN_FRAMEPOINT_TOPLEFT , JN_FRAMEPOINT_BOTTOMLEFT , 0. , - .02 , .012 , "방해")
-      set selectTextStarBacks[3][0]=s__Select_MakeStars(Text , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_LEFT , .040 , 0. , .020 , "Select_stars1.tga")
-      set selectTextStarBacks[3][1]=s__Select_MakeStars(Text , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_LEFT , .060 , 0. , .020 , "Select_stars1.tga")
-      set selectTextStarBacks[3][2]=s__Select_MakeStars(Text , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_LEFT , .080 , 0. , .020 , "Select_stars1.tga")
-      set selectTextStarBacks[3][3]=s__Select_MakeStars(Text , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_LEFT , .100 , 0. , .020 , "Select_stars1.tga")
-      set selectTextStarBacks[3][4]=s__Select_MakeStars(Text , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_LEFT , .120 , 0. , .020 , "Select_stars1.tga")
+      set s__s__Select_selectBackStars[(3)*(5)+0]= s__Select_MakeStars(Text , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_LEFT , .040 , 0. , .020 , "Select_stars1.tga")
+      set s__s__Select_selectBackStars[(3)*(5)+1]= s__Select_MakeStars(Text , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_LEFT , .060 , 0. , .020 , "Select_stars1.tga")
+      set s__s__Select_selectBackStars[(3)*(5)+2]= s__Select_MakeStars(Text , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_LEFT , .080 , 0. , .020 , "Select_stars1.tga")
+      set s__s__Select_selectBackStars[(3)*(5)+3]= s__Select_MakeStars(Text , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_LEFT , .100 , 0. , .020 , "Select_stars1.tga")
+      set s__s__Select_selectBackStars[(3)*(5)+4]= s__Select_MakeStars(Text , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_LEFT , .120 , 0. , .020 , "Select_stars1.tga")
 
       set Text=s__Select_MakeText(Text , JN_FRAMEPOINT_TOPLEFT , JN_FRAMEPOINT_BOTTOMLEFT , 0. , - .02 , .012 , "난이도")
-      set selectTextStarBacks[4][0]=s__Select_MakeStars(Text , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_LEFT , .040 , 0. , .020 , "Select_stars2.tga")
-      set selectTextStarBacks[4][1]=s__Select_MakeStars(Text , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_LEFT , .060 , 0. , .020 , "Select_stars2.tga")
-      set selectTextStarBacks[4][2]=s__Select_MakeStars(Text , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_LEFT , .080 , 0. , .020 , "Select_stars2.tga")
-      set selectTextStarBacks[4][3]=s__Select_MakeStars(Text , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_LEFT , .100 , 0. , .020 , "Select_stars2.tga")
-      set selectTextStarBacks[4][4]=s__Select_MakeStars(Text , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_LEFT , .120 , 0. , .020 , "Select_stars2.tga")
-      
+      set s__s__Select_selectBackStars[(4)*(5)+0]= s__Select_MakeStars(Text , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_LEFT , .040 , 0. , .020 , "Select_stars2.tga")
+      set s__s__Select_selectBackStars[(4)*(5)+1]= s__Select_MakeStars(Text , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_LEFT , .060 , 0. , .020 , "Select_stars2.tga")
+      set s__s__Select_selectBackStars[(4)*(5)+2]= s__Select_MakeStars(Text , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_LEFT , .080 , 0. , .020 , "Select_stars2.tga")
+      set s__s__Select_selectBackStars[(4)*(5)+3]= s__Select_MakeStars(Text , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_LEFT , .100 , 0. , .020 , "Select_stars2.tga")
+      set s__s__Select_selectBackStars[(4)*(5)+4]= s__Select_MakeStars(Text , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_LEFT , .120 , 0. , .020 , "Select_stars2.tga")
+
       set Text=s__Select_MakeText(s__Select_select_Main , JN_FRAMEPOINT_TOPLEFT , JN_FRAMEPOINT_TOPLEFT , .02 , - .02 , .010 , "|cff8f8f8f피해 유형")
       set s__Select_selectTextCharacterDamageType=s__Select_MakeText(Text , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_LEFT , .07 , 0. , .015 , "|cff0080c0마법 데미지")
       set Text=s__Select_MakeText(s__Select_select_Main , JN_FRAMEPOINT_TOPLEFT , JN_FRAMEPOINT_TOPLEFT , .02 , - .04 , .010 , "|cff8f8f8f사용(전용)무기")
       set s__Select_selectTextCharacterMainWeapon=s__Select_MakeText(Text , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_LEFT , .07 , 0. , .012 , "[완드] [지팡이]")
+    endfunction
+    function s__Select_CreateSelectSkillPreview takes nothing returns nothing
+      set s__Select_select_SkillPreview=s__Select_MakeBack(DzGetGameUI() , JN_FRAMEPOINT_TOPLEFT , .62 , .34 , .16 , .12 , "Select_BackRedRed.blp")
+      call s__Select_MakeText(s__Select_select_SkillPreview , JN_FRAMEPOINT_TOPLEFT , JN_FRAMEPOINT_TOPLEFT , .01 , - .01 , .010 , "|cff8f8f8f주요 스킬 보기")
+      set s__s__Select_selectButtonSkills[0]= s__Select_MakeButton(s__Select_select_SkillPreview , SELECT_MENU_PRESKILL , 1 , JN_FRAMEPOINT_TOP , JN_FRAMEPOINT_TOPLEFT , .024 , - .03 , .0275 , "war3mapImported\\frame_kakao.blp")
+      set s__s__Select_selectButtonSkills[1]= s__Select_MakeButton(s__Select_select_SkillPreview , SELECT_MENU_PRESKILL , 2 , JN_FRAMEPOINT_TOP , JN_FRAMEPOINT_TOPLEFT , .061 , - .03 , .0275 , "war3mapImported\\frame_kakao.blp")
+      set s__s__Select_selectButtonSkills[2]= s__Select_MakeButton(s__Select_select_SkillPreview , SELECT_MENU_PRESKILL , 3 , JN_FRAMEPOINT_TOP , JN_FRAMEPOINT_TOPLEFT , .099 , - .03 , .0275 , "war3mapImported\\frame_kakao.blp")
+      set s__s__Select_selectButtonSkills[3]= s__Select_MakeButton(s__Select_select_SkillPreview , SELECT_MENU_PRESKILL , 4 , JN_FRAMEPOINT_TOP , JN_FRAMEPOINT_TOPLEFT , .136 , - .03 , .0275 , "war3mapImported\\frame_kakao.blp")
 
-      set s__Select_selectBackSkillPreview=s__Select_MakeBack(DzGetGameUI() , JN_FRAMEPOINT_TOPLEFT , .62 , .34 , .16 , .12 , "Select_BackRedRed.blp")
-      set Text=s__Select_MakeText(s__Select_selectBackSkillPreview , JN_FRAMEPOINT_TOPLEFT , JN_FRAMEPOINT_TOPLEFT , .01 , - .01 , .010 , "|cff8f8f8f주요 스킬 보기")
-      set s__s__Select_selectButtonSkills[0]= s__Select_MakeButton(s__Select_selectBackSkillPreview , SELECT_MENU_PRESKILL , 1 , JN_FRAMEPOINT_TOP , JN_FRAMEPOINT_TOPLEFT , .024 , - .03 , .0275 , "war3mapImported\\frame_kakao.blp")
-      set s__s__Select_selectButtonSkills[1]= s__Select_MakeButton(s__Select_selectBackSkillPreview , SELECT_MENU_PRESKILL , 2 , JN_FRAMEPOINT_TOP , JN_FRAMEPOINT_TOPLEFT , .061 , - .03 , .0275 , "war3mapImported\\frame_kakao.blp")
-      set s__s__Select_selectButtonSkills[2]= s__Select_MakeButton(s__Select_selectBackSkillPreview , SELECT_MENU_PRESKILL , 3 , JN_FRAMEPOINT_TOP , JN_FRAMEPOINT_TOPLEFT , .099 , - .03 , .0275 , "war3mapImported\\frame_kakao.blp")
-      set s__s__Select_selectButtonSkills[3]= s__Select_MakeButton(s__Select_selectBackSkillPreview , SELECT_MENU_PRESKILL , 4 , JN_FRAMEPOINT_TOP , JN_FRAMEPOINT_TOPLEFT , .136 , - .03 , .0275 , "war3mapImported\\frame_kakao.blp")
-      
-      set s__Select_selectTextSkillPreviewName=s__Select_MakeText(s__Select_selectBackSkillPreview , JN_FRAMEPOINT_TOPLEFT , JN_FRAMEPOINT_TOPLEFT , .01 , - .08 , .012 , "|cffd5d500분노의 소용돌이 |cffff8000Lv.1")
+      set s__Select_selectTextSkillPreviewName=s__Select_MakeText(s__Select_select_SkillPreview , JN_FRAMEPOINT_TOPLEFT , JN_FRAMEPOINT_TOPLEFT , .01 , - .08 , .012 , "|cffd5d500분노의 소용돌이 |cffff8000Lv.1")
       set s__Select_selectTextSkillPreviewDescription1=s__Select_MakeText(s__Select_selectTextSkillPreviewName , JN_FRAMEPOINT_TOPLEFT , JN_FRAMEPOINT_BOTTOMLEFT , 0. , - .005 , .008 , "창을 크게 휘둘러 주위의 적들에게 공격력의")
       set s__Select_selectTextSkillPreviewDescription2=s__Select_MakeText(s__Select_selectTextSkillPreviewDescription1 , JN_FRAMEPOINT_TOPLEFT , JN_FRAMEPOINT_BOTTOMLEFT , 0. , 0. , .008 , "|cffff800060%|r만큼 마법피해를 최대 |cffff80003|r회 입힙니다.")
-  
+
       // 시작하기
-      set s__Select_selectButtonStart=DzCreateFrameByTagName("BUTTON", "", s__Select_select_Main, "ScoreScreenTabButtonTemplate", GetAdder())
+      set s__Select_selectButtonStart=DzCreateFrameByTagName("BUTTON", "", s__Select_select_Main, "ScoreScreenTabButtonTemplate", s__Select_CountAdder())
       call DzFrameSetPoint(s__Select_selectButtonStart, JN_FRAMEPOINT_TOP, s__Select_selectTextSkillPreviewDescription2, JN_FRAMEPOINT_BOTTOM, 0., - .005)
       call DzFrameSetSize(s__Select_selectButtonStart, .11, .03)
       call DzFrameSetScriptByCode(s__Select_selectButtonStart, JN_FRAMEEVENT_MOUSE_UP, function s__Select_ButtonStart, true)
 
-      set s__Select_selectBackStart=DzCreateFrame("BACKDROP", s__Select_selectButtonStart, 0)
+      set s__Select_selectBackStart=DzCreateFrameByTagName("BACKDROP", "", s__Select_selectButtonStart, "", 0)
       call DzFrameSetAllPoints(s__Select_selectBackStart, s__Select_selectButtonStart)
       call DzFrameSetTexture(s__Select_selectBackStart, "Select_StartRed.blp", 0)
     endfunction
-    function s__Select_I2T takes integer i returns string
-      if ( i <= 0 ) then
+
+    // (분)을 포맷된 시간 형식으로 변환
+    // - < 100   : 99분
+    // - < 600   : 9.99시간
+    // - < 6000  : 99.9시간
+    // - < 14400 : 9일 9시간
+    // - 그 이상  : 29.91일
+    function s__Select_MinutesToFormattedTime takes integer minutes returns string
+      if ( minutes <= 0 ) then
         return ""
-      elseif ( i < 100 ) then
-        return I2S(i) + "분"
-      elseif ( i < 600 ) then
-        return R2SW(i / 60., 1, 2) + "시간"
+      elseif ( minutes < 100 ) then
+        return I2S(minutes) + "분"
+      elseif ( minutes < 600 ) then
+        return R2SW(minutes / 60., 1, 2) + "시간"
+      elseif ( minutes < 6000 ) then
+        return R2SW(minutes / 60., 2, 1) + "시간"
+      elseif ( minutes < 14400 ) then
+        return I2S(minutes / 1440) + "일 " + I2S(ModuloInteger(minutes, 1440) / 60) + "시간"
       else
-        return R2SW(i / 60., 2, 1) + "시간"
-      
+        return R2SW(minutes / 1440., 2, 2) + "일"
       endif
     endfunction
     function s__Select_CreateSelectBottom takes nothing returns nothing
-     local integer i= 1
-      //아래쪽
+      local integer i= 1
+      loop
+        //아래쪽
         set s__s__Select_selectBackBottoms[i]= s__Select_MakeBack(s__Select_select_Main , JN_FRAMEPOINT_CENTER , i * .12 , .1 , .1 , .04 , "Select_SlotBack75.blp")
-        set selectTextBottomsNameLevels[i]=s__Select_MakeText(s__s__Select_selectBackBottoms[i] , JN_FRAMEPOINT_TOPLEFT , JN_FRAMEPOINT_TOPLEFT , .005 , - .005 , .010 , JNStringSplit(JNStringSplit(s__CharacterData_SelectDatas[s__CharacterData__staticgetindex(i)], "'", 0), " ", 1) + " Lv00")
-        set selectTextBottomsPlayTimes[i]=s__Select_MakeText(s__s__Select_selectBackBottoms[i] , JN_FRAMEPOINT_TOPRIGHT , JN_FRAMEPOINT_TOPRIGHT , .005 , .005 , .009 , "00분")
-        set selectTextBottomsLoadTypes[i]=s__Select_MakeText(s__s__Select_selectBackBottoms[i] , JN_FRAMEPOINT_BOTTOMRIGHT , JN_FRAMEPOINT_BOTTOMRIGHT , - .01 , .008 , .013 , "이어하기")
-        set s__s__Select_selectButtonBottoms[i]= s__Select_MakeButton(s__s__Select_selectBackBottoms[i] , SELECT_MENU_CHARACTER , i , 0 , 0 , 0. , 0. , .0 , "")
-        exitwhen Save_MAX_CHARACTER - 1 <= i
+        set s__s__Select_selectTextBottomNameLevels[i]= s__Select_MakeText(s__s__Select_selectBackBottoms[i] , JN_FRAMEPOINT_TOPLEFT , JN_FRAMEPOINT_TOPLEFT , .005 , - .005 , .010 , JNStringSplit(JNStringSplit(s__CharacterData_SelectDatas[s__CharacterData__staticgetindex(i)], "'", 0), " ", 1) + " Lv00")
+        set s__s__Select_selectTextBottomPlayTimes[i]= s__Select_MakeText(s__s__Select_selectBackBottoms[i] , JN_FRAMEPOINT_TOPRIGHT , JN_FRAMEPOINT_TOPRIGHT , .005 , .005 , .009 , "00분")
+        set s__s__Select_selectTextBottomLoadTypes[i]= s__Select_MakeText(s__s__Select_selectBackBottoms[i] , JN_FRAMEPOINT_BOTTOMRIGHT , JN_FRAMEPOINT_BOTTOMRIGHT , - .01 , .008 , .013 , "이어하기")
+        set s__s__Select_selectButtonBottoms[i]= s__Select_MakeButtonSimple(s__s__Select_selectBackBottoms[i] , SELECT_MENU_CHARACTER , i , function s__MenuQuickSlot_ButtonClickAll)
+        exitwhen MAX_CHARACTER_COUNT - 1 <= i
         set i=i + 1
       endloop
     endfunction
     function s__Select_CreateSelectBottom2 takes player p,string Input returns nothing
-     local string s
-     local integer i= 1
+      local string cuttedString
+      local integer i= 1
       //아래쪽
       loop
-        set s=JNStringSplit(Input, "/", i)
-        if ( S2I(JNStringSplit(JNStringSplit(s, "'", 1), ".", 0)) > 0 ) then
+        set cuttedString=JNStringSplit(Input, "/", i)
+        if ( S2I(JNStringSplit(JNStringSplit(cuttedString, "'", 1), ".", 0)) > 0 ) then
           if ( GetLocalPlayer() == p ) then
             call DzFrameSetTexture(s__s__Select_selectBackBottoms[i], "Select_SlotBack75.blp", 0)
-            call DzFrameSetFont(selectTextBottomsNameLevels[i], "Fonts\\DFHeiMd.ttf", .010, 0)
-            call DzFrameSetText(selectTextBottomsNameLevels[i], JNStringSplit(JNStringSplit(s__CharacterData_SelectDatas[s__CharacterData__staticgetindex(i)], "'", 0), " ", 1) + " Lv" + JNStringSplit(JNStringSplit(s, "'", 1), ".", 0))
-            call DzFrameSetFont(selectTextBottomsPlayTimes[i], "Fonts\\DFHeiMd.ttf", .009, 0)
-            call DzFrameSetText(selectTextBottomsPlayTimes[i], s__Select_I2T(S2I(JNStringSplit(JNStringSplit(s, "'", 0), "_", 1))))
-            call DzFrameSetFont(selectTextBottomsLoadTypes[i], "Fonts\\DFHeiMd.ttf", .013, 0)
-            call DzFrameSetText(selectTextBottomsLoadTypes[i], "이어하기")
+            call DzFrameSetFont(s__s__Select_selectTextBottomNameLevels[i], "Fonts\\DFHeiMd.ttf", .010, 0)
+            call DzFrameSetText(s__s__Select_selectTextBottomNameLevels[i], JNStringSplit(JNStringSplit(s__CharacterData_SelectDatas[s__CharacterData__staticgetindex(i)], "'", 0), " ", 1) + " Lv" + JNStringSplit(JNStringSplit(cuttedString, "'", 1), ".", 0))
+            call DzFrameSetFont(s__s__Select_selectTextBottomPlayTimes[i], "Fonts\\DFHeiMd.ttf", .009, 0)
+            call DzFrameSetText(s__s__Select_selectTextBottomPlayTimes[i], s__Select_MinutesToFormattedTime(S2I(JNStringSplit(JNStringSplit(cuttedString, "'", 0), "_", 1))))
+            call DzFrameSetFont(s__s__Select_selectTextBottomLoadTypes[i], "Fonts\\DFHeiMd.ttf", .013, 0)
+            call DzFrameSetText(s__s__Select_selectTextBottomLoadTypes[i], "이어하기")
           endif
         else
           if ( GetLocalPlayer() == p ) then
-            call DzFrameSetTexture(Frame_SelectBack[5 + i * 2], "Select_SlotBack50.blp", 0)
-            call DzFrameSetFont(Frame_SelectText[16 + i * 3], "Fonts\\DFHeiMd.ttf", .009, 0)
-            call DzFrameSetText(Frame_SelectText[16 + i * 3], JNStringSplit(s__CharacterData_SelectDatas[s__CharacterData__staticgetindex(i)], "'", 0) + " (신규)")
-            call DzFrameSetText(Frame_SelectText[17 + i * 3], "")
-            call DzFrameSetFont(Frame_SelectText[18 + i * 3], "Fonts\\DFHeiMd.ttf", .008, 0)
-            call DzFrameSetText(Frame_SelectText[18 + i * 3], "미리보기")
-
             call DzFrameSetTexture(s__s__Select_selectBackBottoms[i], "Select_SlotBack50.blp", 0)
-            call DzFrameSetFont(selectTextBottomsNameLevels[i], "Fonts\\DFHeiMd.ttf", .010, 0)
-            call DzFrameSetText(selectTextBottomsNameLevels[i], JNStringSplit(s__CharacterData_SelectDatas[s__CharacterData__staticgetindex(i)], "'", 0) + " (신규)")
-            call DzFrameSetText(selectTextBottomsPlayTimes[i], "")
-            call DzFrameSetFont(selectTextBottomsLoadTypes[i], "Fonts\\DFHeiMd.ttf", .013, 0)
-            call DzFrameSetText(selectTextBottomsLoadTypes[i], "이어하기")
+            call DzFrameSetFont(s__s__Select_selectTextBottomNameLevels[i], "Fonts\\DFHeiMd.ttf", .009, 0)
+            call DzFrameSetText(s__s__Select_selectTextBottomNameLevels[i], JNStringSplit(s__CharacterData_SelectDatas[s__CharacterData__staticgetindex(i)], "'", 0) + " (신규)")
+            call DzFrameSetText(s__s__Select_selectTextBottomPlayTimes[i], "")
+            call DzFrameSetFont(s__s__Select_selectTextBottomLoadTypes[i], "Fonts\\DFHeiMd.ttf", .008, 0)
+            call DzFrameSetText(s__s__Select_selectTextBottomLoadTypes[i], "미리보기")
           endif
         endif
-        
-        exitwhen Save_MAX_CHARACTER - 1 <= i
+
+        exitwhen MAX_CHARACTER_COUNT - 1 <= i
         set i=i + 1
       endloop
     endfunction
-    
+
     function s__Select_GetSaveData takes player p,string input returns nothing
       set input=IfEmpty(input , s__Select_DEFAULT_DATA)
       call SaveStr(hash, GetPlayerId(p) + 1, StringHash("Data"), input)
       call s__Select_CreateSelectBottom2(p , input)
-     
+      
     endfunction
-    
+
     // IResource.PlayerResource[]가 생성된 후 호출
     function s__Select_onInit takes nothing returns nothing
       local integer loopA= 1
@@ -6437,16 +6447,17 @@ endfunction
       endif
 
       // set leftCount = PlayerResource.ALL_PLAYING_COUNT
-
-      call s__Select_CreateSelect()
+      call s__Select_CreateSelectMain()
       call s__Select_CreateSelectBottom()
-      
-      call DzFrameShow(s__Select_select_Main, false)
-      call DzFrameShow(s__Select_select_Preview, false)
-      
+      call s__Select_CreateSelectSkillPreview()
+
+      call DzFrameShow(s__Select_select_Main, true)
+      call DzFrameShow(s__Select_select_LeftPreview, true)
+      call DzFrameShow(s__Select_select_SkillPreview, true)
+
       loop
         if ( s__PlayerResource_isPlaying[s__PlayerResource__staticgetindex(loopA)] ) then
-          set PreLoad[loopA]=true
+          set s__s__Select_isSelected[loopA]= true
           call TriggerRegisterPlayerUnitEvent(s__Select_selectTrigger, Player(loopA - 1), EVENT_PLAYER_UNIT_SELECTED, null)
           call TriggerRegisterPlayerUnitEvent(s__Select_deSelectTrigger, Player(loopA - 1), EVENT_PLAYER_UNIT_DESELECTED, null)
         endif
@@ -6464,68 +6475,68 @@ endfunction
 // BEGIN IMPORT OF System\Frames\Option.j
 // scope Option begins
   
-    function Option__Setting takes integer no,string text,real size,real x,real y returns integer
-      set Option__Frame_Setting[no]=DzCreateFrameByTagName("TEXT", "", Option_Frame_SettingBackdrop[1], "", no)
+    function Option___Setting takes integer no,string text,real size,real x,real y returns integer
+      set Option___Frame_Setting[no]=DzCreateFrameByTagName("TEXT", "", Option_Frame_SettingBackdrop[1], "", no)
       if ( size != 0. ) then
-        call DzFrameSetFont(Option__Frame_Setting[no], "Fonts\\DFHeiMd.ttf", size, 1)
+        call DzFrameSetFont(Option___Frame_Setting[no], "Fonts\\DFHeiMd.ttf", size, 1)
       endif
-      call DzFrameSetPoint(Option__Frame_Setting[no], JN_FRAMEPOINT_LEFT, Option_Frame_SettingBackdrop[0], JN_FRAMEPOINT_TOPLEFT, .02 + x, - .015 - .025 * y)
-      call DzFrameSetText(Option__Frame_Setting[no], text)
+      call DzFrameSetPoint(Option___Frame_Setting[no], JN_FRAMEPOINT_LEFT, Option_Frame_SettingBackdrop[0], JN_FRAMEPOINT_TOPLEFT, .02 + x, - .015 - .025 * y)
+      call DzFrameSetText(Option___Frame_Setting[no], text)
       return no + 1
     endfunction
-    function Option__LoadNumber takes integer frame returns integer
+    function Option___LoadNumber takes integer frame returns integer
       return LoadInteger(hash, StringHash("F2I"), frame)
     endfunction
-    function Option__SaveNumber takes integer frame,integer number returns nothing
+    function Option___SaveNumber takes integer frame,integer number returns nothing
       call SaveInteger(hash, StringHash("F2I"), frame, number)
     endfunction
-    function Option__SettingButton takes integer i,integer number,string text,code funcHandle returns integer
-      set Option__Frame_Setting[i]=DzCreateFrameByTagName("GLUETEXTBUTTON", "", Option_Frame_SettingBackdrop[1], "ScriptDialogButton", 0)
-      call Option__SaveNumber(Option__Frame_Setting[i] , number)
-      call DzFrameSetSize(Option__Frame_Setting[i], .085, 0.03)
-      call DzFrameSetPoint(Option__Frame_Setting[i], JN_FRAMEPOINT_LEFT, Option__Frame_Setting[number], JN_FRAMEPOINT_LEFT, .1, 0.)
-      call DzFrameSetText(Option__Frame_Setting[i], text)
-      call DzFrameSetScriptByCode(Option__Frame_Setting[i], JN_FRAMEEVENT_MOUSE_UP, funcHandle, false)
+    function Option___SettingButton takes integer i,integer number,string text,code funcHandle returns integer
+      set Option___Frame_Setting[i]=DzCreateFrameByTagName("GLUETEXTBUTTON", "", Option_Frame_SettingBackdrop[1], "ScriptDialogButton", 0)
+      call Option___SaveNumber(Option___Frame_Setting[i] , number)
+      call DzFrameSetSize(Option___Frame_Setting[i], .085, 0.03)
+      call DzFrameSetPoint(Option___Frame_Setting[i], JN_FRAMEPOINT_LEFT, Option___Frame_Setting[number], JN_FRAMEPOINT_LEFT, .1, 0.)
+      call DzFrameSetText(Option___Frame_Setting[i], text)
+      call DzFrameSetScriptByCode(Option___Frame_Setting[i], JN_FRAMEEVENT_MOUSE_UP, funcHandle, false)
       return i + 1
     endfunction
-    function Option__SettingClick takes nothing returns nothing
+    function Option___SettingClick takes nothing returns nothing
       local integer f= DzGetTriggerUIEventFrame()
       local player p= DzGetTriggerUIEventPlayer()
       call MsgAll("player: " + GetPlayerName(p) + " clicked Setting")
-      call s__OptionResource_Click(s___PlayerResource_options[s__PlayerResource_options[s__PlayerResource__staticgetindex(GetPlayerId(p) + 1)]+Option__LoadNumber(f)],10)
+      call s__OptionResource_Click(s___PlayerResource_options[s__PlayerResource_options[s__PlayerResource__staticgetindex(GetPlayerId(p) + 1)]+Option___LoadNumber(f)],10)
     endfunction
-    function Option__SettingSave takes nothing returns nothing
+    function Option___SettingSave takes nothing returns nothing
       local integer f= DzGetTriggerUIEventFrame()
       local player p= DzGetTriggerUIEventPlayer()
       call s__OptionResource_Click(s___PlayerResource_options[s__PlayerResource_options[s__PlayerResource__staticgetindex(GetPlayerId(p) + 1)]+7],- 1)
 
       call MsgAll("player: " + GetPlayerName(p) + " click save server : " + I2S(s__IResource_id[s___PlayerResource_options[s__PlayerResource_options[s__PlayerResource__staticgetindex(GetPlayerId(p) + 1)]+7]]))
     endfunction
-    function Option__SettingClose takes nothing returns nothing
+    function Option___SettingClose takes nothing returns nothing
       if ( GetLocalPlayer() == DzGetTriggerUIEventPlayer() ) then
         call DzFrameShow(Option_Frame_SettingBackdrop[0], false)
       endif
     endfunction
-    function Option__SettingHotKey takes integer input,integer parent,real x,real y,string keys returns integer
-      set Option__Frame_Setting[input]=DzCreateFrameByTagName("GLUETEXTBUTTON", "", Option_Frame_SettingBackdrop[1], "ScriptDialogButton", 0)
+    function Option___SettingHotKey takes integer input,integer parent,real x,real y,string keys returns integer
+      set Option___Frame_Setting[input]=DzCreateFrameByTagName("GLUETEXTBUTTON", "", Option_Frame_SettingBackdrop[1], "ScriptDialogButton", 0)
       // call EMenus.FrameSaveIDs(Frame_Setting[input], types, input)
-      call DzFrameSetSize(Option__Frame_Setting[input], .02667, .02667)
-      call DzFrameSetPoint(Option__Frame_Setting[input], JN_FRAMEPOINT_LEFT, parent, JN_FRAMEPOINT_LEFT, .1 + x, y)
-      call DzFrameSetText(Option__Frame_Setting[input], keys)
+      call DzFrameSetSize(Option___Frame_Setting[input], .02667, .02667)
+      call DzFrameSetPoint(Option___Frame_Setting[input], JN_FRAMEPOINT_LEFT, parent, JN_FRAMEPOINT_LEFT, .1 + x, y)
+      call DzFrameSetText(Option___Frame_Setting[input], keys)
       // MenuQuickSlot.BaseHotKey(types, input)
       // function SettingHotKeyClick
 
       return input + 1
     endfunction
-    function Option__SettingHotKeyClick takes nothing returns nothing
+    function Option___SettingHotKeyClick takes nothing returns nothing
       local integer f= DzGetTriggerUIEventFrame()
       local player p= DzGetTriggerUIEventPlayer()
 
-      call s__OptionResource_Click(s___PlayerResource_options[s__PlayerResource_options[s__PlayerResource__staticgetindex(GetPlayerId(p) + 1)]+Option__LoadNumber(f)],0)
+      call s__OptionResource_Click(s___PlayerResource_options[s__PlayerResource_options[s__PlayerResource__staticgetindex(GetPlayerId(p) + 1)]+Option___LoadNumber(f)],0)
       call DisplayTimedTextToPlayer(GetLocalPlayer(), 0., 0., 7., "player: " + GetPlayerName(p) + " clicked HotKey Setting - " + I2S(f))
     endfunction
   
-    function Option__CreateSetting takes nothing returns nothing
+    function Option___CreateSetting takes nothing returns nothing
      local integer i= 0
       //미니정보창 배경
       set Option_Frame_SettingBackdrop[i]=DzCreateFrameByTagName("BACKDROP", "", DzGetGameUI(), "QuestButtonBaseTemplate", 0)
@@ -6540,83 +6551,83 @@ endfunction
       call DzFrameSetAlpha(Option_Frame_SettingBackdrop[i], 196)
       set i=i + 1
       
-      set Option__Frame_Setting[0]=DzCreateFrameByTagName("TEXT", "", Option_Frame_SettingBackdrop[1], "", 0)
-      call DzFrameSetPoint(Option__Frame_Setting[0], JN_FRAMEPOINT_CENTER, Option_Frame_SettingBackdrop[1], JN_FRAMEPOINT_CENTER, 0., 0.)
-      call DzFrameSetText(Option__Frame_Setting[0], "|cfffed312설정")
-      call DzFrameSetFont(Option__Frame_Setting[0], "Fonts\\DFHeiMd.ttf", .020, 1)
+      set Option___Frame_Setting[0]=DzCreateFrameByTagName("TEXT", "", Option_Frame_SettingBackdrop[1], "", 0)
+      call DzFrameSetPoint(Option___Frame_Setting[0], JN_FRAMEPOINT_CENTER, Option_Frame_SettingBackdrop[1], JN_FRAMEPOINT_CENTER, 0., 0.)
+      call DzFrameSetText(Option___Frame_Setting[0], "|cfffed312설정")
+      call DzFrameSetFont(Option___Frame_Setting[0], "Fonts\\DFHeiMd.ttf", .020, 1)
       
-      set i=Option__Setting(1 , s__HotkeyData_Name[s__HotkeyData__staticgetindex(1)] , .016 , 0. , 1.)
-      set i=Option__Setting(i , s__HotkeyData_Name[s__HotkeyData__staticgetindex(2)] , .016 , 0. , 2.)
-      set i=Option__Setting(i , s__HotkeyData_Name[s__HotkeyData__staticgetindex(3)] , .016 , 0. , 3.)
-      set i=Option__Setting(i , s__HotkeyData_Name[s__HotkeyData__staticgetindex(4)] , .016 , 0. , 4.)
-      set i=Option__Setting(i , s__HotkeyData_Name[s__HotkeyData__staticgetindex(5)] , .016 , 0. , 5.)
-      set i=Option__Setting(i , s__HotkeyData_Name[s__HotkeyData__staticgetindex(6)] , .016 , 0. , 6.)
+      set i=Option___Setting(1 , s__HotkeyData_Name[s__HotkeyData__staticgetindex(1)] , .016 , 0. , 1.)
+      set i=Option___Setting(i , s__HotkeyData_Name[s__HotkeyData__staticgetindex(2)] , .016 , 0. , 2.)
+      set i=Option___Setting(i , s__HotkeyData_Name[s__HotkeyData__staticgetindex(3)] , .016 , 0. , 3.)
+      set i=Option___Setting(i , s__HotkeyData_Name[s__HotkeyData__staticgetindex(4)] , .016 , 0. , 4.)
+      set i=Option___Setting(i , s__HotkeyData_Name[s__HotkeyData__staticgetindex(5)] , .016 , 0. , 5.)
+      set i=Option___Setting(i , s__HotkeyData_Name[s__HotkeyData__staticgetindex(6)] , .016 , 0. , 6.)
       
-      set i=Option__Setting(i , "|cfffed312단축키 설정" , 0.015 , - .01 , 7.)
-      set i=Option__Setting(i , "스킬1~8" , .024 , 0. , 8.)
-      set i=Option__Setting(i , "핫슬롯1~7" , .024 , 0. , 9.75)
-      set i=Option__Setting(i , "카톡/디코/설정" , 0. , 0. , 11.25)
-      set i=Option__Setting(i , "자동공격/인벤토리" , 0. , 0. , 12.25)
-      set i=Option__Setting(i , "상태창/스킬/임시" , 0. , 0. , 13.25)
+      set i=Option___Setting(i , "|cfffed312단축키 설정" , 0.015 , - .01 , 7.)
+      set i=Option___Setting(i , "스킬1~8" , .024 , 0. , 8.)
+      set i=Option___Setting(i , "핫슬롯1~7" , .024 , 0. , 9.75)
+      set i=Option___Setting(i , "카톡/디코/설정" , 0. , 0. , 11.25)
+      set i=Option___Setting(i , "자동공격/인벤토리" , 0. , 0. , 12.25)
+      set i=Option___Setting(i , "상태창/스킬/임시" , 0. , 0. , 13.25)
       
-      set Option__Frame_Setting[i]=DzCreateFrameByTagName("GLUETEXTBUTTON", "", Option_Frame_SettingBackdrop[1], "ScriptDialogButton", 0)
-      call DzFrameSetPoint(Option__Frame_Setting[i], JN_FRAMEPOINT_LEFT, Option_Frame_SettingBackdrop[0], JN_FRAMEPOINT_BOTTOMLEFT, 0.01, .02)
-      call DzFrameSetSize(Option__Frame_Setting[i], .14, 0.03)
-      call DzFrameSetText(Option__Frame_Setting[i], "적용&서버저장(0/2)")
-      call DzFrameSetScriptByCode(Option__Frame_Setting[i], JN_FRAMEEVENT_MOUSE_UP, function Option__SettingSave, false)
+      set Option___Frame_Setting[i]=DzCreateFrameByTagName("GLUETEXTBUTTON", "", Option_Frame_SettingBackdrop[1], "ScriptDialogButton", 0)
+      call DzFrameSetPoint(Option___Frame_Setting[i], JN_FRAMEPOINT_LEFT, Option_Frame_SettingBackdrop[0], JN_FRAMEPOINT_BOTTOMLEFT, 0.01, .02)
+      call DzFrameSetSize(Option___Frame_Setting[i], .14, 0.03)
+      call DzFrameSetText(Option___Frame_Setting[i], "적용&서버저장(0/2)")
+      call DzFrameSetScriptByCode(Option___Frame_Setting[i], JN_FRAMEEVENT_MOUSE_UP, function Option___SettingSave, false)
       set i=i + 1
     
-      set Option__Frame_Setting[i]=DzCreateFrameByTagName("GLUETEXTBUTTON", "", Option_Frame_SettingBackdrop[1], "ScriptDialogButton", 0)
-      call DzFrameSetPoint(Option__Frame_Setting[i], JN_FRAMEPOINT_RIGHT, Option_Frame_SettingBackdrop[0], JN_FRAMEPOINT_BOTTOMRIGHT, - 0.01, .02)
-      call DzFrameSetSize(Option__Frame_Setting[i], .05, 0.03)
-      call DzFrameSetText(Option__Frame_Setting[i], "닫기")
-      call DzFrameSetScriptByCode(Option__Frame_Setting[i], JN_FRAMEEVENT_MOUSE_UP, function Option__SettingClose, false)
+      set Option___Frame_Setting[i]=DzCreateFrameByTagName("GLUETEXTBUTTON", "", Option_Frame_SettingBackdrop[1], "ScriptDialogButton", 0)
+      call DzFrameSetPoint(Option___Frame_Setting[i], JN_FRAMEPOINT_RIGHT, Option_Frame_SettingBackdrop[0], JN_FRAMEPOINT_BOTTOMRIGHT, - 0.01, .02)
+      call DzFrameSetSize(Option___Frame_Setting[i], .05, 0.03)
+      call DzFrameSetText(Option___Frame_Setting[i], "닫기")
+      call DzFrameSetScriptByCode(Option___Frame_Setting[i], JN_FRAMEEVENT_MOUSE_UP, function Option___SettingClose, false)
       set i=i + 1
       
-      set i=Option__SettingButton(i , 1 , "|cfffed312ON |cffffffff/ |c004f4f4fOFF" , function Option__SettingClick)
-      set i=Option__SettingButton(i , 2 , "|cfffed312기본 |cffffffff/ |c004f4f4f최소화" , function Option__SettingClick)
-      set i=Option__SettingButton(i , 3 , "|c004f4f4fON |cffffffff/ |cfffed312OFF" , function Option__SettingClick)
-      set i=Option__SettingButton(i , 4 , "|cfffed312150" , function Option__SettingClick)
-      set i=Option__SettingButton(i , 5 , "|c004f4f4fON |cffffffff/ |cfffed312OFF" , function Option__SettingClick)
-      set i=Option__SettingButton(i , 6 , "|cfffed312ON |cffffffff/ |c004f4f4fOFF" , function Option__SettingClick)
+      set i=Option___SettingButton(i , 1 , "|cfffed312ON |cffffffff/ |c004f4f4fOFF" , function Option___SettingClick)
+      set i=Option___SettingButton(i , 2 , "|cfffed312기본 |cffffffff/ |c004f4f4f최소화" , function Option___SettingClick)
+      set i=Option___SettingButton(i , 3 , "|c004f4f4fON |cffffffff/ |cfffed312OFF" , function Option___SettingClick)
+      set i=Option___SettingButton(i , 4 , "|cfffed312150" , function Option___SettingClick)
+      set i=Option___SettingButton(i , 5 , "|c004f4f4fON |cffffffff/ |cfffed312OFF" , function Option___SettingClick)
+      set i=Option___SettingButton(i , 6 , "|cfffed312ON |cffffffff/ |c004f4f4fOFF" , function Option___SettingClick)
       
-      set i=Option__SettingHotKey(i , Option__Frame_Setting[8] , 0. , 0.01 , s__MenuQuickSlot_BaseHotKey(QUICK_MENU_SKILLSLOT , 1))
-      set i=Option__SettingHotKey(i , Option__Frame_Setting[8] , 0.02 , 0.01 , s__MenuQuickSlot_BaseHotKey(QUICK_MENU_SKILLSLOT , 2))
-      set i=Option__SettingHotKey(i , Option__Frame_Setting[8] , 0.04 , 0.01 , s__MenuQuickSlot_BaseHotKey(QUICK_MENU_SKILLSLOT , 3))
-      set i=Option__SettingHotKey(i , Option__Frame_Setting[8] , 0.06 , 0.01 , s__MenuQuickSlot_BaseHotKey(QUICK_MENU_SKILLSLOT , 4))
-      set i=Option__SettingHotKey(i , Option__Frame_Setting[8] , 0. , - 0.01 , s__MenuQuickSlot_BaseHotKey(QUICK_MENU_SKILLSLOT , 5))
-      set i=Option__SettingHotKey(i , Option__Frame_Setting[8] , 0.02 , - 0.01 , s__MenuQuickSlot_BaseHotKey(QUICK_MENU_SKILLSLOT , 6))
-      set i=Option__SettingHotKey(i , Option__Frame_Setting[8] , 0.04 , - 0.01 , s__MenuQuickSlot_BaseHotKey(QUICK_MENU_SKILLSLOT , 7))
-      set i=Option__SettingHotKey(i , Option__Frame_Setting[8] , 0.06 , - 0.01 , s__MenuQuickSlot_BaseHotKey(QUICK_MENU_SKILLSLOT , 8))
+      set i=Option___SettingHotKey(i , Option___Frame_Setting[8] , 0. , 0.01 , s__MenuQuickSlot_BaseHotKey(QUICK_MENU_SKILLSLOT , 1))
+      set i=Option___SettingHotKey(i , Option___Frame_Setting[8] , 0.02 , 0.01 , s__MenuQuickSlot_BaseHotKey(QUICK_MENU_SKILLSLOT , 2))
+      set i=Option___SettingHotKey(i , Option___Frame_Setting[8] , 0.04 , 0.01 , s__MenuQuickSlot_BaseHotKey(QUICK_MENU_SKILLSLOT , 3))
+      set i=Option___SettingHotKey(i , Option___Frame_Setting[8] , 0.06 , 0.01 , s__MenuQuickSlot_BaseHotKey(QUICK_MENU_SKILLSLOT , 4))
+      set i=Option___SettingHotKey(i , Option___Frame_Setting[8] , 0. , - 0.01 , s__MenuQuickSlot_BaseHotKey(QUICK_MENU_SKILLSLOT , 5))
+      set i=Option___SettingHotKey(i , Option___Frame_Setting[8] , 0.02 , - 0.01 , s__MenuQuickSlot_BaseHotKey(QUICK_MENU_SKILLSLOT , 6))
+      set i=Option___SettingHotKey(i , Option___Frame_Setting[8] , 0.04 , - 0.01 , s__MenuQuickSlot_BaseHotKey(QUICK_MENU_SKILLSLOT , 7))
+      set i=Option___SettingHotKey(i , Option___Frame_Setting[8] , 0.06 , - 0.01 , s__MenuQuickSlot_BaseHotKey(QUICK_MENU_SKILLSLOT , 8))
 
-      set i=Option__SettingHotKey(i , Option__Frame_Setting[9] , 0. , 0.01 , s__MenuQuickSlot_BaseHotKey(QUICK_MENU_ITEMSLOT , 1))
-      set i=Option__SettingHotKey(i , Option__Frame_Setting[9] , 0.02 , 0.01 , s__MenuQuickSlot_BaseHotKey(QUICK_MENU_ITEMSLOT , 2))
-      set i=Option__SettingHotKey(i , Option__Frame_Setting[9] , 0.04 , 0.01 , s__MenuQuickSlot_BaseHotKey(QUICK_MENU_ITEMSLOT , 3))
-      set i=Option__SettingHotKey(i , Option__Frame_Setting[9] , 0.06 , 0.01 , s__MenuQuickSlot_BaseHotKey(QUICK_MENU_ITEMSLOT , 4))
-      set i=Option__SettingHotKey(i , Option__Frame_Setting[9] , 0.01 , - 0.01 , s__MenuQuickSlot_BaseHotKey(QUICK_MENU_ITEMSLOT , 5))
-      set i=Option__SettingHotKey(i , Option__Frame_Setting[9] , 0.03 , - 0.01 , s__MenuQuickSlot_BaseHotKey(QUICK_MENU_ITEMSLOT , 6))
-      set i=Option__SettingHotKey(i , Option__Frame_Setting[9] , 0.05 , - 0.01 , s__MenuQuickSlot_BaseHotKey(QUICK_MENU_ITEMSLOT , 7))
+      set i=Option___SettingHotKey(i , Option___Frame_Setting[9] , 0. , 0.01 , s__MenuQuickSlot_BaseHotKey(QUICK_MENU_ITEMSLOT , 1))
+      set i=Option___SettingHotKey(i , Option___Frame_Setting[9] , 0.02 , 0.01 , s__MenuQuickSlot_BaseHotKey(QUICK_MENU_ITEMSLOT , 2))
+      set i=Option___SettingHotKey(i , Option___Frame_Setting[9] , 0.04 , 0.01 , s__MenuQuickSlot_BaseHotKey(QUICK_MENU_ITEMSLOT , 3))
+      set i=Option___SettingHotKey(i , Option___Frame_Setting[9] , 0.06 , 0.01 , s__MenuQuickSlot_BaseHotKey(QUICK_MENU_ITEMSLOT , 4))
+      set i=Option___SettingHotKey(i , Option___Frame_Setting[9] , 0.01 , - 0.01 , s__MenuQuickSlot_BaseHotKey(QUICK_MENU_ITEMSLOT , 5))
+      set i=Option___SettingHotKey(i , Option___Frame_Setting[9] , 0.03 , - 0.01 , s__MenuQuickSlot_BaseHotKey(QUICK_MENU_ITEMSLOT , 6))
+      set i=Option___SettingHotKey(i , Option___Frame_Setting[9] , 0.05 , - 0.01 , s__MenuQuickSlot_BaseHotKey(QUICK_MENU_ITEMSLOT , 7))
 
-      set i=Option__SettingHotKey(i , Option__Frame_Setting[10] , 0. , 0. , s__MenuQuickSlot_BaseHotKey(QUICK_MENU_ITEMSLOT , 1))
-      set i=Option__SettingHotKey(i , Option__Frame_Setting[10] , .03 , 0. , s__MenuQuickSlot_BaseHotKey(QUICK_MENU_ITEMSLOT , 2))
-      set i=Option__SettingHotKey(i , Option__Frame_Setting[10] , .06 , 0. , s__MenuQuickSlot_BaseHotKey(QUICK_MENU_ITEMSLOT , 3))
+      set i=Option___SettingHotKey(i , Option___Frame_Setting[10] , 0. , 0. , s__MenuQuickSlot_BaseHotKey(QUICK_MENU_ITEMSLOT , 1))
+      set i=Option___SettingHotKey(i , Option___Frame_Setting[10] , .03 , 0. , s__MenuQuickSlot_BaseHotKey(QUICK_MENU_ITEMSLOT , 2))
+      set i=Option___SettingHotKey(i , Option___Frame_Setting[10] , .06 , 0. , s__MenuQuickSlot_BaseHotKey(QUICK_MENU_ITEMSLOT , 3))
 
-      set i=Option__SettingHotKey(i , Option__Frame_Setting[11] , 0.01 , 0. , s__MenuQuickSlot_BaseHotKey(QUICK_MENU_ITEMSLOT , 4))
-      set i=Option__SettingHotKey(i , Option__Frame_Setting[11] , 0.04 , 0. , s__MenuQuickSlot_BaseHotKey(QUICK_MENU_ITEMSLOT , 5))
+      set i=Option___SettingHotKey(i , Option___Frame_Setting[11] , 0.01 , 0. , s__MenuQuickSlot_BaseHotKey(QUICK_MENU_ITEMSLOT , 4))
+      set i=Option___SettingHotKey(i , Option___Frame_Setting[11] , 0.04 , 0. , s__MenuQuickSlot_BaseHotKey(QUICK_MENU_ITEMSLOT , 5))
 
-      set i=Option__SettingHotKey(i , Option__Frame_Setting[12] , 0. , 0. , s__MenuQuickSlot_BaseHotKey(QUICK_MENU_ITEMSLOT , 6))
-      set i=Option__SettingHotKey(i , Option__Frame_Setting[12] , .03 , 0. , s__MenuQuickSlot_BaseHotKey(QUICK_MENU_ITEMSLOT , 7))
-      set i=Option__SettingHotKey(i , Option__Frame_Setting[12] , .06 , 0. , s__MenuQuickSlot_BaseHotKey(QUICK_MENU_ITEMSLOT , 8))
+      set i=Option___SettingHotKey(i , Option___Frame_Setting[12] , 0. , 0. , s__MenuQuickSlot_BaseHotKey(QUICK_MENU_ITEMSLOT , 6))
+      set i=Option___SettingHotKey(i , Option___Frame_Setting[12] , .03 , 0. , s__MenuQuickSlot_BaseHotKey(QUICK_MENU_ITEMSLOT , 7))
+      set i=Option___SettingHotKey(i , Option___Frame_Setting[12] , .06 , 0. , s__MenuQuickSlot_BaseHotKey(QUICK_MENU_ITEMSLOT , 8))
       call DzFrameShow(Option_Frame_SettingBackdrop[0], false)
     endfunction
-    function Option__Init takes nothing returns nothing
-      call Option__CreateSetting()
+    function Option___Init takes nothing returns nothing
+      call Option___CreateSetting()
     endfunction
 // scope Option ends
 // END IMPORT OF System\Frames\Option.j
 // BEGIN IMPORT OF System\Frames\InventoryEquip.j
 // scope Equip begins
-    constant function Equip__CS2II takes integer i returns integer
+    constant function Equip___CS2II takes integer i returns integer
       if ( i == 6 ) then
         return 8
       elseif ( i == 13 ) then
@@ -6725,31 +6736,31 @@ endfunction
         return ""
       endif
     endfunction
-    function Equip__DoubleClick takes nothing returns nothing
-      if ( Equip__AllowRightClick[GetPlayerId(DzGetTriggerKeyPlayer()) + 1] ) then
-        call DzSyncData("I_Equip", I2S(Equip__OnButtonNumber[GetPlayerId(DzGetTriggerKeyPlayer()) + 1]))
-        set Equip__AllowRightClick[GetPlayerId(DzGetTriggerKeyPlayer()) + 1]=false
+    function Equip___DoubleClick takes nothing returns nothing
+      if ( Equip___AllowRightClick[GetPlayerId(DzGetTriggerKeyPlayer()) + 1] ) then
+        call DzSyncData("I_Equip", I2S(Equip___OnButtonNumber[GetPlayerId(DzGetTriggerKeyPlayer()) + 1]))
+        set Equip___AllowRightClick[GetPlayerId(DzGetTriggerKeyPlayer()) + 1]=false
       endif
     endfunction
-    function Equip__RightClick takes nothing returns nothing
-      if ( Equip__AllowRightClick[GetPlayerId(DzGetTriggerKeyPlayer()) + 1] ) then
-        call DzSyncData("I_Equip", I2S(Equip__OnButtonNumber[GetPlayerId(DzGetTriggerKeyPlayer()) + 1]))
-        set Equip__AllowRightClick[GetPlayerId(DzGetTriggerKeyPlayer()) + 1]=false
+    function Equip___RightClick takes nothing returns nothing
+      if ( Equip___AllowRightClick[GetPlayerId(DzGetTriggerKeyPlayer()) + 1] ) then
+        call DzSyncData("I_Equip", I2S(Equip___OnButtonNumber[GetPlayerId(DzGetTriggerKeyPlayer()) + 1]))
+        set Equip___AllowRightClick[GetPlayerId(DzGetTriggerKeyPlayer()) + 1]=false
       endif
     endfunction
-    function Equip__MouseVariable takes nothing returns nothing
+    function Equip___MouseVariable takes nothing returns nothing
       local string s= DzGetTriggerSyncData()
       local integer P= GetPlayerId(DzGetTriggerSyncPlayer()) + 1
       if ( s == "" ) then
-        set Equip__AllowRightClick[P]=false
+        set Equip___AllowRightClick[P]=false
       else
-        set Equip__AllowRightClick[P]=true
-        set Equip__OnButtonNumber[P]=S2I(DzGetTriggerSyncData())
+        set Equip___AllowRightClick[P]=true
+        set Equip___OnButtonNumber[P]=S2I(DzGetTriggerSyncData())
       endif
       set s=null
     endfunction
     
-    constant function Equip__S2Oadd takes string s returns string
+    constant function Equip___S2Oadd takes string s returns string
       if ( s == "cp" ) then
         return "%"
       elseif ( s == "cx" ) then
@@ -6778,7 +6789,7 @@ endfunction
         return ""
       endif
     endfunction
-    constant function Equip__S2O takes string s returns string
+    constant function Equip___S2O takes string s returns string
       if ( s == "s1" ) then
         return "파워"
       elseif ( s == "s2" ) then
@@ -6861,7 +6872,7 @@ endfunction
         return ""
       endif
     endfunction
-    constant function Equip__SkipStr takes string s returns integer
+    constant function Equip___SkipStr takes string s returns integer
       if ( s == "tp" ) then
         return 1
       elseif ( s == "cs" ) then
@@ -6885,92 +6896,92 @@ endfunction
       endif
     endfunction
     
-    function Equip__AddReal takes integer P,string s,real var,boolean msg returns nothing
+    function Equip___AddReal takes integer P,string s,real var,boolean msg returns nothing
       call SaveReal(hash, P, StringHash("STAT_" + s), LoadReal(hash, P, StringHash("STAT_" + s)) + var)
-      if ( JNStringContains(Equip__STATS_ALL[P], s) ) then
-        set Equip__STATS_ALL[0]=JNStringSplit(JNStringSplit(Equip__STATS_ALL[P], s + "_", 1), "'", 0)
-        if ( S2R(Equip__STATS_ALL[0]) + var == 0. ) then
-          set Equip__STATS_ALL[P]=JNStringReplace(Equip__STATS_ALL[P], s + "_" + Equip__STATS_ALL[0] + "'", "")
+      if ( JNStringContains(Equip___STATS_ALL[P], s) ) then
+        set Equip___STATS_ALL[0]=JNStringSplit(JNStringSplit(Equip___STATS_ALL[P], s + "_", 1), "'", 0)
+        if ( S2R(Equip___STATS_ALL[0]) + var == 0. ) then
+          set Equip___STATS_ALL[P]=JNStringReplace(Equip___STATS_ALL[P], s + "_" + Equip___STATS_ALL[0] + "'", "")
         else
-          set Equip__STATS_ALL[P]=s + "_" + R2S(S2R(Equip__STATS_ALL[0]) + var) + "'" + JNStringReplace(Equip__STATS_ALL[P], s + "_" + Equip__STATS_ALL[0] + "'", "")
+          set Equip___STATS_ALL[P]=s + "_" + R2S(S2R(Equip___STATS_ALL[0]) + var) + "'" + JNStringReplace(Equip___STATS_ALL[P], s + "_" + Equip___STATS_ALL[0] + "'", "")
         endif
         
       else
-        set Equip__STATS_ALL[P]=Equip__STATS_ALL[P] + s + "_" + R2S(var) + "'"
+        set Equip___STATS_ALL[P]=Equip___STATS_ALL[P] + s + "_" + R2S(var) + "'"
       endif
       return
       if ( msg ) then
         if ( var > 0. ) then
-          call DisplayTimedTextToPlayer(Player(P - 1), 0, 0, 6., Equip__S2O(s) + " +" + R2SW(var, 1, 2) + Equip__S2Oadd(s) + " (총 " + R2SW(LoadReal(hash, P, StringHash("STAT_" + s)), 1, 2) + Equip__S2Oadd(s) + ")")
+          call DisplayTimedTextToPlayer(Player(P - 1), 0, 0, 6., Equip___S2O(s) + " +" + R2SW(var, 1, 2) + Equip___S2Oadd(s) + " (총 " + R2SW(LoadReal(hash, P, StringHash("STAT_" + s)), 1, 2) + Equip___S2Oadd(s) + ")")
         else
-          call DisplayTimedTextToPlayer(Player(P - 1), 0, 0, 6., Equip__S2O(s) + " " + R2SW(var, 1, 2) + Equip__S2Oadd(s) + " (총 " + R2SW(LoadReal(hash, P, StringHash("STAT_" + s)), 1, 2) + Equip__S2Oadd(s) + ")")
+          call DisplayTimedTextToPlayer(Player(P - 1), 0, 0, 6., Equip___S2O(s) + " " + R2SW(var, 1, 2) + Equip___S2Oadd(s) + " (총 " + R2SW(LoadReal(hash, P, StringHash("STAT_" + s)), 1, 2) + Equip___S2Oadd(s) + ")")
         endif
       endif
     endfunction
-    function Equip__AddInteger takes integer P,string s,integer var,boolean msg returns nothing
+    function Equip___AddInteger takes integer P,string s,integer var,boolean msg returns nothing
       call SaveInteger(hash, P, StringHash("STAT_" + s), LoadInteger(hash, P, StringHash("STAT_" + s)) + var)
-      if ( JNStringContains(Equip__STATS_ALL[P], s) ) then
-        set Equip__STATS_ALL[0]=JNStringSplit(JNStringSplit(Equip__STATS_ALL[P], s + "_", 1), "'", 0)
-        if ( S2I(Equip__STATS_ALL[0]) + var == 0 ) then
-          set Equip__STATS_ALL[P]=JNStringReplace(Equip__STATS_ALL[P], s + "_" + Equip__STATS_ALL[0] + "'", "")
+      if ( JNStringContains(Equip___STATS_ALL[P], s) ) then
+        set Equip___STATS_ALL[0]=JNStringSplit(JNStringSplit(Equip___STATS_ALL[P], s + "_", 1), "'", 0)
+        if ( S2I(Equip___STATS_ALL[0]) + var == 0 ) then
+          set Equip___STATS_ALL[P]=JNStringReplace(Equip___STATS_ALL[P], s + "_" + Equip___STATS_ALL[0] + "'", "")
         else
-          set Equip__STATS_ALL[P]=s + "_" + I2S(S2I(Equip__STATS_ALL[0]) + var) + "'" + JNStringReplace(Equip__STATS_ALL[P], s + "_" + Equip__STATS_ALL[0] + "'", "")
+          set Equip___STATS_ALL[P]=s + "_" + I2S(S2I(Equip___STATS_ALL[0]) + var) + "'" + JNStringReplace(Equip___STATS_ALL[P], s + "_" + Equip___STATS_ALL[0] + "'", "")
         endif
       else
-        set Equip__STATS_ALL[P]=Equip__STATS_ALL[P] + s + "_" + I2S(var) + "'"
+        set Equip___STATS_ALL[P]=Equip___STATS_ALL[P] + s + "_" + I2S(var) + "'"
       endif
       return
       if ( msg ) then
         if ( var > 0 ) then
-          call DisplayTimedTextToPlayer(Player(P - 1), 0, 0, 6., Equip__S2O(s) + " +" + I2S(var) + Equip__S2Oadd(s) + " (총 " + I2S(LoadInteger(hash, P, StringHash("STAT_" + s))) + Equip__S2Oadd(s) + ")")
+          call DisplayTimedTextToPlayer(Player(P - 1), 0, 0, 6., Equip___S2O(s) + " +" + I2S(var) + Equip___S2Oadd(s) + " (총 " + I2S(LoadInteger(hash, P, StringHash("STAT_" + s))) + Equip___S2Oadd(s) + ")")
         else
-          call DisplayTimedTextToPlayer(Player(P - 1), 0, 0, 6., Equip__S2O(s) + " " + I2S(var) + Equip__S2Oadd(s) + " (총 " + I2S(LoadInteger(hash, P, StringHash("STAT_" + s))) + Equip__S2Oadd(s) + ")")
+          call DisplayTimedTextToPlayer(Player(P - 1), 0, 0, 6., Equip___S2O(s) + " " + I2S(var) + Equip___S2Oadd(s) + " (총 " + I2S(LoadInteger(hash, P, StringHash("STAT_" + s))) + Equip___S2Oadd(s) + ")")
         endif
       endif
     endfunction
-    function Equip__AddStat takes integer P,string s,string var,integer x,boolean Isreal,boolean msg returns nothing
+    function Equip___AddStat takes integer P,string s,string var,integer x,boolean Isreal,boolean msg returns nothing
       if ( Isreal ) then
-        if ( x > 0 ) and ( S2R(var) * Pow(Equip__GRADE_BONUS, x) > .01 ) then
-          call Equip__AddReal(P , s , S2R(var) * Pow(Equip__GRADE_BONUS, x) , msg)
+        if ( x > 0 ) and ( S2R(var) * Pow(Equip___GRADE_BONUS, x) > .01 ) then
+          call Equip___AddReal(P , s , S2R(var) * Pow(Equip___GRADE_BONUS, x) , msg)
         else
-          call Equip__AddReal(P , s , S2R(var) , msg)
+          call Equip___AddReal(P , s , S2R(var) , msg)
         endif
       else
-        call Equip__AddInteger(P , s , R2I(S2R(var) * Pow(Equip__GRADE_BONUS, x)) , msg)
+        call Equip___AddInteger(P , s , R2I(S2R(var) * Pow(Equip___GRADE_BONUS, x)) , msg)
       endif
     endfunction
-    function Equip__MinusStat takes integer P,string s,string var,integer x,boolean Isreal,boolean msg returns nothing
+    function Equip___MinusStat takes integer P,string s,string var,integer x,boolean Isreal,boolean msg returns nothing
       if ( Isreal ) then
-        if ( x > 0 ) and ( S2R(var) * Pow(Equip__GRADE_BONUS, x) > .01 ) then
-          call Equip__AddReal(P , s , - ( S2R(var) * Pow(Equip__GRADE_BONUS, x) ) , msg)
+        if ( x > 0 ) and ( S2R(var) * Pow(Equip___GRADE_BONUS, x) > .01 ) then
+          call Equip___AddReal(P , s , - ( S2R(var) * Pow(Equip___GRADE_BONUS, x) ) , msg)
         else
-          call Equip__AddReal(P , s , - S2R(var) , msg)
+          call Equip___AddReal(P , s , - S2R(var) , msg)
         endif
       else
-        call Equip__AddInteger(P , s , - R2I(S2R(var) * Pow(Equip__GRADE_BONUS, x)) , msg)
+        call Equip___AddInteger(P , s , - R2I(S2R(var) * Pow(Equip___GRADE_BONUS, x)) , msg)
       endif
     endfunction
-    function Equip__ReflectItemStats takes integer P returns nothing
+    function Equip___ReflectItemStats takes integer P returns nothing
       local string ss= ""
       local string return_s= ""
       local integer loopA= 0
-      if ( Equip__STATS_ALL[P] == "" or Equip__STATS_ALL[P] == null ) then
+      if ( Equip___STATS_ALL[P] == "" or Equip___STATS_ALL[P] == null ) then
         if ( GetLocalPlayer() == Player(P - 1) ) then
-          call DzFrameSetText(Equip__Equip[18], "")
+          call DzFrameSetText(Equip___Equip[18], "")
         endif
       else
         loop
-          set ss=JNStringSplit(Equip__STATS_ALL[P], "'", loopA)
+          set ss=JNStringSplit(Equip___STATS_ALL[P], "'", loopA)
           exitwhen ss == "" or ss == null
           if ( JNStringContains(ss, "-") ) then
-            set return_s=return_s + "\n" + Equip__S2O(SubString(ss, 0, 2)) + " " + SubString(ss, 3, StringLength(ss)) + Equip__S2Oadd(SubString(ss, 0, 2))
+            set return_s=return_s + "\n" + Equip___S2O(SubString(ss, 0, 2)) + " " + SubString(ss, 3, StringLength(ss)) + Equip___S2Oadd(SubString(ss, 0, 2))
           else
-            set return_s=return_s + "\n" + Equip__S2O(SubString(ss, 0, 2)) + " +" + SubString(ss, 3, StringLength(ss)) + Equip__S2Oadd(SubString(ss, 0, 2))
+            set return_s=return_s + "\n" + Equip___S2O(SubString(ss, 0, 2)) + " +" + SubString(ss, 3, StringLength(ss)) + Equip___S2Oadd(SubString(ss, 0, 2))
           endif
           set loopA=loopA + 1
         endloop
         if ( GetLocalPlayer() == Player(P - 1) ) then
-          call DzFrameSetText(Equip__Equip[18], SubString(return_s, 1, StringLength(return_s)))
+          call DzFrameSetText(Equip___Equip[18], SubString(return_s, 1, StringLength(return_s)))
         endif
       endif
     endfunction
@@ -6984,89 +6995,89 @@ endfunction
         return
       endif
       if ( P == 0 ) then
-        set Equip__InvenInfo[7]=""
+        set Equip___InvenInfo[7]=""
         loop
-          set Equip__InvenInfo[0]=JNStringSplit(s, "'", loopA)
-          exitwhen ( Equip__InvenInfo[0] == "" ) or ( Equip__InvenInfo[0] == null )
-          if ( Equip__SkipStr(SubString(Equip__InvenInfo[0], 0, 2)) > 0 ) then
-            set Equip__InvenInfo[Equip__SkipStr(SubString(Equip__InvenInfo[0], 0, 2))]=SubString(Equip__InvenInfo[0], 3, StringLength(Equip__InvenInfo[0]))
-          elseif ( Equip__SkipStr(SubString(Equip__InvenInfo[0], 0, 2)) == - 1 ) then
+          set Equip___InvenInfo[0]=JNStringSplit(s, "'", loopA)
+          exitwhen ( Equip___InvenInfo[0] == "" ) or ( Equip___InvenInfo[0] == null )
+          if ( Equip___SkipStr(SubString(Equip___InvenInfo[0], 0, 2)) > 0 ) then
+            set Equip___InvenInfo[Equip___SkipStr(SubString(Equip___InvenInfo[0], 0, 2))]=SubString(Equip___InvenInfo[0], 3, StringLength(Equip___InvenInfo[0]))
+          elseif ( Equip___SkipStr(SubString(Equip___InvenInfo[0], 0, 2)) == - 1 ) then
             if ( first ) then
               set first=false
               set length=length + 1
-              set Equip__InvenInfo[ITEM_TOOLTIP_HIDE + length]=" "
+              set Equip___InvenInfo[ITEM_TOOLTIP_HIDE + length]=" "
             endif
             set length=length + 1
-            set Equip__InvenInfo[ITEM_TOOLTIP_HIDE + length]=Equip__S2O(SubString(Equip__InvenInfo[0], 0, 2)) + " - " + Equip__S2O(SubString(Equip__InvenInfo[0], 3, 5)) + " +" + SubString(Equip__InvenInfo[0], 6, StringLength(Equip__InvenInfo[0]))
+            set Equip___InvenInfo[ITEM_TOOLTIP_HIDE + length]=Equip___S2O(SubString(Equip___InvenInfo[0], 0, 2)) + " - " + Equip___S2O(SubString(Equip___InvenInfo[0], 3, 5)) + " +" + SubString(Equip___InvenInfo[0], 6, StringLength(Equip___InvenInfo[0]))
           else
             set length=length + 1
-            set Equip__InvenInfo[ITEM_TOOLTIP_HIDE + length]=Equip__S2O(SubString(Equip__InvenInfo[0], 0, 2)) + " +" + SubString(Equip__InvenInfo[0], 3, StringLength(Equip__InvenInfo[0]))
+            set Equip___InvenInfo[ITEM_TOOLTIP_HIDE + length]=Equip___S2O(SubString(Equip___InvenInfo[0], 0, 2)) + " +" + SubString(Equip___InvenInfo[0], 3, StringLength(Equip___InvenInfo[0]))
           endif
         
           set loopA=loopA + 1
         endloop
         
-        set Equip__InvenInfo[0]=R2S(0.005 + ( 0.01 * JNStringCount(Equip__InvenInfo[1], "\n") ) + ( ITEM_TOOLTIP_HIDE + length ) * .012)
+        set Equip___InvenInfo[0]=R2S(0.005 + ( 0.01 * JNStringCount(Equip___InvenInfo[1], "\n") ) + ( ITEM_TOOLTIP_HIDE + length ) * .012)
         loop
           set length=length + 1
           exitwhen length >= ITEM_TOOLTIP_MAXIMUM
-          set Equip__InvenInfo[ITEM_TOOLTIP_HIDE + length]=""
+          set Equip___InvenInfo[ITEM_TOOLTIP_HIDE + length]=""
         endloop
       elseif ( P > 0 ) then
         if ( JNStringContains(s, "ec_") ) then
-          set Equip__InvenInfo[1]=JNStringSplit(JNStringSplit(s, "ec_", 1), "'", 0)
-          if ( S2I(Equip__InvenInfo[1]) == 0 ) then
-            set Equip__InvenInfo[1]=""
+          set Equip___InvenInfo[1]=JNStringSplit(JNStringSplit(s, "ec_", 1), "'", 0)
+          if ( S2I(Equip___InvenInfo[1]) == 0 ) then
+            set Equip___InvenInfo[1]=""
           endif
         else
-          set Equip__InvenInfo[1]=""
+          set Equip___InvenInfo[1]=""
         endif
         loop
-          set Equip__InvenInfo[0]=JNStringSplit(s, "'", loopA)
-          exitwhen ( Equip__InvenInfo[0] == "" ) or ( Equip__InvenInfo[0] == null )
-          if ( Equip__SkipStr(SubString(Equip__InvenInfo[0], 0, 2)) <= 0 ) then
-            if ( Equip__SkipStr(SubString(Equip__InvenInfo[0], 0, 2)) == - 1 ) then
-              call Equip__AddStat(P , SubString(Equip__InvenInfo[0], 3, 5) , SubString(Equip__InvenInfo[0], 6, StringLength(Equip__InvenInfo[0])) , S2I(Equip__InvenInfo[1]) , JNStringContains(Equip__InvenInfo[0], ".") , true)
+          set Equip___InvenInfo[0]=JNStringSplit(s, "'", loopA)
+          exitwhen ( Equip___InvenInfo[0] == "" ) or ( Equip___InvenInfo[0] == null )
+          if ( Equip___SkipStr(SubString(Equip___InvenInfo[0], 0, 2)) <= 0 ) then
+            if ( Equip___SkipStr(SubString(Equip___InvenInfo[0], 0, 2)) == - 1 ) then
+              call Equip___AddStat(P , SubString(Equip___InvenInfo[0], 3, 5) , SubString(Equip___InvenInfo[0], 6, StringLength(Equip___InvenInfo[0])) , S2I(Equip___InvenInfo[1]) , JNStringContains(Equip___InvenInfo[0], ".") , true)
             else
-              call Equip__AddStat(P , SubString(Equip__InvenInfo[0], 0, 2) , SubString(Equip__InvenInfo[0], 3, StringLength(Equip__InvenInfo[0])) , S2I(Equip__InvenInfo[1]) , JNStringContains(Equip__InvenInfo[0], ".") , true)
+              call Equip___AddStat(P , SubString(Equip___InvenInfo[0], 0, 2) , SubString(Equip___InvenInfo[0], 3, StringLength(Equip___InvenInfo[0])) , S2I(Equip___InvenInfo[1]) , JNStringContains(Equip___InvenInfo[0], ".") , true)
             endif
           endif
           set loopA=loopA + 1
         endloop
-        call Equip__ReflectItemStats(P)
+        call Equip___ReflectItemStats(P)
       else
         if ( JNStringContains(s, "ec_") ) then
-          set Equip__InvenInfo[1]=JNStringSplit(JNStringSplit(s, "ec_", 1), "'", 0)
-          if ( S2I(Equip__InvenInfo[1]) == 0 ) then
-            set Equip__InvenInfo[1]=""
+          set Equip___InvenInfo[1]=JNStringSplit(JNStringSplit(s, "ec_", 1), "'", 0)
+          if ( S2I(Equip___InvenInfo[1]) == 0 ) then
+            set Equip___InvenInfo[1]=""
           endif
         else
-          set Equip__InvenInfo[1]=""
+          set Equip___InvenInfo[1]=""
         endif
         loop
-          set Equip__InvenInfo[0]=JNStringSplit(s, "'", loopA)
-          exitwhen ( Equip__InvenInfo[0] == "" ) or ( Equip__InvenInfo[0] == null )
-          if ( Equip__SkipStr(SubString(Equip__InvenInfo[0], 0, 2)) <= 0 ) then
-            if ( Equip__SkipStr(SubString(Equip__InvenInfo[0], 0, 2)) == - 1 ) then
-              call Equip__MinusStat(- P , SubString(Equip__InvenInfo[0], 3, 5) , SubString(Equip__InvenInfo[0], 6, StringLength(Equip__InvenInfo[0])) , S2I(Equip__InvenInfo[1]) , JNStringContains(Equip__InvenInfo[0], ".") , true)
+          set Equip___InvenInfo[0]=JNStringSplit(s, "'", loopA)
+          exitwhen ( Equip___InvenInfo[0] == "" ) or ( Equip___InvenInfo[0] == null )
+          if ( Equip___SkipStr(SubString(Equip___InvenInfo[0], 0, 2)) <= 0 ) then
+            if ( Equip___SkipStr(SubString(Equip___InvenInfo[0], 0, 2)) == - 1 ) then
+              call Equip___MinusStat(- P , SubString(Equip___InvenInfo[0], 3, 5) , SubString(Equip___InvenInfo[0], 6, StringLength(Equip___InvenInfo[0])) , S2I(Equip___InvenInfo[1]) , JNStringContains(Equip___InvenInfo[0], ".") , true)
             else
-              call Equip__MinusStat(- P , SubString(Equip__InvenInfo[0], 0, 2) , SubString(Equip__InvenInfo[0], 3, StringLength(Equip__InvenInfo[0])) , S2I(Equip__InvenInfo[1]) , JNStringContains(Equip__InvenInfo[0], ".") , true)
+              call Equip___MinusStat(- P , SubString(Equip___InvenInfo[0], 0, 2) , SubString(Equip___InvenInfo[0], 3, StringLength(Equip___InvenInfo[0])) , S2I(Equip___InvenInfo[1]) , JNStringContains(Equip___InvenInfo[0], ".") , true)
             endif
           endif
           set loopA=loopA + 1
         endloop
-        call Equip__ReflectItemStats(- P)
+        call Equip___ReflectItemStats(- P)
       endif
     endfunction
     
-    constant function Equip__xxx takes real r,real x returns real
+    constant function Equip___xxx takes real r,real x returns real
       if ( x > 0. ) then
         return r * x
       else
         return r
       endif
     endfunction
-    function Equip__ProcessEnchating takes string s,integer start,integer length,real x returns string
+    function Equip___ProcessEnchating takes string s,integer start,integer length,real x returns string
       local string ss= JNStringSub(s, length - 1, 1)
       if ( ss != "%" and ss != "x" ) then
         set ss=""
@@ -7086,17 +7097,17 @@ endfunction
         endif
       endif
     endfunction
-    function Equip__ProcessEnchat takes real r returns nothing
+    function Equip___ProcessEnchat takes real r returns nothing
       local integer loopA= ITEM_TOOLTIP_HIDE + 1
       loop
         exitwhen loopA >= ITEM_TOOLTIP_MAXIMUM
-        set Equip__InvenInfo[loopA]=Equip__InvenInfo[loopA] + Equip__ProcessEnchating(Equip__InvenInfo[loopA] , JNStringPos(Equip__InvenInfo[loopA], "+") , JNStringLength(Equip__InvenInfo[loopA]) , r)
+        set Equip___InvenInfo[loopA]=Equip___InvenInfo[loopA] + Equip___ProcessEnchating(Equip___InvenInfo[loopA] , JNStringPos(Equip___InvenInfo[loopA], "+") , JNStringLength(Equip___InvenInfo[loopA]) , r)
         set loopA=loopA + 1
       endloop
     endfunction
-    function Equip__NameSize takes integer frame,string s returns real
+    function Equip___NameSize takes integer frame,string s returns real
       local real etc= JNStringCount(s, " ") + 2.
-      set s=s + "(" + Equip__InvenInfo[4] + ")"
+      set s=s + "(" + Equip___InvenInfo[4] + ")"
       call DzFrameSetText(frame, s)
       if ( JNStringLength(s) >= 17 ) then
         call DzFrameSetFont(frame, "Fonts\\DFHeiMd.ttf", 0.010, 1)
@@ -7109,27 +7120,27 @@ endfunction
         return 0.075 + etc * 0.004 + ( JNStringLength(s) - etc ) * 0.01
       endif
     endfunction
-    function Equip__TypeSize takes integer frame,string s,string s6,string name returns real
+    function Equip___TypeSize takes integer frame,string s,string s6,string name returns real
       local real etc= JNStringLength(s)
       local real kor= ( StringLength(s) - etc ) / 2. + StringLength(s6)
-      return RMaxBJ(Equip__NameSize(frame , name), 0.07 + ( etc - kor ) * 0.004 + kor * 0.01)
+      return RMaxBJ(Equip___NameSize(frame , name), 0.07 + ( etc - kor ) * 0.004 + kor * 0.01)
     endfunction
     //TypeSize(DzFrameGetText(Frame_InvenInfo[3]), DzFrameGetText(Frame_InvenInfo[6]))
     
-    function Equip__GetFrameMouseX takes nothing returns real
-      return JNMemoryGetReal(Equip__FrameMouseXOffset)
+    function Equip___GetFrameMouseX takes nothing returns real
+      return JNMemoryGetReal(Equip___FrameMouseXOffset)
     endfunction
-    function Equip__GetFrameMouseY takes nothing returns real
-      return JNMemoryGetReal(Equip__FrameMouseYOffset)
+    function Equip___GetFrameMouseY takes nothing returns real
+      return JNMemoryGetReal(Equip___FrameMouseYOffset)
     endfunction
-    constant function Equip__Swap takes boolean one,integer arr returns integer
+    constant function Equip___Swap takes boolean one,integer arr returns integer
       if ( one ) then
-        return Equip__Frame_EquipInfo[arr]
+        return Equip___Frame_EquipInfo[arr]
       else
-        return Equip__Frame_Equip2Info[arr]
+        return Equip___Frame_Equip2Info[arr]
       endif
     endfunction
-    constant function Equip__CalHeight takes real r0,real r1,real r2 returns real
+    constant function Equip___CalHeight takes real r0,real r1,real r2 returns real
       if ( r0 > r1 ) then
         return 0.
       elseif ( r1 > r2 ) then
@@ -7138,45 +7149,45 @@ endfunction
         return 0.
       endif
     endfunction
-    function Equip__EquipUp takes item t,boolean one returns nothing
+    function Equip___EquipUp takes item t,boolean one returns nothing
       local integer f= 7
       local integer last= 0
       call Equip_Process(EXGetItemDataString(GetItemTypeId(t), 3) + "'" + LoadStr(hash, GetHandleId(t), StringHash("ItemAddData")) , 0)
       
-      call DzFrameSetTexture(Equip__Swap(one , 1), EXGetItemDataString(GetItemTypeId(t), 1), 0)
-      call DzFrameSetText(Equip__Swap(one , 3), "종류: " + Equip__InvenInfo[6] + "등급 " + Equip__InvenInfo[2])
-      call DzFrameSetText(Equip__Swap(one , 4), "레벨 제한: " + Equip__InvenInfo[3])
-      call DzFrameSetText(Equip__Swap(one , 5), Equip__InvenInfo[1])
-      if ( Equip__InvenInfo[7] != "" ) then
-        call Equip__ProcessEnchat(Pow(Equip__GRADE_BONUS, S2R(Equip__InvenInfo[7])) - 1.)
+      call DzFrameSetTexture(Equip___Swap(one , 1), EXGetItemDataString(GetItemTypeId(t), 1), 0)
+      call DzFrameSetText(Equip___Swap(one , 3), "종류: " + Equip___InvenInfo[6] + "등급 " + Equip___InvenInfo[2])
+      call DzFrameSetText(Equip___Swap(one , 4), "레벨 제한: " + Equip___InvenInfo[3])
+      call DzFrameSetText(Equip___Swap(one , 5), Equip___InvenInfo[1])
+      if ( Equip___InvenInfo[7] != "" ) then
+        call Equip___ProcessEnchat(Pow(Equip___GRADE_BONUS, S2R(Equip___InvenInfo[7])) - 1.)
       endif
       loop
         exitwhen f >= ITEM_TOOLTIP_MAXIMUM + 2
-        if ( Equip__InvenInfo[f + 2] == "" ) then
-          call DzFrameSetText(Equip__Swap(one , f - 1), "")
+        if ( Equip___InvenInfo[f + 2] == "" ) then
+          call DzFrameSetText(Equip___Swap(one , f - 1), "")
           set last=f - 2
         else
-          call DzFrameSetText(Equip__Swap(one , f - 1), Equip__InvenInfo[f + 2])
+          call DzFrameSetText(Equip___Swap(one , f - 1), Equip___InvenInfo[f + 2])
         endif
         set f=f + 1
       endloop
       
-      if ( Equip__InvenInfo[7] != "" ) then
-        call DzFrameSetText(Equip__Swap(one , last), " ")
-        call DzFrameSetText(Equip__Swap(one , last + 1), "|cffa349a4강화 +" + Equip__InvenInfo[7] + " / 옵션증폭 +" + I2S(R2I(( Pow(Equip__GRADE_BONUS, S2R(Equip__InvenInfo[7])) - 1. ) * 100.)) + "%")
-        call DzFrameSetSize(Equip__Swap(one , 0), Equip__TypeSize(Equip__Swap(one , 2) , DzFrameGetText(Equip__Swap(one , 3)) , Equip__InvenInfo[6] , GetItemName(t)), S2R(Equip__InvenInfo[0]) + .014)
+      if ( Equip___InvenInfo[7] != "" ) then
+        call DzFrameSetText(Equip___Swap(one , last), " ")
+        call DzFrameSetText(Equip___Swap(one , last + 1), "|cffa349a4강화 +" + Equip___InvenInfo[7] + " / 옵션증폭 +" + I2S(R2I(( Pow(Equip___GRADE_BONUS, S2R(Equip___InvenInfo[7])) - 1. ) * 100.)) + "%")
+        call DzFrameSetSize(Equip___Swap(one , 0), Equip___TypeSize(Equip___Swap(one , 2) , DzFrameGetText(Equip___Swap(one , 3)) , Equip___InvenInfo[6] , GetItemName(t)), S2R(Equip___InvenInfo[0]) + .014)
       else
-        call DzFrameSetSize(Equip__Swap(one , 0), Equip__TypeSize(Equip__Swap(one , 2) , DzFrameGetText(Equip__Swap(one , 3)) , Equip__InvenInfo[6] , GetItemName(t)), S2R(Equip__InvenInfo[0]) - .010)
+        call DzFrameSetSize(Equip___Swap(one , 0), Equip___TypeSize(Equip___Swap(one , 2) , DzFrameGetText(Equip___Swap(one , 3)) , Equip___InvenInfo[6] , GetItemName(t)), S2R(Equip___InvenInfo[0]) - .010)
       endif
-      call DzFrameClearAllPoints(Equip__Swap(one , 0))
+      call DzFrameClearAllPoints(Equip___Swap(one , 0))
       if ( one ) then
-        call DzFrameSetPoint(Equip__Swap(one , 0), JN_FRAMEPOINT_TOPRIGHT, Equip__Frame_InvenInfo[0], JN_FRAMEPOINT_TOPLEFT, 0., Equip__CalHeight(DzFrameGetHeight(Equip__Frame_InvenInfo[0]) , DzFrameGetHeight(Equip__Swap(one , 0)) , Equip__GetFrameMouseY()))
+        call DzFrameSetPoint(Equip___Swap(one , 0), JN_FRAMEPOINT_TOPRIGHT, Equip___Frame_InvenInfo[0], JN_FRAMEPOINT_TOPLEFT, 0., Equip___CalHeight(DzFrameGetHeight(Equip___Frame_InvenInfo[0]) , DzFrameGetHeight(Equip___Swap(one , 0)) , Equip___GetFrameMouseY()))
       else
-        call DzFrameSetPoint(Equip__Swap(one , 0), JN_FRAMEPOINT_TOPRIGHT, Equip__Swap(true , 0), JN_FRAMEPOINT_TOPLEFT, 0., Equip__CalHeight(DzFrameGetHeight(Equip__Swap(true , 0)) , DzFrameGetHeight(Equip__Swap(one , 0)) , Equip__GetFrameMouseY()))
+        call DzFrameSetPoint(Equip___Swap(one , 0), JN_FRAMEPOINT_TOPRIGHT, Equip___Swap(true , 0), JN_FRAMEPOINT_TOPLEFT, 0., Equip___CalHeight(DzFrameGetHeight(Equip___Swap(true , 0)) , DzFrameGetHeight(Equip___Swap(one , 0)) , Equip___GetFrameMouseY()))
       endif
-      call DzFrameShow(Equip__Swap(one , 0), true)
+      call DzFrameShow(Equip___Swap(one , 0), true)
     endfunction
-    function Equip__InventoryUp takes nothing returns nothing
+    function Equip___InventoryUp takes nothing returns nothing
       local integer f= DzGetTriggerUIEventFrame()
       local integer P= GetPlayerId(DzGetTriggerUIEventPlayer()) + 1
       local integer Slot= LoadInteger(hash, f, StringHash("FrameID"))
@@ -7187,69 +7198,69 @@ endfunction
         if ( t != null ) then
           call DzSyncData("MouseVar", I2S(Slot))
           
-          call DzFrameSetTexture(Equip__Frame_InvenInfo[1], EXGetItemDataString(GetItemTypeId(t), 1), 0)
-          call DzFrameSetText(Equip__Frame_InvenInfo[3], "종류: " + Equip__InvenInfo[6] + "등급 " + Equip__InvenInfo[2])
-          call DzFrameSetText(Equip__Frame_InvenInfo[4], "레벨 제한: " + Equip__InvenInfo[3])
-          call DzFrameSetText(Equip__Frame_InvenInfo[5], Equip__InvenInfo[1])
+          call DzFrameSetTexture(Equip___Frame_InvenInfo[1], EXGetItemDataString(GetItemTypeId(t), 1), 0)
+          call DzFrameSetText(Equip___Frame_InvenInfo[3], "종류: " + Equip___InvenInfo[6] + "등급 " + Equip___InvenInfo[2])
+          call DzFrameSetText(Equip___Frame_InvenInfo[4], "레벨 제한: " + Equip___InvenInfo[3])
+          call DzFrameSetText(Equip___Frame_InvenInfo[5], Equip___InvenInfo[1])
           set f=7
-          if ( Equip__InvenInfo[7] != "" ) then
-            call Equip__ProcessEnchat(Pow(Equip__GRADE_BONUS, S2R(Equip__InvenInfo[7])) - 1.)
+          if ( Equip___InvenInfo[7] != "" ) then
+            call Equip___ProcessEnchat(Pow(Equip___GRADE_BONUS, S2R(Equip___InvenInfo[7])) - 1.)
           endif
           loop
             exitwhen f >= ITEM_TOOLTIP_MAXIMUM + 2
-            if ( Equip__InvenInfo[f + 2] == "" ) then
-              call DzFrameSetText(Equip__Frame_InvenInfo[f - 1], "")
+            if ( Equip___InvenInfo[f + 2] == "" ) then
+              call DzFrameSetText(Equip___Frame_InvenInfo[f - 1], "")
               set last=f - 2
             else
-              call DzFrameSetText(Equip__Frame_InvenInfo[f - 1], Equip__InvenInfo[f + 2])
+              call DzFrameSetText(Equip___Frame_InvenInfo[f - 1], Equip___InvenInfo[f + 2])
             endif
             set f=f + 1
           endloop
   
-          if ( Equip__InvenInfo[7] != "" ) then
-            call DzFrameSetText(Equip__Frame_InvenInfo[last], " ")
-            call DzFrameSetText(Equip__Frame_InvenInfo[last + 1], "|cffa349a4강화 +" + Equip__InvenInfo[7] + " / 옵션증폭 +" + I2S(R2I(( Pow(Equip__GRADE_BONUS, S2R(Equip__InvenInfo[7])) - 1. ) * 100.)) + "%")
-            call DzFrameSetSize(Equip__Frame_InvenInfo[0], Equip__TypeSize(Equip__Frame_InvenInfo[2] , DzFrameGetText(Equip__Frame_InvenInfo[3]) , Equip__InvenInfo[6] , GetItemName(t)), S2R(Equip__InvenInfo[0]) + .014)
+          if ( Equip___InvenInfo[7] != "" ) then
+            call DzFrameSetText(Equip___Frame_InvenInfo[last], " ")
+            call DzFrameSetText(Equip___Frame_InvenInfo[last + 1], "|cffa349a4강화 +" + Equip___InvenInfo[7] + " / 옵션증폭 +" + I2S(R2I(( Pow(Equip___GRADE_BONUS, S2R(Equip___InvenInfo[7])) - 1. ) * 100.)) + "%")
+            call DzFrameSetSize(Equip___Frame_InvenInfo[0], Equip___TypeSize(Equip___Frame_InvenInfo[2] , DzFrameGetText(Equip___Frame_InvenInfo[3]) , Equip___InvenInfo[6] , GetItemName(t)), S2R(Equip___InvenInfo[0]) + .014)
           else
-            call DzFrameSetSize(Equip__Frame_InvenInfo[0], Equip__TypeSize(Equip__Frame_InvenInfo[2] , DzFrameGetText(Equip__Frame_InvenInfo[3]) , Equip__InvenInfo[6] , GetItemName(t)), S2R(Equip__InvenInfo[0]) - .010)
+            call DzFrameSetSize(Equip___Frame_InvenInfo[0], Equip___TypeSize(Equip___Frame_InvenInfo[2] , DzFrameGetText(Equip___Frame_InvenInfo[3]) , Equip___InvenInfo[6] , GetItemName(t)), S2R(Equip___InvenInfo[0]) - .010)
           endif
-          call DzFrameClearAllPoints(Equip__Frame_InvenInfo[0])
-          if ( Equip__GetFrameMouseY() > DzFrameGetHeight(Equip__Frame_InvenInfo[0]) ) then
-            call DzFrameSetAbsolutePoint(Equip__Frame_InvenInfo[0], JN_FRAMEPOINT_TOPRIGHT, Equip__GetFrameMouseX(), Equip__GetFrameMouseY())
+          call DzFrameClearAllPoints(Equip___Frame_InvenInfo[0])
+          if ( Equip___GetFrameMouseY() > DzFrameGetHeight(Equip___Frame_InvenInfo[0]) ) then
+            call DzFrameSetAbsolutePoint(Equip___Frame_InvenInfo[0], JN_FRAMEPOINT_TOPRIGHT, Equip___GetFrameMouseX(), Equip___GetFrameMouseY())
           else
-            call DzFrameSetAbsolutePoint(Equip__Frame_InvenInfo[0], JN_FRAMEPOINT_BOTTOMRIGHT, Equip__GetFrameMouseX(), 0.)
+            call DzFrameSetAbsolutePoint(Equip___Frame_InvenInfo[0], JN_FRAMEPOINT_BOTTOMRIGHT, Equip___GetFrameMouseX(), 0.)
           endif
-          call DzFrameShow(Equip__Frame_InvenInfo[0], true)
+          call DzFrameShow(Equip___Frame_InvenInfo[0], true)
           
           if ( Slot > 0 ) then
-            set Slot=Equip_CS2I(Equip__InvenInfo[2])
+            set Slot=Equip_CS2I(Equip___InvenInfo[2])
             if ( HaveSavedHandle(hash, P, StringHash("ItemData" + I2S(- Slot))) ) then
-              call Equip__EquipUp(LoadItemHandle(hash, P, StringHash("ItemData" + I2S(- Slot))) , true)
-              set Slot=Equip__CS2II(Slot)
+              call Equip___EquipUp(LoadItemHandle(hash, P, StringHash("ItemData" + I2S(- Slot))) , true)
+              set Slot=Equip___CS2II(Slot)
               if ( Slot > 0 ) and ( HaveSavedHandle(hash, P, StringHash("ItemData" + I2S(- Slot))) ) then
-                call Equip__EquipUp(LoadItemHandle(hash, P, StringHash("ItemData" + I2S(- Slot))) , false)
+                call Equip___EquipUp(LoadItemHandle(hash, P, StringHash("ItemData" + I2S(- Slot))) , false)
               endif
-            elseif ( Equip__CS2II(Slot) > 0 ) and ( HaveSavedHandle(hash, P, StringHash("ItemData" + I2S(- Equip__CS2II(Slot)))) ) then
-              call Equip__EquipUp(LoadItemHandle(hash, P, StringHash("ItemData" + I2S(- Equip__CS2II(Slot)))) , true)
+            elseif ( Equip___CS2II(Slot) > 0 ) and ( HaveSavedHandle(hash, P, StringHash("ItemData" + I2S(- Equip___CS2II(Slot)))) ) then
+              call Equip___EquipUp(LoadItemHandle(hash, P, StringHash("ItemData" + I2S(- Equip___CS2II(Slot)))) , true)
             endif
           endif
         endif
         
         set t=null
     endfunction
-    function Equip__InventoryDown takes nothing returns nothing
-      call DzFrameShow(Equip__Frame_InvenInfo[0], false)
-      call DzFrameShow(Equip__Swap(true , 0), false)
-      call DzFrameShow(Equip__Swap(false , 0), false)
+    function Equip___InventoryDown takes nothing returns nothing
+      call DzFrameShow(Equip___Frame_InvenInfo[0], false)
+      call DzFrameShow(Equip___Swap(true , 0), false)
+      call DzFrameShow(Equip___Swap(false , 0), false)
       call DzSyncData("MouseVar", "")
     endfunction
-    function Equip__CreateEquip takes nothing returns nothing
+    function Equip___CreateEquip takes nothing returns nothing
       local integer loopA= 1
       local integer loopB= 1
       local integer loopC= 1
       set Equip_EquipBackdrop[0]=DzCreateFrameByTagName("BACKDROP", "", Frame_InvenButtonsBackDrop[0], "", 0)
       //StandardDecoratedEditBoxBackdropTemplate
-      call DzFrameSetSize(Equip_EquipBackdrop[0], Equip__EQUIPSPACEGAP * 5. + Equip__EQUIPEDGEGAP * 2., Equip__EQUIPSPACEGAP * 5. + Equip__EQUIPEDGEGAP * 2.)
+      call DzFrameSetSize(Equip_EquipBackdrop[0], Equip___EQUIPSPACEGAP * 5. + Equip___EQUIPEDGEGAP * 2., Equip___EQUIPSPACEGAP * 5. + Equip___EQUIPEDGEGAP * 2.)
       call DzFrameSetPoint(Equip_EquipBackdrop[0], JN_FRAMEPOINT_BOTTOMRIGHT, Frame_InvenButtonsBackDrop[0], JN_FRAMEPOINT_TOPRIGHT, 0., Equip_SPACEGAP * .5 + Equip_EDGEGAP * 2)
       call DzFrameSetTexture(Equip_EquipBackdrop[0], "Equip_Back.blp", 0)
       
@@ -7257,16 +7268,16 @@ endfunction
         if ( loopA == 1 ) or ( loopA == 5 ) or ( loopB == 1 ) or ( loopB == 5 ) then
           set Equip_EquipBackdrop[loopC]=DzCreateFrameByTagName("BACKDROP", "", Equip_EquipBackdrop[0], "", 0)
           call DzFrameSetTexture(Equip_EquipBackdrop[loopC], Equip_I2BE(loopC), 0)
-          call DzFrameSetPoint(Equip_EquipBackdrop[loopC], JN_FRAMEPOINT_TOPLEFT, Equip_EquipBackdrop[0], JN_FRAMEPOINT_TOPLEFT, Equip__EQUIPEDGEGAP + Equip__EQUIPSPACEGAP * ( loopA - 1 ), - Equip__EQUIPEDGEGAP - Equip__EQUIPSPACEGAP * ( loopB - 1 ))
-          call DzFrameSetSize(Equip_EquipBackdrop[loopC], Equip__EQUIPSPACEGAP - Equip__EQUIPEDGEGAP, Equip__EQUIPSPACEGAP - Equip__EQUIPEDGEGAP)
+          call DzFrameSetPoint(Equip_EquipBackdrop[loopC], JN_FRAMEPOINT_TOPLEFT, Equip_EquipBackdrop[0], JN_FRAMEPOINT_TOPLEFT, Equip___EQUIPEDGEGAP + Equip___EQUIPSPACEGAP * ( loopA - 1 ), - Equip___EQUIPEDGEGAP - Equip___EQUIPSPACEGAP * ( loopB - 1 ))
+          call DzFrameSetSize(Equip_EquipBackdrop[loopC], Equip___EQUIPSPACEGAP - Equip___EQUIPEDGEGAP, Equip___EQUIPSPACEGAP - Equip___EQUIPEDGEGAP)
           
-          set Equip__Equip[loopC]=DzCreateFrameByTagName("BUTTON", "", Equip_EquipBackdrop[loopC], "ScoreScreenTabButtonTemplate", 0)
-          call DzFrameSetAllPoints(Equip__Equip[loopC], Equip_EquipBackdrop[loopC])
-          call SaveInteger(hash, Equip__Equip[loopC], StringHash("FrameID"), - loopC)
-          call DzFrameSetScriptByCode(Equip__Equip[loopC], JN_FRAMEEVENT_MOUSE_ENTER, function Equip__InventoryUp, false)
-          call DzFrameSetScriptByCode(Equip__Equip[loopC], JN_FRAMEEVENT_MOUSE_LEAVE, function Equip__InventoryDown, false)
+          set Equip___Equip[loopC]=DzCreateFrameByTagName("BUTTON", "", Equip_EquipBackdrop[loopC], "ScoreScreenTabButtonTemplate", 0)
+          call DzFrameSetAllPoints(Equip___Equip[loopC], Equip_EquipBackdrop[loopC])
+          call SaveInteger(hash, Equip___Equip[loopC], StringHash("FrameID"), - loopC)
+          call DzFrameSetScriptByCode(Equip___Equip[loopC], JN_FRAMEEVENT_MOUSE_ENTER, function Equip___InventoryUp, false)
+          call DzFrameSetScriptByCode(Equip___Equip[loopC], JN_FRAMEEVENT_MOUSE_LEAVE, function Equip___InventoryDown, false)
           
-          call DzFrameSetScriptByCode(Equip__Equip[loopC], JN_FRAMEEVENT_MOUSE_DOUBLECLICK, function Equip__DoubleClick, true)
+          call DzFrameSetScriptByCode(Equip___Equip[loopC], JN_FRAMEEVENT_MOUSE_DOUBLECLICK, function Equip___DoubleClick, true)
   
           set loopC=loopC + 1
         endif
@@ -7277,21 +7288,21 @@ endfunction
         endif
         exitwhen loopB >= 6
       endloop
-      set Equip__Equip[loopC]=DzCreateFrameByTagName("TEXT", "", Equip_EquipBackdrop[0], "", 0)
-      call DzFrameSetPoint(Equip__Equip[loopC], JN_FRAMEPOINT_TOP, Equip_EquipBackdrop[0], JN_FRAMEPOINT_TOP, 0., - Equip__EQUIPSPACEGAP - Equip__EQUIPEDGEGAP)
-      call DzFrameSetText(Equip__Equip[loopC], "아이템 상승치")
-      call DzFrameSetFont(Equip__Equip[loopC], "Fonts\\DFHeiMd.ttf", 0.012, 0)
+      set Equip___Equip[loopC]=DzCreateFrameByTagName("TEXT", "", Equip_EquipBackdrop[0], "", 0)
+      call DzFrameSetPoint(Equip___Equip[loopC], JN_FRAMEPOINT_TOP, Equip_EquipBackdrop[0], JN_FRAMEPOINT_TOP, 0., - Equip___EQUIPSPACEGAP - Equip___EQUIPEDGEGAP)
+      call DzFrameSetText(Equip___Equip[loopC], "아이템 상승치")
+      call DzFrameSetFont(Equip___Equip[loopC], "Fonts\\DFHeiMd.ttf", 0.012, 0)
       
       set loopC=18
-      set Equip__Equip[loopC]=DzCreateFrameByTagName("TEXTAREA", "", Equip_EquipBackdrop[0], "EscMenuTextAreaTemplate", 0)
-      call DzFrameClearAllPoints(Equip__Equip[loopC])
-      call DzFrameSetPoint(Equip__Equip[loopC], JN_FRAMEPOINT_TOP, Equip__Equip[loopC - 1], JN_FRAMEPOINT_BOTTOM, 0., 0.)
-      call DzFrameSetSize(Equip__Equip[loopC], .12, .11)
-      call DzFrameSetFont(Equip__Equip[loopC], "Fonts\\DFHeiMd.ttf", 0.010, 0)
-      call DzFrameSetText(Equip__Equip[loopC], "")
+      set Equip___Equip[loopC]=DzCreateFrameByTagName("TEXTAREA", "", Equip_EquipBackdrop[0], "EscMenuTextAreaTemplate", 0)
+      call DzFrameClearAllPoints(Equip___Equip[loopC])
+      call DzFrameSetPoint(Equip___Equip[loopC], JN_FRAMEPOINT_TOP, Equip___Equip[loopC - 1], JN_FRAMEPOINT_BOTTOM, 0., 0.)
+      call DzFrameSetSize(Equip___Equip[loopC], .12, .11)
+      call DzFrameSetFont(Equip___Equip[loopC], "Fonts\\DFHeiMd.ttf", 0.010, 0)
+      call DzFrameSetText(Equip___Equip[loopC], "")
       //스크롤바 클릭 가능하면: 0.72, 0.43
     endfunction
-    function Equip__ItemDrop takes nothing returns nothing
+    function Equip___ItemDrop takes nothing returns nothing
     
       local integer P= GetPlayerId(DzGetTriggerSyncPlayer()) + 1
       local integer Slot= S2I(DzGetTriggerSyncData())
@@ -7302,7 +7313,7 @@ endfunction
         call StartSound(gg_snd_HeroDropItem1)
       endif
       if ( Slot == - 99 ) then
-        set Slot=Save_MAX_INVENTORY
+        set Slot=MAX_SAVE_INVENTORY
         loop
           if ( HaveSavedHandle(hash, P, StringHash("ItemData" + I2S(Slot))) ) then
             set t=LoadItemHandle(hash, P, StringHash("ItemData" + I2S(Slot)))
@@ -7329,7 +7340,7 @@ endfunction
       endif
       set t=null
     endfunction
-    function Equip__ItemChange takes nothing returns nothing
+    function Equip___ItemChange takes nothing returns nothing
     
       local integer P= GetPlayerId(DzGetTriggerSyncPlayer()) + 1
       local string s= DzGetTriggerSyncData()
@@ -7356,12 +7367,12 @@ endfunction
           call SaveInteger(hash, P, StringHash("ItemData0"), loopA)
           return loopA
         endif
-        exitwhen loopA >= Save_MAX_INVENTORY
+        exitwhen loopA >= MAX_SAVE_INVENTORY
         set loopA=loopA + 1
       endloop
       return 0
     endfunction
-    function Equip__ItemEquip2 takes item t,integer P,integer Slot,integer Num returns nothing
+    function Equip___ItemEquip2 takes item t,integer P,integer Slot,integer Num returns nothing
       if ( GetLocalPlayer() == Player(P - 1) ) then
         call DzFrameSetTexture(Equip_EquipBackdrop[Slot], EXGetItemDataString(GetItemTypeId(t), 1), 0)
         call DzFrameSetTexture(Frame_InvenButtonsBackDrop[Num], "Inven_Empty.blp", 0)
@@ -7373,7 +7384,7 @@ endfunction
       
       call Equip_Process(EXGetItemDataString(GetItemTypeId(t), 3) + "'" + LoadStr(hash, GetHandleId(t), StringHash("ItemAddData")) , P)
     endfunction
-    function Equip__ItemEquip takes nothing returns nothing
+    function Equip___ItemEquip takes nothing returns nothing
       local integer P= GetPlayerId(DzGetTriggerSyncPlayer()) + 1
       local integer Num= S2I(DzGetTriggerSyncData())
       local integer Slot= 0
@@ -7394,179 +7405,179 @@ endfunction
       else
         set t=LoadItemHandle(hash, P, StringHash("ItemData" + I2S(Num)))
         call Equip_Process(EXGetItemDataString(GetItemTypeId(t), 3) + "'" + LoadStr(hash, GetHandleId(t), StringHash("ItemAddData")) , 0)
-        set Slot=Equip_CS2I(Equip__InvenInfo[2])
+        set Slot=Equip_CS2I(Equip___InvenInfo[2])
         
-        if ( GetHeroLevel(udg_hero[P]) < S2I(Equip__InvenInfo[3]) ) then
-          call DisplayTimedTextToPlayer(Player(P - 1), 0, 0, 4., GetItemName(t) + "의 착용레벨은 " + Equip__InvenInfo[3] + " 입니다.")
+        if ( GetHeroLevel(udg_hero[P]) < S2I(Equip___InvenInfo[3]) ) then
+          call DisplayTimedTextToPlayer(Player(P - 1), 0, 0, 4., GetItemName(t) + "의 착용레벨은 " + Equip___InvenInfo[3] + " 입니다.")
         elseif ( HaveSavedHandle(hash, P, StringHash("ItemData" + I2S(- Slot))) ) then
-          if ( Equip__CS2II(Slot) == 0 ) or ( HaveSavedHandle(hash, P, StringHash("ItemData" + I2S(- Equip__CS2II(Slot)))) ) then
+          if ( Equip___CS2II(Slot) == 0 ) or ( HaveSavedHandle(hash, P, StringHash("ItemData" + I2S(- Equip___CS2II(Slot)))) ) then
             call DisplayTimedTextToPlayer(Player(P - 1), 0, 0, 4., Equip_I2CS(Slot) + "에 장착된 " + GetItemName(LoadItemHandle(hash, P, StringHash("ItemData" + I2S(- Slot)))) + "을(를) 먼저 장착 해제해주세요.")
           else
-            call Equip__ItemEquip2(t , P , Equip__CS2II(Slot) , Num)
+            call Equip___ItemEquip2(t , P , Equip___CS2II(Slot) , Num)
           endif
         else
-          call Equip__ItemEquip2(t , P , Slot , Num)
+          call Equip___ItemEquip2(t , P , Slot , Num)
         endif
       endif
     endfunction
-    function Equip__InventoryClick takes nothing returns nothing
+    function Equip___InventoryClick takes nothing returns nothing
       local integer f= DzGetTriggerUIEventFrame()
       local integer P= GetPlayerId(DzGetTriggerUIEventPlayer()) + 1
       local integer fno= LoadInteger(hash, f, StringHash("FrameID"))
       local item t= LoadItemHandle(hash, P, StringHash("ItemData" + I2S(fno)))
-      if ( Equip__ClickNow[P] == 0 ) then
+      if ( Equip___ClickNow[P] == 0 ) then
         if ( fno == - 99 ) then
-          call DzFrameSetModel(Equip__ClickView, "Equip_Clicking2.mdx", 0, 0)
+          call DzFrameSetModel(Equip___ClickView, "Equip_Clicking2.mdx", 0, 0)
         elseif ( t != null ) then
-          call DzFrameSetModel(Equip__ClickView, "Equip_Clicking1.mdx", 0, 0)
+          call DzFrameSetModel(Equip___ClickView, "Equip_Clicking1.mdx", 0, 0)
         else
           return
         endif
-        set Equip__ClickNow[P]=fno
-        call DzFrameClearAllPoints(Equip__ClickView)
-        call DzFrameSetAllPoints(Equip__ClickView, f)
-        call DzFrameShow(Equip__ClickView, true)
+        set Equip___ClickNow[P]=fno
+        call DzFrameClearAllPoints(Equip___ClickView)
+        call DzFrameSetAllPoints(Equip___ClickView, f)
+        call DzFrameShow(Equip___ClickView, true)
         set t=null
       elseif ( t != null ) then
-        if ( Equip__ClickNow[P] == - 99 ) then
+        if ( Equip___ClickNow[P] == - 99 ) then
           call DzFrameSetTexture(Frame_InvenButtonsBackDrop[fno], "Inven_Empty.blp", 0)
           call DzSyncData("ItemDrop", I2S(fno))
-        elseif ( fno == Equip__ClickNow[P] ) then
+        elseif ( fno == Equip___ClickNow[P] ) then
           call DzSyncData("I_Equip", I2S(fno))
         else
-          call DzSyncData("I_Change", I2S(Equip__ClickNow[P]) + "'" + I2S(fno))
-          call DzFrameSetTexture(Frame_InvenButtonsBackDrop[Equip__ClickNow[P]], EXGetItemDataString(GetItemTypeId(LoadItemHandle(hash, P, StringHash("ItemData" + I2S(fno)))), 1), 0)
-          call DzFrameSetTexture(Frame_InvenButtonsBackDrop[fno], EXGetItemDataString(GetItemTypeId(LoadItemHandle(hash, P, StringHash("ItemData" + I2S(Equip__ClickNow[P])))), 1), 0)
+          call DzSyncData("I_Change", I2S(Equip___ClickNow[P]) + "'" + I2S(fno))
+          call DzFrameSetTexture(Frame_InvenButtonsBackDrop[Equip___ClickNow[P]], EXGetItemDataString(GetItemTypeId(LoadItemHandle(hash, P, StringHash("ItemData" + I2S(fno)))), 1), 0)
+          call DzFrameSetTexture(Frame_InvenButtonsBackDrop[fno], EXGetItemDataString(GetItemTypeId(LoadItemHandle(hash, P, StringHash("ItemData" + I2S(Equip___ClickNow[P])))), 1), 0)
           
           call DzSyncData("MouseVar", I2S(fno))
         endif
         set t=null
-        set Equip__ClickNow[P]=0
-        call DzFrameShow(Equip__ClickView, false)
+        set Equip___ClickNow[P]=0
+        call DzFrameShow(Equip___ClickView, false)
       elseif ( fno != 0 ) then
-        call DzFrameSetTexture(Frame_InvenButtonsBackDrop[Equip__ClickNow[P]], "Inven_Empty.blp", 0)
+        call DzFrameSetTexture(Frame_InvenButtonsBackDrop[Equip___ClickNow[P]], "Inven_Empty.blp", 0)
         if ( fno == - 99 ) then
-          call DzSyncData("ItemDrop", I2S(Equip__ClickNow[P]))
-        elseif ( Equip__ClickNow[P] != - 99 ) then
-          call DzSyncData("I_Change", I2S(Equip__ClickNow[P]) + "'" + I2S(fno))
-          call DzFrameSetTexture(Frame_InvenButtonsBackDrop[fno], EXGetItemDataString(GetItemTypeId(LoadItemHandle(hash, P, StringHash("ItemData" + I2S(Equip__ClickNow[P])))), 1), 0)
-          call DzFrameSetTexture(Frame_InvenButtonsBackDrop[Equip__ClickNow[P]], "Inven_Empty.blp", 0)
+          call DzSyncData("ItemDrop", I2S(Equip___ClickNow[P]))
+        elseif ( Equip___ClickNow[P] != - 99 ) then
+          call DzSyncData("I_Change", I2S(Equip___ClickNow[P]) + "'" + I2S(fno))
+          call DzFrameSetTexture(Frame_InvenButtonsBackDrop[fno], EXGetItemDataString(GetItemTypeId(LoadItemHandle(hash, P, StringHash("ItemData" + I2S(Equip___ClickNow[P])))), 1), 0)
+          call DzFrameSetTexture(Frame_InvenButtonsBackDrop[Equip___ClickNow[P]], "Inven_Empty.blp", 0)
           
           call DzSyncData("MouseVar", I2S(fno))
         endif
-        set Equip__ClickNow[P]=0
-        call DzFrameShow(Equip__ClickView, false)
+        set Equip___ClickNow[P]=0
+        call DzFrameShow(Equip___ClickView, false)
       endif
     endfunction
-    function Equip__InventoryToolTip takes nothing returns nothing
+    function Equip___InventoryToolTip takes nothing returns nothing
       local integer int= 0
-      set Equip__Frame_InvenInfo[int]=DzCreateFrameByTagName("BACKDROP", "", Frame_InvenButtonsBackDrop[0], "QuestButtonBaseTemplate", 0)
-      call DzFrameSetSize(Equip__Frame_InvenInfo[int], .25, .25)
-      call DzFrameSetAbsolutePoint(Equip__Frame_InvenInfo[int], JN_FRAMEPOINT_TOPLEFT, .4, .3)
+      set Equip___Frame_InvenInfo[int]=DzCreateFrameByTagName("BACKDROP", "", Frame_InvenButtonsBackDrop[0], "QuestButtonBaseTemplate", 0)
+      call DzFrameSetSize(Equip___Frame_InvenInfo[int], .25, .25)
+      call DzFrameSetAbsolutePoint(Equip___Frame_InvenInfo[int], JN_FRAMEPOINT_TOPLEFT, .4, .3)
       //call DzFrameSetTexture(Frame_InvenInfo[int], "QuestButtonBaseTemplate", 0)
       
       set int=int + 1
-      set Equip__Frame_InvenInfo[int]=DzCreateFrameByTagName("BACKDROP", "", Equip__Frame_InvenInfo[0], "", 0)
-      call DzFrameSetSize(Equip__Frame_InvenInfo[int], .05, .05)
-      call DzFrameSetPoint(Equip__Frame_InvenInfo[int], JN_FRAMEPOINT_TOPLEFT, Equip__Frame_InvenInfo[0], JN_FRAMEPOINT_TOPLEFT, .01, - .01)
-      call DzFrameSetTexture(Equip__Frame_InvenInfo[int], "Inven_Empty.blp", 0)
+      set Equip___Frame_InvenInfo[int]=DzCreateFrameByTagName("BACKDROP", "", Equip___Frame_InvenInfo[0], "", 0)
+      call DzFrameSetSize(Equip___Frame_InvenInfo[int], .05, .05)
+      call DzFrameSetPoint(Equip___Frame_InvenInfo[int], JN_FRAMEPOINT_TOPLEFT, Equip___Frame_InvenInfo[0], JN_FRAMEPOINT_TOPLEFT, .01, - .01)
+      call DzFrameSetTexture(Equip___Frame_InvenInfo[int], "Inven_Empty.blp", 0)
       
       set int=int + 1
-      set Equip__Frame_InvenInfo[int]=DzCreateFrameByTagName("TEXT", "", Equip__Frame_InvenInfo[0], "", 0)
-      call DzFrameSetPoint(Equip__Frame_InvenInfo[int], JN_FRAMEPOINT_BOTTOMLEFT, Equip__Frame_InvenInfo[int - 1], JN_FRAMEPOINT_TOPRIGHT, .01, - .015)
-      call DzFrameSetText(Equip__Frame_InvenInfo[int], "바이탈리티 페리앱트 (에픽)")
+      set Equip___Frame_InvenInfo[int]=DzCreateFrameByTagName("TEXT", "", Equip___Frame_InvenInfo[0], "", 0)
+      call DzFrameSetPoint(Equip___Frame_InvenInfo[int], JN_FRAMEPOINT_BOTTOMLEFT, Equip___Frame_InvenInfo[int - 1], JN_FRAMEPOINT_TOPRIGHT, .01, - .015)
+      call DzFrameSetText(Equip___Frame_InvenInfo[int], "바이탈리티 페리앱트 (에픽)")
       
       set int=int + 1
-      set Equip__Frame_InvenInfo[int]=DzCreateFrameByTagName("TEXT", "", Equip__Frame_InvenInfo[0], "", 0)
-      call DzFrameSetPoint(Equip__Frame_InvenInfo[int], JN_FRAMEPOINT_TOPLEFT, Equip__Frame_InvenInfo[int - 1], JN_FRAMEPOINT_BOTTOMLEFT, 0., - .005)
-      call DzFrameSetText(Equip__Frame_InvenInfo[int], "종류: S등급 반지")
+      set Equip___Frame_InvenInfo[int]=DzCreateFrameByTagName("TEXT", "", Equip___Frame_InvenInfo[0], "", 0)
+      call DzFrameSetPoint(Equip___Frame_InvenInfo[int], JN_FRAMEPOINT_TOPLEFT, Equip___Frame_InvenInfo[int - 1], JN_FRAMEPOINT_BOTTOMLEFT, 0., - .005)
+      call DzFrameSetText(Equip___Frame_InvenInfo[int], "종류: S등급 반지")
       
       set int=int + 1
-      set Equip__Frame_InvenInfo[int]=DzCreateFrameByTagName("TEXT", "", Equip__Frame_InvenInfo[0], "", 0)
-      call DzFrameSetPoint(Equip__Frame_InvenInfo[int], JN_FRAMEPOINT_TOPLEFT, Equip__Frame_InvenInfo[int - 1], JN_FRAMEPOINT_BOTTOMLEFT, 0., - .005)
-      call DzFrameSetText(Equip__Frame_InvenInfo[int], "착용 레벨: 40")
+      set Equip___Frame_InvenInfo[int]=DzCreateFrameByTagName("TEXT", "", Equip___Frame_InvenInfo[0], "", 0)
+      call DzFrameSetPoint(Equip___Frame_InvenInfo[int], JN_FRAMEPOINT_TOPLEFT, Equip___Frame_InvenInfo[int - 1], JN_FRAMEPOINT_BOTTOMLEFT, 0., - .005)
+      call DzFrameSetText(Equip___Frame_InvenInfo[int], "착용 레벨: 40")
       
       set int=int + 1
-      set Equip__Frame_InvenInfo[int]=DzCreateFrameByTagName("TEXT", "", Equip__Frame_InvenInfo[0], "", 0)
-      call DzFrameSetPoint(Equip__Frame_InvenInfo[int], JN_FRAMEPOINT_TOPLEFT, Equip__Frame_InvenInfo[1], JN_FRAMEPOINT_BOTTOMLEFT, 0., - .01)
-      call DzFrameSetFont(Equip__Frame_InvenInfo[int], "Fonts\\DFHeiMd.ttf", 0.010, 1)
-      call DzFrameSetText(Equip__Frame_InvenInfo[int], "전설에 의하면 저주에 걸린 아쥰의 영혼이\n  오늘 날까지도 자신의 심장을 찾고 있다고\n  합니다.")
+      set Equip___Frame_InvenInfo[int]=DzCreateFrameByTagName("TEXT", "", Equip___Frame_InvenInfo[0], "", 0)
+      call DzFrameSetPoint(Equip___Frame_InvenInfo[int], JN_FRAMEPOINT_TOPLEFT, Equip___Frame_InvenInfo[1], JN_FRAMEPOINT_BOTTOMLEFT, 0., - .01)
+      call DzFrameSetFont(Equip___Frame_InvenInfo[int], "Fonts\\DFHeiMd.ttf", 0.010, 1)
+      call DzFrameSetText(Equip___Frame_InvenInfo[int], "전설에 의하면 저주에 걸린 아쥰의 영혼이\n  오늘 날까지도 자신의 심장을 찾고 있다고\n  합니다.")
   
       loop
         set int=int + 1
-        set Equip__Frame_InvenInfo[int]=DzCreateFrameByTagName("TEXT", "", Equip__Frame_InvenInfo[0], "", 0)
+        set Equip___Frame_InvenInfo[int]=DzCreateFrameByTagName("TEXT", "", Equip___Frame_InvenInfo[0], "", 0)
         if ( int == 6 ) then
-          call DzFrameSetPoint(Equip__Frame_InvenInfo[int], JN_FRAMEPOINT_TOPLEFT, Equip__Frame_InvenInfo[int - 1], JN_FRAMEPOINT_BOTTOMLEFT, 0., - .01)
+          call DzFrameSetPoint(Equip___Frame_InvenInfo[int], JN_FRAMEPOINT_TOPLEFT, Equip___Frame_InvenInfo[int - 1], JN_FRAMEPOINT_BOTTOMLEFT, 0., - .01)
         else
-          call DzFrameSetPoint(Equip__Frame_InvenInfo[int], JN_FRAMEPOINT_TOPLEFT, Equip__Frame_InvenInfo[int - 1], JN_FRAMEPOINT_BOTTOMLEFT, 0., 0.)
+          call DzFrameSetPoint(Equip___Frame_InvenInfo[int], JN_FRAMEPOINT_TOPLEFT, Equip___Frame_InvenInfo[int - 1], JN_FRAMEPOINT_BOTTOMLEFT, 0., 0.)
         endif
-        call DzFrameSetFont(Equip__Frame_InvenInfo[int], "Fonts\\DFHeiMd.ttf", 0.012, 1)
-        call DzFrameSetText(Equip__Frame_InvenInfo[int], I2S(int))
+        call DzFrameSetFont(Equip___Frame_InvenInfo[int], "Fonts\\DFHeiMd.ttf", 0.012, 1)
+        call DzFrameSetText(Equip___Frame_InvenInfo[int], I2S(int))
         exitwhen int >= ITEM_TOOLTIP_MAXIMUM
       endloop
         
-      call DzFrameShow(Equip__Frame_InvenInfo[0], false)
+      call DzFrameShow(Equip___Frame_InvenInfo[0], false)
     endfunction
-    function Equip__SwapSet takes boolean first,integer arr,integer var returns nothing
+    function Equip___SwapSet takes boolean first,integer arr,integer var returns nothing
       if ( first ) then
-        set Equip__Frame_EquipInfo[arr]=var
+        set Equip___Frame_EquipInfo[arr]=var
       else
-        set Equip__Frame_Equip2Info[arr]=var
+        set Equip___Frame_Equip2Info[arr]=var
       endif
     endfunction
-    function Equip__EquipToolTip takes boolean first returns nothing
+    function Equip___EquipToolTip takes boolean first returns nothing
       local integer int= 0
-      call Equip__SwapSet(first , int , DzCreateFrameByTagName("BACKDROP", "", Frame_InvenButtonsBackDrop[0], "QuestButtonBaseTemplate", 0))
-      call DzFrameSetSize(Equip__Swap(first , int), .25, .25)
-      call DzFrameSetAbsolutePoint(Equip__Swap(first , int), JN_FRAMEPOINT_TOPLEFT, .4, .3)
+      call Equip___SwapSet(first , int , DzCreateFrameByTagName("BACKDROP", "", Frame_InvenButtonsBackDrop[0], "QuestButtonBaseTemplate", 0))
+      call DzFrameSetSize(Equip___Swap(first , int), .25, .25)
+      call DzFrameSetAbsolutePoint(Equip___Swap(first , int), JN_FRAMEPOINT_TOPLEFT, .4, .3)
       //call DzFrameSetTexture(Swap(first, int), "QuestButtonBaseTemplate", 0)
       
       set int=int + 1
-      call Equip__SwapSet(first , int , DzCreateFrameByTagName("BACKDROP", "", Equip__Swap(first , 0), "", 0))
-      call DzFrameSetSize(Equip__Swap(first , int), .05, .05)
-      call DzFrameSetPoint(Equip__Swap(first , int), JN_FRAMEPOINT_TOPLEFT, Equip__Swap(first , 0), JN_FRAMEPOINT_TOPLEFT, .01, - .01)
-      call DzFrameSetTexture(Equip__Swap(first , int), "Inven_Empty.blp", 0)
+      call Equip___SwapSet(first , int , DzCreateFrameByTagName("BACKDROP", "", Equip___Swap(first , 0), "", 0))
+      call DzFrameSetSize(Equip___Swap(first , int), .05, .05)
+      call DzFrameSetPoint(Equip___Swap(first , int), JN_FRAMEPOINT_TOPLEFT, Equip___Swap(first , 0), JN_FRAMEPOINT_TOPLEFT, .01, - .01)
+      call DzFrameSetTexture(Equip___Swap(first , int), "Inven_Empty.blp", 0)
       
       set int=int + 1
-      call Equip__SwapSet(first , int , DzCreateFrameByTagName("TEXT", "", Equip__Swap(first , 0), "", 0))
-      call DzFrameSetPoint(Equip__Swap(first , int), JN_FRAMEPOINT_BOTTOMLEFT, Equip__Swap(first , int - 1), JN_FRAMEPOINT_TOPRIGHT, .01, - .015)
-      call DzFrameSetText(Equip__Swap(first , int), "바이탈리티 페리앱트 (에픽)")
+      call Equip___SwapSet(first , int , DzCreateFrameByTagName("TEXT", "", Equip___Swap(first , 0), "", 0))
+      call DzFrameSetPoint(Equip___Swap(first , int), JN_FRAMEPOINT_BOTTOMLEFT, Equip___Swap(first , int - 1), JN_FRAMEPOINT_TOPRIGHT, .01, - .015)
+      call DzFrameSetText(Equip___Swap(first , int), "바이탈리티 페리앱트 (에픽)")
       
       set int=int + 1
-      call Equip__SwapSet(first , int , DzCreateFrameByTagName("TEXT", "", Equip__Swap(first , 0), "", 0))
-      call DzFrameSetPoint(Equip__Swap(first , int), JN_FRAMEPOINT_TOPLEFT, Equip__Swap(first , int - 1), JN_FRAMEPOINT_BOTTOMLEFT, 0., - .005)
-      call DzFrameSetText(Equip__Swap(first , int), "종류: S등급 반지")
+      call Equip___SwapSet(first , int , DzCreateFrameByTagName("TEXT", "", Equip___Swap(first , 0), "", 0))
+      call DzFrameSetPoint(Equip___Swap(first , int), JN_FRAMEPOINT_TOPLEFT, Equip___Swap(first , int - 1), JN_FRAMEPOINT_BOTTOMLEFT, 0., - .005)
+      call DzFrameSetText(Equip___Swap(first , int), "종류: S등급 반지")
       
       set int=int + 1
-      call Equip__SwapSet(first , int , DzCreateFrameByTagName("TEXT", "", Equip__Swap(first , 0), "", 0))
-      call DzFrameSetPoint(Equip__Swap(first , int), JN_FRAMEPOINT_TOPLEFT, Equip__Swap(first , int - 1), JN_FRAMEPOINT_BOTTOMLEFT, 0., - .005)
-      call DzFrameSetText(Equip__Swap(first , int), "착용 레벨: 40")
+      call Equip___SwapSet(first , int , DzCreateFrameByTagName("TEXT", "", Equip___Swap(first , 0), "", 0))
+      call DzFrameSetPoint(Equip___Swap(first , int), JN_FRAMEPOINT_TOPLEFT, Equip___Swap(first , int - 1), JN_FRAMEPOINT_BOTTOMLEFT, 0., - .005)
+      call DzFrameSetText(Equip___Swap(first , int), "착용 레벨: 40")
       
       set int=int + 1
-      call Equip__SwapSet(first , int , DzCreateFrameByTagName("TEXT", "", Equip__Swap(first , 0), "", 0))
-      call DzFrameSetPoint(Equip__Swap(first , int), JN_FRAMEPOINT_TOPLEFT, Equip__Swap(first , 1), JN_FRAMEPOINT_BOTTOMLEFT, 0., - .01)
-      call DzFrameSetFont(Equip__Swap(first , int), "Fonts\\DFHeiMd.ttf", 0.010, 1)
-      call DzFrameSetText(Equip__Swap(first , int), "전설에 의하면 저주에 걸린 아쥰의 영혼이\n  오늘 날까지도 자신의 심장을 찾고 있다고\n  합니다.")
+      call Equip___SwapSet(first , int , DzCreateFrameByTagName("TEXT", "", Equip___Swap(first , 0), "", 0))
+      call DzFrameSetPoint(Equip___Swap(first , int), JN_FRAMEPOINT_TOPLEFT, Equip___Swap(first , 1), JN_FRAMEPOINT_BOTTOMLEFT, 0., - .01)
+      call DzFrameSetFont(Equip___Swap(first , int), "Fonts\\DFHeiMd.ttf", 0.010, 1)
+      call DzFrameSetText(Equip___Swap(first , int), "전설에 의하면 저주에 걸린 아쥰의 영혼이\n  오늘 날까지도 자신의 심장을 찾고 있다고\n  합니다.")
   
       loop
         set int=int + 1
-        call Equip__SwapSet(first , int , DzCreateFrameByTagName("TEXT", "", Equip__Swap(first , 0), "", 0))
+        call Equip___SwapSet(first , int , DzCreateFrameByTagName("TEXT", "", Equip___Swap(first , 0), "", 0))
         if ( int == 6 ) then
-          call DzFrameSetPoint(Equip__Swap(first , int), JN_FRAMEPOINT_TOPLEFT, Equip__Swap(first , int - 1), JN_FRAMEPOINT_BOTTOMLEFT, 0., - .01)
+          call DzFrameSetPoint(Equip___Swap(first , int), JN_FRAMEPOINT_TOPLEFT, Equip___Swap(first , int - 1), JN_FRAMEPOINT_BOTTOMLEFT, 0., - .01)
         else
-          call DzFrameSetPoint(Equip__Swap(first , int), JN_FRAMEPOINT_TOPLEFT, Equip__Swap(first , int - 1), JN_FRAMEPOINT_BOTTOMLEFT, 0., 0.)
+          call DzFrameSetPoint(Equip___Swap(first , int), JN_FRAMEPOINT_TOPLEFT, Equip___Swap(first , int - 1), JN_FRAMEPOINT_BOTTOMLEFT, 0., 0.)
         endif
-        call DzFrameSetFont(Equip__Swap(first , int), "Fonts\\DFHeiMd.ttf", 0.012, 1)
-        call DzFrameSetText(Equip__Swap(first , int), I2S(int))
+        call DzFrameSetFont(Equip___Swap(first , int), "Fonts\\DFHeiMd.ttf", 0.012, 1)
+        call DzFrameSetText(Equip___Swap(first , int), I2S(int))
         exitwhen int >= ITEM_TOOLTIP_MAXIMUM
       endloop
         
-      call DzFrameShow(Equip__Swap(first , 0), false)
+      call DzFrameShow(Equip___Swap(first , 0), false)
     endfunction
-    constant function Equip__Cal takes integer A,integer B returns integer
+    constant function Equip___Cal takes integer A,integer B returns integer
       return ( B - 1 ) * 7 + A
     endfunction
-    function Equip__CreateInventory takes nothing returns nothing
+    function Equip___CreateInventory takes nothing returns nothing
       local integer loopA= 0
       local integer loopB= 1
       set Frame_InvenButtonsBackDrop[loopA]=DzCreateFrameByTagName("BACKDROP", "", DzGetGameUI(), "", 0)
@@ -7581,17 +7592,17 @@ endfunction
       
       loop
         set loopA=loopA + 1
-        set Frame_InvenButtonsBackDrop[Equip__Cal(loopA , loopB)]=DzCreateFrameByTagName("BACKDROP", "", Frame_InvenButtonsBackDrop[0], "", 0)
-        call DzFrameSetPoint(Frame_InvenButtonsBackDrop[Equip__Cal(loopA , loopB)], JN_FRAMEPOINT_TOPLEFT, Frame_InvenButtonsBackDrop[0], JN_FRAMEPOINT_TOPLEFT, Equip_EDGEGAP + Equip_SPACEGAP * ( loopA - 1 ), - Equip_EDGEGAP - Equip_SPACEGAP * loopB)
-        call DzFrameSetSize(Frame_InvenButtonsBackDrop[Equip__Cal(loopA , loopB)], 0.0235, 0.0235)
-        call DzFrameSetTexture(Frame_InvenButtonsBackDrop[Equip__Cal(loopA , loopB)], "Inven_Empty.blp", 0)
+        set Frame_InvenButtonsBackDrop[Equip___Cal(loopA , loopB)]=DzCreateFrameByTagName("BACKDROP", "", Frame_InvenButtonsBackDrop[0], "", 0)
+        call DzFrameSetPoint(Frame_InvenButtonsBackDrop[Equip___Cal(loopA , loopB)], JN_FRAMEPOINT_TOPLEFT, Frame_InvenButtonsBackDrop[0], JN_FRAMEPOINT_TOPLEFT, Equip_EDGEGAP + Equip_SPACEGAP * ( loopA - 1 ), - Equip_EDGEGAP - Equip_SPACEGAP * loopB)
+        call DzFrameSetSize(Frame_InvenButtonsBackDrop[Equip___Cal(loopA , loopB)], 0.0235, 0.0235)
+        call DzFrameSetTexture(Frame_InvenButtonsBackDrop[Equip___Cal(loopA , loopB)], "Inven_Empty.blp", 0)
         
-        set Frame_InvenButtons[Equip__Cal(loopA , loopB)]=DzCreateFrameByTagName("BUTTON", "", Frame_InvenButtonsBackDrop[Equip__Cal(loopA , loopB)], "ScoreScreenTabButtonTemplate", 0)
-        call DzFrameSetAllPoints(Frame_InvenButtons[Equip__Cal(loopA , loopB)], Frame_InvenButtonsBackDrop[Equip__Cal(loopA , loopB)])
-        call SaveInteger(hash, Frame_InvenButtons[Equip__Cal(loopA , loopB)], StringHash("FrameID"), Equip__Cal(loopA , loopB))
-        call DzFrameSetScriptByCode(Frame_InvenButtons[Equip__Cal(loopA , loopB)], JN_FRAMEEVENT_MOUSE_ENTER, function Equip__InventoryUp, false)
-        call DzFrameSetScriptByCode(Frame_InvenButtons[Equip__Cal(loopA , loopB)], JN_FRAMEEVENT_MOUSE_LEAVE, function Equip__InventoryDown, false)
-        call DzFrameSetScriptByCode(Frame_InvenButtons[Equip__Cal(loopA , loopB)], JN_FRAMEEVENT_MOUSE_UP, function Equip__InventoryClick, false)
+        set Frame_InvenButtons[Equip___Cal(loopA , loopB)]=DzCreateFrameByTagName("BUTTON", "", Frame_InvenButtonsBackDrop[Equip___Cal(loopA , loopB)], "ScoreScreenTabButtonTemplate", 0)
+        call DzFrameSetAllPoints(Frame_InvenButtons[Equip___Cal(loopA , loopB)], Frame_InvenButtonsBackDrop[Equip___Cal(loopA , loopB)])
+        call SaveInteger(hash, Frame_InvenButtons[Equip___Cal(loopA , loopB)], StringHash("FrameID"), Equip___Cal(loopA , loopB))
+        call DzFrameSetScriptByCode(Frame_InvenButtons[Equip___Cal(loopA , loopB)], JN_FRAMEEVENT_MOUSE_ENTER, function Equip___InventoryUp, false)
+        call DzFrameSetScriptByCode(Frame_InvenButtons[Equip___Cal(loopA , loopB)], JN_FRAMEEVENT_MOUSE_LEAVE, function Equip___InventoryDown, false)
+        call DzFrameSetScriptByCode(Frame_InvenButtons[Equip___Cal(loopA , loopB)], JN_FRAMEEVENT_MOUSE_UP, function Equip___InventoryClick, false)
         
         if ( loopA >= 7 ) then
           set loopA=0
@@ -7600,7 +7611,7 @@ endfunction
         exitwhen loopB >= 8
       endloop
       
-      set loopA=Equip__Cal(loopA , loopB) + 1
+      set loopA=Equip___Cal(loopA , loopB) + 1
       
       
       set loopA=loopA + 1
@@ -7618,43 +7629,43 @@ endfunction
       set Frame_InvenButtons[loopA]=DzCreateFrameByTagName("BUTTON", "", Frame_InvenButtonsBackDrop[loopA], "ScoreScreenTabButtonTemplate", 0)
       call DzFrameSetAllPoints(Frame_InvenButtons[loopA], Frame_InvenButtonsBackDrop[loopA])
       call SaveInteger(hash, Frame_InvenButtons[loopA], StringHash("FrameID"), - 99)
-      call DzFrameSetScriptByCode(Frame_InvenButtons[loopA], JN_FRAMEEVENT_MOUSE_UP, function Equip__InventoryClick, false)
+      call DzFrameSetScriptByCode(Frame_InvenButtons[loopA], JN_FRAMEEVENT_MOUSE_UP, function Equip___InventoryClick, false)
       
-      set Equip__ClickView=DzCreateFrameByTagName("SPRITE", "Test2", Frame_InvenButtonsBackDrop[loopA], "", 0)
-      call DzFrameSetModel(Equip__ClickView, "Equip_Clicking1.mdx", 0, 0)
-      call DzFrameSetAllPoints(Equip__ClickView, Frame_InvenButtonsBackDrop[loopA])
-      call DzFrameShow(Equip__ClickView, false)
+      set Equip___ClickView=DzCreateFrameByTagName("SPRITE", "Test2", Frame_InvenButtonsBackDrop[loopA], "", 0)
+      call DzFrameSetModel(Equip___ClickView, "Equip_Clicking1.mdx", 0, 0)
+      call DzFrameSetAllPoints(Equip___ClickView, Frame_InvenButtonsBackDrop[loopA])
+      call DzFrameShow(Equip___ClickView, false)
       
       call DzFrameShow(Frame_InvenButtonsBackDrop[0], false)
     endfunction
-    function Equip__Init takes nothing returns nothing
+    function Equip___Init takes nothing returns nothing
       local trigger t= CreateTrigger()
-      call Equip__CreateInventory()
-      call Equip__CreateEquip()
-      call Equip__InventoryToolTip()
-      call Equip__EquipToolTip(true)
-      call Equip__EquipToolTip(false)
+      call Equip___CreateInventory()
+      call Equip___CreateEquip()
+      call Equip___InventoryToolTip()
+      call Equip___EquipToolTip(true)
+      call Equip___EquipToolTip(false)
       call DzTriggerRegisterSyncData(t, "ItemDrop", false)
-      call TriggerAddAction(t, function Equip__ItemDrop)
+      call TriggerAddAction(t, function Equip___ItemDrop)
       
       set t=CreateTrigger()
       call DzTriggerRegisterSyncData(t, "I_Change", false)
-      call TriggerAddAction(t, function Equip__ItemChange)
+      call TriggerAddAction(t, function Equip___ItemChange)
       
       set t=CreateTrigger()
       call DzTriggerRegisterSyncData(t, "I_Equip", false)
-      call TriggerAddAction(t, function Equip__ItemEquip)
+      call TriggerAddAction(t, function Equip___ItemEquip)
       
       set t=CreateTrigger()
       call DzTriggerRegisterSyncData(t, "MouseVar", false)
-      call TriggerAddAction(t, function Equip__MouseVariable)
+      call TriggerAddAction(t, function Equip___MouseVariable)
       
       set t=CreateTrigger()
       call DzTriggerRegisterMouseEventByCode(t, JN_MOUSE_BUTTON_TYPE_RIGHT, bj_KEYEVENTTYPE_DEPRESS, true, null)
-      call TriggerAddAction(t, function Equip__RightClick)
+      call TriggerAddAction(t, function Equip___RightClick)
       
-      set Equip__FrameMouseXOffset=JNGetModuleHandle("Game.dll") + 0xCB1AF8
-      set Equip__FrameMouseYOffset=JNGetModuleHandle("Game.dll") + 0xCB1AFC
+      set Equip___FrameMouseXOffset=JNGetModuleHandle("Game.dll") + 0xCB1AF8
+      set Equip___FrameMouseYOffset=JNGetModuleHandle("Game.dll") + 0xCB1AFC
       
       set t=null
     endfunction
@@ -7663,7 +7674,7 @@ endfunction
 // BEGIN IMPORT OF System\Frames\Info.j
 // scope Info begins
   
-    function Info__Info takes integer no,integer parent,real size,integer point,integer point2,real x,real y,string text returns integer
+    function Info___Info takes integer no,integer parent,real size,integer point,integer point2,real x,real y,string text returns integer
       set Frame_Info[no]=DzCreateFrameByTagName("TEXT", "", parent, "", no)
       if ( size != 0. ) then
         call DzFrameSetFont(Frame_Info[no], "Fonts\\DFHeiMd.ttf", size, 1)
@@ -7673,7 +7684,7 @@ endfunction
       return no + 1
     endfunction
     
-    function Info__Info2 takes integer no,integer parent,integer point,integer point2,real x,real y,string text,real size,string texture,real xx,real yy returns integer
+    function Info___Info2 takes integer no,integer parent,integer point,integer point2,real x,real y,string text,real size,string texture,real xx,real yy returns integer
       set Frame_Info[no]=DzCreateFrameByTagName("BUTTON", "", parent, "ScoreScreenTabButtonTemplate", 0)
       call DzFrameSetPoint(Frame_Info[no], point, parent, point2, x, y)
       call DzFrameSetSize(Frame_Info[no], xx, yy)
@@ -7693,7 +7704,7 @@ endfunction
       endif
       return no + 1
     endfunction
-    function Info__Info3 takes integer no,real size,integer point,integer point2,real x,real y,string text returns nothing
+    function Info___Info3 takes integer no,real size,integer point,integer point2,real x,real y,string text returns nothing
       set Frame_InfoValue[no]=DzCreateFrameByTagName("TEXT", "", Frame_Info[no], "", no)
       if ( size != 0. ) then
         call DzFrameSetFont(Frame_InfoValue[no], "Fonts\\DFHeiMd.ttf", size, 1)
@@ -7701,7 +7712,7 @@ endfunction
       call DzFrameSetPoint(Frame_InfoValue[no], point, Frame_Info[no], point2, x, y)
       call DzFrameSetText(Frame_InfoValue[no], text)
     endfunction
-  function Info__CreateInfo takes nothing returns nothing
+  function Info___CreateInfo takes nothing returns nothing
    local integer i= 1
     set Frame_Info[0]=DzCreateFrameByTagName("BACKDROP", "", DzGetGameUI(), "", 0)
     call DzFrameSetSize(Frame_Info[0], .12, .15)
@@ -7709,39 +7720,39 @@ endfunction
     call DzFrameSetTexture(Frame_Info[0], "Select_SlotBack75.blp", 0)
     call DzFrameSetAlpha(Frame_Info[0], 192)
     
-    set i=Info__Info2(i , Frame_Info[0] , JN_FRAMEPOINT_TOPRIGHT , JN_FRAMEPOINT_TOPRIGHT , - Equip_EDGEGAP * 2 , - Equip_EDGEGAP * 2 , "" , 0. , "Info\\ButtonX.blp" , .01 , .01)
+    set i=Info___Info2(i , Frame_Info[0] , JN_FRAMEPOINT_TOPRIGHT , JN_FRAMEPOINT_TOPRIGHT , - Equip_EDGEGAP * 2 , - Equip_EDGEGAP * 2 , "" , 0. , "Info\\ButtonX.blp" , .01 , .01)
 
-    set i=Info__Info(i , Frame_Info[0] , .012 , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_TOPLEFT , Equip_EDGEGAP2 , - .0125 , "이름: ")
-    set i=Info__Info(i , Frame_Info[0] , .012 , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_TOPLEFT , Equip_EDGEGAP2 , - .025 , "플탐: ")
-    set i=Info__Info(i , Frame_Info[0] , .012 , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_TOPLEFT , Equip_EDGEGAP2 , - .0375 , "직업: ")
-    set i=Info__Info(i , Frame_Info[0] , .012 , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_TOPLEFT , Equip_EDGEGAP2 , - .05 , "단계: ")
-    set i=Info__Info(i , Frame_Info[0] , .012 , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_TOPLEFT , Equip_EDGEGAP2 , - .0625 , "공격력: ")
-    set i=Info__Info(i , Frame_Info[0] , .012 , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_TOPLEFT , Equip_EDGEGAP2 , - .075 , "ＨＰ: ")
-    set i=Info__Info(i , Frame_Info[0] , .012 , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_TOPLEFT , Equip_EDGEGAP2 , - .0875 , "ＭＰ: ")
-    call Info__Info3(i - 7 , .010 , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_RIGHT , 0. , 0. , GetPlayerName(GetLocalPlayer()))
-    call Info__Info3(i - 6 , .010 , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_RIGHT , 0. , 0. , I2S(GetRandomInt(0, 2)) + "d " + I2S(GetRandomInt(0, 23)) + "h " + I2S(GetRandomInt(0, 59)))
-    call Info__Info3(i - 5 , .010 , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_RIGHT , 0. , 0. , "검사")
-    call Info__Info3(i - 4 , .010 , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_RIGHT , 0. , 0. , "삼류")
-    call Info__Info3(i - 3 , .010 , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_RIGHT , 0. , 0. , I2S(GetRandomInt(100, 999)) + "~" + I2S(GetRandomInt(1000, 9999)))
-    call Info__Info3(i - 2 , .010 , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_RIGHT , 0. , 0. , I2S(GetRandomInt(1000, 2000)) + "/" + I2S(GetRandomInt(2000, 9999)))
-    call Info__Info3(i - 1 , .010 , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_RIGHT , 0. , 0. , I2S(GetRandomInt(1000, 2000)) + "/" + I2S(GetRandomInt(2000, 9999)))
+    set i=Info___Info(i , Frame_Info[0] , .012 , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_TOPLEFT , Equip_EDGEGAP2 , - .0125 , "이름: ")
+    set i=Info___Info(i , Frame_Info[0] , .012 , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_TOPLEFT , Equip_EDGEGAP2 , - .025 , "플탐: ")
+    set i=Info___Info(i , Frame_Info[0] , .012 , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_TOPLEFT , Equip_EDGEGAP2 , - .0375 , "직업: ")
+    set i=Info___Info(i , Frame_Info[0] , .012 , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_TOPLEFT , Equip_EDGEGAP2 , - .05 , "단계: ")
+    set i=Info___Info(i , Frame_Info[0] , .012 , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_TOPLEFT , Equip_EDGEGAP2 , - .0625 , "공격력: ")
+    set i=Info___Info(i , Frame_Info[0] , .012 , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_TOPLEFT , Equip_EDGEGAP2 , - .075 , "ＨＰ: ")
+    set i=Info___Info(i , Frame_Info[0] , .012 , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_TOPLEFT , Equip_EDGEGAP2 , - .0875 , "ＭＰ: ")
+    call Info___Info3(i - 7 , .010 , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_RIGHT , 0. , 0. , GetPlayerName(GetLocalPlayer()))
+    call Info___Info3(i - 6 , .010 , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_RIGHT , 0. , 0. , I2S(GetRandomInt(0, 2)) + "d " + I2S(GetRandomInt(0, 23)) + "h " + I2S(GetRandomInt(0, 59)))
+    call Info___Info3(i - 5 , .010 , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_RIGHT , 0. , 0. , "검사")
+    call Info___Info3(i - 4 , .010 , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_RIGHT , 0. , 0. , "삼류")
+    call Info___Info3(i - 3 , .010 , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_RIGHT , 0. , 0. , I2S(GetRandomInt(100, 999)) + "~" + I2S(GetRandomInt(1000, 9999)))
+    call Info___Info3(i - 2 , .010 , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_RIGHT , 0. , 0. , I2S(GetRandomInt(1000, 2000)) + "/" + I2S(GetRandomInt(2000, 9999)))
+    call Info___Info3(i - 1 , .010 , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_RIGHT , 0. , 0. , I2S(GetRandomInt(1000, 2000)) + "/" + I2S(GetRandomInt(2000, 9999)))
     
-    set i=Info__Info(i , Frame_Info[0] , .012 , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_TOPLEFT , Equip_EDGEGAP2 , - .1125 , "파워: ")
-    call Info__Info3(i - 1 , .010 , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_RIGHT , 0. , 0. , "(" + I2S(GetRandomInt(100, 999)) + "+" + I2S(GetRandomInt(10, 99)) + ")")
-    set i=Info__Info2(i , Frame_InfoValue[i - 1] , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_RIGHT , Equip_EDGEGAP , 0. , "" , 0. , "ReplaceableTextures\\PassiveButtons\\PASBTNStatUp.blp" , .011 , .011)
-    set i=Info__Info2(i , Frame_Info[i - 1] , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_RIGHT , Equip_EDGEGAP , 0. , "" , 0. , "Info\\StatUp3-1.blp" , .011 , .011)
+    set i=Info___Info(i , Frame_Info[0] , .012 , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_TOPLEFT , Equip_EDGEGAP2 , - .1125 , "파워: ")
+    call Info___Info3(i - 1 , .010 , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_RIGHT , 0. , 0. , "(" + I2S(GetRandomInt(100, 999)) + "+" + I2S(GetRandomInt(10, 99)) + ")")
+    set i=Info___Info2(i , Frame_InfoValue[i - 1] , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_RIGHT , Equip_EDGEGAP , 0. , "" , 0. , "ReplaceableTextures\\PassiveButtons\\PASBTNStatUp.blp" , .011 , .011)
+    set i=Info___Info2(i , Frame_Info[i - 1] , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_RIGHT , Equip_EDGEGAP , 0. , "" , 0. , "Info\\StatUp3-1.blp" , .011 , .011)
     
-    set i=Info__Info(i , Frame_Info[0] , .012 , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_TOPLEFT , Equip_EDGEGAP2 , - .125 , "집중: ")
-    call Info__Info3(i - 1 , .010 , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_RIGHT , 0. , 0. , "(" + I2S(GetRandomInt(100, 999)) + "+" + I2S(GetRandomInt(10, 99)) + ")")
-    set i=Info__Info2(i , Frame_InfoValue[i - 1] , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_RIGHT , Equip_EDGEGAP , 0. , "" , 0. , "ReplaceableTextures\\PassiveButtons\\PASBTNStatUp.blp" , .011 , .011)
-    set i=Info__Info2(i , Frame_Info[i - 1] , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_RIGHT , Equip_EDGEGAP , 0. , "" , 0. , "Info\\StatUp3-1.blp" , .011 , .011)
+    set i=Info___Info(i , Frame_Info[0] , .012 , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_TOPLEFT , Equip_EDGEGAP2 , - .125 , "집중: ")
+    call Info___Info3(i - 1 , .010 , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_RIGHT , 0. , 0. , "(" + I2S(GetRandomInt(100, 999)) + "+" + I2S(GetRandomInt(10, 99)) + ")")
+    set i=Info___Info2(i , Frame_InfoValue[i - 1] , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_RIGHT , Equip_EDGEGAP , 0. , "" , 0. , "ReplaceableTextures\\PassiveButtons\\PASBTNStatUp.blp" , .011 , .011)
+    set i=Info___Info2(i , Frame_Info[i - 1] , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_RIGHT , Equip_EDGEGAP , 0. , "" , 0. , "Info\\StatUp3-1.blp" , .011 , .011)
 
-    set i=Info__Info(i , Frame_Info[0] , .012 , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_TOPLEFT , Equip_EDGEGAP2 , - .1375 , "활력: ")
-    call Info__Info3(i - 1 , .010 , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_RIGHT , 0. , 0. , "(" + I2S(GetRandomInt(100, 999)) + "+" + I2S(GetRandomInt(10, 99)) + ")")
-    set i=Info__Info2(i , Frame_InfoValue[i - 1] , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_RIGHT , Equip_EDGEGAP , 0. , "" , 0. , "ReplaceableTextures\\PassiveButtons\\PASBTNStatUp.blp" , .011 , .011)
-    set i=Info__Info2(i , Frame_Info[i - 1] , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_RIGHT , Equip_EDGEGAP , 0. , "" , 0. , "Info\\StatUp3-2.blp" , .011 , .011)
+    set i=Info___Info(i , Frame_Info[0] , .012 , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_TOPLEFT , Equip_EDGEGAP2 , - .1375 , "활력: ")
+    call Info___Info3(i - 1 , .010 , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_RIGHT , 0. , 0. , "(" + I2S(GetRandomInt(100, 999)) + "+" + I2S(GetRandomInt(10, 99)) + ")")
+    set i=Info___Info2(i , Frame_InfoValue[i - 1] , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_RIGHT , Equip_EDGEGAP , 0. , "" , 0. , "ReplaceableTextures\\PassiveButtons\\PASBTNStatUp.blp" , .011 , .011)
+    set i=Info___Info2(i , Frame_Info[i - 1] , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_RIGHT , Equip_EDGEGAP , 0. , "" , 0. , "Info\\StatUp3-2.blp" , .011 , .011)
     
-    set i=Info__Info2(i , Frame_Info[0] , JN_FRAMEPOINT_TOPRIGHT , JN_FRAMEPOINT_BOTTOMRIGHT , 0. , - Equip_EDGEGAP , "상세스텟" , .011 , "Select_SlotBack75.blp" , .045 , .015)
+    set i=Info___Info2(i , Frame_Info[0] , JN_FRAMEPOINT_TOPRIGHT , JN_FRAMEPOINT_BOTTOMRIGHT , 0. , - Equip_EDGEGAP , "상세스텟" , .011 , "Select_SlotBack75.blp" , .045 , .015)
     
     set Frame_Info[i]=DzCreateFrameByTagName("BACKDROP", "", Frame_Info[0], "", 0)
     call DzFrameSetSize(Frame_Info[i], .12, .285)
@@ -7749,10 +7760,10 @@ endfunction
     call DzFrameSetTexture(Frame_Info[i], "Equip_Back.blp", 0)
     set i=i + 1
   
-    set i=Info__Info(i , Frame_Info[i - 1] , .010 , JN_FRAMEPOINT_TOPLEFT , JN_FRAMEPOINT_TOPLEFT , Equip_EDGEGAP2 , - .005 , "방어(감소율)")
-    set i=Info__Info(i , Frame_Info[i - 1] , .010 , JN_FRAMEPOINT_TOPLEFT , JN_FRAMEPOINT_BOTTOMLEFT , 0. , - Equip_EDGEGAP , "추가감소/회피")
-    call Info__Info3(i - 2 , .010 , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_LEFT , .055 , 0. , I2S(GetRandomInt(1000, 9999)) + " (" + R2SW(GetRandomReal(10., 99.), 2, 1) + "%)")
-    call Info__Info3(i - 1 , .010 , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_LEFT , .055 , 0. , I2S(GetRandomInt(100, 999)) + " / " + I2S(GetRandomInt(10, 99)) + "%")
+    set i=Info___Info(i , Frame_Info[i - 1] , .010 , JN_FRAMEPOINT_TOPLEFT , JN_FRAMEPOINT_TOPLEFT , Equip_EDGEGAP2 , - .005 , "방어(감소율)")
+    set i=Info___Info(i , Frame_Info[i - 1] , .010 , JN_FRAMEPOINT_TOPLEFT , JN_FRAMEPOINT_BOTTOMLEFT , 0. , - Equip_EDGEGAP , "추가감소/회피")
+    call Info___Info3(i - 2 , .010 , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_LEFT , .055 , 0. , I2S(GetRandomInt(1000, 9999)) + " (" + R2SW(GetRandomReal(10., 99.), 2, 1) + "%)")
+    call Info___Info3(i - 1 , .010 , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_LEFT , .055 , 0. , I2S(GetRandomInt(100, 999)) + " / " + I2S(GetRandomInt(10, 99)) + "%")
     
     
     call SkillTree_MakeLineY(Frame_Info[0] , .055 , - .01 , .265)
@@ -7766,143 +7777,143 @@ endfunction
     call SkillTree_MakeLineX(Frame_Info[0] , .025 , - .2400 , .06)
     //set i = InfoCase(i, Frame_Info[i-2], Frame_InfoValue[i-1], Frame_InfoValue[i-2])
     
-    set i=Info__Info(i , Frame_Info[i - 1] , .010 , JN_FRAMEPOINT_TOPLEFT , JN_FRAMEPOINT_BOTTOMLEFT , 0. , - Equip_EDGEGAP , "마방(감소율)")
-    set i=Info__Info(i , Frame_Info[i - 1] , .010 , JN_FRAMEPOINT_TOPLEFT , JN_FRAMEPOINT_BOTTOMLEFT , 0. , - Equip_EDGEGAP , "추가감소/면역")
-    call Info__Info3(i - 2 , .010 , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_LEFT , .055 , - Equip_EDGEGAP , I2S(GetRandomInt(1000, 9999)) + " (" + R2SW(GetRandomReal(10., 99.), 2, 1) + "%)")
-    call Info__Info3(i - 1 , .010 , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_LEFT , .055 , - Equip_EDGEGAP , I2S(GetRandomInt(100, 999)) + " / " + I2S(GetRandomInt(10, 99)) + "%")
+    set i=Info___Info(i , Frame_Info[i - 1] , .010 , JN_FRAMEPOINT_TOPLEFT , JN_FRAMEPOINT_BOTTOMLEFT , 0. , - Equip_EDGEGAP , "마방(감소율)")
+    set i=Info___Info(i , Frame_Info[i - 1] , .010 , JN_FRAMEPOINT_TOPLEFT , JN_FRAMEPOINT_BOTTOMLEFT , 0. , - Equip_EDGEGAP , "추가감소/면역")
+    call Info___Info3(i - 2 , .010 , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_LEFT , .055 , - Equip_EDGEGAP , I2S(GetRandomInt(1000, 9999)) + " (" + R2SW(GetRandomReal(10., 99.), 2, 1) + "%)")
+    call Info___Info3(i - 1 , .010 , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_LEFT , .055 , - Equip_EDGEGAP , I2S(GetRandomInt(100, 999)) + " / " + I2S(GetRandomInt(10, 99)) + "%")
     //set i = InfoCase(i, Frame_Info[i-2], Frame_InfoValue[i-1], Frame_InfoValue[i-2])
     
-    set i=Info__Info(i , Frame_Info[i - 1] , .010 , JN_FRAMEPOINT_TOPLEFT , JN_FRAMEPOINT_BOTTOMLEFT , 0. , - .005 , "공속")
-    set i=Info__Info(i , Frame_Info[i - 1] , .010 , JN_FRAMEPOINT_TOPLEFT , JN_FRAMEPOINT_BOTTOMLEFT , 0. , - Equip_EDGEGAP , "이속")
-    call Info__Info3(i - 2 , .010 , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_LEFT , .055 , 0. , I2S(GetRandomInt(100, 999)) + "% (" + R2SW(GetRandomReal(0., 9.), 1, 1) + "/s)")
-    call Info__Info3(i - 1 , .010 , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_LEFT , .055 , 0. , I2S(GetRandomInt(100, 999)) + "% (" + R2SW(GetRandomReal(0., 9.), 1, 1) + "/s)")
+    set i=Info___Info(i , Frame_Info[i - 1] , .010 , JN_FRAMEPOINT_TOPLEFT , JN_FRAMEPOINT_BOTTOMLEFT , 0. , - .005 , "공속")
+    set i=Info___Info(i , Frame_Info[i - 1] , .010 , JN_FRAMEPOINT_TOPLEFT , JN_FRAMEPOINT_BOTTOMLEFT , 0. , - Equip_EDGEGAP , "이속")
+    call Info___Info3(i - 2 , .010 , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_LEFT , .055 , 0. , I2S(GetRandomInt(100, 999)) + "% (" + R2SW(GetRandomReal(0., 9.), 1, 1) + "/s)")
+    call Info___Info3(i - 1 , .010 , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_LEFT , .055 , 0. , I2S(GetRandomInt(100, 999)) + "% (" + R2SW(GetRandomReal(0., 9.), 1, 1) + "/s)")
     //set i = InfoCase(i, Frame_Info[i-2], Frame_InfoValue[i-1], 0)
-    set i=Info__Info(i , Frame_Info[i - 1] , .010 , JN_FRAMEPOINT_TOPLEFT , JN_FRAMEPOINT_BOTTOMLEFT , 0. , - Equip_EDGEGAP , "체젠")
-    set i=Info__Info(i , Frame_Info[i - 1] , .010 , JN_FRAMEPOINT_TOPLEFT , JN_FRAMEPOINT_BOTTOMLEFT , 0. , - Equip_EDGEGAP , "마젠")
-    call Info__Info3(i - 2 , .010 , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_LEFT , .055 , 0. , I2S(GetRandomInt(100, 999)) + " +" + R2SW(GetRandomReal(0., 9.), 1, 1) + "%")
-    call Info__Info3(i - 1 , .010 , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_LEFT , .055 , 0. , I2S(GetRandomInt(100, 999)) + " +" + R2SW(GetRandomReal(0., 9.), 1, 1) + "%")
+    set i=Info___Info(i , Frame_Info[i - 1] , .010 , JN_FRAMEPOINT_TOPLEFT , JN_FRAMEPOINT_BOTTOMLEFT , 0. , - Equip_EDGEGAP , "체젠")
+    set i=Info___Info(i , Frame_Info[i - 1] , .010 , JN_FRAMEPOINT_TOPLEFT , JN_FRAMEPOINT_BOTTOMLEFT , 0. , - Equip_EDGEGAP , "마젠")
+    call Info___Info3(i - 2 , .010 , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_LEFT , .055 , 0. , I2S(GetRandomInt(100, 999)) + " +" + R2SW(GetRandomReal(0., 9.), 1, 1) + "%")
+    call Info___Info3(i - 1 , .010 , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_LEFT , .055 , 0. , I2S(GetRandomInt(100, 999)) + " +" + R2SW(GetRandomReal(0., 9.), 1, 1) + "%")
     //set i = InfoCase(i, Frame_Info[i-2], Frame_InfoValue[i-1], 0)
     
-    set i=Info__Info(i , Frame_Info[i - 1] , .010 , JN_FRAMEPOINT_TOPLEFT , JN_FRAMEPOINT_BOTTOMLEFT , 0. , - .005 , "스킬뎀")
-    set i=Info__Info(i , Frame_Info[i - 1] , .010 , JN_FRAMEPOINT_TOPLEFT , JN_FRAMEPOINT_BOTTOMLEFT , 0. , - Equip_EDGEGAP , "스킬쿨")
-    set i=Info__Info(i , Frame_Info[i - 1] , .010 , JN_FRAMEPOINT_TOPLEFT , JN_FRAMEPOINT_BOTTOMLEFT , 0. , - Equip_EDGEGAP , "전체 능력")
-    call Info__Info3(i - 3 , .010 , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_LEFT , .055 , 0. , I2S(GetRandomInt(100, 999)) + "%")
-    call Info__Info3(i - 2 , .010 , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_LEFT , .055 , 0. , "-" + I2S(GetRandomInt(10, 99)) + "%")
-    call Info__Info3(i - 1 , .010 , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_LEFT , .055 , 0. , "+" + I2S(GetRandomInt(1, 9)) + "레벨")
+    set i=Info___Info(i , Frame_Info[i - 1] , .010 , JN_FRAMEPOINT_TOPLEFT , JN_FRAMEPOINT_BOTTOMLEFT , 0. , - .005 , "스킬뎀")
+    set i=Info___Info(i , Frame_Info[i - 1] , .010 , JN_FRAMEPOINT_TOPLEFT , JN_FRAMEPOINT_BOTTOMLEFT , 0. , - Equip_EDGEGAP , "스킬쿨")
+    set i=Info___Info(i , Frame_Info[i - 1] , .010 , JN_FRAMEPOINT_TOPLEFT , JN_FRAMEPOINT_BOTTOMLEFT , 0. , - Equip_EDGEGAP , "전체 능력")
+    call Info___Info3(i - 3 , .010 , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_LEFT , .055 , 0. , I2S(GetRandomInt(100, 999)) + "%")
+    call Info___Info3(i - 2 , .010 , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_LEFT , .055 , 0. , "-" + I2S(GetRandomInt(10, 99)) + "%")
+    call Info___Info3(i - 1 , .010 , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_LEFT , .055 , 0. , "+" + I2S(GetRandomInt(1, 9)) + "레벨")
     //set i = InfoCase(i, Frame_Info[i-3], Frame_InfoValue[i-1], 0)
     
-    set i=Info__Info(i , Frame_Info[i - 1] , .010 , JN_FRAMEPOINT_TOPLEFT , JN_FRAMEPOINT_BOTTOMLEFT , 0. , - Equip_EDGEGAP , "마법뎀")
-    set i=Info__Info(i , Frame_Info[i - 1] , .010 , JN_FRAMEPOINT_TOPLEFT , JN_FRAMEPOINT_BOTTOMLEFT , 0. , - Equip_EDGEGAP , "마법쿨")
-    set i=Info__Info(i , Frame_Info[i - 1] , .010 , JN_FRAMEPOINT_TOPLEFT , JN_FRAMEPOINT_BOTTOMLEFT , 0. , - Equip_EDGEGAP , "캐스팅")
-    call Info__Info3(i - 3 , .010 , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_LEFT , .055 , 0. , I2S(GetRandomInt(100, 999)) + "%")
-    call Info__Info3(i - 2 , .010 , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_LEFT , .055 , 0. , "-" + I2S(GetRandomInt(10, 99)) + "%")
-    call Info__Info3(i - 1 , .010 , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_LEFT , .055 , 0. , I2S(GetRandomInt(100, 999)) + "%")
+    set i=Info___Info(i , Frame_Info[i - 1] , .010 , JN_FRAMEPOINT_TOPLEFT , JN_FRAMEPOINT_BOTTOMLEFT , 0. , - Equip_EDGEGAP , "마법뎀")
+    set i=Info___Info(i , Frame_Info[i - 1] , .010 , JN_FRAMEPOINT_TOPLEFT , JN_FRAMEPOINT_BOTTOMLEFT , 0. , - Equip_EDGEGAP , "마법쿨")
+    set i=Info___Info(i , Frame_Info[i - 1] , .010 , JN_FRAMEPOINT_TOPLEFT , JN_FRAMEPOINT_BOTTOMLEFT , 0. , - Equip_EDGEGAP , "캐스팅")
+    call Info___Info3(i - 3 , .010 , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_LEFT , .055 , 0. , I2S(GetRandomInt(100, 999)) + "%")
+    call Info___Info3(i - 2 , .010 , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_LEFT , .055 , 0. , "-" + I2S(GetRandomInt(10, 99)) + "%")
+    call Info___Info3(i - 1 , .010 , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_LEFT , .055 , 0. , I2S(GetRandomInt(100, 999)) + "%")
     //set i = InfoCase(i, Frame_Info[i-3], Frame_InfoValue[i-1], 0)
     //call DzFrameSetPoint(Frame_Info[i], JN_FRAMEPOINT_RIGHT, Frame_InfoValue[i-2], JN_FRAMEPOINT_RIGHT, 0., 0.)
     
-    set i=Info__Info(i , Frame_Info[i - 1] , .010 , JN_FRAMEPOINT_TOPLEFT , JN_FRAMEPOINT_BOTTOMLEFT , 0. , - .005 , "치명타")
-    set i=Info__Info(i , Frame_Info[i - 1] , .010 , JN_FRAMEPOINT_TOPLEFT , JN_FRAMEPOINT_BOTTOMLEFT , 0. , - Equip_EDGEGAP , "흡혈")
-    set i=Info__Info(i , Frame_Info[i - 1] , .010 , JN_FRAMEPOINT_TOPLEFT , JN_FRAMEPOINT_BOTTOMLEFT , 0. , - Equip_EDGEGAP , "내성")
-    call Info__Info3(i - 3 , .010 , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_LEFT , .055 , 0. , I2S(GetRandomInt(10, 99)) + "% (x" + R2SW(GetRandomReal(1., 3.), 1, 2) + ")")
-    call Info__Info3(i - 2 , .010 , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_LEFT , .055 , 0. , I2S(GetRandomInt(100, 999)) + " +" + R2SW(GetRandomReal(1., 3.), 2, 1) + "%")
-    call Info__Info3(i - 1 , .010 , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_LEFT , .055 , 0. , I2S(GetRandomInt(10, 99)) + "%")
+    set i=Info___Info(i , Frame_Info[i - 1] , .010 , JN_FRAMEPOINT_TOPLEFT , JN_FRAMEPOINT_BOTTOMLEFT , 0. , - .005 , "치명타")
+    set i=Info___Info(i , Frame_Info[i - 1] , .010 , JN_FRAMEPOINT_TOPLEFT , JN_FRAMEPOINT_BOTTOMLEFT , 0. , - Equip_EDGEGAP , "흡혈")
+    set i=Info___Info(i , Frame_Info[i - 1] , .010 , JN_FRAMEPOINT_TOPLEFT , JN_FRAMEPOINT_BOTTOMLEFT , 0. , - Equip_EDGEGAP , "내성")
+    call Info___Info3(i - 3 , .010 , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_LEFT , .055 , 0. , I2S(GetRandomInt(10, 99)) + "% (x" + R2SW(GetRandomReal(1., 3.), 1, 2) + ")")
+    call Info___Info3(i - 2 , .010 , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_LEFT , .055 , 0. , I2S(GetRandomInt(100, 999)) + " +" + R2SW(GetRandomReal(1., 3.), 2, 1) + "%")
+    call Info___Info3(i - 1 , .010 , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_LEFT , .055 , 0. , I2S(GetRandomInt(10, 99)) + "%")
     //set i = InfoCase(i, Frame_Info[i-3], Frame_InfoValue[i-1], Frame_InfoValue[i-3])
-    set i=Info__Info(i , Frame_Info[i - 1] , .010 , JN_FRAMEPOINT_TOPLEFT , JN_FRAMEPOINT_BOTTOMLEFT , 0. , - .005 , "골드/드랍")
-    set i=Info__Info(i , Frame_Info[i - 1] , .010 , JN_FRAMEPOINT_TOPLEFT , JN_FRAMEPOINT_BOTTOMLEFT , 0. , - Equip_EDGEGAP , "발굴/경험치")
-    call Info__Info3(i - 2 , .010 , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_LEFT , .055 , 0. , I2S(GetRandomInt(100, 999)) + "% / " + I2S(GetRandomInt(100, 999)) + "%")
-    call Info__Info3(i - 1 , .010 , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_LEFT , .055 , 0. , I2S(GetRandomInt(100, 999)) + "% / " + I2S(GetRandomInt(100, 999)) + "%")
+    set i=Info___Info(i , Frame_Info[i - 1] , .010 , JN_FRAMEPOINT_TOPLEFT , JN_FRAMEPOINT_BOTTOMLEFT , 0. , - .005 , "골드/드랍")
+    set i=Info___Info(i , Frame_Info[i - 1] , .010 , JN_FRAMEPOINT_TOPLEFT , JN_FRAMEPOINT_BOTTOMLEFT , 0. , - Equip_EDGEGAP , "발굴/경험치")
+    call Info___Info3(i - 2 , .010 , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_LEFT , .055 , 0. , I2S(GetRandomInt(100, 999)) + "% / " + I2S(GetRandomInt(100, 999)) + "%")
+    call Info___Info3(i - 1 , .010 , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_LEFT , .055 , 0. , I2S(GetRandomInt(100, 999)) + "% / " + I2S(GetRandomInt(100, 999)) + "%")
     //set i = InfoCase(i, Frame_Info[i-2], Frame_InfoValue[i-1], 0)
     
-    set i=Info__Info(i , Frame_Info[i - 1] , .012 , JN_FRAMEPOINT_TOPLEFT , JN_FRAMEPOINT_BOTTOMLEFT , 0. , - .005 , "특성1")
-    set i=Info__Info(i , Frame_Info[i - 1] , .012 , JN_FRAMEPOINT_TOPLEFT , JN_FRAMEPOINT_BOTTOMLEFT , 0. , - Equip_EDGEGAP , "특성2")
-    set i=Info__Info(i , Frame_Info[i - 1] , .012 , JN_FRAMEPOINT_TOPLEFT , JN_FRAMEPOINT_BOTTOMLEFT , 0. , - Equip_EDGEGAP , "특성3")
-    call Info__Info3(i - 3 , .010 , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_LEFT , .055 , 0. , "근력Lv00 (공격력)")
-    call Info__Info3(i - 2 , .010 , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_LEFT , .055 , 0. , "없음 (Lv 200)")
-    call Info__Info3(i - 1 , .010 , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_LEFT , .055 , 0. , "없음 (Lv 300)")
+    set i=Info___Info(i , Frame_Info[i - 1] , .012 , JN_FRAMEPOINT_TOPLEFT , JN_FRAMEPOINT_BOTTOMLEFT , 0. , - .005 , "특성1")
+    set i=Info___Info(i , Frame_Info[i - 1] , .012 , JN_FRAMEPOINT_TOPLEFT , JN_FRAMEPOINT_BOTTOMLEFT , 0. , - Equip_EDGEGAP , "특성2")
+    set i=Info___Info(i , Frame_Info[i - 1] , .012 , JN_FRAMEPOINT_TOPLEFT , JN_FRAMEPOINT_BOTTOMLEFT , 0. , - Equip_EDGEGAP , "특성3")
+    call Info___Info3(i - 3 , .010 , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_LEFT , .055 , 0. , "근력Lv00 (공격력)")
+    call Info___Info3(i - 2 , .010 , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_LEFT , .055 , 0. , "없음 (Lv 200)")
+    call Info___Info3(i - 1 , .010 , JN_FRAMEPOINT_LEFT , JN_FRAMEPOINT_LEFT , .055 , 0. , "없음 (Lv 300)")
     //set i = InfoCase(i, Frame_Info[i-3], Frame_InfoValue[i-1], Frame_InfoValue[i-3])
     call DzFrameShow(Frame_Info[0], false)
   endfunction
-  function Info__Init takes nothing returns nothing
-    call Info__CreateInfo()
+  function Info___Init takes nothing returns nothing
+    call Info___CreateInfo()
   endfunction
 // scope Info ends
 // END IMPORT OF System\Frames\Info.j
 // BEGIN IMPORT OF System\Frames\MiniInfo.j
 // scope MiniInfo begins
-      function MiniInfo__MiniInfo takes integer no,string text,string IconTexture,real size returns integer
-        set MiniInfo__Frame_MiniInfo[no]=DzCreateFrameByTagName("BACKDROP", "", MiniInfo__Frame_MiniInfoBackdrop[1], "", 0)
-        call DzFrameSetAbsolutePoint(MiniInfo__Frame_MiniInfo[no], JN_FRAMEPOINT_TOPLEFT, 0.68, 0.145 - ( no * 0.015 ))
-        call DzFrameSetSize(MiniInfo__Frame_MiniInfo[no], 0.013, 0.013)
-        call DzFrameSetTexture(MiniInfo__Frame_MiniInfo[no], IconTexture, 0)
+      function MiniInfo___MiniInfo takes integer no,string text,string IconTexture,real size returns integer
+        set MiniInfo___Frame_MiniInfo[no]=DzCreateFrameByTagName("BACKDROP", "", MiniInfo___Frame_MiniInfoBackdrop[1], "", 0)
+        call DzFrameSetAbsolutePoint(MiniInfo___Frame_MiniInfo[no], JN_FRAMEPOINT_TOPLEFT, 0.68, 0.145 - ( no * 0.015 ))
+        call DzFrameSetSize(MiniInfo___Frame_MiniInfo[no], 0.013, 0.013)
+        call DzFrameSetTexture(MiniInfo___Frame_MiniInfo[no], IconTexture, 0)
         
-        set Frame_MiniInfoText[no]=DzCreateFrameByTagName("TEXT", "", MiniInfo__Frame_MiniInfoBackdrop[1], "", no)
+        set Frame_MiniInfoText[no]=DzCreateFrameByTagName("TEXT", "", MiniInfo___Frame_MiniInfoBackdrop[1], "", no)
         call DzFrameSetFont(Frame_MiniInfoText[no], "Fonts\\DFHeiMd.ttf", size, 1)
-        call DzFrameSetPoint(Frame_MiniInfoText[no], JN_FRAMEPOINT_LEFT, MiniInfo__Frame_MiniInfo[no], JN_FRAMEPOINT_RIGHT, .002, 0.)
+        call DzFrameSetPoint(Frame_MiniInfoText[no], JN_FRAMEPOINT_LEFT, MiniInfo___Frame_MiniInfo[no], JN_FRAMEPOINT_RIGHT, .002, 0.)
         call DzFrameSetText(Frame_MiniInfoText[no], text)
         return no + 1
       endfunction
-      function MiniInfo__MiniInfo2 takes integer no,string text returns nothing
-        set Frame_MiniInfoText2[no]=DzCreateFrameByTagName("TEXT", "", MiniInfo__Frame_MiniInfoBackdrop[0], "", no)
+      function MiniInfo___MiniInfo2 takes integer no,string text returns nothing
+        set Frame_MiniInfoText2[no]=DzCreateFrameByTagName("TEXT", "", MiniInfo___Frame_MiniInfoBackdrop[0], "", no)
         call DzFrameSetFont(Frame_MiniInfoText2[no], "Fonts\\DFHeiMd.ttf", 0.011, 1)
-        call DzFrameSetPoint(Frame_MiniInfoText2[no], JN_FRAMEPOINT_LEFT, MiniInfo__Frame_MiniInfo[no], JN_FRAMEPOINT_LEFT, .06, 0.)
+        call DzFrameSetPoint(Frame_MiniInfoText2[no], JN_FRAMEPOINT_LEFT, MiniInfo___Frame_MiniInfo[no], JN_FRAMEPOINT_LEFT, .06, 0.)
         call DzFrameSetText(Frame_MiniInfoText2[no], text)
       endfunction
-      function MiniInfo__MiniInfo3 takes integer no,integer no2,string text,string IconTexture returns integer
-        set MiniInfo__Frame_MiniInfo[no]=DzCreateFrameByTagName("BACKDROP", "", MiniInfo__Frame_MiniInfoBackdrop[1], "", 0)
-        call DzFrameSetAbsolutePoint(MiniInfo__Frame_MiniInfo[no], JN_FRAMEPOINT_TOPLEFT, 0.68 + 0.04 * no2, 0.055)
-        call DzFrameSetSize(MiniInfo__Frame_MiniInfo[no], 0.013, 0.013)
-        call DzFrameSetTexture(MiniInfo__Frame_MiniInfo[no], IconTexture, 0)
+      function MiniInfo___MiniInfo3 takes integer no,integer no2,string text,string IconTexture returns integer
+        set MiniInfo___Frame_MiniInfo[no]=DzCreateFrameByTagName("BACKDROP", "", MiniInfo___Frame_MiniInfoBackdrop[1], "", 0)
+        call DzFrameSetAbsolutePoint(MiniInfo___Frame_MiniInfo[no], JN_FRAMEPOINT_TOPLEFT, 0.68 + 0.04 * no2, 0.055)
+        call DzFrameSetSize(MiniInfo___Frame_MiniInfo[no], 0.013, 0.013)
+        call DzFrameSetTexture(MiniInfo___Frame_MiniInfo[no], IconTexture, 0)
         
-        set Frame_MiniInfoText[no]=DzCreateFrameByTagName("TEXT", "", MiniInfo__Frame_MiniInfoBackdrop[1], "", no)
-        call DzFrameSetPoint(Frame_MiniInfoText[no], JN_FRAMEPOINT_LEFT, MiniInfo__Frame_MiniInfo[no], JN_FRAMEPOINT_RIGHT, 0., 0.)
+        set Frame_MiniInfoText[no]=DzCreateFrameByTagName("TEXT", "", MiniInfo___Frame_MiniInfoBackdrop[1], "", no)
+        call DzFrameSetPoint(Frame_MiniInfoText[no], JN_FRAMEPOINT_LEFT, MiniInfo___Frame_MiniInfo[no], JN_FRAMEPOINT_RIGHT, 0., 0.)
         call DzFrameSetFont(Frame_MiniInfoText[no], "Fonts\\DFHeiMd.ttf", 0.010, 1)
         call DzFrameSetText(Frame_MiniInfoText[no], text)
         
         return no + 1
       endfunction
-    function MiniInfo__CreateMiniInfo takes nothing returns nothing
+    function MiniInfo___CreateMiniInfo takes nothing returns nothing
      local integer i= 0
       //미니정보창 배경
-      set MiniInfo__Frame_MiniInfoBackdrop[0]=DzCreateFrameByTagName("BACKDROP", "", Frame_Sub, "QuestButtonBaseTemplate", 0)
-      call DzFrameSetAbsolutePoint(MiniInfo__Frame_MiniInfoBackdrop[0], JN_FRAMEPOINT_BOTTOMLEFT, 0.67, 0.03)
-      call DzFrameSetSize(MiniInfo__Frame_MiniInfoBackdrop[0], 0.13, 0.12)
-      call DzFrameSetAlpha(MiniInfo__Frame_MiniInfoBackdrop[0], 128)
+      set MiniInfo___Frame_MiniInfoBackdrop[0]=DzCreateFrameByTagName("BACKDROP", "", Frame_Sub, "QuestButtonBaseTemplate", 0)
+      call DzFrameSetAbsolutePoint(MiniInfo___Frame_MiniInfoBackdrop[0], JN_FRAMEPOINT_BOTTOMLEFT, 0.67, 0.03)
+      call DzFrameSetSize(MiniInfo___Frame_MiniInfoBackdrop[0], 0.13, 0.12)
+      call DzFrameSetAlpha(MiniInfo___Frame_MiniInfoBackdrop[0], 128)
       
       
-      set MiniInfo__Frame_MiniInfoBackdrop[1]=DzCreateFrameByTagName("BACKDROP", "", MiniInfo__Frame_MiniInfoBackdrop[0], "QuestButtonBaseTemplate", 0)
-      call DzFrameSetPoint(MiniInfo__Frame_MiniInfoBackdrop[1], JN_FRAMEPOINT_CENTER, MiniInfo__Frame_MiniInfoBackdrop[0], JN_FRAMEPOINT_TOP, 0., - 0.005)
-      call DzFrameSetSize(MiniInfo__Frame_MiniInfoBackdrop[1], 0.07, 0.03)
-      call DzFrameSetAlpha(MiniInfo__Frame_MiniInfoBackdrop[0], 196)
+      set MiniInfo___Frame_MiniInfoBackdrop[1]=DzCreateFrameByTagName("BACKDROP", "", MiniInfo___Frame_MiniInfoBackdrop[0], "QuestButtonBaseTemplate", 0)
+      call DzFrameSetPoint(MiniInfo___Frame_MiniInfoBackdrop[1], JN_FRAMEPOINT_CENTER, MiniInfo___Frame_MiniInfoBackdrop[0], JN_FRAMEPOINT_TOP, 0., - 0.005)
+      call DzFrameSetSize(MiniInfo___Frame_MiniInfoBackdrop[1], 0.07, 0.03)
+      call DzFrameSetAlpha(MiniInfo___Frame_MiniInfoBackdrop[0], 196)
       
       
-      set MiniInfo__Frame_MiniInfo[0]=DzCreateFrameByTagName("TEXT", "", MiniInfo__Frame_MiniInfoBackdrop[1], "", 0)
-      call DzFrameSetPoint(MiniInfo__Frame_MiniInfo[0], JN_FRAMEPOINT_CENTER, MiniInfo__Frame_MiniInfoBackdrop[1], JN_FRAMEPOINT_CENTER, 0., 0.)
-      call DzFrameSetText(MiniInfo__Frame_MiniInfo[0], "몬스터 이름")
+      set MiniInfo___Frame_MiniInfo[0]=DzCreateFrameByTagName("TEXT", "", MiniInfo___Frame_MiniInfoBackdrop[1], "", 0)
+      call DzFrameSetPoint(MiniInfo___Frame_MiniInfo[0], JN_FRAMEPOINT_CENTER, MiniInfo___Frame_MiniInfoBackdrop[1], JN_FRAMEPOINT_CENTER, 0., 0.)
+      call DzFrameSetText(MiniInfo___Frame_MiniInfo[0], "몬스터 이름")
       
       //call MiniInfo
       set i=i + 1
-      set i=MiniInfo__MiniInfo(i , "체력" , "ReplaceableTextures\\PassiveButtons\\PASBTNStatUp.blp" , .013)
-      call MiniInfo__MiniInfo2(i - 1 , I2S(GetRandomInt(1000, 2000)) + "/" + I2S(GetRandomInt(2000, 9999)))
+      set i=MiniInfo___MiniInfo(i , "체력" , "ReplaceableTextures\\PassiveButtons\\PASBTNStatUp.blp" , .013)
+      call MiniInfo___MiniInfo2(i - 1 , I2S(GetRandomInt(1000, 2000)) + "/" + I2S(GetRandomInt(2000, 9999)))
       
-      set i=MiniInfo__MiniInfo(i , "데미지" , "ReplaceableTextures\\PassiveButtons\\PASBTNStatUp.blp" , .013)
-      call MiniInfo__MiniInfo2(i - 1 , I2S(GetRandomInt(1000, 9999)) + " x" + R2SW(GetRandomReal(.5, 5.), 1, 2))
+      set i=MiniInfo___MiniInfo(i , "데미지" , "ReplaceableTextures\\PassiveButtons\\PASBTNStatUp.blp" , .013)
+      call MiniInfo___MiniInfo2(i - 1 , I2S(GetRandomInt(1000, 9999)) + " x" + R2SW(GetRandomReal(.5, 5.), 1, 2))
       
-      set i=MiniInfo__MiniInfo(i , "방어/마방" , "ReplaceableTextures\\PassiveButtons\\PASBTNStatUp.blp" , .013)
-      call MiniInfo__MiniInfo2(i - 1 , I2S(GetRandomInt(100, 999)) + " / " + I2S(GetRandomInt(100, 999)))
+      set i=MiniInfo___MiniInfo(i , "방어/마방" , "ReplaceableTextures\\PassiveButtons\\PASBTNStatUp.blp" , .013)
+      call MiniInfo___MiniInfo2(i - 1 , I2S(GetRandomInt(100, 999)) + " / " + I2S(GetRandomInt(100, 999)))
       
-      set i=MiniInfo__MiniInfo(i , "스킬/마법뎀" , "ReplaceableTextures\\PassiveButtons\\PASBTNStatUp.blp" , .011)
-      call MiniInfo__MiniInfo2(i - 1 , I2S(GetRandomInt(100, 999)) + "% / " + I2S(GetRandomInt(100, 999)) + "%")
+      set i=MiniInfo___MiniInfo(i , "스킬/마법뎀" , "ReplaceableTextures\\PassiveButtons\\PASBTNStatUp.blp" , .011)
+      call MiniInfo___MiniInfo2(i - 1 , I2S(GetRandomInt(100, 999)) + "% / " + I2S(GetRandomInt(100, 999)) + "%")
       
-      set i=MiniInfo__MiniInfo(i , "치명타" , "ReplaceableTextures\\PassiveButtons\\PASBTNStatUp.blp" , .013)
-      call MiniInfo__MiniInfo2(i - 1 , I2S(GetRandomInt(10, 99)) + "% (x" + R2SW(GetRandomReal(1., 3.), 1, 2) + ")")
+      set i=MiniInfo___MiniInfo(i , "치명타" , "ReplaceableTextures\\PassiveButtons\\PASBTNStatUp.blp" , .013)
+      call MiniInfo___MiniInfo2(i - 1 , I2S(GetRandomInt(10, 99)) + "% (x" + R2SW(GetRandomReal(1., 3.), 1, 2) + ")")
       
-      set i=MiniInfo__MiniInfo3(i , 0 , "체력많음" , "ReplaceableTextures\\CommandButtons\\BTNSkillz.tga")
-      set i=MiniInfo__MiniInfo3(i , 1 , "강한공격" , "ReplaceableTextures\\CommandButtons\\BTNGauntletsOfOgrePower.blp")
-      set i=MiniInfo__MiniInfo3(i , 2 , "마법면역" , "ReplaceableTextures\\PassiveButtons\\PASBTNGenericSpellImmunity.blp")
+      set i=MiniInfo___MiniInfo3(i , 0 , "체력많음" , "ReplaceableTextures\\CommandButtons\\BTNSkillz.tga")
+      set i=MiniInfo___MiniInfo3(i , 1 , "강한공격" , "ReplaceableTextures\\CommandButtons\\BTNGauntletsOfOgrePower.blp")
+      set i=MiniInfo___MiniInfo3(i , 2 , "마법면역" , "ReplaceableTextures\\PassiveButtons\\PASBTNGenericSpellImmunity.blp")
       call DzFrameShow(Frame_Sub, false)
     endfunction
-    function MiniInfo__Init takes nothing returns nothing
-      call MiniInfo__CreateMiniInfo()
+    function MiniInfo___Init takes nothing returns nothing
+      call MiniInfo___CreateMiniInfo()
     endfunction
 // scope MiniInfo ends
 // END IMPORT OF System\Frames\MiniInfo.j
@@ -7920,39 +7931,37 @@ endfunction
     endif
   endfunction 
 
-  function JNObjectCharacterCreateSync takes nothing returns nothing
-    set GetServerPlayer=DzGetTriggerSyncPlayer()
-    set NowSelect[GetPlayerId(DzGetTriggerSyncPlayer()) + 1]=JNStringSplit(DzGetTriggerSyncData(), "'", 0)
-    call TriggerExecute(gg_trg_Load_End)
+  function JNObjectGui___SendSyncedData takes nothing returns nothing
+    call sc___prototype67_execute(1,DzGetTriggerSyncPlayer() , S2I(JNStringSplit(DzGetTriggerSyncData(), "'", 0)))
   endfunction 
 
   // JNObjectCharacterLoad 
-  function JNObjectCharacterGetIntegerSync takes nothing returns nothing
+  function SyncCuttedInteger takes nothing returns nothing
     local string str= DzGetTriggerSyncData()
     call SaveInteger(hash, GetPlayerId(DzGetTriggerSyncPlayer()) + 1, StringHash(JNStringSplit(str, "!", 0)), S2I(JNStringSplit(str, "!", 1)))
      call BJDebugMsg("load/save i - " + I2S(GetPlayerId(DzGetTriggerSyncPlayer()) + 1) + "/" + JNStringSplit(str, "!", 0) + "/" + JNStringSplit(str, "!", 1))
   endfunction 
 
-  function JNObjectCharacterGetStringSync takes nothing returns nothing
+  function SyncCuttedString takes nothing returns nothing
     local string str= DzGetTriggerSyncData()
     call SaveStr(hash, GetPlayerId(DzGetTriggerSyncPlayer()) + 1, StringHash(JNStringSplit(str, "!", 0)), JNStringSplit(str, "!", 1))
      call BJDebugMsg("load/save s - " + I2S(GetPlayerId(DzGetTriggerSyncPlayer()) + 1) + "/" + JNStringSplit(str, "!", 0) + "/" + JNStringSplit(str, "!", 1))
   endfunction 
 
-  function JNObjectGui__init takes nothing returns nothing
+  function JNObjectGui___init takes nothing returns nothing
     local trigger trig= CreateTrigger()
     local integer i= 0
 
     call DzTriggerRegisterSyncData(trig, "JNEndSync", false)
-    call TriggerAddAction(trig, function JNObjectCharacterCreateSync)
+    call TriggerAddAction(trig, function JNObjectGui___SendSyncedData)
 
     set trig=CreateTrigger()
     call DzTriggerRegisterSyncData(trig, "JNIntSync", false)
-    call TriggerAddAction(trig, function JNObjectCharacterGetIntegerSync)
+    call TriggerAddAction(trig, function SyncCuttedInteger)
 
     set trig=CreateTrigger()
     call DzTriggerRegisterSyncData(trig, "JNStrSync", false)
-    call TriggerAddAction(trig, function JNObjectCharacterGetStringSync)
+    call TriggerAddAction(trig, function SyncCuttedString)
 
     loop
       exitwhen i == bj_MAX_PLAYERS
@@ -7978,7 +7987,7 @@ endfunction
       if ( GetLocalPlayer() == p ) then
         loop
           set Time_Original[loopA]=S2I(JNStringSplit(JNStringSplit(Data, I2S(loopA) + "_", 1), "'", 0))
-          exitwhen loopA >= Save_MAX_CHARACTER
+          exitwhen loopA >= MAX_SAVE_CHARACTER
           set loopA=loopA + 1
         endloop
         set Time_Original[0]=Time_Original[1] + Time_Original[2] + Time_Original[3] + Time_Original[4] + Time_Original[5] + Time_Original[6]
@@ -7999,15 +8008,13 @@ endfunction
     local string Data= LoadStr(hash, GetPlayerId(p) + 1, StringHash("Data"))
     local integer P= GetPlayerId(p) + 1
     call Time_Load(p , Slot)
-    if ( Data == null ) or ( Data == "" ) then
-      set Data=Select_DEFAULT_DATA
-    endif
+    set Data=IfEmpty(Data , s__Select_DEFAULT_DATA)
     
     set Data=I2S(Slot) + "'" + I2S(Time_Original[0]) + JNStringSub(Data, JNStringPos(Data, "/"), JNStringLength(Data))
     
     return JNStringReplace(Data, JNStringSplit(Data, "/", Slot), I2S(Slot) + "_" + I2S(Time_Original[Slot]) + "'" + I2S(GetHeroLevel(udg_hero[P])) + "." + I2S(GetHeroXP(udg_hero[P])))
   endfunction
-  function Time__Init takes nothing returns nothing
+  function Time___Init takes nothing returns nothing
     set Time_StopWatch=JNStopwatchCreate()
     call JNStopwatchStart(Time_StopWatch)
   endfunction
@@ -8016,7 +8023,7 @@ endfunction
 // END IMPORT OF System\Server\Time.j
 // BEGIN IMPORT OF System\Server\LoadAuto.j
 // scope LoadAuto begins
-  function LoadAuto__msgCheck2 takes player p,integer i returns boolean
+  function LoadAuto___msgCheck2 takes player p,integer i returns boolean
     if ( i == 0 ) then
       return true
     elseif ( i == - 1 ) then
@@ -8029,7 +8036,7 @@ endfunction
     endif
    return false
   endfunction
-  function LoadAuto__RemoveItemData takes item t returns boolean
+  function LoadAuto___RemoveItemData takes item t returns boolean
     if ( t != null ) then
       //call RemoveSavedString(hash, GetHandleId(t), StringHash("ItemAddData"))
       call FlushChildHashtable(hash, GetHandleId(t))
@@ -8039,10 +8046,10 @@ endfunction
     return false
   endfunction
   function ResetEquip takes integer P returns nothing
-   local integer i= Save_MAX_EQUIP
+   local integer i= MAX_SAVE_EQUIP
     
     loop
-      if ( LoadAuto__RemoveItemData(LoadItemHandle(hash, P, StringHash("ItemData" + I2S(- i)))) ) then
+      if ( LoadAuto___RemoveItemData(LoadItemHandle(hash, P, StringHash("ItemData" + I2S(- i)))) ) then
         if ( GetLocalPlayer() == Player(P - 1) ) then
           call DzFrameSetTexture(Equip_EquipBackdrop[- i], Equip_I2BE(- i), 0)
         endif
@@ -8052,11 +8059,11 @@ endfunction
     endloop
   endfunction
   function ResetInven takes integer P returns nothing
-   local integer i= Save_MAX_INVENTORY
+   local integer i= MAX_SAVE_INVENTORY
    
     call SaveInteger(hash, P, StringHash("ItemData0"), 1)
     loop
-      if ( LoadAuto__RemoveItemData(LoadItemHandle(hash, P, StringHash("ItemData" + I2S(i)))) ) then
+      if ( LoadAuto___RemoveItemData(LoadItemHandle(hash, P, StringHash("ItemData" + I2S(i)))) ) then
         if ( GetLocalPlayer() == Player(P - 1) ) then
           call DzFrameSetTexture(Frame_InvenButtonsBackDrop[i], "Inven_Empty.blp", 0)
         endif
@@ -8079,7 +8086,7 @@ endfunction
     //call Msg(p, "Loading..." + I2S(P))
     call ResetLoad(P)
     if ( GetLocalPlayer() == p ) then
-      if ( LoadAuto__msgCheck2(p , JNObjectCharacterInit(JN_MAPID, Name[P], JN_SECRETKEY, "Save")) ) then
+      if ( LoadAuto___msgCheck2(p , JNObjectCharacterInit(JN_MAPID, Name[P], JN_SECRETKEY, "Save")) ) then
         set s=JNObjectCharacterGetString(Name[P], "Data")
         if ( IsEmpty(s) ) then
           //call Msg(p, I2S(P) + ", 새로 시작")
@@ -8097,7 +8104,7 @@ endfunction
                 call DzSyncData("JNStrSync", I2S(loopB) + "e" + I2S(loopA) + "!" + s)
               endif
             
-              exitwhen loopA >= Save_MAX_EQUIP
+              exitwhen loopA >= MAX_SAVE_EQUIP
               set loopA=loopA + 1
             endloop
             
@@ -8105,7 +8112,7 @@ endfunction
             if ( s != "" ) then
               call DzSyncData("JNStrSync", I2S(loopB) + "_Name[P]" + "!" + s)
             endif
-            exitwhen loopB >= Save_MAX_CHARACTER
+            exitwhen loopB >= MAX_SAVE_CHARACTER
             set loopB=loopB + 1
           endloop
           set loopA=1
@@ -8114,7 +8121,7 @@ endfunction
             if ( s != "" ) then
               call DzSyncData("JNStrSync", "i" + I2S(loopA) + "!" + s)
             endif
-            exitwhen loopA >= Save_MAX_INVENTORY
+            exitwhen loopA >= MAX_SAVE_INVENTORY
             set loopA=loopA + 1
           endloop
         endif
@@ -8122,28 +8129,28 @@ endfunction
       call DzSyncData("JNEndSync", "_")
     endif
   endfunction
-  function LoadAuto__DataSync takes nothing returns nothing
-    call Select_GetSaveData(DzGetTriggerSyncPlayer() , DzGetTriggerSyncData())
+  function LoadAuto___DataSync takes nothing returns nothing
+    call s__Select_GetSaveData(DzGetTriggerSyncPlayer() , DzGetTriggerSyncData())
   endfunction
-  function LoadAuto__AfterLoad takes nothing returns nothing
+  function LoadAuto___AfterLoad takes nothing returns nothing
     if ( udg_hero[GetPlayerId(GetTriggerPlayer()) + 1] != null ) then
         call Msg(GetTriggerPlayer() , "이미 선택 혹은 로드하였습니다.")
       else
         call Loading(GetTriggerPlayer())
       endif
   endfunction
-  function LoadAuto__LoadingAll takes nothing returns nothing
-    if ( GetPlayerSlotState(Player(LoadAuto__int)) == PLAYER_SLOT_STATE_PLAYING ) and ( GetPlayerController(Player(LoadAuto__int)) == MAP_CONTROL_USER ) then
-      call Loading(Player(LoadAuto__int))
-    elseif ( LoadAuto__int >= bj_MAX_PLAYERS - 1 ) then
+  function LoadAuto___LoadingAll takes nothing returns nothing
+    if ( GetPlayerSlotState(Player(LoadAuto___int)) == PLAYER_SLOT_STATE_PLAYING ) and ( GetPlayerController(Player(LoadAuto___int)) == MAP_CONTROL_USER ) then
+      call Loading(Player(LoadAuto___int))
+    elseif ( LoadAuto___int >= bj_MAX_PLAYERS - 1 ) then
       call DestroyTimer(GetExpiredTimer())
     endif
-    set LoadAuto__int=LoadAuto__int + 1
+    set LoadAuto___int=LoadAuto___int + 1
   endfunction
-  function LoadAuto__Init takes nothing returns nothing
+  function LoadAuto___Init takes nothing returns nothing
     local integer loopA= bj_MAX_PLAYERS - 1
     local trigger trig= CreateTrigger()
-    call TimerStart(CreateTimer(), .15, true, function LoadAuto__LoadingAll)
+    call TimerStart(CreateTimer(), .15, true, function LoadAuto___LoadingAll)
     loop
       if ( GetPlayerSlotState(Player(loopA)) == PLAYER_SLOT_STATE_PLAYING ) and ( GetPlayerController(Player(loopA)) == MAP_CONTROL_USER ) then
         call TriggerRegisterPlayerChatEvent(trig, Player(loopA), "-load", false)
@@ -8152,11 +8159,11 @@ endfunction
       exitwhen loopA == 0
       set loopA=loopA - 1
     endloop
-    call TriggerAddAction(trig, function LoadAuto__AfterLoad)
+    call TriggerAddAction(trig, function LoadAuto___AfterLoad)
     
     set trig=CreateTrigger()
     call DzTriggerRegisterSyncData(trig, "SaveData", false)
-    call TriggerAddAction(trig, function LoadAuto__DataSync)
+    call TriggerAddAction(trig, function LoadAuto___DataSync)
     set trig=null
   endfunction
 // scope LoadAuto ends
@@ -8164,37 +8171,37 @@ endfunction
 // BEGIN IMPORT OF System\Server\Save.j
 // scope Save begins
     
-  function Save__GetEquipData takes integer P returns nothing
+  function Save___LoadEquipData takes integer P returns nothing
     local integer loopA= 1
     local item t= null
     loop
       set t=LoadItemHandle(hash, P, StringHash("ItemData" + I2S(- loopA)))
       if ( t != null ) then
-        set Save__EquipData[loopA]=I2S(GetItemTypeId(t)) + "/" + LoadStr(hash, GetHandleId(t), StringHash("ItemAddData"))
+        set Save___EquipData[loopA]=I2S(GetItemTypeId(t)) + "/" + LoadStr(hash, GetHandleId(t), StringHash("ItemAddData"))
       else
-        set Save__EquipData[loopA]=""
+        set Save___EquipData[loopA]=""
       endif
-      exitwhen MAX_EQUIP - 1 <= loopA
+      exitwhen MAX_SAVE_EQUIP - 1 <= loopA
       set loopA=loopA + 1
     endloop
     set t=null
   endfunction 
-  function Save__GetInvenData takes integer P returns nothing
+  function Save___LoadInvenData takes integer P returns nothing
     local integer loopA= 1
     local item t= null
     loop
       set t=LoadItemHandle(hash, P, StringHash("ItemData" + I2S(loopA)))
       if ( t != null ) then
-        set Save__InvenData[loopA]=I2S(GetItemTypeId(t)) + "/" + LoadStr(hash, GetHandleId(t), StringHash("ItemAddData"))
+        set Save___InvenData[loopA]=I2S(GetItemTypeId(t)) + "/" + LoadStr(hash, GetHandleId(t), StringHash("ItemAddData"))
       else
-        set Save__InvenData[loopA]=""
+        set Save___InvenData[loopA]=""
       endif
-      exitwhen MAX_INVENTORY - 1 <= loopA
+      exitwhen MAX_SAVE_INVENTORY - 1 <= loopA
       set loopA=loopA + 1
     endloop
     set t=null
   endfunction 
-  function Save__msgCheck takes player p,string s returns nothing
+  function Save___msgCheck takes player p,string s returns nothing
     if ( s != "저장이 성공적으로 되었습니다." ) then
       call DisplayTimedTextToPlayer(p, 0., 0., 8, "데이터 저장 |cffff0000실패: |r" + s)
     endif
@@ -8209,7 +8216,7 @@ endfunction
       set loopA=1
       loop
         if ( loopB == Slot ) then
-          set s=Save__EquipData[loopA]
+          set s=Save___EquipData[loopA]
         else
           set s=LoadStr(hash, P, StringHash(I2S(loopB) + "e" + I2S(loopA)))
         endif
@@ -8219,10 +8226,10 @@ endfunction
           call JNObjectCharacterSetString(name, I2S(loopB) + "e" + I2S(loopA), s)
         endif
           
-        exitwhen MAX_EQUIP - 1 <= loopA
+        exitwhen MAX_SAVE_EQUIP - 1 <= loopA
         set loopA=loopA + 1
       endloop
-      exitwhen loopB >= MAX_CHARACTER
+      exitwhen MAX_SAVE_CHARACTER - 1 <= loopB
       set loopB=loopB + 1
     endloop
   endfunction 
@@ -8233,8 +8240,8 @@ endfunction
     local unit u= udg_hero[P]
     local boolean SpecialName= GetHeroProperNameIndex(u) > 0
     local integer loopA= 1
-    call Save__GetEquipData(P)
-    call Save__GetInvenData(P)
+    call Save___LoadEquipData(P)
+    call Save___LoadInvenData(P)
     if ( GetLocalPlayer() == p ) then
       //if ( first ) then 
       //call JNObjectCharacterResetCharacter(name) 
@@ -8252,22 +8259,22 @@ endfunction
       call EquipItemValue(Name[P] , P , Slot)
       set loopA=1
       loop
-        if ( Save__InvenData[loopA] != "" ) then
-          call JNObjectCharacterSetString(Name[P], "i" + I2S(loopA), Save__InvenData[loopA])
+        if ( Save___InvenData[loopA] != "" ) then
+          call JNObjectCharacterSetString(Name[P], "i" + I2S(loopA), Save___InvenData[loopA])
         else
           call JNObjectCharacterRemoveField(Name[P], "i" + I2S(loopA))
         endif
-        exitwhen MAX_INVENTORY - 1 <= loopA
+        exitwhen MAX_SAVE_INVENTORY - 1 <= loopA
         set loopA=loopA + 1
       endloop
-      call Save__msgCheck(p , JNObjectCharacterSave(JN_MAPID, Name[P], JN_SECRETKEY, "Save"))
+      call Save___msgCheck(p , JNObjectCharacterSave(JN_MAPID, Name[P], JN_SECRETKEY, "Save"))
     endif
     set u=null
   endfunction 
-  function Save__SaveAction takes nothing returns nothing
+  function Save___SaveAction takes nothing returns nothing
     call Save_Saving(GetTriggerPlayer() , NowSelect[GetPlayerId(GetTriggerPlayer()) + 1])
   endfunction 
-  function Save__Init takes nothing returns nothing
+  function Save___Init takes nothing returns nothing
     local integer i= 0
     local trigger trg= CreateTrigger()
     loop
@@ -8275,14 +8282,18 @@ endfunction
       exitwhen i >= bj_MAX_PLAYERS - 1
       set i=i + 1
     endloop
-    call TriggerAddAction(trg, function Save__SaveAction)
+    call TriggerAddAction(trg, function Save___SaveAction)
     set trg=null
   endfunction 
 // scope Save ends
 // END IMPORT OF System\Server\Save.j
 // BEGIN IMPORT OF System\Server\Load.j
 // scope Load begins
-  function Load_ExcuteAction takes player target,integer data returns nothing
+//#   static if false then
+//#     function Load_ExecuteAction takes player target, integer data returns nothing
+//#     endfunction
+//#   endif
+  function Load_ExecuteAction takes player target,integer data returns nothing
     set GetServerPlayer=target
     set NowSelect[GetPlayerId(target) + 1]=data
     call TriggerExecute(s__Load_triggerLoad)
@@ -8290,7 +8301,7 @@ endfunction
 
 
     function s__Load_GetEquipData takes integer P,integer Slot returns nothing
-      local integer loopA= Save_MAX_EQUIP - 1
+      local integer loopA= MAX_SAVE_EQUIP - 1
       loop
         set s__s__Load_EquipData2[loopA]= LoadStringBJ(StringHash(I2S(Slot) + "e" + I2S(loopA)), P, hash)
 
@@ -8298,8 +8309,8 @@ endfunction
         set loopA=loopA + 1
       endloop
     endfunction
-    function s__Load_SetEquipData takes integer P returns nothing
-      local integer loopA= Save_MAX_EQUIP - 1
+    function s__Load_SetEquipData takes integer currentPlayerId returns nothing
+      local integer loopA= MAX_SAVE_EQUIP - 1
       local string tempString= ""
       loop
         set tempString=s__s__Load_EquipData2[loopA]
@@ -8307,7 +8318,7 @@ endfunction
           set bj_lastCreatedItem=CreateItem(S2I(JNStringSplit(tempString, "/", 0)), 0, 0)
           call SaveItemHandle(hash, currentPlayerId, StringHash("ItemData" + I2S(- loopA)), bj_lastCreatedItem)
           call SaveStr(hash, GetHandleId(bj_lastCreatedItem), StringHash("ItemAddData"), JNStringSplit(tempString, "/", 1))
-          if ( Player(P - 1) == GetLocalPlayer() ) then
+          if ( Player(currentPlayerId - 1) == GetLocalPlayer() ) then
             call DzFrameSetTexture(Equip_EquipBackdrop[loopA], EXGetItemDataString(GetItemTypeId(bj_lastCreatedItem), 1), 0)
           endif
           call Equip_Process(EXGetItemDataString(GetItemTypeId(bj_lastCreatedItem), 3) + "'" + LoadStr(hash, GetHandleId(bj_lastCreatedItem), StringHash("ItemAddData")) , currentPlayerId)
@@ -8318,8 +8329,8 @@ endfunction
         set loopA=loopA - 1
       endloop
     endfunction
-    function s__Load_SetInvenData takes integer P,boolean removeIfEmpty returns nothing
-      local integer loopA= MAX_INVENTORY - 1
+    function s__Load_SetInvenData takes integer currentPlayerId,boolean removeIfEmpty returns nothing
+      local integer loopA= MAX_SAVE_INVENTORY - 1
       local string tempString= ""
       loop
         set tempString=s__s__Load_InvenData2[loopA]
@@ -8328,7 +8339,7 @@ endfunction
           
           call SaveItemHandle(hash, currentPlayerId, StringHash("ItemData" + I2S(loopA)), bj_lastCreatedItem)
           call SaveStr(hash, GetHandleId(bj_lastCreatedItem), StringHash("ItemAddData"), JNStringSplit(tempString, "/", 1))
-          if ( Player(P - 1) == GetLocalPlayer() ) then
+          if ( Player(currentPlayerId - 1) == GetLocalPlayer() ) then
             call DzFrameSetTexture(Frame_InvenButtonsBackDrop[loopA], EXGetItemDataString(GetItemTypeId(bj_lastCreatedItem), 1), 0)
           endif
           call SetItemPosition(bj_lastCreatedItem, StoreX, StoreY)
@@ -8338,7 +8349,7 @@ endfunction
           call RemoveItem(bj_lastCreatedItem)
           call RemoveSavedHandle(hash, currentPlayerId, StringHash("ItemData" + I2S(loopA)))
           
-          if ( Player(P - 1) == GetLocalPlayer() ) then
+          if ( Player(currentPlayerId - 1) == GetLocalPlayer() ) then
             call DzFrameSetTexture(Frame_InvenButtonsBackDrop[loopA], "Inven_Empty.blp", 0)
           endif
         endif
@@ -8348,7 +8359,7 @@ endfunction
       endloop
     endfunction
     function s__Load_GetInvenData takes integer P returns nothing
-      local integer loopA= MAX_INVENTORY - 1
+      local integer loopA= MAX_SAVE_INVENTORY - 1
       loop
         set s__s__Load_InvenData2[loopA]= LoadStringBJ(StringHash("i" + I2S(loopA)), P, hash)
 
@@ -8363,10 +8374,10 @@ endfunction
       local string tempString= ""
       
       if ( 0 < JN_LoaderNow ) then
-        call Msg(GetServerPlayer , "로드 |cffff0000실패! |r - 현재 " + GetPlayerName(Player(JN_LoaderNow - 1)) + "|r님이 로드하고 있습니다. 잠시 후 다시 시도하세요.")
+        call Msg(GetServerPlayer , "로드 |cffff0000실패!|r - 현재 " + GetPlayerName(Player(JN_LoaderNow - 1)) + "|r님이 로드하고 있습니다. 잠시 후 다시 시도하세요.")
         return
       elseif ( 0 == receivedData ) then
-        call Msg(GetServerPlayer , "로드 |cffff0000실패! |r - 데이터가 비어 있습니다. 리로드 혹은 캐릭터 선택을 진행해주세요.")
+        call Msg(GetServerPlayer , "로드 |cff00ff00가능!|r - 로드할 준비가 되었습니다.")
         return
       elseif ( IsEmpty(s__CharacterData_SelectDatas[s__CharacterData__staticgetindex(receivedData)]) ) then
         call Msg(GetServerPlayer , "로드 |cffff0000실패!|r - 캐릭터가 정보가 비어 있습니다. 다시 선택해주세요.")
@@ -8383,7 +8394,7 @@ endfunction
       set tempInteger=S2I(JNStringSplit(JNStringSplit(tempString, "'", 1), ".", 0))
 
       // 생성
-      set udg_hero[currentPlayerId]=CreateUnit(GetServerPlayer, s__CharacterData_UnitCode[s__CharacterData__staticgetindex(receivedData)], Select_startCreateX, Select_startCreateY, bj_UNIT_FACING)
+      set udg_hero[currentPlayerId]=CreateUnit(GetServerPlayer, s__CharacterData_UnitCode[s__CharacterData__staticgetindex(receivedData)], s__Select_startCreateX, s__Select_startCreateY, bj_UNIT_FACING)
 
       // 신규, 이어하기 알림
       if ( 0 == tempInteger ) then
@@ -8391,13 +8402,13 @@ endfunction
       else
         call MsgAll(GetPlayerName(GetServerPlayer) + "님이 Lv." + I2S(tempInteger) + " " + JNStringSplit(s__CharacterData_SelectDatas[s__CharacterData__staticgetindex(receivedData)], "'", 0) + "(으)로 모험을 이어갑니다.")
         call SetHeroLevel(udg_hero[currentPlayerId], tempInteger, false)
-        call SetHeroXP(udg_hero[currentPlayerId], S2I(JNStringSplit(JNStringSplit(Data, "'", 1), ".", 1)), false)
+        call SetHeroXP(udg_hero[currentPlayerId], S2I(JNStringSplit(JNStringSplit(tempString, "'", 1), ".", 1)), false)
       endif
 
       // 집 이름 설정
-      set HouseName=GetObjectName('nefm')
+      set tempString=GetObjectName('nefm')
       if ( GetServerPlayer == GetLocalPlayer() ) then
-        set HouseName=GetPlayerName(GetServerPlayer) + "가문의 " + GetObjectName(s__CharacterData_UnitCode[s__CharacterData__staticgetindex(receivedData)]) + "네 집"
+        set tempString=GetPlayerName(GetServerPlayer) + "가문의 " + GetObjectName(s__CharacterData_UnitCode[s__CharacterData__staticgetindex(receivedData)]) + "네 집"
       endif
 
       // 영웅 이름 설정
@@ -8467,17 +8478,17 @@ endfunction
     call Preload("    	\n Sub Code:\n    	    	-load2 " + Code2 + "	    ")
     call Preload("    	" + Code3 + "	    ")
   endfunction 
-  function FSE_MakeFile takes player p,string Name,boolean o returns nothing
+function FSE_MakeFile takes player p,string l__Name,boolean o returns nothing
     local string savecode= "아이디: fooiff|직업: 성직자(순수) - Lv99|체마: 38,118/34,357|경험치: 43.9％|소유금: 720,000 Gold|포인트: 477 Point|시간: 3시간 39분|버전: New 1.12Cv|※내용은 지워도 상관없습니다. 코드만 남기세요."
     if ( GetLocalPlayer() == p ) then
       call PreloadGenClear()
       call PreloadGenStart()
       call FSE_MakingFile(savecode)
       call FSE_MakingFile2("abcde" , "efghi" , FCut(savecode , 9))
-      call PreloadGenEnd("OMOSave\\" + Name + ".txt")
+      call PreloadGenEnd("OMOSave\\" + l__Name + ".txt")
     endif
     if ( o ) then
-      call BJDebugMsg("파일 만들기 |cff00ff00성공! |r - |cffffdc3c워크래프트 폴더 - CustomMapData - OMOSave 폴더의 \n          |r" + Name + ".txt|cffffdc3c으로 저장되었습니다.")
+      call BJDebugMsg("파일 만들기 |cff00ff00성공! |r - |cffffdc3c워크래프트 폴더 - CustomMapData - OMOSave 폴더의 \n          |r" + l__Name + ".txt|cffffdc3c으로 저장되었습니다.")
     endif
     set p=null
   endfunction 
@@ -8819,7 +8830,7 @@ endfunction
 // BEGIN IMPORT OF System\Enchant.j
 // scope Enchant begins
 
-  function Enchant___Trig_Enchant_Actions takes nothing returns nothing
+  function Enchant__Trig_Enchant_Actions takes nothing returns nothing
     local integer P= GetPlayerId(GetOwningPlayer(GetTriggerUnit())) + 1
     local item t= LoadItemHandle(hash, P, StringHash("ItemData1"))
     local texttag tt
@@ -8871,19 +8882,19 @@ endfunction
       call BJDebugMsg("인벤토리 1번칸에 강화할 아이템을 놓아주세요.")
     endif
   endfunction 
-  function Enchant___Init takes nothing returns nothing
+  function Enchant__Init takes nothing returns nothing
     call CreateTextTagLocBJ("강화", Location(- 1024, - 1216), 30., 15., GetRandomReal(0., 100.), GetRandomReal(0., 100.), GetRandomReal(0., 100.), 0.)
-    call TriggerRegisterEnterRectSimple(Enchant___triggerEnchant, gg_rct_Env_Moonlight)
-    call TriggerAddAction(Enchant___triggerEnchant, function Enchant___Trig_Enchant_Actions)
+    call TriggerRegisterEnterRectSimple(Enchant__triggerEnchant, gg_rct_Env_Moonlight)
+    call TriggerAddAction(Enchant__triggerEnchant, function Enchant__Trig_Enchant_Actions)
   endfunction 
 // scope Enchant ends
 // END IMPORT OF System\Enchant.j
 // BEGIN IMPORT OF System\Exit.j
 // scope Exit begins
-  function Exit___Trig_Exit_Actions takes nothing returns nothing
+  function Exit__Trig_Exit_Actions takes nothing returns nothing
     call MsgAll(GetPlayerName(GetTriggerPlayer()) + " 나감")
   endfunction 
-  function Exit___Init takes nothing returns nothing
+  function Exit__Init takes nothing returns nothing
     call TriggerRegisterPlayerEventLeave(exitTrigger, Player(0))
     call TriggerRegisterPlayerEventLeave(exitTrigger, Player(1))
     call TriggerRegisterPlayerEventLeave(exitTrigger, Player(2))
@@ -8896,13 +8907,13 @@ endfunction
     call TriggerRegisterPlayerEventLeave(exitTrigger, Player(9))
     call TriggerRegisterPlayerEventLeave(exitTrigger, Player(10))
     call TriggerRegisterPlayerEventLeave(exitTrigger, Player(11))
-    call TriggerAddAction(exitTrigger, function Exit___Trig_Exit_Actions)
+    call TriggerAddAction(exitTrigger, function Exit__Trig_Exit_Actions)
   endfunction 
 // scope Exit ends
 // END IMPORT OF System\Exit.j
 // BEGIN IMPORT OF Tests\TestScope.j
 // scope TestScope begins
-  function TestScope___DelayedInit3 takes nothing returns nothing
+  function TestScope__DelayedInit3 takes nothing returns nothing
     local unit tempUnit= udg_hero[1]
     if ( tempUnit == null ) then
       call MsgAll("Hotkey null")
@@ -8914,7 +8925,7 @@ endfunction
 
   endfunction 
   
-  function TestScope___Init takes nothing returns nothing
+  function TestScope__Init takes nothing returns nothing
     call MsgAll("Start")
     // call TimerStart(CreateTimer(), 1., true, function DelayedInit3) 
   endfunction 
@@ -8940,7 +8951,7 @@ endfunction
   endfunction 
   
   //=========================================================================== 
-  function AddReg___Init takes nothing returns nothing
+  function AddReg__Init takes nothing returns nothing
     set gg_trg_test_1_add=CreateTrigger()
     call TriggerRegisterPlayerChatEvent(gg_trg_test_1_add, Player(0), "-등록", true)
     call TriggerRegisterPlayerChatEvent(gg_trg_test_1_add, Player(1), "-등록", true)
@@ -8954,25 +8965,25 @@ endfunction
   
   function GetShowGridLine takes integer size returns nothing
       if size == 0 then
-          call DzFrameShow(DisplayGrid___GridLine_Small, false)
-          call DzFrameShow(DisplayGrid___GridLine_Medium, false)
-          call DzFrameShow(DisplayGrid___GridLine_Large, false)
+          call DzFrameShow(DisplayGrid__GridLine_Small, false)
+          call DzFrameShow(DisplayGrid__GridLine_Medium, false)
+          call DzFrameShow(DisplayGrid__GridLine_Large, false)
       elseif size == 1 then
-          call DzFrameShow(DisplayGrid___GridLine_Small, false)
-          call DzFrameShow(DisplayGrid___GridLine_Medium, false)
-          call DzFrameShow(DisplayGrid___GridLine_Large, true)
+          call DzFrameShow(DisplayGrid__GridLine_Small, false)
+          call DzFrameShow(DisplayGrid__GridLine_Medium, false)
+          call DzFrameShow(DisplayGrid__GridLine_Large, true)
       elseif size == 2 then
-          call DzFrameShow(DisplayGrid___GridLine_Small, false)
-          call DzFrameShow(DisplayGrid___GridLine_Medium, true)
-          call DzFrameShow(DisplayGrid___GridLine_Large, true)
+          call DzFrameShow(DisplayGrid__GridLine_Small, false)
+          call DzFrameShow(DisplayGrid__GridLine_Medium, true)
+          call DzFrameShow(DisplayGrid__GridLine_Large, true)
       elseif size == 3 then
-          call DzFrameShow(DisplayGrid___GridLine_Small, true)
-          call DzFrameShow(DisplayGrid___GridLine_Medium, true)
-          call DzFrameShow(DisplayGrid___GridLine_Large, true)
+          call DzFrameShow(DisplayGrid__GridLine_Small, true)
+          call DzFrameShow(DisplayGrid__GridLine_Medium, true)
+          call DzFrameShow(DisplayGrid__GridLine_Large, true)
       endif
   endfunction
   
-  function DisplayGrid___Main takes nothing returns nothing
+  function DisplayGrid__Main takes nothing returns nothing
       local integer targetFrame
       local integer frame
       local integer x= 1
@@ -8980,28 +8991,28 @@ endfunction
       local string texture
       
       call DestroyTrigger(GetTriggeringTrigger())
-      set DisplayGrid___GridLine=DzCreateFrameByTagName("FRAME", "", DzGetGameUI(), "", 0)
-      set DisplayGrid___GridLine_Small=DzCreateFrameByTagName("FRAME", "", DisplayGrid___GridLine, "", 0)
-      set DisplayGrid___GridLine_Medium=DzCreateFrameByTagName("FRAME", "", DisplayGrid___GridLine, "", 0)
-      set DisplayGrid___GridLine_Large=DzCreateFrameByTagName("FRAME", "", DisplayGrid___GridLine, "", 0)
-      call DzFrameShow(DisplayGrid___GridLine_Small, false)
-      call DzFrameShow(DisplayGrid___GridLine_Medium, false)
-      call DzFrameShow(DisplayGrid___GridLine_Large, false)
+      set DisplayGrid__GridLine=DzCreateFrameByTagName("FRAME", "", DzGetGameUI(), "", 0)
+      set DisplayGrid__GridLine_Small=DzCreateFrameByTagName("FRAME", "", DisplayGrid__GridLine, "", 0)
+      set DisplayGrid__GridLine_Medium=DzCreateFrameByTagName("FRAME", "", DisplayGrid__GridLine, "", 0)
+      set DisplayGrid__GridLine_Large=DzCreateFrameByTagName("FRAME", "", DisplayGrid__GridLine, "", 0)
+      call DzFrameShow(DisplayGrid__GridLine_Small, false)
+      call DzFrameShow(DisplayGrid__GridLine_Medium, false)
+      call DzFrameShow(DisplayGrid__GridLine_Large, false)
       
       //알파 값
-      call DzFrameSetAlpha(DisplayGrid___GridLine, DisplayGrid___GRID_ALPHA)
+      call DzFrameSetAlpha(DisplayGrid__GridLine, DisplayGrid__GRID_ALPHA)
       
       //x축 격자 생성
       loop
           exitwhen x > 79
           if ModuloInteger(x, 10) == 0 then
-              set targetFrame=DisplayGrid___GridLine_Large
+              set targetFrame=DisplayGrid__GridLine_Large
               set texture="ReplaceableTextures\\TeamColor\\TeamColor04.blp"
           elseif ModuloInteger(x, 5) == 0 then
-              set targetFrame=DisplayGrid___GridLine_Medium
+              set targetFrame=DisplayGrid__GridLine_Medium
               set texture="Textures\\white.blp"
           else
-              set targetFrame=DisplayGrid___GridLine_Small
+              set targetFrame=DisplayGrid__GridLine_Small
               set texture="ReplaceableTextures\\TeamColor\\TeamColor08.blp"
           endif
           set frame=DzCreateFrameByTagName("BACKDROP", "", targetFrame, "", 0)
@@ -9014,7 +9025,7 @@ endfunction
       set x=1
       loop
           exitwhen x > 8
-          set frame=DzCreateFrameByTagName("TEXT", "", DisplayGrid___GridLine_Large, "", 0)
+          set frame=DzCreateFrameByTagName("TEXT", "", DisplayGrid__GridLine_Large, "", 0)
           call DzFrameSetText(frame, "0." + I2S(x))
           call DzFrameSetAbsolutePoint(frame, JN_FRAMEPOINT_BOTTOMRIGHT, x * 0.1, 0.0)
           set x=x + 1
@@ -9024,13 +9035,13 @@ endfunction
       loop
           exitwhen y > 59
           if ModuloInteger(y, 10) == 0 then
-              set targetFrame=DisplayGrid___GridLine_Large
+              set targetFrame=DisplayGrid__GridLine_Large
               set texture="ReplaceableTextures\\TeamColor\\TeamColor04.blp"
           elseif ModuloInteger(y, 5) == 0 then
-              set targetFrame=DisplayGrid___GridLine_Medium
+              set targetFrame=DisplayGrid__GridLine_Medium
               set texture="Textures\\white.blp"
           else
-              set targetFrame=DisplayGrid___GridLine_Small
+              set targetFrame=DisplayGrid__GridLine_Small
               set texture="ReplaceableTextures\\TeamColor\\TeamColor08.blp"
           endif
           set frame=DzCreateFrameByTagName("BACKDROP", "", targetFrame, "", 0)
@@ -9044,19 +9055,19 @@ endfunction
       set y=0
       loop
           exitwhen y > 8
-          set frame=DzCreateFrameByTagName("TEXT", "", DisplayGrid___GridLine_Large, "", 0)
+          set frame=DzCreateFrameByTagName("TEXT", "", DisplayGrid__GridLine_Large, "", 0)
           call DzFrameSetText(frame, "0." + I2S(y))
           call DzFrameSetAbsolutePoint(frame, JN_FRAMEPOINT_TOPLEFT, 0.0, y * 0.1)
           set y=y + 1
       endloop
       
       //(0.0) 격자 수치 표기
-      set frame=DzCreateFrameByTagName("TEXT", "", DisplayGrid___GridLine_Large, "", 0)
+      set frame=DzCreateFrameByTagName("TEXT", "", DisplayGrid__GridLine_Large, "", 0)
       call DzFrameSetText(frame, "0.0")
       call DzFrameSetAbsolutePoint(frame, JN_FRAMEPOINT_BOTTOMLEFT, 0.0, 0.0)
   endfunction
   
-  function DisplayGrid___Command takes nothing returns nothing
+  function DisplayGrid__Command takes nothing returns nothing
       local string chat= StringCase(GetEventPlayerChatString(), false)
       if chat == "-g0" then
           call GetShowGridLine(0)
@@ -9069,11 +9080,11 @@ endfunction
       endif
   endfunction
 
-  function DisplayGrid___Init takes nothing returns nothing
+  function DisplayGrid__Init takes nothing returns nothing
       local trigger t= CreateTrigger()
       local integer i= 0
       call TriggerRegisterTimerEvent(t, 0.00, false)
-      call TriggerAddAction(t, function DisplayGrid___Main)
+      call TriggerAddAction(t, function DisplayGrid__Main)
       
       set t=CreateTrigger()
       loop
@@ -9081,7 +9092,7 @@ endfunction
           call TriggerRegisterPlayerChatEvent(t, Player(i), "-g", false)
           set i=i + 1
       endloop
-      call TriggerAddAction(t, function DisplayGrid___Command)
+      call TriggerAddAction(t, function DisplayGrid__Command)
       
       set t=null
   endfunction
@@ -9170,7 +9181,7 @@ endfunction
     endif
   endfunction 
 
-  function ItemRandomEnchanter___ItemProcess takes integer i returns string
+  function ItemRandomEnchanter__ItemProcess takes integer i returns string
     if ( i == 4 or i == 5 ) then
       return I2O(i) + "_" + I2S(GetRandomInt(50, 200))
     elseif ( i == 11 or i == 13 or i == 16 or i == 17 or i == 21 or i == 22 or i == 23 or i == 24 or i == 26 or i == 27 or i == 28 ) then
@@ -9181,16 +9192,16 @@ endfunction
       return I2O(i) + "_" + I2S(GetRandomInt(1, 10))
     endif
   endfunction 
-  function ItemRandomEnchanter___AddRandom takes integer i returns string
-    return I2O(31 + i) + "_" + ItemRandomEnchanter___ItemProcess(GetRandomInt(1, 28))
+  function ItemRandomEnchanter__AddRandom takes integer i returns string
+    return I2O(31 + i) + "_" + ItemRandomEnchanter__ItemProcess(GetRandomInt(1, 28))
   endfunction 
-  function ItemRandomEnchanter___AddOption takes integer i returns string
-    return I2O(28 + i) + "_" + ItemRandomEnchanter___ItemProcess(GetRandomInt(1, 28))
+  function ItemRandomEnchanter__AddOption takes integer i returns string
+    return I2O(28 + i) + "_" + ItemRandomEnchanter__ItemProcess(GetRandomInt(1, 28))
   endfunction 
-  function ItemRandomEnchanter___AddSoket takes integer i returns string
-    return I2O(34 + i) + "_" + ItemRandomEnchanter___ItemProcess(GetRandomInt(1, 28))
+  function ItemRandomEnchanter__AddSoket takes integer i returns string
+    return I2O(34 + i) + "_" + ItemRandomEnchanter__ItemProcess(GetRandomInt(1, 28))
   endfunction 
-  function ItemRandomEnchanter___Trig_ItemGet_Actions takes nothing returns nothing
+  function ItemRandomEnchanter__Trig_ItemGet_Actions takes nothing returns nothing
     local integer P= GetPlayerId(GetOwningPlayer(GetTriggerUnit())) + 1
     local integer Slot= Equip_GetEmpty(P)
     local integer rand1= 1
@@ -9200,41 +9211,41 @@ endfunction
         set rand3="tt_" + JNServerTime("MMdd_HHmm") + "-" + GetPlayerName(GetOwningPlayer(GetTriggerUnit()))
         if ( GetRandomReal(0., 100.) <= 20. ) then
           set rand3=rand3 + "'ra_매직"
-          set rand3=rand3 + "'" + ItemRandomEnchanter___AddOption(1)
+          set rand3=rand3 + "'" + ItemRandomEnchanter__AddOption(1)
         elseif ( GetRandomReal(0., 100.) <= 20. ) then
           set rand3=rand3 + "'ra_레어"
-          set rand3=rand3 + "'" + ItemRandomEnchanter___AddOption(1)
-          set rand3=rand3 + "'" + ItemRandomEnchanter___AddRandom(1)
+          set rand3=rand3 + "'" + ItemRandomEnchanter__AddOption(1)
+          set rand3=rand3 + "'" + ItemRandomEnchanter__AddRandom(1)
           call Bufftt(CreateTextTagUnitBJ("레어", GetTriggerUnit(), 30., 9., GetRandomReal(0., 100.), GetRandomReal(0., 100.), GetRandomReal(0., 100.), 0))
         elseif ( GetRandomReal(0., 100.) <= 20. ) then
           set rand3=rand3 + "'ra_유니크"
-          set rand3=rand3 + "'" + ItemRandomEnchanter___AddOption(1)
-          set rand3=rand3 + "'" + ItemRandomEnchanter___AddRandom(1)
-          set rand3=rand3 + "'" + ItemRandomEnchanter___AddRandom(2)
+          set rand3=rand3 + "'" + ItemRandomEnchanter__AddOption(1)
+          set rand3=rand3 + "'" + ItemRandomEnchanter__AddRandom(1)
+          set rand3=rand3 + "'" + ItemRandomEnchanter__AddRandom(2)
           call Bufftt(CreateTextTagUnitBJ("유니크!", GetTriggerUnit(), 30., 10., GetRandomReal(0., 100.), GetRandomReal(0., 100.), GetRandomReal(0., 100.), 0))
         elseif ( GetRandomReal(0., 100.) <= 20. ) then
           set rand3=rand3 + "'ra_에픽"
-          set rand3=rand3 + "'" + ItemRandomEnchanter___AddOption(1)
-          set rand3=rand3 + "'" + ItemRandomEnchanter___AddRandom(1)
-          set rand3=rand3 + "'" + ItemRandomEnchanter___AddRandom(2)
-          set rand3=rand3 + "'" + ItemRandomEnchanter___AddRandom(3)
+          set rand3=rand3 + "'" + ItemRandomEnchanter__AddOption(1)
+          set rand3=rand3 + "'" + ItemRandomEnchanter__AddRandom(1)
+          set rand3=rand3 + "'" + ItemRandomEnchanter__AddRandom(2)
+          set rand3=rand3 + "'" + ItemRandomEnchanter__AddRandom(3)
           call Bufftt(CreateTextTagUnitBJ("에픽!!", GetTriggerUnit(), 30., 11., GetRandomReal(0., 100.), GetRandomReal(0., 100.), GetRandomReal(0., 100.), 0))
         elseif ( GetRandomReal(0., 100.) <= 20. ) then
           set rand3=rand3 + "'ra_히든"
-          set rand3=rand3 + "'" + ItemRandomEnchanter___AddOption(1)
-          set rand3=rand3 + "'" + ItemRandomEnchanter___AddOption(2)
-          set rand3=rand3 + "'" + ItemRandomEnchanter___AddRandom(1)
-          set rand3=rand3 + "'" + ItemRandomEnchanter___AddRandom(2)
-          set rand3=rand3 + "'" + ItemRandomEnchanter___AddRandom(3)
+          set rand3=rand3 + "'" + ItemRandomEnchanter__AddOption(1)
+          set rand3=rand3 + "'" + ItemRandomEnchanter__AddOption(2)
+          set rand3=rand3 + "'" + ItemRandomEnchanter__AddRandom(1)
+          set rand3=rand3 + "'" + ItemRandomEnchanter__AddRandom(2)
+          set rand3=rand3 + "'" + ItemRandomEnchanter__AddRandom(3)
           call Bufftt(CreateTextTagUnitBJ("히든!!!", GetTriggerUnit(), 30., 12., GetRandomReal(0., 100.), GetRandomReal(0., 100.), GetRandomReal(0., 100.), 0))
         elseif ( GetRandomReal(0., 100.) <= 20. ) then
           set rand3=rand3 + "'ra_등급외"
-          set rand3=rand3 + "'" + ItemRandomEnchanter___AddOption(1)
-          set rand3=rand3 + "'" + ItemRandomEnchanter___AddOption(2)
-          set rand3=rand3 + "'" + ItemRandomEnchanter___AddOption(3)
-          set rand3=rand3 + "'" + ItemRandomEnchanter___AddRandom(1)
-          set rand3=rand3 + "'" + ItemRandomEnchanter___AddRandom(2)
-          set rand3=rand3 + "'" + ItemRandomEnchanter___AddRandom(3)
+          set rand3=rand3 + "'" + ItemRandomEnchanter__AddOption(1)
+          set rand3=rand3 + "'" + ItemRandomEnchanter__AddOption(2)
+          set rand3=rand3 + "'" + ItemRandomEnchanter__AddOption(3)
+          set rand3=rand3 + "'" + ItemRandomEnchanter__AddRandom(1)
+          set rand3=rand3 + "'" + ItemRandomEnchanter__AddRandom(2)
+          set rand3=rand3 + "'" + ItemRandomEnchanter__AddRandom(3)
           call Bufftt(CreateTextTagUnitBJ("등급 외!!!!", GetTriggerUnit(), 30., 13., GetRandomReal(0., 100.), GetRandomReal(0., 100.), GetRandomReal(0., 100.), 0))
         else
           set rand3=rand3 + "'ra_노말"
@@ -9248,23 +9259,23 @@ endfunction
         
         if ( GetRandomReal(0., 100.) <= 10. ) then
           set rand3=rand3 + "'qo_S"
-          set rand3=rand3 + "'" + ItemRandomEnchanter___AddSoket(1)
-          set rand3=rand3 + "'" + ItemRandomEnchanter___AddSoket(2)
-          set rand3=rand3 + "'" + ItemRandomEnchanter___AddSoket(3)
+          set rand3=rand3 + "'" + ItemRandomEnchanter__AddSoket(1)
+          set rand3=rand3 + "'" + ItemRandomEnchanter__AddSoket(2)
+          set rand3=rand3 + "'" + ItemRandomEnchanter__AddSoket(3)
         elseif ( GetRandomReal(0., 90.) <= 10. ) then
           set rand3=rand3 + "'qo_A+"
-          set rand3=rand3 + "'" + ItemRandomEnchanter___AddSoket(1)
-          set rand3=rand3 + "'" + ItemRandomEnchanter___AddSoket(2)
+          set rand3=rand3 + "'" + ItemRandomEnchanter__AddSoket(1)
+          set rand3=rand3 + "'" + ItemRandomEnchanter__AddSoket(2)
         elseif ( GetRandomReal(0., 80.) <= 10. ) then
           set rand3=rand3 + "'qo_A"
-          set rand3=rand3 + "'" + ItemRandomEnchanter___AddSoket(1)
-          set rand3=rand3 + "'" + ItemRandomEnchanter___AddSoket(2)
+          set rand3=rand3 + "'" + ItemRandomEnchanter__AddSoket(1)
+          set rand3=rand3 + "'" + ItemRandomEnchanter__AddSoket(2)
         elseif ( GetRandomReal(0., 70.) <= 10. ) then
           set rand3=rand3 + "'qo_B+"
-          set rand3=rand3 + "'" + ItemRandomEnchanter___AddSoket(1)
+          set rand3=rand3 + "'" + ItemRandomEnchanter__AddSoket(1)
         elseif ( GetRandomReal(0., 60.) <= 10. ) then
           set rand3=rand3 + "'qo_B"
-          set rand3=rand3 + "'" + ItemRandomEnchanter___AddSoket(1)
+          set rand3=rand3 + "'" + ItemRandomEnchanter__AddSoket(1)
         elseif ( GetRandomReal(0., 50.) <= 10. ) then
           set rand3=rand3 + "'qo_C+"
         elseif ( GetRandomReal(0., 40.) <= 10. ) then
@@ -9290,15 +9301,15 @@ endfunction
       if ( GetLocalPlayer() == Player(P - 1) ) then
         call DzFrameSetTexture(Frame_InvenButtonsBackDrop[Slot], EXGetItemDataString(GetItemTypeId(GetManipulatedItem()), 1), 0)
       endif
-      call SetItemPosition(GetManipulatedItem(), XX, YY)
+      call SetItemPosition(GetManipulatedItem(), StoreX, StoreY)
     else
       call RemoveItem(GetManipulatedItem())
     endif
   endfunction 
 
-  function ItemRandomEnchanter___Init takes nothing returns nothing
-    call TriggerRegisterAnyUnitEventBJ(ItemRandomEnchanter___triggerItemRandomEnchanter, EVENT_PLAYER_UNIT_PICKUP_ITEM)
-    call TriggerAddAction(ItemRandomEnchanter___triggerItemRandomEnchanter, function ItemRandomEnchanter___Trig_ItemGet_Actions)
+  function ItemRandomEnchanter__Init takes nothing returns nothing
+    call TriggerRegisterAnyUnitEventBJ(ItemRandomEnchanter__triggerItemRandomEnchanter, EVENT_PLAYER_UNIT_PICKUP_ITEM)
+    call TriggerAddAction(ItemRandomEnchanter__triggerItemRandomEnchanter, function ItemRandomEnchanter__Trig_ItemGet_Actions)
   endfunction 
 // scope ItemRandomEnchanter ends
 // END IMPORT OF Tests\ItemRandomEnchanter.j
@@ -9308,7 +9319,7 @@ endfunction
   // //! import "JAPIUnitState.j" 
   
 
-  constant function UnitNameChange___I2U takes integer i returns unit
+  constant function UnitNameChange__I2U takes integer i returns unit
   if ( i == 1 ) then
     return gg_unit_H000_0011
   elseif ( i == 2 ) then
@@ -9325,7 +9336,7 @@ endfunction
     return null
   endif
 endfunction 
-function UnitNameChange___Action takes nothing returns nothing
+function UnitNameChange__Action takes nothing returns nothing
   local integer P= GetPlayerId(GetTriggerPlayer()) + 1
   local unit u= udg_hero[P]
   if ( StringLength(SubString(GetEventPlayerChatString(), 8, 99)) < 4 ) then
@@ -9338,7 +9349,7 @@ function UnitNameChange___Action takes nothing returns nothing
   //call Print("now: No." + I2S(GetHeroProperNameIndex(u)) + "/" + GetHeroProperName(u)) 
   set u=null
 endfunction 
-function UnitNameChange___Init takes nothing returns nothing
+function UnitNameChange__Init takes nothing returns nothing
   local trigger trig= CreateTrigger()
   local integer loopA= bj_MAX_PLAYERS - 1
   loop
@@ -9346,13 +9357,13 @@ function UnitNameChange___Init takes nothing returns nothing
     exitwhen loopA <= 0
     set loopA=loopA - 1
   endloop
-  call TriggerAddAction(trig, function UnitNameChange___Action)
+  call TriggerAddAction(trig, function UnitNameChange__Action)
   set trig=null
       
   
   set loopA=1
   loop
-    call SetHeroProperNameIndex(UnitNameChange___I2U(loopA) , 0)
+    call SetHeroProperNameIndex(UnitNameChange__I2U(loopA) , 0)
     exitwhen loopA >= 6
     set loopA=loopA + 1
   endloop
@@ -9411,36 +9422,36 @@ function main takes nothing returns nothing
     call CreateAllUnits()
     call InitBlizzard()
 
-call ExecuteFunc("jasshelper__initstructs67908109")
-call ExecuteFunc("MemoryLibBase__Init")
-call JNMemory__Init()
-call SkillDataStr__Init()
-call EndGameHook__Init()
-call MainFrame__Init()
-call UnitDetailFrame__Init()
-call SkillTree__Init()
-call PortraitEditor__Init()
-call PushKey__Init()
-call Option__Init()
-call Equip__Init()
-call Info__Init()
-call MiniInfo__Init()
-call JNObjectGui__init()
-call Time__Init()
-call LoadAuto__Init()
-call Save__Init()
+call ExecuteFunc("jasshelper__initstructs17940921")
+call ExecuteFunc("MemoryLibBase___Init")
+call JNMemory___Init()
+call SkillDataStr___Init()
+call EndGameHook___Init()
+call MainFrame___Init()
+call UnitDetailFrame___Init()
+call SkillTree___Init()
+call PortraitEditor___Init()
+call PushKey___Init()
+call Option___Init()
+call Equip___Init()
+call Info___Init()
+call MiniInfo___Init()
+call JNObjectGui___init()
+call Time___Init()
+call LoadAuto___Init()
+call Save___Init()
 call ClearCacher__Init()
 call Hunting__Init()
-call Enchant___Init()
-call Exit___Init()
-call TestScope___Init()
-call AddReg___Init()
-call DisplayGrid___Init()
-call UnitNameChange___Init()
+call Enchant__Init()
+call Exit__Init()
+call TestScope__Init()
+call AddReg__Init()
+call DisplayGrid__Init()
+call UnitNameChange__Init()
 
-call ExecuteFunc("jasshelper__0initdatastructs67908109")
-call ExecuteFunc("jasshelper__1initdatastructs67908109")
-call ExecuteFunc("jasshelper__2initdatastructs67908109")
+call ExecuteFunc("jasshelper__0initdatastructs17940921")
+call ExecuteFunc("jasshelper__1initdatastructs17940921")
+call ExecuteFunc("jasshelper__2initdatastructs17940921")
     call InitGlobals()
     call InitCustomTriggers()
 
@@ -9486,16 +9497,16 @@ local boolean Continue=f__arg_boolean1
       call s__Select_SetStars(3 , S2I(JNStringSplit(s, "'", 7)) , "Select_stars1.tga")
       call s__Select_SetStars(4 , S2I(JNStringSplit(s, "'", 8)) , "Select_stars2.tga")
       if ( SubString(JNStringSplit(s, "'", 9), 0, 10) == "|cffff8000" ) then
-        call DzFrameSetTexture(s__Select_select_Preview, "Select_BackRed.blp", 0)
-        call DzFrameSetTexture(s__Select_selectBackSkillPreview, "Select_BackRedRed.blp", 0)
+        call DzFrameSetTexture(s__Select_select_LeftPreview, "Select_BackRed.blp", 0)
+        call DzFrameSetTexture(s__Select_select_SkillPreview, "Select_BackRedRed.blp", 0)
         if ( Continue ) then
           call DzFrameSetTexture(s__Select_selectBackStart, "Select_ContinueRed.blp", 0)
         else
           call DzFrameSetTexture(s__Select_selectBackStart, "Select_StartRed.blp", 0)
         endif
       else
-        call DzFrameSetTexture(s__Select_select_Preview, "Select_BackBlue.blp", 0)
-        call DzFrameSetTexture(s__Select_selectBackSkillPreview, "Select_BackBlueBlue.blp", 0)
+        call DzFrameSetTexture(s__Select_select_LeftPreview, "Select_BackBlue.blp", 0)
+        call DzFrameSetTexture(s__Select_select_SkillPreview, "Select_BackBlueBlue.blp", 0)
         if ( Continue ) then
           call DzFrameSetTexture(s__Select_selectBackStart, "Select_ContinueBlue.blp", 0)
         else
@@ -9509,7 +9520,7 @@ local boolean Continue=f__arg_boolean1
       call DzFrameSetTexture(s__s__Select_selectBackSkills[2], JNStringSplit(s, "'", 13), 0)
       call DzFrameSetTexture(s__s__Select_selectBackSkills[3], JNStringSplit(s, "'", 14), 0)
       call DzFrameShow(s__Select_select_Main, true)
-      call DzFrameShow(s__Select_select_Preview, false)
+      call DzFrameShow(s__Select_select_LeftPreview, false)
    return true
 endfunction
 function sa__Select_CountAdder takes nothing returns boolean
@@ -9742,7 +9753,7 @@ return true
 set f__result_integer= s__s__PlayerResource_privatePlayerResource[input]
    return true
 endfunction
-function sa___prototype67_Load_ExcuteAction takes nothing returns boolean
+function sa___prototype67_Load_ExecuteAction takes nothing returns boolean
  local player target=f__arg_player1
  local integer data=f__arg_integer1
 
@@ -9752,7 +9763,7 @@ function sa___prototype67_Load_ExcuteAction takes nothing returns boolean
     return true
 endfunction
 
-function jasshelper__initstructs67908109 takes nothing returns nothing
+function jasshelper__initstructs17940921 takes nothing returns nothing
     set st__Select_ViewInfo=CreateTrigger()
     call TriggerAddCondition(st__Select_ViewInfo,Condition( function sa__Select_ViewInfo))
     set st__Select_CountAdder=CreateTrigger()
@@ -9794,8 +9805,8 @@ function jasshelper__initstructs67908109 takes nothing returns nothing
     set st__Ptr_onDestroy[3]=null
     set st__Ptr_onDestroy[2]=null
     set st___prototype67[1]=CreateTrigger()
-    call TriggerAddAction(st___prototype67[1],function sa___prototype67_Load_ExcuteAction)
-    call TriggerAddCondition(st___prototype67[1],Condition(function sa___prototype67_Load_ExcuteAction))
+    call TriggerAddAction(st___prototype67[1],function sa___prototype67_Load_ExecuteAction)
+    call TriggerAddCondition(st___prototype67[1],Condition(function sa___prototype67_Load_ExecuteAction))
 
 
 
@@ -9848,13 +9859,13 @@ function jasshelper__initstructs67908109 takes nothing returns nothing
     call ExecuteFunc("s__CharacterData_onInit")
     call ExecuteFunc("s__TreeMainCoreData_onInit")
     call ExecuteFunc("s__PlayerResource_onInit")
-    call ExecuteFunc("s__EndGameHook__MemoryBlock_onInit")
+    call ExecuteFunc("s__EndGameHook___MemoryBlock_onInit")
     call ExecuteFunc("s__MenuQuickSlot_onInit")
     call ExecuteFunc("s__Select_onInit")
     call ExecuteFunc("s__Load_onInit")
 endfunction
 
-function jasshelper__0initdatastructs67908109 takes nothing returns nothing
+function jasshelper__0initdatastructs17940921 takes nothing returns nothing
  local integer s
 
 //Loaded from: Data\SkillData.slk
@@ -11200,7 +11211,7 @@ function jasshelper__0initdatastructs67908109 takes nothing returns nothing
 
 endfunction
 
-function jasshelper__1initdatastructs67908109 takes nothing returns nothing
+function jasshelper__1initdatastructs17940921 takes nothing returns nothing
  local integer s
 
 //Loaded from: Data\SkillData.slk
@@ -12322,7 +12333,7 @@ function jasshelper__1initdatastructs67908109 takes nothing returns nothing
 
 endfunction
 
-function jasshelper__2initdatastructs67908109 takes nothing returns nothing
+function jasshelper__2initdatastructs17940921 takes nothing returns nothing
  local integer s
 
 //Loaded from: Data\SkillData.slk

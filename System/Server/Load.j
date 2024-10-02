@@ -1,5 +1,9 @@
 scope Load
-  public function ExcuteAction takes player target, integer data returns nothing
+  static if false then
+    function Load_ExecuteAction takes player target, integer data returns nothing
+    endfunction
+  endif
+  public function ExecuteAction takes player target, integer data returns nothing
     set GetServerPlayer = target
     set NowSelect[GetPlayerId(target)+1] = data
     call TriggerExecute(Load.triggerLoad)
@@ -11,7 +15,7 @@ scope Load
 
 
     private static method GetEquipData takes integer P, integer Slot returns nothing
-      local integer loopA = Save_MAX_EQUIP-1
+      local integer loopA = MAX_SAVE_EQUIP-1
       loop
         set EquipData2[loopA] = LoadStringBJ(StringHash(I2S(Slot) + "e" + I2S(loopA)), P, hash)
 
@@ -19,8 +23,8 @@ scope Load
         set loopA = loopA + 1
       endloop
     endmethod
-    private static method SetEquipData takes integer P returns nothing
-      local integer loopA = Save_MAX_EQUIP-1
+    private static method SetEquipData takes integer currentPlayerId returns nothing
+      local integer loopA = MAX_SAVE_EQUIP-1
       local string tempString = ""
       loop
         set tempString = EquipData2[loopA]
@@ -28,7 +32,7 @@ scope Load
           set bj_lastCreatedItem = CreateItem(S2I(JNStringSplit(tempString, "/", 0)), 0, 0)
           call SaveItemHandle(hash, currentPlayerId, StringHash("ItemData" + I2S(-loopA)), bj_lastCreatedItem)
           call SaveStr(hash, GetHandleId(bj_lastCreatedItem), StringHash("ItemAddData"), JNStringSplit(tempString, "/", 1))
-          if ( Player(P-1) == GetLocalPlayer() ) then
+          if ( Player(currentPlayerId-1) == GetLocalPlayer() ) then
             call DzFrameSetTexture(Equip_EquipBackdrop[loopA], EXGetItemDataString(GetItemTypeId(bj_lastCreatedItem), 1), 0)
           endif
           call Equip_Process(EXGetItemDataString(GetItemTypeId(bj_lastCreatedItem), 3) + "'" + LoadStr(hash, GetHandleId(bj_lastCreatedItem), StringHash("ItemAddData")), currentPlayerId)
@@ -39,8 +43,8 @@ scope Load
         set loopA = loopA - 1
       endloop
     endmethod
-    private static method SetInvenData takes integer P, boolean removeIfEmpty returns nothing
-      local integer loopA = MAX_INVENTORY-1
+    private static method SetInvenData takes integer currentPlayerId, boolean removeIfEmpty returns nothing
+      local integer loopA = MAX_SAVE_INVENTORY-1
       local string tempString = ""
       loop
         set tempString = InvenData2[loopA]
@@ -49,7 +53,7 @@ scope Load
           
           call SaveItemHandle(hash, currentPlayerId, StringHash("ItemData" + I2S(loopA)), bj_lastCreatedItem)
           call SaveStr(hash, GetHandleId(bj_lastCreatedItem), StringHash("ItemAddData"), JNStringSplit(tempString, "/", 1))
-          if ( Player(P-1) == GetLocalPlayer() ) then
+          if ( Player(currentPlayerId-1) == GetLocalPlayer() ) then
             call DzFrameSetTexture(Frame_InvenButtonsBackDrop[loopA], EXGetItemDataString(GetItemTypeId(bj_lastCreatedItem), 1), 0)
           endif
           call SetItemPosition(bj_lastCreatedItem, StoreX, StoreY)
@@ -59,7 +63,7 @@ scope Load
           call RemoveItem(bj_lastCreatedItem)
           call RemoveSavedHandle(hash, currentPlayerId, StringHash("ItemData" + I2S(loopA)))
           
-          if ( Player(P-1) == GetLocalPlayer() ) then
+          if ( Player(currentPlayerId-1) == GetLocalPlayer() ) then
             call DzFrameSetTexture(Frame_InvenButtonsBackDrop[loopA], "Inven_Empty.blp", 0)
           endif
         endif
@@ -69,7 +73,7 @@ scope Load
       endloop
     endmethod
     private static method GetInvenData takes integer P returns nothing
-      local integer loopA = MAX_INVENTORY-1
+      local integer loopA = MAX_SAVE_INVENTORY-1
       loop
         set InvenData2[loopA] = LoadStringBJ(StringHash("i" + I2S(loopA)), P, hash)
 
@@ -84,10 +88,10 @@ scope Load
       local string tempString = ""
       
       if ( 0 < JN_LoaderNow ) then
-        call Msg(GetServerPlayer, "로드 |cffff0000실패! |r - 현재 " + GetPlayerName(Player(JN_LoaderNow - 1)) + "|r님이 로드하고 있습니다. 잠시 후 다시 시도하세요.")
+        call Msg(GetServerPlayer, "로드 |cffff0000실패!|r - 현재 " + GetPlayerName(Player(JN_LoaderNow - 1)) + "|r님이 로드하고 있습니다. 잠시 후 다시 시도하세요.")
         return
       elseif ( 0 == receivedData ) then
-        call Msg(GetServerPlayer, "로드 |cffff0000실패! |r - 데이터가 비어 있습니다. 리로드 혹은 캐릭터 선택을 진행해주세요.")
+        call Msg(GetServerPlayer, "로드 |cff00ff00가능!|r - 로드할 준비가 되었습니다.")
         return
       elseif ( IsEmpty(CharacterData[receivedData].SelectDatas) ) then
         call Msg(GetServerPlayer, "로드 |cffff0000실패!|r - 캐릭터가 정보가 비어 있습니다. 다시 선택해주세요.")
@@ -104,7 +108,7 @@ scope Load
       set tempInteger = S2I(JNStringSplit(JNStringSplit(tempString, "'", 1), ".", 0))
 
       // 생성
-      set udg_hero[currentPlayerId] = CreateUnit(GetServerPlayer, CharacterData[receivedData].UnitCode, Select_startCreateX, Select_startCreateY, bj_UNIT_FACING)
+      set udg_hero[currentPlayerId] = CreateUnit(GetServerPlayer, CharacterData[receivedData].UnitCode, Select.startCreateX, Select.startCreateY, bj_UNIT_FACING)
 
       // 신규, 이어하기 알림
       if ( 0 == tempInteger ) then /* 신규 시작 */
@@ -112,13 +116,13 @@ scope Load
       else
         call MsgAll(GetPlayerName(GetServerPlayer) + "님이 Lv." + I2S(tempInteger) + " " + JNStringSplit(CharacterData[receivedData].SelectDatas, "'", 0) + "(으)로 모험을 이어갑니다.")
         call SetHeroLevel(udg_hero[currentPlayerId], tempInteger, false)
-        call SetHeroXP(udg_hero[currentPlayerId], S2I(JNStringSplit(JNStringSplit(Data, "'", 1), ".", 1)), false)
+        call SetHeroXP(udg_hero[currentPlayerId], S2I(JNStringSplit(JNStringSplit(tempString, "'", 1), ".", 1)), false)
       endif
 
       // 집 이름 설정
-      set HouseName = GetObjectName('nefm')
+      set tempString = GetObjectName('nefm')
       if ( GetServerPlayer == GetLocalPlayer() ) then
-        set HouseName = GetPlayerName(GetServerPlayer) + "가문의 " + GetObjectName(CharacterData[receivedData].UnitCode) + "네 집"
+        set tempString = GetPlayerName(GetServerPlayer) + "가문의 " + GetObjectName(CharacterData[receivedData].UnitCode) + "네 집"
       endif
 
       // 영웅 이름 설정

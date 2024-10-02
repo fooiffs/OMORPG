@@ -17,20 +17,18 @@ scope JNObjectGui initializer init /* requires JNServer, JNString, DzAPISync */
     endif 
   endfunction 
 
-  function JNObjectCharacterCreateSync takes nothing returns nothing 
-    set GetServerPlayer = DzGetTriggerSyncPlayer()
-    set NowSelect[GetPlayerId(DzGetTriggerSyncPlayer())+1] = JNStringSplit(DzGetTriggerSyncData(), "'", 0)
-    call TriggerExecute(gg_trg_Load_End) 
+  private function SendSyncedData takes nothing returns nothing 
+    call Load_ExecuteAction.execute(DzGetTriggerSyncPlayer(), S2I(JNStringSplit(DzGetTriggerSyncData(), "'", 0)))
   endfunction 
 
   // JNObjectCharacterLoad 
-  function JNObjectCharacterGetIntegerSync takes nothing returns nothing 
+  function SyncCuttedInteger takes nothing returns nothing 
     local string str = DzGetTriggerSyncData() 
     call SaveInteger(hash, GetPlayerId(DzGetTriggerSyncPlayer()) + 1, StringHash(JNStringSplit(str, "!", 0)), S2I(JNStringSplit(str, "!", 1))) 
     debug call BJDebugMsg("load/save i - " + I2S(GetPlayerId(DzGetTriggerSyncPlayer()) + 1) + "/" + JNStringSplit(str, "!", 0) + "/" + JNStringSplit(str, "!", 1)) 
   endfunction 
 
-  function JNObjectCharacterGetStringSync takes nothing returns nothing 
+  function SyncCuttedString takes nothing returns nothing 
     local string str = DzGetTriggerSyncData() 
     call SaveStr(hash, GetPlayerId(DzGetTriggerSyncPlayer()) + 1, StringHash(JNStringSplit(str, "!", 0)), JNStringSplit(str, "!", 1)) 
     debug call BJDebugMsg("load/save s - " + I2S(GetPlayerId(DzGetTriggerSyncPlayer()) + 1) + "/" + JNStringSplit(str, "!", 0) + "/" + JNStringSplit(str, "!", 1)) 
@@ -41,15 +39,15 @@ scope JNObjectGui initializer init /* requires JNServer, JNString, DzAPISync */
     local integer i = 0 
 
     call DzTriggerRegisterSyncData(trig, "JNEndSync", false) 
-    call TriggerAddAction(trig, function JNObjectCharacterCreateSync) 
+    call TriggerAddAction(trig, function SendSyncedData) 
 
     set trig = CreateTrigger() 
     call DzTriggerRegisterSyncData(trig, "JNIntSync", false) 
-    call TriggerAddAction(trig, function JNObjectCharacterGetIntegerSync) 
+    call TriggerAddAction(trig, function SyncCuttedInteger) 
 
     set trig = CreateTrigger() 
     call DzTriggerRegisterSyncData(trig, "JNStrSync", false) 
-    call TriggerAddAction(trig, function JNObjectCharacterGetStringSync) 
+    call TriggerAddAction(trig, function SyncCuttedString) 
 
     loop 
       exitwhen i == bj_MAX_PLAYERS 
