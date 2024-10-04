@@ -15,6 +15,9 @@ scope EMainMenus
     key HOTKEY_FRAME_BACK
     key HOTKEY_FRAME_TEXT
 
+    key SKILL_TREE_HOTKEY
+    key SKILL_TREE_HOTKEY_TEXT
+
     constant integer = QUICK_MENU_ITEM_COUNT = 7
     constant integer = QUICK_MENU_SKILL_COUNT = 8
     constant integer = QUICK_MENU_MENU_COUNT = 8

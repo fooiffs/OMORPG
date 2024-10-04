@@ -26,8 +26,6 @@ scope MainFrame initializer Init
 
     function GetMainFrame takes nothing returns integer
       if ( Frame_Main == 0 ) then
-        /* toc 파일 임포트 - 단축키 등록 프레임 */
-        call DzLoadToc("ui\\command_ui.toc")
         set Frame_Main = DzCreateFrameByTagName("SPRITE", "", DzGetGameUI(), "", 0)
         call DzFrameSetAbsolutePoint(Frame_Main, JN_FRAMEPOINT_TOPRIGHT, 0., 0.)
       endif
