@@ -31,6 +31,8 @@ scope GlobalInitializer
     constant integer MAX_SAVE_INVENTORY = 49 +1
     constant integer MAX_SAVE_EQUIP = 16 +1
     constant integer MAX_SAVE_CHARACTER = 6
+    
+    constant integer MAX_TREE_SKILL_COUNT = 11 + 1
   endglobals
   function IsEmpty takes string s returns boolean
     return (s == "") or (s == null)
@@ -475,45 +477,49 @@ scope GlobalInitializer
   endstruct
 
   struct TreeMainCoreData
-    integer MAX_TREE_SKILL_COUNT = 0
-    integer array SkillNumber[12]
-    real array positionX[12]
-    real array positionY[12]
-    string array iconPath[12]
+    integer array skillNumber[MAX_TREE_SKILL_COUNT]
+    real array positionX[MAX_TREE_SKILL_COUNT]
+    real array positionY[MAX_TREE_SKILL_COUNT]
+    string array iconPath[MAX_TREE_SKILL_COUNT]
    
+    private method CreateSub takes integer index, integer number, real inputX, real inputY, string iconPath returns nothing
+      set this.skillNumber[index] = number
+      set this.positionX[index] = inputX
+      set this.positionY[index] = inputY
+      set this.iconPath[index] = iconPath
+    endmethod
+    static method AutoInit takes integer characterId returns thistype
+      local thistype this = thistype.allocate()
+      if ( characterId == ECharacter.ICHIGO ) then
+        call this.CreateSub(1, 16, .085, -.10, "SkillTree_ichi_01.blp")
+        call this.CreateSub(2, 20, .135, -.10, "SkillTree_ichi_02.blp")
+        call this.CreateSub(3, 21, .135, -.14, "SkillTree_ichi_03.blp")
+        call this.CreateSub(4, 25, .185, -.14, "SkillTree_ichi_04.blp")
+        call this.CreateSub(5, 17, .085, -.18, "SkillTree_ichi_05.blp")
+        call this.CreateSub(6, 22, .135, -.22, "SkillTree_ichi_06.blp")
+        call this.CreateSub(7, 18, .085, -.26, "SkillTree_ichi_07_DIS.blp")
+        call this.CreateSub(8, 23, .135, -.34, "SkillTree_ichi_08_DIS.blp")
+        call this.CreateSub(9, 19, .085, -.38, "SkillTree_ichi_09_DIS.blp")
+        call this.CreateSub(10, 26, .185, -.38, "SkillTree_ichi_10_DIS.blp")
+        call this.CreateSub(11, 24, .135, -.42, "SkillTree_ichi_11_DIS.blp")
+      else
+        call MsgAll("오류/TreeCore[" + I2S(characterId) + "]는 작성되지 않았습니다")
+        return 0
+      endif
+      return this
+    endmethod
     static method operator[] takes integer input returns thistype
       if ( input <= 0 or 8190 <= input ) then
-        call MsgAll("오류/TreeMainCoreData[" + I2S(input) + "]는 설정 범위(1~" + I2S(MAX_CHARACTER_COUNT - 1) + ")를 벗어납니다.")
+        call MsgAll("오류/TreeCore[" + I2S(input) + "]는 설정 범위(1~" + I2S(MAX_CHARACTER_COUNT - 1) + ")를 벗어납니다.")
         return 0
       elseif ( privateTreeMainData[input] == 0 ) then
-        set privateCharacterData[input] = thistype.allocate()
+        set privateTreeMainData[input] = AutoInit(input)
       endif
       return privateTreeMainData[input]
     endmethod
-    method CreateSub takes integer number, real inputX, real inputY, string iconPath returns nothing
-      set this.MAX_TREE_SKILL_COUNT = this.MAX_TREE_SKILL_COUNT + 1
-      set this.SkillNumber[MAX_TREE_SKILL_COUNT] = number
-      set this.positionX[MAX_TREE_SKILL_COUNT] = inputX
-      set this.positionY[MAX_TREE_SKILL_COUNT] = inputY
-      set this.iconPath[MAX_TREE_SKILL_COUNT] = iconPath
-    endmethod
-    static method Create takes integer characterId returns nothing
-      if ( characterId == ECharacter.ICHIGO ) then
-        call privateTreeMainData[characterId].CreateSub(16, .085, -.10, "SkillTree_ichi_01.blp")
-        call privateTreeMainData[characterId].CreateSub(20, .135, -.10, "SkillTree_ichi_02.blp")
-        call privateTreeMainData[characterId].CreateSub(21, .135, -.14, "SkillTree_ichi_03.blp")
-        call privateTreeMainData[characterId].CreateSub(25, .185, -.14, "SkillTree_ichi_04.blp")
-        call privateTreeMainData[characterId].CreateSub(17, .085, -.18, "SkillTree_ichi_05.blp")
-        call privateTreeMainData[characterId].CreateSub(22, .135, -.22, "SkillTree_ichi_06.blp")
-        call privateTreeMainData[characterId].CreateSub(18, .085, -.26, "SkillTree_ichi_07_DIS.blp")
-        call privateTreeMainData[characterId].CreateSub(23, .135, -.34, "SkillTree_ichi_08_DIS.blp")
-        call privateTreeMainData[characterId].CreateSub(19, .085, -.38, "SkillTree_ichi_09_DIS.blp")
-        call privateTreeMainData[characterId].CreateSub(26, .185, -.38, "SkillTree_ichi_10_DIS.blp")
-        call privateTreeMainData[characterId].CreateSub(24, .135, -.42, "SkillTree_ichi_11_DIS.blp")
-      endif
-    endmethod
+    
     static method onInit takes nothing returns nothing
-      call TreeMainCoreData.Create(ECharacter.ICHIGO)
+      call AutoInit(ECharacter.ICHIGO)
     endmethod
   endstruct
 endscope

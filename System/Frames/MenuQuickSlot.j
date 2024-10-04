@@ -181,7 +181,7 @@ scope MenuQuickSlot
         call DzFrameShow(Frame_Info[0], EMenus.OX_Stats)
       elseif ( index == EHotkeyMenu.SubMenuSkillTree ) then /* Skills1 - Main */
         set EMenus.OX_Skills1 = not EMenus.OX_Skills1
-        call DzFrameShow(SkillTree_TreeMainFrame, EMenus.OX_Skills1)
+        call DzFrameShow(SkillTree.GetTreeFrameMain(), EMenus.OX_Skills1)
       elseif ( index == EHotkeyMenu.SubMenuSmartMode ) then /* Skills2 - Personal */
         set EMenus.OX_Skills2 = not EMenus.OX_Skills2
         call Msg(GetLocalPlayer(), "스마트 모드는 준비중입니다.")

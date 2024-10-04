@@ -1,12 +1,12 @@
 scope ECharacter
   struct ECharacter
     // { '이치고': 1, '루키아': 2, '우류': 3, '렌지': 4, '오리히메': 5, '사도': 6 },
-    static key ICHIGO
-    static key RUKIA
-    static key URYU
-    static key ORIHIME
-    static key RENJI
-    static key SADO
+    public static constant integer ICHIGO = 1
+    public static constant integer RUKIA = 2
+    public static constant integer URYU = 3
+    public static constant integer RENJI = 4
+    public static constant integer ORIHIME = 5
+    public static constant integer SADO = 6
     
     static method U2I takes unit u returns integer
       if ( u == gg_unit_H000_0011 ) then

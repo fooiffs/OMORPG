@@ -1,4 +1,3 @@
-native JNOpenBrowser takes string uri returns nothing 
 scope ClearCacher initializer Init 
 
   function FCut takes string s, integer c returns string 

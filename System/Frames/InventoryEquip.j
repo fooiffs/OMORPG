@@ -518,7 +518,6 @@ scope Equip initializer Init
     private function NameSize takes integer frame, string s returns real
       local real etc = JNStringCount(s, " ")+2.
       set s = s + "(" + InvenInfo[4] +")"
-      call DzFrameSetText(frame, s)
       if ( JNStringLength(s) >= 17 ) then
         call DzFrameSetFont(frame, "Fonts\\DFHeiMd.ttf", 0.010, 1)
         return 0.075 + etc * 0.0028 + (JNStringLength(s)-etc) * 0.007
@@ -529,6 +528,7 @@ scope Equip initializer Init
         call DzFrameSetFont(frame, "Fonts\\DFHeiMd.ttf", 0.014, 1)
         return 0.075 + etc * 0.004 + (JNStringLength(s)-etc) * 0.01
       endif
+      call DzFrameSetText(frame, s)
     endfunction
     private function TypeSize takes integer frame, string s, string s6, string name returns real
       local real etc = JNStringLength(s)
@@ -700,8 +700,8 @@ scope Equip initializer Init
       endloop
       set Equip[loopC]=DzCreateFrameByTagName("TEXT", "", EquipBackdrop[0], "", 0)
       call DzFrameSetPoint(Equip[loopC], JN_FRAMEPOINT_TOP, EquipBackdrop[0], JN_FRAMEPOINT_TOP, 0., -EQUIPSPACEGAP-EQUIPEDGEGAP)
-      call DzFrameSetText(Equip[loopC], "아이템 상승치")
       call DzFrameSetFont(Equip[loopC], "Fonts\\DFHeiMd.ttf", 0.012, 0)
+      call DzFrameSetText(Equip[loopC], "아이템 상승치")
       
       set loopC = 18
       set Equip[loopC]=DzCreateFrameByTagName("TEXTAREA", "", EquipBackdrop[0], "EscMenuTextAreaTemplate", 0)

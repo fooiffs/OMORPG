@@ -11,3 +11,4 @@ native JNServerTime takes string Format returns string
 
 native JNObjectCharacterServerConnectCheck takes nothing returns boolean
 native JNObjectCharacterRemoveField takes string UserId, string Field returns nothing
+native JNOpenBrowser takes string uri returns nothing 
