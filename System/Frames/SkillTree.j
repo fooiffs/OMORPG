@@ -30,41 +30,44 @@ scope SkillTree
     private static integer TreeButtonSkillPlusAll
 
     // (GlobalInitializer.j)private static integer MAX_CHARACTER_COUNT
-    private static constant integer MAX_SUBTYPE_COUNT = 3
+    // private static constant integer MAX_SUBTYPE_COUNT = 3
 
     public static method MakeLineX takes integer parent, real x, real y, real size returns nothing
       local integer temp = DzCreateFrameByTagName("BACKDROP", "", parent, "", 0)
       call DzFrameSetTexture(temp, "ReplaceableTextures\\TeamColor\\TeamColor04.blp", 0)
       call DzFrameSetPoint(temp, JN_FRAMEPOINT_LEFT, parent, JN_FRAMEPOINT_TOPLEFT, x, y)
-      call DzFrameSetSize(temp, size, 0.0005)
+      call DzFrameSetSize(temp, size, .0005)
     endmethod
     public static method MakeLineY takes integer parent, real x, real y, real size returns nothing
       local integer temp = DzCreateFrameByTagName("BACKDROP", "", parent, "", 0)
       call DzFrameSetTexture(temp, "ReplaceableTextures\\TeamColor\\TeamColor04.blp", 0)
       call DzFrameSetPoint(temp, JN_FRAMEPOINT_TOP, parent, JN_FRAMEPOINT_TOPLEFT, x, y)
-      call DzFrameSetPoint(temp, JN_FRAMEPOINT_LEFT, parent, JN_FRAMEPOINT_TOPLEFT, x, y)
       call DzFrameSetSize(temp, .0005, size)
     endmethod
 
+    private static method MakeBackLine takes integer input returns nothing
+      local integer temp = DzCreateFrameByTagName("BACKDROP", "", input, "QuestButtonBaseTemplate", 0)
+      call DzFrameSetAbsolutePoint(temp, JN_FRAMEPOINT_TOPLEFT, .22, .45)
+      call DzFrameSetSize(temp, .22, .45)
+      call DzFrameSetAlpha(temp, 128)
+      call MakeLineY(temp, .06, -.01, .43)
+      call MakeLineX(temp, .06, -.04, .15)
+      call MakeLineX(temp, .01, -.06, .20)
+      call MakeLineY(temp, .11, -.04, .02)
+      call MakeLineY(temp, .16, -.04, .02)
+      call DzFrameSetParent(temp, input)
+
+      call DzFrameSetAllPoints(input, temp)
+      call DzFrameSetTexture(input, "SkillTree_Transparency.blp", 0)
+      call DzFrameSetAlpha(input, 204)
+    endmethod
     public static method GetTreeFrameMain takes nothing returns integer
+      local integer last = 0
       if ( TreeFrameMain == 0 ) then
-        set TreeFrameMain = DzCreateFrameByTagName("BACKDROP", "", DzGetGameUI(), "QuestButtonBaseTemplate", 0)
-        call DzFrameSetAbsolutePoint(TreeFrameMain, JN_FRAMEPOINT_TOPLEFT, .22, .45)
-        call DzFrameSetSize(TreeFrameMain, 0.14, 0.55)
-        call DzFrameSetTexture(TreeFrameMain, "SkillTree_Transparency.blp", 0)
-        call DzFrameSetAlpha(TreeFrameMain, 204)
-
         // 반투명 선 만들기
-        set TreeFrameMain = DzCreateFrameByTagName("BACKDROP", "", TreeFrameMain, "", 0)
-        call DzFrameSetAllPoints(TreeFrameMain, DzFrameGetParent(TreeFrameMain))
-        call DzFrameSetAlpha(TreeFrameMain, 128)
-        call MakeLineY(TreeFrameMain, .06, -.01, .43)
-        call MakeLineX(TreeFrameMain, .06, -.04, .15)
-        call MakeLineX(TreeFrameMain, .01, -.06, .20)
-        call MakeLineY(TreeFrameMain, .11, -.04, .02)
-        call MakeLineY(TreeFrameMain, .16, -.04, .02)
-
-        set TreeFrameMain = DzFrameGetParent(TreeFrameMain)
+        set last = DzCreateFrameByTagName("BACKDROP", "", DzGetGameUI(), "QuestButtonBaseTemplate", 0)
+        set TreeFrameMain = DzCreateFrameByTagName("BACKDROP", "", DzGetGameUI(), "", 0)
+        call MakeBackLine(TreeFrameMain)
       endif
       return TreeFrameMain
     endmethod
@@ -247,24 +250,24 @@ scope SkillTree
     private static method InitSkillTreeMain takes nothing returns nothing
       set TreeTextMainCharacterName   = MakeTextCenter(GetTreeFrameMain(), .035, -.03, "이치고", .015)
       call MakeTextCenter(GetTreeFrameMain(), .135, -.02, "스킬트리", .020)
-      call MakeTextCenter(GetTreeFrameMain(), .085, -.05, "[기본]", 0.)
-      call MakeTextCenter(GetTreeFrameMain(), .135, -.05, "[핵심]", 0.)
-      call MakeTextCenter(GetTreeFrameMain(), .185, -.05, "[변신]", 0.)
-
-      set TreeTextMainTypeLeft     = MakeTextCenter(GetTreeFrameMain(), .085, -.07, "종베기", .01)
-      set TreeTextMainTypeCenter   = MakeTextCenter(GetTreeFrameMain(), .135, -.07, "횡베기", .01)
-      set TreeTextMainTypeRight    = MakeTextCenter(GetTreeFrameMain(), .185, -.07, "찌르기", .01)
+      call MakeTextCenter(GetTreeFrameMain(), .085, -.05, "[기본]", 0.010)
+      call MakeTextCenter(GetTreeFrameMain(), .135, -.05, "[핵심]", 0.010)
+      call MakeTextCenter(GetTreeFrameMain(), .185, -.05, "[변신]", 0.010)
 
       call MakeTextCenter(GetTreeFrameMain(), .035, -.07, "필요 변신", .01)
-      call MakeTextCenter(GetTreeFrameMain(), .035, -.10, "기본", 0.)
-      call MakeTextCenter(GetTreeFrameMain(), .035, -.14, "1단계", 0.)
-      call MakeTextCenter(GetTreeFrameMain(), .035, -.18, "2단계", 0.)
-      call MakeTextCenter(GetTreeFrameMain(), .035, -.22, "3단계", 0.)
-      call MakeTextCenter(GetTreeFrameMain(), .035, -.26, "4단계", 0.)
-      call MakeTextCenter(GetTreeFrameMain(), .035, -.30, "5단계", 0.)
-      call MakeTextCenter(GetTreeFrameMain(), .035, -.34, "6단계", 0.)
-      call MakeTextCenter(GetTreeFrameMain(), .035, -.38, "7단계", 0.)
-      call MakeTextCenter(GetTreeFrameMain(), .035, -.42, "8단계", 0.)
+      set TreeTextMainTypeLeft     = MakeTextCenter(GetTreeFrameMain(), .085, -.07, "종베기", .010)
+      set TreeTextMainTypeCenter   = MakeTextCenter(GetTreeFrameMain(), .135, -.07, "횡베기", .010)
+      set TreeTextMainTypeRight    = MakeTextCenter(GetTreeFrameMain(), .185, -.07, "찌르기", .010)
+
+      call MakeTextCenter(GetTreeFrameMain(), .035, -.10, "기본", 0.010)
+      call MakeTextCenter(GetTreeFrameMain(), .035, -.14, "1단계", 0.010)
+      call MakeTextCenter(GetTreeFrameMain(), .035, -.18, "2단계", 0.010)
+      call MakeTextCenter(GetTreeFrameMain(), .035, -.22, "3단계", 0.010)
+      call MakeTextCenter(GetTreeFrameMain(), .035, -.26, "4단계", 0.010)
+      call MakeTextCenter(GetTreeFrameMain(), .035, -.30, "5단계", 0.010)
+      call MakeTextCenter(GetTreeFrameMain(), .035, -.34, "6단계", 0.010)
+      call MakeTextCenter(GetTreeFrameMain(), .035, -.38, "7단계", 0.010)
+      call MakeTextCenter(GetTreeFrameMain(), .035, -.42, "8단계", 0.010)
       
       call DzFrameShow(GetTreeFrameMain(), false)
     endmethod
