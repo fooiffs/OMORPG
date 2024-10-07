@@ -81,7 +81,12 @@ native DzFrameGetParent takes integer frame returns integer
 native DzFrameSetUpdateCallback takes string func returns nothing 
 native DzSimpleFontStringFindByName takes string name, integer id returns integer 
 native DzFrameSetParent takes integer frame, integer parent returns nothing 
-native DzFrameGetName takes integer frame returns string 
+native DzFrameGetName takes integer frame returns string
+// 텍스트 정렬 : 상하, 좌우를 합쳐서 FLAG로 설정함
+// 상하 : TOP(1), MIDDLE(2), BOTTOM(4)
+// 좌우 : LEFT(+8), CENTER(+16), RIGHT(+32)
+// 하나만 설정할 수도, 여러개 동시에 설정할 수도 있음.
+native DzFrameSetTextAlignment takes integer frame, integer align returns nothing
 
 debug native DzSimpleTextureFindByName takes string name, integer id returns integer 
 native DzFrameSetModel takes integer frame, string modelFile, integer modelType, integer flag returns nothing 
