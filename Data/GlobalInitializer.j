@@ -7,17 +7,17 @@ scope GlobalInitializer
     constant integer MAX_STAT_COUNT = 32 + 1
     constant integer MAX_SKILL_COUNT = 205 + 1 /* 배열 1 시작, +1 */
     constant integer MAX_OPTION_MENU_COUNT = 30 + 1
-    constant integer MAX_SKILL_SLOT = 8 + 1
+    constant integer MAX_SLOT_COUNT = 8 + 1
     constant real StoreX = 1280.
     constant real StoreY = 1024.
 
     // 지역 설정  
-    private SkillData array privateSkillData[MAX_SKILL_COUNT]
-    private StatData array privateStatData[MAX_STAT_COUNT]
-    private SlotData array privateSkillSlotData[MAX_SKILL_SLOT]
-    private HotkeyData array privateHotkeyData[MAX_OPTION_MENU_COUNT]
-    private CharacterData array privateCharacterData[MAX_CHARACTER_COUNT]
-    private TreeMainCoreData array privateTreeMainData[MAX_CHARACTER_COUNT]
+    private SkillData         array privateSkillData    [MAX_SKILL_COUNT]
+    private StatData          array privateStatData     [MAX_STAT_COUNT]
+    private SlotData          array privateSlotData     [MAX_SLOT_COUNT]
+    private HotkeyData        array privateHotkeyData   [MAX_OPTION_MENU_COUNT]
+    private CharacterData     array privateCharacterData[MAX_CHARACTER_COUNT]
+    private TreeMainCoreData  array privateTreeMainData [MAX_CHARACTER_COUNT]
 
     // 캐릭터
     unit gg_unit_H005_0003 = null
@@ -210,37 +210,78 @@ scope GlobalInitializer
       set ranks[11] = "O" /* 11 이상일 경우 Over Rank */
     endmethod
 
-    private static method AddSuffix takes boolean isFullName, integer level returns string
-      local integer overLevel = level - 10
-      if ( 0 < overLevel ) then
-        if ( isFullName ) then
-          return "ver Rank " + I2S(overLevel)
-        else
-          return I2S(overLevel)
-        endif
-      elseif ( isFullName ) then
-        return " Rank"
-      endif
-      return ""
-    endmethod
     
-    // 스킬 레벨에 따른 랭크 변환
-    // - level : 가져올 레벨 (11 이상은 Over Rank로 표시)
-    // - isFullName: "B" -> "B Rank" 표시할지 여부
-    // - inBracket: 결과를 "[B Rank]" 형태로 표시할지 여부
-    public static method GetRank takes integer level, boolean isFullName, boolean inBracket returns string
-      local string rank = ranks[IMaxBJ(0, IMinBJ(11, level))]
-
-      // 접미사 처리
-      set rank = rank + AddSuffix(isFullName, level)
-      
-      // inBracket 처리
-      if ( inBracket ) then
-        set rank = "[" + rank + "]"
+    public static method GetInfoTop takes integer skillLevel returns string
+      if ( 0 < skillLevel ) then
+        return "현재레벨"
+      else
+        return "필요 변신"
       endif
-
-      return rank
     endmethod
+    public static method GetInfoMiddle takes integer playerId, integer skillId, integer skillLevel returns string
+      if ( 0 < skillLevel ) then
+        return I2S(skillLevel) + " / 10"
+      elseif ( PlayerResource[playerId].character.changeLevel < SkillData[skillId].RequireLevel ) then
+        return "|cffff3315" + I2S(PlayerResource[playerId].character.changeLevel) + "/" + I2S(SkillData[skillId].RequireLevel)
+      else
+        return "|cff00ff00" + I2S(PlayerResource[playerId].character.changeLevel) + "/" + I2S(SkillData[skillId].RequireLevel)
+      endif
+    endmethod
+    // 스킬 레벨에 따른 랭크 변환
+    public static method GetInfoBottom takes integer playerId, integer skillId, integer skillLevel returns string
+      if ( 0 < skillLevel ) then
+        return "[" + ranks[IMaxBJ(0, IMinBJ(11, skillLevel))] + AddSuffix(true, skillLevel) + "]"
+      elseif ( PlayerResource[playerId].character.changeLevel < SkillData[skillId].RequireLevel ) then
+        return "[미습득]"
+      else
+        return "[습득 가능]"
+      endif
+    endmethod
+      private static method AddSuffix takes boolean isFullName, integer skillLevel returns string
+        local integer overLevel = skillLevel - 10
+        if ( 0 < overLevel ) then
+          if ( isFullName ) then
+            return "ver Rank " + I2S(overLevel)
+          else
+            return I2S(overLevel)
+          endif
+        elseif ( isFullName ) then
+          return " Rank"
+        endif
+        return ""
+      endmethod
+
+    public static method GetDescriptionTop takes integer skillId, integer skillLevel returns string
+      local string returnString = SkillData[skillId].ValueUse
+      if ( JNStringContains(returnString, "#Mana") ) then
+        if ( JNStringContains(returnString, "#CoolDown") ) then
+          return "마나소모 " + ESkillTree.ProcessI2S(SkillData[skillId].CostMana, true, 1, false) +", 쿨다운 " + ESkillTree.ProcessI2S(SkillData[skillId].CoolTime, true, 1, true) + "초"
+        else
+          return "마나소모 " + ESkillTree.ProcessI2S(SkillData[skillId].CostMana, true, 1, false)
+        endif
+      elseif ( JNStringContains(returnString, "#CoolDown") ) then
+        return "쿨다운 " + ESkillTree.ProcessI2S(SkillData[skillId].CoolTime, true, 1, true) + "초"
+      else
+        return "오류/TreeExtendDesTop/" +I2S(skillId) + "/" + I2S(skillLevel) + "/" + returnString
+      endif
+      return returnString
+    endmethod
+
+    public static method GetDescriptionMiddle takes integer playerId, integer skillId, integer skillLevel returns string
+      local string returnString = ""
+      if ( 0 < skillLevel ) then
+        return PlayerResource[playerId].character.Skills[skillId].GetCurrentTooltips(true)
+      else
+        set returnString = SkillData[skillId].Detail
+        set returnString = JNStringReplace(returnString, "#CastingTime", ESkillTree.ProcessI2S(SkillData[skillId].CastingTime, true, 2, true)+"초")
+        set returnString = JNStringReplace(returnString, "#Damage", I2S(SkillData[skillId].Damage))
+        set returnString = JNStringReplace(returnString, "#Distance", I2S(SkillData[skillId].Distance))
+        set returnString = JNStringReplace(returnString, "#Range", I2S(SkillData[skillId].Range))
+        set returnString = JNStringReplace(returnString, "#Duration", ESkillTree.ProcessI2S(SkillData[skillId].Duration, true, 2, true)+"초")
+      endif
+      return returnString
+    endmethod
+
 
     private static method ConvertLevelToPoint takes integer skillLevel returns integer
       if ( skillLevel <= 1 ) then
@@ -298,23 +339,23 @@ scope GlobalInitializer
     private integer SelfHotkeyID
     integer OrderID
     static method operator[] takes integer input returns thistype
-      if ( input <= 0 or MAX_SKILL_SLOT <= input ) then
-        call MsgAll("오류/SkillSlot[" + I2S(input) + "]는 설정 범위(1~" + I2S(MAX_SKILL_SLOT - 1) + ")를 벗어납니다.")
+      if ( input <= 0 or MAX_SLOT_COUNT <= input ) then
+        call MsgAll("오류/SkillSlot[" + I2S(input) + "]는 설정 범위(1~" + I2S(MAX_SLOT_COUNT - 1) + ")를 벗어납니다.")
         return 0
-      elseif ( privateSkillSlotData[input] == 0 ) then
+      elseif ( privateSlotData[input] == 0 ) then
         call MsgAll("오류/SkillSlot[" + I2S(input) + "]는 설정되지 않았습니다.")
         return 0
       else
-        return privateSkillSlotData[input]
+        return privateSlotData[input]
       endif
     endmethod
     static method Create takes integer index, integer skillId, integer smartId, integer hotkeyId, integer orderId returns nothing
-      set privateSkillSlotData[index] = thistype.allocate()
-      set privateSkillSlotData[index].slot = index
-      set privateSkillSlotData[index].SkillCode = skillId
-      set privateSkillSlotData[index].SmartCode = smartId
-      set privateSkillSlotData[index].SelfHotkeyID = hotkeyId
-      set privateSkillSlotData[index].OrderID = orderId
+      set privateSlotData[index] = thistype.allocate()
+      set privateSlotData[index].slot = index
+      set privateSlotData[index].SkillCode = skillId
+      set privateSlotData[index].SmartCode = smartId
+      set privateSlotData[index].SelfHotkeyID = hotkeyId
+      set privateSlotData[index].OrderID = orderId
     endmethod
     static method onInit takes nothing returns nothing
       static if false then
@@ -336,31 +377,6 @@ scope GlobalInitializer
       call SlotData.Create(6, 'A005', 'A00D', 68, 852491)
       call SlotData.Create(7, 'A006', 'A00E', 70, 852217)
       call SlotData.Create(8, 'A007', 'A00F', 71, 852186)
-    endmethod
-
-    public static method GetInfoRequire takes integer playerId, integer skillId, integer currentLevel returns string
-      local string returnString = ""
-      if ( currentLevel == 0 ) then
-        if ( PlayerResource[playerId].character.changeLevel < SkillData[skillId].RequireLevel ) then
-          return "변신레벨 " + I2S(SkillData[skillId].RequireLevel) + " 이상 필요"
-        else
-          return "습득이 가능합니다"
-        endif
-      else
-        set returnString = SkillData[skillId].ValueUse
-        if ( JNStringContains(returnString, "#Mana") ) then
-          if ( JNStringContains(returnString, "#CoolDown") ) then
-            return "마나소모 " + ESkillTree.ProcessI2S(SkillData[skillId].CostMana, true, 1, false) +", 쿨다운 " + ESkillTree.ProcessI2S(SkillData[skillId].CoolTime, true, 1, true) + "초"
-          else
-            return "마나소모 " + ESkillTree.ProcessI2S(SkillData[skillId].CostMana, true, 1, false)
-          endif
-        elseif ( JNStringContains(returnString, "#CoolDown") ) then
-          return "쿨다운 " + ESkillTree.ProcessI2S(SkillData[skillId].CoolTime, true, 1, true) + "초"
-        else
-          return "오류/GIR/" +I2S(playerId) + "/" + I2S(skillId) + "/" + I2S(currentLevel) + "/" + returnString
-        endif
-      endif
-      return returnString
     endmethod
     public method GetSkillCode takes boolean isSmart returns integer
       if ( isSmart ) then

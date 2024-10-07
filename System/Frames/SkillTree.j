@@ -15,6 +15,7 @@ scope SkillTree
     private static integer TreeTextPopupDetailPoint
     private static integer TreeTextPopupDetailCurrentLevel
     
+    private static integer TreeBackSubSize
     private static integer TreeBackSubIcon
     private static integer TreeTextSubTitle
     private static integer TreeTextSubShortDescriptionTop
@@ -81,6 +82,8 @@ scope SkillTree
         set TreeFrameExtend = DzCreateFrameByTagName("BACKDROP", "", GetTreeFrameMain(), "", 0)
         call DzFrameSetAbsolutePoint(TreeFrameExtend, JN_FRAMEPOINT_TOPLEFT, 0.45, 0.55)
         call DzFrameSetTexture(TreeFrameExtend, "SkillTree_Transparency.blp", 0)
+
+        // 좌우 크기만 중요 & 아래쪽은 사용하지 않음.
         call DzFrameSetSize(TreeFrameExtend, .2, 0.001)
         call DzFrameSetAlpha(TreeFrameExtend, 204)
       endif
@@ -156,21 +159,6 @@ scope SkillTree
     endmethod
 
     static if false then
-      private static method InitSkillTreeExtend takes nothing returns nothing
-      set TreeBackSubIcon                   = MakeBack(GetTreeFrameExtend(), .03, -.03, .03, "SkillTree_ichi_01.blp")
-      set TreeTextSubTitle                  = MakeTextCenter(GetTreeFrameExtend(), .125, -.025, "세로베기", .020)
-
-      set TreeTextSubShortDescriptionTop    = MakeTextMatch(GetTreeFrameExtend(), JN_FRAMEPOINT_TOP, 0., -.050, "현재레벨", .0125)
-      set TreeTextSubShortDescriptionMiddle = MakeTextMatch(GetTreeFrameExtend(), JN_FRAMEPOINT_TOP, 0., -.065, "7/10", .0125)
-      set TreeTextSubShortDescriptionLow    = MakeTextMatch(GetTreeFrameExtend(), JN_FRAMEPOINT_TOP, 0., -.080, SkillData.GetRank(7, true, true), .0125)
-      
-
-      set TreeBackSkillMinusAll = MakeBackMatch(TreeTextSubShortDescriptionMiddle, JN_FRAMEPOINT_LEFT, -.070, 0., .02, "SkillTree_Extend_MinusAll.blp")
-      set TreeBackSkillMinusOne = MakeBackMatch(TreeTextSubShortDescriptionMiddle, JN_FRAMEPOINT_LEFT, -.045, 0., .02, "SkillTree_Extend_MinusOne.blp")
-
-      set TreeBackSkillPlusOne = MakeBackMatch(TreeTextSubShortDescriptionMiddle, JN_FRAMEPOINT_RIGHT, .045, 0., .02, "SkillTree_Extend_PlusOne.blp")
-      set TreeBackSkillPlusAll = MakeBackMatch(TreeTextSubShortDescriptionMiddle, JN_FRAMEPOINT_RIGHT, .070, 0., .02, "SkillTree_Extend_PlusAll.blp")
-
       set TreeTextSubLongDescriptionCost       = MakeTextDown(TreeTextSubShortDescriptionLow, 0.01, "소모마나 240, 쿨다운 70초", .010)
       call MakeLineXUper(TreeTextSubLongDescriptionCost, 0.005, .18, 204)
       set TreeTextSubLongDescriptionDetials    = MakeTextDown(TreeTextSubLongDescriptionCost, 0.01, "잠재능력을 모두 해방시켜 참격을 발사합니다.
@@ -181,10 +169,6 @@ scope SkillTree
 소모마나 +4.4", .010)
       call MakeLineXUper(TreeTextSubLongDescriptionNextLevels, 0.005, .16, 128)
 
-      call MakeBack
-
-      
-        call DzFrameSetTexture(TreeFrameExtend, "SkillTree_Transparency.blp", 0)
 
       기본 사이즈 095 + 005 = 100
       소모마나+ 010 + (010*줄당) = 120
@@ -197,27 +181,64 @@ scope SkillTree
 PlayerResource[playerId].character.id
     endif
 
+    private static method SetIconSetting takes integer inputLevel returns nothing
+      if ( 2 <= inputLevel ) then
+        call DzFrameSetText(TreeBackSkillMinusAll, "SkillTree_Extend_MinusAll.blp")
+        call DzFrameSetText(TreeBackSkillMinusOne, "SkillTree_Extend_MinusOne.blp")
+      elseif ( 1 == inputLevel ) then
+        call DzFrameSetText(TreeBackSkillMinusAll, "SkillTree_Extend_MinusAllOff.blp")
+        call DzFrameSetText(TreeBackSkillMinusOne, "SkillTree_Extend_MinusOne.blp")
+      else
+        call DzFrameSetText(TreeBackSkillMinusAll, "SkillTree_Extend_MinusAllOff.blp")
+        call DzFrameSetText(TreeBackSkillMinusOne, "SkillTree_Extend_MinusOneOff.blp")
+      endif
+
+      if ( inputLevel <= 8 ) then
+        call DzFrameSetText(TreeBackSkillPlusAll, "SkillTree_Extend_PlusAll.blp")
+        call DzFrameSetText(TreeBackSkillPlusOne, "SkillTree_Extend_PlusOne.blp")
+      elseif ( inputLevel == 9 ) then
+        call DzFrameSetText(TreeBackSkillPlusAll, "SkillTree_Extend_PlusAllOff.blp")
+        call DzFrameSetText(TreeBackSkillPlusOne, "SkillTree_Extend_PlusOne.blp")
+      else
+        call DzFrameSetText(TreeBackSkillPlusAll, "SkillTree_Extend_PlusAllOff.blp")
+        call DzFrameSetText(TreeBackSkillPlusOne, "SkillTree_Extend_PlusOneOff.blp")
+      endif
+    endmethod
+
     private static method SkillTreeClick takes nothing returns nothing
       local integer playerId = GetPlayerId(DzGetTriggerUIEventPlayer()) + 1
       local integer clickedFrame = DzGetTriggerUIEventFrame()
       local integer clickedNumber = EMenus.GetSubTypeId(clickedFrame)
+      local integer linkedSkillId = 0
+      local integer linkedSkillLevel = 0
 
       if ( 0 < clickedNumber and Player(playerId-1) == GetLocalPlayer() ) then
         if ( EMenus.GetMainType(clickedFrame) == SKILL_TREE_MAIN ) then
           call StopSound(gg_snd_BigButtonClick, false, false)
           call StartSound(gg_snd_BigButtonClick)
-
-          // call DzFrameSetTexture(TreeBackSubIcon, )
           
-          // call DzFrameSetText(TreeTextPopupTitle, "|cffffcc00" + gotName)
-          // call DzFrameSetAbsolutePoint(GetTreeFramePopup(), JN_FRAMEPOINT_BOTTOMLEFT, GetFrameMouseX(), GetFrameMouseY())
-          // call DzFrameSetSize(GetTreeFramePopup(), MaxRow(0.04+.015+JNStringLength(gotName)*.012-JNStringCount(gotName, " ")*.008, DzFrameGetText(TreeTextPopupDetailPoint), need), .06+MaxHeight(need))
-          // call DzFrameSetPoint(TreeTextPopupDetailCurrentLevel, JN_FRAMEPOINT_TOPLEFT, GetTreeFramePopup(), JN_FRAMEPOINT_TOPLEFT, .01, -DzFrameGetHeight(GetTreeFramePopup())+.0175)
-          // call DzFrameShow(GetTreeFramePopup(), true)
+          set linkedSkillId = TreeMainCoreData[PlayerResource[playerId].character.id].skillNumber[clickedNumber]
+          set linkedSkillLevel = PlayerResource[playerId].character.Skills[linkedSkillId].GetLevel()
+          
+          if ( 0 < linkedSkillId ) then
+            // 상단
+            call DzFrameSetTexture(TreeBackSubIcon, TreeMainCoreData[PlayerResource[playerId].character.id].iconPath[clickedNumber], 0)
+            call DzFrameSetText(TreeTextSubTitle, "|cffffcc00" + SkillData[linkedSkillId].Name)
+            
+            // 중단
+            call DzFrameSetText(TreeTextSubShortDescriptionTop,    SkillData.GetInfoTop(linkedSkillLevel))
+            call DzFrameSetText(TreeTextSubShortDescriptionMiddle, SkillData.GetInfoMiddle(playerId, linkedSkillId, linkedSkillLevel))
+            call DzFrameSetText(TreeTextSubShortDescriptionLow,    SkillData.GetInfoBottom(playerId, linkedSkillId, linkedSkillLevel))
+            call SetIconSetting(linkedSkillLevel)
 
-          // call EMenus.FrameSaveIDs(TreeBackMainSkills[loopA], SKILL_TREE_MAIN, TreeMainCoreData[characterId].skillNumber[loopA])
-
-
+            // 하단
+            call DzFrameSetText(TreeTextSubLongDescriptionCost, SkillData.GetDescriptionTop(linkedSkillId, linkedSkillLevel))
+            call DzFrameSetText(TreeTextSubLongDescriptionCost, SkillData.GetDescriptionMiddle(playerId, linkedSkillId, linkedSkillLevel))
+            call DzFrameShow(TreeTextSubLongDescriptionNextLevels, false)
+            call DzFrameSetPoint(TreeBackSubSize, JN_FRAMEPOINT_BOTTOM, TreeTextSubLongDescriptionCost, JN_FRAMEPOINT_BOTTOM, 0., -.01)
+          else
+            call Msg(Player(playerId-1), "에러/트리/sid=0/p["+I2S(playerId)+"]/"+I2S(clickedNumber) + "/" + I2S(clickedFrame))
+          endif
           call DzFrameShow(GetTreeFrameExtend(), true)
           debug call Msg(Player(playerId-1), "트리클릭/메인/p[" + I2S(playerId) + "]/value("+I2S(EMenus.GetSubTypeId(clickedFrame))+")")
         elseif ( EMenus.GetMainType(clickedFrame) == SKILL_TREE_EXTEND ) then
@@ -367,7 +388,7 @@ PlayerResource[playerId].character.id
     endmethod
 
     private static method InitSkillTreeExtend takes nothing returns nothing
-      local integer temp = DzCreateFrameByTagName("BACKDROP", "", GetTreeFrameExtend(), "QuestButtonBaseTemplate", 0)
+      set TreeBackSubSize                   = DzCreateFrameByTagName("BACKDROP", "", GetTreeFrameExtend(), "QuestButtonBaseTemplate", 0)
       set TreeBackSubIcon                   = MakeBack(GetTreeFrameExtend(), .03, -.03, .03, "SkillTree_ichi_01.blp")
       set TreeTextSubTitle                  = MakeTextCenter(GetTreeFrameExtend(), .125, -.025, "세로베기", .020)
 
@@ -376,7 +397,7 @@ PlayerResource[playerId].character.id
 
       set TreeTextSubShortDescriptionTop    = MakeTextMatch(GetTreeFrameExtend(), JN_FRAMEPOINT_TOP, 0., -.050, "현재레벨", .0125)
       set TreeTextSubShortDescriptionMiddle = MakeTextMatch(GetTreeFrameExtend(), JN_FRAMEPOINT_TOP, 0., -.065, "7/10", .0125)
-      set TreeTextSubShortDescriptionLow    = MakeTextMatch(GetTreeFrameExtend(), JN_FRAMEPOINT_TOP, 0., -.080, SkillData.GetRank(7, true, true), .0125)
+      set TreeTextSubShortDescriptionLow    = MakeTextMatch(GetTreeFrameExtend(), JN_FRAMEPOINT_TOP, 0., -.080, "[B+ Rank]", .0125)
       
       set TreeBackSkillMinusAll = MakeBackMatch(TreeTextSubShortDescriptionMiddle, JN_FRAMEPOINT_LEFT, -.070, 0., .02, "SkillTree_Extend_MinusAll.blp")
       call EMenus.FrameSaveIDs(MakeButtonSimple(TreeBackSkillMinusAll), SKILL_TREE_EXTEND, TreeBackSkillMinusAll)
@@ -398,8 +419,8 @@ PlayerResource[playerId].character.id
 소모마나 +4.4", .010)
       call MakeLineXUper(TreeTextSubLongDescriptionNextLevels, 0.005, .16, 128)
 
-      call DzFrameSetPoint(temp, JN_FRAMEPOINT_TOPLEFT, GetTreeFrameExtend(), JN_FRAMEPOINT_TOPLEFT, 0., 0.)
-      call DzFrameSetPoint(temp, JN_FRAMEPOINT_BOTTOM, TreeTextSubLongDescriptionNextLevels, JN_FRAMEPOINT_BOTTOM, 0., -.01)
+      call DzFrameSetPoint(TreeBackSubSize, JN_FRAMEPOINT_TOPLEFT, GetTreeFrameExtend(), JN_FRAMEPOINT_TOPLEFT, 0., 0.)
+      call DzFrameSetPoint(TreeBackSubSize, JN_FRAMEPOINT_BOTTOM, TreeTextSubLongDescriptionNextLevels, JN_FRAMEPOINT_BOTTOM, 0., -.01)
     endmethod
     
     private static method onInit takes nothing returns nothing
