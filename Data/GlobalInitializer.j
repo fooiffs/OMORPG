@@ -525,7 +525,7 @@ scope GlobalInitializer
       return this
     endmethod
     static method operator[] takes integer input returns thistype
-      if ( input <= 0 or 8190 <= input ) then
+      if ( input <= 0 or MAX_CHARACTER_COUNT <= input ) then
         call MsgAll("오류/TreeCore[" + I2S(input) + "]는 설정 범위(1~" + I2S(MAX_CHARACTER_COUNT - 1) + ")를 벗어납니다.")
         return 0
       elseif ( privateTreeMainData[input] == 0 ) then
@@ -535,7 +535,7 @@ scope GlobalInitializer
     endmethod
     
     static method onInit takes nothing returns nothing
-      call AutoInit(ECharacter.ICHIGO)
+      set privateTreeMainData[ECharacter.ICHIGO] = AutoInit(ECharacter.ICHIGO)
     endmethod
   endstruct
 endscope

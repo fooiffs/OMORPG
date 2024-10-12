@@ -106,6 +106,9 @@ scope Load
       // 신규, 이어하기 알림
       if ( 0 == tempInteger ) then /* 신규 시작 */
         call MsgAll(GetPlayerName(GetServerPlayer) + "님이 " + JNStringSplit(CharacterData[receivedData].SelectDatas, "'", 0) + "을(를) 선택하였습니다.")
+
+        // debug call MsgAll("currentPlayerId:" + I2S(currentPlayerId) + "/receivedData:" + I2S(receivedData))
+        set PlayerResource[currentPlayerId].character = CharacterResource.Create(udg_hero[currentPlayerId], receivedData)
       else
         call MsgAll(GetPlayerName(GetServerPlayer) + "님이 Lv." + I2S(tempInteger) + " " + JNStringSplit(CharacterData[receivedData].SelectDatas, "'", 0) + "(으)로 모험을 이어갑니다.")
         call SetHeroLevel(udg_hero[currentPlayerId], tempInteger, false)

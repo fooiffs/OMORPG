@@ -5,7 +5,7 @@ scope IResources
     boolean isBooleanType
 
     static method Create takes integer id, boolean isBoolType returns thistype
-      local OptionResource this = IResource.create(OptionResource.typeid)
+      local thistype this = IResource.create(thistype.typeid)
       set this.id = id
       set this.isBooleanType = isBoolType
       return this
@@ -33,13 +33,23 @@ scope IResources
 
     static method operator [] takes integer input returns thistype
       if ( input <= 0 or MAX_PLAYER_COUNT <= input ) then
-        call MsgAll("오류/P.R[" + I2S(input) + "]는 설정 범위(1~"+I2S(MAX_PLAYER_COUNT-1)+")를 벗어납니다.")
+        // call MsgAll("오류/P.R[" + I2S(input) + "]는 설정 범위(1~"+I2S(MAX_PLAYER_COUNT-1)+")를 벗어납니다.")
         return 0
       elseif ( privatePlayerResource[input] == 0 ) then
-        // call MsgAll("오류/P.R[" + I2S(input) + "]는 설정되지 않았습니다.")
-        return 0
+        if ( GetPlayerController(Player(input-1)) == MAP_CONTROL_USER ) and ( GetPlayerSlotState(Player(input-1)) == PLAYER_SLOT_STATE_PLAYING ) then
+          set privatePlayerResource[input] = Create(input)
+        else
+          call MsgAll("오류/P.R[" + I2S(input) + "]는 설정되지 않았습니다.")
+          return 0
+        endif
       endif
       return privatePlayerResource[input]
+    endmethod
+    static method Create takes integer playerId returns thistype
+      local thistype this = IResource.create(thistype.typeid)
+      set this.id = playerId
+      set this.isPlaying = true
+      return this
     endmethod
 
     static method onInit takes nothing returns nothing
@@ -48,14 +58,14 @@ scope IResources
       loop
         if ( GetPlayerController(Player(loopA-1)) == MAP_CONTROL_USER ) and ( GetPlayerSlotState(Player(loopA-1)) == PLAYER_SLOT_STATE_PLAYING ) then
           set ALL_PLAYING_COUNT = ALL_PLAYING_COUNT + 1
-          set privatePlayerResource[loopA] = IResource.create(thistype.typeid)
-          set privatePlayerResource[loopA].id = loopA
-          set privatePlayerResource[loopA].isPlaying = true
+          set privatePlayerResource[loopA] = PlayerResource.Create(loopA)
           set loopB = 1
           loop
+            // call MsgAll("Checker1/"+I2S(loopA))
             set privatePlayerResource[loopA].options[loopB] = OptionResource.Create(HotkeyData[loopB].BaseValue, HotkeyData[loopB].IsBoolType)
+            // call MsgAll("Checker2/"+I2S(loopA))
             set loopB = loopB + 1
-            exitwhen privatePlayerResource[loopA].options.size <= loopB 
+            exitwhen MAX_OPTION_MENU_COUNT <= loopB 
           endloop
         endif
         exitwhen MAX_PLAYER_COUNT-1 <= loopA
