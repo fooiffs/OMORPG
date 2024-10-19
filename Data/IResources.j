@@ -58,6 +58,7 @@ scope IResources
       loop
         if ( GetPlayerController(Player(loopA-1)) == MAP_CONTROL_USER ) and ( GetPlayerSlotState(Player(loopA-1)) == PLAYER_SLOT_STATE_PLAYING ) then
           set ALL_PLAYING_COUNT = ALL_PLAYING_COUNT + 1
+          call MsgAll("Checker1 - " + I2S(ALL_PLAYING_COUNT))
           set privatePlayerResource[loopA] = PlayerResource.Create(loopA)
           set loopB = 1
           loop

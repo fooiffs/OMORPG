@@ -404,6 +404,9 @@ scope SkillTree
 
       call DzFrameSetPoint(TreeBackSubSize, JN_FRAMEPOINT_TOPLEFT, GetTreeFrameExtend(), JN_FRAMEPOINT_TOPLEFT, 0., 0.)
       call DzFrameSetPoint(TreeBackSubSize, JN_FRAMEPOINT_BOTTOM, TreeTextSubLongDescriptionNextLevels, JN_FRAMEPOINT_BOTTOM, 0., -.01)
+
+      debug call MsgAll("size1 : " + R2S(DzFrameGetHeight(TreeBackSubSize)))
+      debug call MsgAll("size2 : " + R2S(DzFrameGetHeight(GetTreeFrameExtend())))
     endmethod
     
     private static method onInit takes nothing returns nothing
