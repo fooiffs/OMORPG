@@ -30,6 +30,9 @@ scope SkillTree
     private static integer TreeBackSkillPlusOne
     private static integer TreeBackSkillPlusAll
 
+    // 보이지 않는 이 값으로 좌우길이 최소치를 지정합니다.
+    private static constant string EMPTY_FOR_ROW_SIZE = "                                                                  \n"
+
 
     public static method MakeLineX takes integer parent, real x, real y, real size, integer alpha returns nothing
       local integer temp = DzCreateFrameByTagName("BACKDROP", "", parent, "", 0)
@@ -187,7 +190,7 @@ scope SkillTree
 
             // 하단
             call DzFrameSetText(TreeTextSubLongDescriptionCost, SkillData.GetDescriptionTop(linkedSkillId, linkedSkillLevel))
-            call DzFrameSetText(TreeTextSubLongDescriptionDetials, SkillData.GetDescriptionMiddle(playerId, linkedSkillId, linkedSkillLevel))
+            call DzFrameSetText(TreeTextSubLongDescriptionDetials, EMPTY_FOR_ROW_SIZE + SkillData.GetDescriptionMiddle(playerId, linkedSkillId, linkedSkillLevel))
             call DzFrameShow(TreeTextSubLongDescriptionNextLevels, false)
             call DzFrameSetPoint(TreeBackSubSize, JN_FRAMEPOINT_BOTTOM, TreeTextSubLongDescriptionDetials, JN_FRAMEPOINT_BOTTOM, 0., -.01)
           else
@@ -395,18 +398,18 @@ scope SkillTree
 
       set TreeTextSubLongDescriptionCost       = MakeTextOffset(GetTreeFrameExtend(), -0.1025, .01, "소모마나 240, 쿨다운 70초", .010)
       call MakeLineXUper(TreeTextSubLongDescriptionCost, 0.005, .18, 204)
-      set TreeTextSubLongDescriptionDetials    = MakeTextDown(TreeTextSubLongDescriptionCost, -.01, "잠재능력을 모두 해방시켜 참격을 발사합니다.
-750범위에 1427% 데미지를 가합니다.\nㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁ", .009)
-      call MakeLineXUper(TreeTextSubLongDescriptionDetials, 0.005, .16, 128)
+      set TreeTextSubLongDescriptionDetials    = MakeTextDown(TreeTextSubLongDescriptionCost, 0., EMPTY_FOR_ROW_SIZE+"잠재능력을 모두 해방시켜 참격을 발사합니다.
+750범위에 1427% 데미지를 가합니다.\nㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁ", .009)
+      call MakeLineXUper(TreeTextSubLongDescriptionDetials, -0.005, .16, 128)
       set TreeTextSubLongDescriptionNextLevels = MakeTextDown(TreeTextSubLongDescriptionDetials, -.01, "데미지 상승 +11%, 
 소모마나 +4.4", .009)
       call MakeLineXUper(TreeTextSubLongDescriptionNextLevels, 0.005, .16, 128)
 
-      call DzFrameSetPoint(TreeBackSubSize, JN_FRAMEPOINT_TOPLEFT, GetTreeFrameExtend(), JN_FRAMEPOINT_TOPLEFT, 0., 0.)
+      call DzFrameSetPoint(TreeBackSubSize, JN_FRAMEPOINT_TOPLEFT, TreeTextSubLongDescriptionDetials, JN_FRAMEPOINT_TOPLEFT, -0.01, 0.1125)
       call DzFrameSetPoint(TreeBackSubSize, JN_FRAMEPOINT_BOTTOM, TreeTextSubLongDescriptionNextLevels, JN_FRAMEPOINT_BOTTOM, 0., -.01)
 
-      debug call MsgAll("size1 : " + R2S(DzFrameGetHeight(TreeBackSubSize)))
-      debug call MsgAll("size2 : " + R2S(DzFrameGetHeight(GetTreeFrameExtend())))
+      // debug call MsgAll("size1 : " + R2S(DzFrameGetHeight(TreeBackSubSize)))
+      // debug call MsgAll("size2 : " + R2S(DzFrameGetHeight(GetTreeFrameExtend())))
     endmethod
     
     private static method onInit takes nothing returns nothing
