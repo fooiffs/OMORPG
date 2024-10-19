@@ -227,7 +227,7 @@ scope Select
       return temp
     endmethod
     private static method MakeButtonSimple takes integer parent, integer types, integer input, code func returns integer
-      local integer temp = DzCreateFrameByTagName("BUTTON", "", select_Main, "ScoreScreenTabButtonTemplate", CountAdder())
+      local integer temp = DzCreateFrameByTagName("BUTTON", "", parent, "ScoreScreenTabButtonTemplate", CountAdder())
       call DzFrameSetAllPoints(temp, parent)
       call EMenus.FrameSaveIDs(temp, types, input)
 
