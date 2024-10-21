@@ -104,6 +104,22 @@ scope IResources
       // endloop
       return this
     endmethod
+    method LevelUp takes integer input returns nothing
+      if ( Unit == null ) then
+        call Msg(Player(playerId-1), "오류/렙업/유닛 없음")
+        return
+      endif
+      set Level = Level+input
+      call SetHeroLevel(Unit, Level, true)
+    endmethod
+
+    method Remove takes nothing returns nothing
+      if ( Unit != null ) then
+        call RemoveUnit(Unit)
+        set udg_hero[playerId] = null
+        call this.deallocate()
+      endif
+    endmethod
 
     public method TryDestroySlot takes integer inputSlot returns nothing
       if ( 0 < inputSlot and Slots[inputSlot] != 0 ) then

@@ -53,6 +53,7 @@
 //! import "Tests\ItemRandomEnchanter.j"
 //! import "Tests\UnitNameChange.j"
 
+//! import "Tests\TestCommands.j"
 // //! import "UnUse\HandleProfiler.j"
 // //! import "UnUse\ItemUIExample.j"
 // //! import "UnUse\NewTexttag.j"

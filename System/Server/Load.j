@@ -149,6 +149,7 @@ scope Load
       endif
       
       set currentPlayerId = 0
+      set JN_LoaderNow = 0
 
       call PortraitEditor_Change()
     endmethod

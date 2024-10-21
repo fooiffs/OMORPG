@@ -54,9 +54,21 @@ scope Select
     private static integer array selectTextBottomNameLevels[MAX_CHARACTER_COUNT]
     private static integer array selectTextBottomPlayTimes[MAX_CHARACTER_COUNT]
     private static integer array selectTextBottomLoadTypes[MAX_CHARACTER_COUNT]
-    
-
-
+  
+    static method SetRepick takes player p returns nothing
+      local integer pid = GetPlayerId(p) + 1
+      set isSelecting[pid] = true
+      set NowSelect[pid] = 0
+      
+      call PlayerResource[pid].character.Remove()
+      if ( GetLocalPlayer() == p ) then
+        call InitCamera()
+        call DzFrameShow(DzFrameGetParent(select_Main), true)
+        call DzFrameShow(select_LeftPreview, false)
+        call DzFrameShow(select_SkillPreview, false)
+        call DzFrameShow(DzFrameGetMinimap(), false)
+      endif
+    endmethod
     static method SetStars takes integer startnum, integer val, string texture returns nothing
       local integer i = 0
       loop
@@ -196,7 +208,6 @@ scope Select
           call PanCameraTo(startCreateX, startCreateY)
           call EnablePreSelect(true, true)
           call DzFrameShow(DzFrameGetMinimap(), true)
-          call DzFrameShow(DzFrameGetMinimap(), true)
         endif
       endif
     endmethod
@@ -280,7 +291,7 @@ scope Select
       call CameraBounds(defaultX, defaultY)
     endmethod
     private static method CreateSelectMain takes nothing returns nothing
-      local integer temp
+      local integer temp = 0
       call InitCamera()
 
       if ( GetRandomReal(0., 99.) <= 33. ) then
