@@ -187,6 +187,11 @@ scope MenuQuickSlot
         call Msg(GetLocalPlayer(), "스마트 모드는 준비중입니다.")
       endif
     endmethod
+    static method TreeSkillUse takes nothing returns nothing
+      local player p = DzGetTriggerSyncPlayer()
+      local string data = DzGetTriggerSyncData()
+      call PlayerResource[GetPlayerId(p)+1].character.UseSkillIndex(S2I(data))
+    endmethod
     static method ButtonClickDetail takes player p, integer frame returns nothing
       local integer playerId = GetPlayerId(p)+1
       // local integer frameIndex = EMenus.GetSubTypeId(DzGetTriggerUIEventFrame())
@@ -208,6 +213,8 @@ scope MenuQuickSlot
         call MsgAll("플레이어["+I2S(playerId)+"]/아이템["+I2S(EMenus.GetSubTypeId(frame)-EHotkeyMenu.ItemSlot1+1)+ "]클릭=메뉴["+I2S(EMenus.GetSubTypeId(frame))+"]")
       elseif ( EMenus.GetMainType(frame) == QUICK_MENU_SKILLSLOT ) then
         call MsgAll("플레이어["+I2S(playerId)+"]/스킬["+I2S(EMenus.GetSubTypeId(frame)-EHotkeyMenu.SkillSlot1+1)+ "]클릭=메뉴["+I2S(EMenus.GetSubTypeId(frame))+"]")
+        call Msg(Player(playerId-1), "스킬#" + I2S(EMenus.GetSubTypeId(frame)) + "/"+I2S(TreeMainCoreData[PlayerResource[playerId].character.id].skillNumber[EMenus.GetSubTypeId(frame)]) +"번, " + SkillData[TreeMainCoreData[PlayerResource[playerId].character.id].skillNumber[EMenus.GetSubTypeId(frame)]].toString())
+        call DzSyncData("TreeSkill", I2S(EMenus.GetSubTypeId(frame)))
       endif
     endmethod
 

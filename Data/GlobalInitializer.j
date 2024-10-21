@@ -5,7 +5,7 @@ scope GlobalInitializer
     constant integer MAX_PLAYER_COUNT = 12 + 1
     constant integer MAX_CHARACTER_COUNT = 6 + 1 /* Save에도 연동됨 */
     constant integer MAX_STAT_COUNT = 32 + 1
-    constant integer MAX_SKILL_COUNT = 205 + 1 /* 배열 1 시작, +1 */
+    constant integer MAX_SKILL_COUNT = 207 + 1 /* 배열 1 시작, +1 */
     constant integer MAX_OPTION_MENU_COUNT = 30 + 1
     constant integer MAX_SLOT_COUNT = 8 + 1
     constant real StoreX = 1280.
@@ -174,6 +174,10 @@ scope GlobalInitializer
     integer CostManaAdd
 
     private static string array ranks[12]
+
+    method toString takes nothing returns string
+      return Name + "=" + I2S(Damage) + "데미지" + "/쿨다운 " + ESkillTree.ProcessI2S(CoolTime, true, 1, true) + "초"
+    endmethod
 
     static method operator[] takes integer input returns thistype
       if ( input <= 0 or MAX_SKILL_COUNT <= input ) then
@@ -502,7 +506,7 @@ scope GlobalInitializer
     private static constant real TREE_POSITION_LEFT3   = .055
     private static constant real TREE_POSITION_LEFT4   = .115
 
-    private integer countSkill = 0
+    integer countSkill = 0
 
     integer array skillNumber[MAX_TREE_SKILL_COUNT]
     real array positionX[MAX_TREE_SKILL_COUNT]

@@ -4,8 +4,8 @@ scope ECharacter
     public static constant integer ICHIGO = 1
     public static constant integer RUKIA = 2
     public static constant integer URYU = 3
-    public static constant integer RENJI = 4
-    public static constant integer ORIHIME = 5
+    public static constant integer ORIHIME = 4
+    public static constant integer RENJI = 5
     public static constant integer SADO = 6
     
     static method U2I takes unit u returns integer

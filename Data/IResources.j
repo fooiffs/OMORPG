@@ -39,7 +39,7 @@ scope IResources
         if ( GetPlayerController(Player(input-1)) == MAP_CONTROL_USER ) and ( GetPlayerSlotState(Player(input-1)) == PLAYER_SLOT_STATE_PLAYING ) then
           set privatePlayerResource[input] = Create(input)
         else
-          call MsgAll("오류/P.R[" + I2S(input) + "]는 설정되지 않았습니다.")
+          // call MsgAll("오류/P.R[" + I2S(input) + "]는 설정되지 않았습니다.")
           return 0
         endif
       endif
@@ -96,6 +96,8 @@ scope IResources
         set this.Slots[loopA] = SlotResource.Input(loopA, Skills[loopA])
         set loopA = loopA + 1
       endloop
+
+      call SkillTree.InitSkillTreeMainIconForPlayer(Player(playerId-1), input)
       // set loopA = 1
       // loop
       //   set this.Stats[loopA] = StatResource.Create(this, loopA)
@@ -119,6 +121,10 @@ scope IResources
         set udg_hero[playerId] = null
         call this.deallocate()
       endif
+    endmethod
+
+    method UseSkillIndex takes integer input returns nothing
+      call IssueImmediateOrderById(Unit, SlotData[input].OrderID)
     endmethod
 
     public method TryDestroySlot takes integer inputSlot returns nothing

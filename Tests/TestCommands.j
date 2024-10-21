@@ -20,7 +20,7 @@ scope TestCommands
     private static trigger levelUpTrigger = CreateTrigger()
     
     private static method levelupAction takes nothing returns nothing
-      call PlayerResource[GetPlayerId(GetTriggerPlayer())+1].character.LevelUp(1)
+      call PlayerResource[GetPlayerId(GetTriggerPlayer())+1].character.LevelUp(10)
     endmethod 
 
     private static method onInit takes nothing returns nothing

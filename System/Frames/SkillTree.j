@@ -197,7 +197,7 @@ scope SkillTree
             call Msg(Player(playerId-1), "에러/트리/sid=0/p["+I2S(playerId)+"]/"+I2S(clickedNumber) + "/" + I2S(clickedFrame))
           endif
           call DzFrameShow(GetTreeFrameExtend(), true)
-          debug call Msg(Player(playerId-1), "트리클릭/메인/p[" + I2S(playerId) + "]/value("+I2S(EMenus.GetSubTypeId(clickedFrame))+")")
+          // debug call Msg(Player(playerId-1), "트리클릭/메인/p[" + I2S(playerId) + "]/value("+I2S(EMenus.GetSubTypeId(clickedFrame))+")")
         elseif ( EMenus.GetMainType(clickedFrame) == SKILL_TREE_EXTEND ) then
          call DzSyncData("TreeSync", I2S(clickedNumber))
         else
@@ -327,8 +327,8 @@ scope SkillTree
       return temp
     endmethod
     private static method InitSkillTreeMainIcon takes integer characterId returns nothing
-      local integer loopA = MAX_TREE_SKILL_COUNT - 1
-      if ( loopA <= 0 ) then
+      local integer loopA = TreeMainCoreData[characterId].countSkill
+      if ( loopA <= 0 or characterId == 0 ) then
         call MsgAll("오류/스킬트리/스킬아이콘"+I2S(characterId)+"/스킬카운트 " + I2S(loopA))
         return
       else
@@ -336,6 +336,28 @@ scope SkillTree
           set TreeBackMainSkills[loopA] = MakeButtonSimple(MakeBack(GetTreeFrameMain(), TreeMainCoreData[characterId].positionX[loopA], TreeMainCoreData[characterId].positionY[loopA], 0.03, TreeMainCoreData[characterId].iconPath[loopA]))
           call EMenus.FrameSaveIDs(TreeBackMainSkills[loopA], SKILL_TREE_MAIN, loopA)
           call MakeSmallLevelFrame(TreeBackMainSkills[loopA], loopA)
+          exitwhen loopA <= 1
+          set loopA = loopA - 1
+        endloop
+      endif
+    endmethod
+    public static method InitSkillTreeMainIconForPlayer takes player p, integer characterId returns nothing
+      local integer loopA = TreeMainCoreData[characterId].countSkill
+
+      if ( loopA <= 0 or characterId == 0 ) then
+        call MsgAll("오류/스킬트리2/스킬아이콘"+I2S(characterId)+"/스킬카운트 " + I2S(loopA))
+        return
+      else
+        loop
+          if ( GetLocalPlayer() == p ) then
+            if ( TreeBackMainSkills[loopA] != 0 ) then
+              call DzFrameShow(DzFrameGetParent(TreeBackMainSkills[loopA]), false)
+            endif
+            set TreeBackMainSkills[loopA] = MakeButtonSimple(MakeBack(GetTreeFrameMain(), TreeMainCoreData[characterId].positionX[loopA], TreeMainCoreData[characterId].positionY[loopA], 0.03, TreeMainCoreData[characterId].iconPath[loopA]))
+            call EMenus.FrameSaveIDs(TreeBackMainSkills[loopA], SKILL_TREE_MAIN, loopA)
+            call MakeSmallLevelFrame(TreeBackMainSkills[loopA], loopA)
+            call DzFrameSetPriority(TreeBackMainSkills[loopA], 0)
+          endif
           exitwhen loopA <= 1
           set loopA = loopA - 1
         endloop
@@ -374,6 +396,7 @@ scope SkillTree
       set TreeTextPopupDetailPoint        = MakeTextMatch(GetTreeFramePopup(), JN_FRAMEPOINT_TOPLEFT, .01, -.03, "|cffff3315[-2P]", .008)
       set TreeTextPopupDetailCurrentLevel = MakeTextMatch(GetTreeFramePopup(), JN_FRAMEPOINT_TOPRIGHT, -.01, -.03, "10|cff00ff00+2|rLv", .009)
       call                                  MakeTextMatch(GetTreeFramePopup(), JN_FRAMEPOINT_BOTTOMLEFT, .01, .01, "|cff0080c0자세히.. (클릭)|r", .009)
+      call DzFrameSetPriority(GetTreeFramePopup(), 1)
     endmethod
 
     private static method InitSkillTreeExtend takes nothing returns nothing
@@ -413,7 +436,6 @@ scope SkillTree
       // debug call MsgAll("size1 : " + R2S(DzFrameGetHeight(TreeBackSubSize)))
       // debug call MsgAll("size2 : " + R2S(DzFrameGetHeight(GetTreeFrameExtend())))
     endmethod
-    
     private static method onInit takes nothing returns nothing
       local trigger tempTrigger = CreateTrigger()
 
