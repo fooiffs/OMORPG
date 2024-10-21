@@ -32,7 +32,7 @@ scope GlobalInitializer
     constant integer MAX_SAVE_EQUIP = 16 +1
     constant integer MAX_SAVE_CHARACTER = 6
     
-    constant integer MAX_TREE_SKILL_COUNT = 11 + 1
+    constant integer MAX_TREE_SKILL_COUNT = 15 + 1
   endglobals
   function IsEmpty takes string s returns boolean
     return (s == "") or (s == null)
@@ -493,31 +493,136 @@ scope GlobalInitializer
   endstruct
 
   struct TreeMainCoreData
+    private static constant real TREE_POSITION_LEFT   = .085
+    private static constant real TREE_POSITION_CENTER = .135
+    private static constant real TREE_POSITION_RIGHT  = .185
+
+    private static constant real TREE_POSITION_LEFT1   = .070
+    private static constant real TREE_POSITION_LEFT2   = .100
+    private static constant real TREE_POSITION_LEFT3   = .055
+    private static constant real TREE_POSITION_LEFT4   = .115
+
+    private integer countSkill = 0
+
     integer array skillNumber[MAX_TREE_SKILL_COUNT]
     real array positionX[MAX_TREE_SKILL_COUNT]
     real array positionY[MAX_TREE_SKILL_COUNT]
     string array iconPath[MAX_TREE_SKILL_COUNT]
    
-    private method CreateSub takes integer index, integer number, real inputX, real inputY, string iconPath returns nothing
-      set this.skillNumber[index] = number
-      set this.positionX[index] = inputX
-      set this.positionY[index] = inputY
-      set this.iconPath[index] = iconPath
+    private method CreateSub takes integer number, real inputX, integer requiredChangeLevel returns nothing
+      set this.countSkill = this.countSkill + 1 
+      set this.skillNumber[this.countSkill] = number
+      set this.positionX[this.countSkill] = inputX
+      set this.positionY[this.countSkill] = - 0.035 * requiredChangeLevel - 0.10
+      set this.iconPath[this.countSkill] = "war3mapImported\\SkillIcon_"+I2S(number)+".blp"
     endmethod
     static method AutoInit takes integer characterId returns thistype
       local thistype this = thistype.allocate()
       if ( characterId == ECharacter.ICHIGO ) then
-        call this.CreateSub(1, 16, .085, -.10, "SkillTree_ichi_01.blp")
-        call this.CreateSub(2, 20, .135, -.10, "SkillTree_ichi_02.blp")
-        call this.CreateSub(3, 21, .135, -.14, "SkillTree_ichi_03.blp")
-        call this.CreateSub(4, 25, .185, -.14, "SkillTree_ichi_04.blp")
-        call this.CreateSub(5, 17, .085, -.18, "SkillTree_ichi_05.blp")
-        call this.CreateSub(6, 22, .135, -.22, "SkillTree_ichi_06.blp")
-        call this.CreateSub(7, 18, .085, -.26, "SkillTree_ichi_07_DIS.blp")
-        call this.CreateSub(8, 23, .135, -.34, "SkillTree_ichi_08_DIS.blp")
-        call this.CreateSub(9, 19, .085, -.38, "SkillTree_ichi_09_DIS.blp")
-        call this.CreateSub(10, 26, .185, -.38, "SkillTree_ichi_10_DIS.blp")
-        call this.CreateSub(11, 24, .135, -.42, "SkillTree_ichi_11_DIS.blp")
+        call this.CreateSub(16, TREE_POSITION_LEFT  , 0)
+        call this.CreateSub(20, TREE_POSITION_CENTER, 0)
+        call this.CreateSub(25, TREE_POSITION_RIGHT , 1)
+
+        call this.CreateSub(21, TREE_POSITION_CENTER, 2)
+        call this.CreateSub(13, TREE_POSITION_RIGHT , 2)
+
+        call this.CreateSub(17, TREE_POSITION_LEFT  , 3)
+        call this.CreateSub(22, TREE_POSITION_CENTER, 4)
+        call this.CreateSub(14, TREE_POSITION_CENTER, 4)
+
+        call this.CreateSub(18, TREE_POSITION_LEFT  , 5)
+        call this.CreateSub(23, TREE_POSITION_CENTER, 6)
+        call this.CreateSub(15, TREE_POSITION_RIGHT , 6)
+
+        call this.CreateSub(26, TREE_POSITION_RIGHT , 7)
+        call this.CreateSub(19, TREE_POSITION_LEFT  , 8)
+        call this.CreateSub(24, TREE_POSITION_CENTER, 9)
+      elseif ( characterId == ECharacter.RUKIA ) then
+        call this.CreateSub(53, TREE_POSITION_CENTER, 0)
+        call this.CreateSub(54, TREE_POSITION_LEFT  , 1)
+        call this.CreateSub(55, TREE_POSITION_CENTER, 2)
+        call this.CreateSub(56, TREE_POSITION_CENTER, 3)
+        call this.CreateSub(57, TREE_POSITION_LEFT  , 4)
+        call this.CreateSub(58, TREE_POSITION_LEFT  , 5)
+        call this.CreateSub(59, TREE_POSITION_CENTER, 6)
+        call this.CreateSub(60, TREE_POSITION_LEFT  , 7)
+        call this.CreateSub(61, TREE_POSITION_CENTER, 8)
+        call this.CreateSub(62, TREE_POSITION_LEFT  , 9)
+
+        call this.CreateSub(63, TREE_POSITION_RIGHT , 3)
+        call this.CreateSub(64, TREE_POSITION_RIGHT , 5)
+        call this.CreateSub(65, TREE_POSITION_RIGHT , 7)
+      elseif ( characterId == ECharacter.URYU ) then
+        call this.CreateSub(85, TREE_POSITION_LEFT, 0)
+        call this.CreateSub(86, TREE_POSITION_LEFT, 2)
+        call this.CreateSub(87, TREE_POSITION_LEFT, 4)
+        call this.CreateSub(88, TREE_POSITION_LEFT, 6)
+
+        call this.CreateSub(89, TREE_POSITION_CENTER, 0)
+        call this.CreateSub(90, TREE_POSITION_CENTER, 1)
+        call this.CreateSub(91, TREE_POSITION_CENTER, 2)
+        call this.CreateSub(92, TREE_POSITION_CENTER, 3)
+        call this.CreateSub(93, TREE_POSITION_CENTER, 4)
+        call this.CreateSub(94, TREE_POSITION_CENTER, 6)
+        call this.CreateSub(95, TREE_POSITION_CENTER, 8)
+
+        call this.CreateSub(96, TREE_POSITION_RIGHT, 2)
+        call this.CreateSub(97, TREE_POSITION_RIGHT, 5)
+        call this.CreateSub(98, TREE_POSITION_RIGHT, 8)
+        call this.CreateSub(99, TREE_POSITION_RIGHT, 10)
+      elseif ( characterId == ECharacter.ORIHIME ) then
+        call this.CreateSub(116, TREE_POSITION_LEFT  , 0)
+        call this.CreateSub(117, TREE_POSITION_LEFT1 , 1)
+        call this.CreateSub(118, TREE_POSITION_LEFT2 , 1)
+        call this.CreateSub(119, TREE_POSITION_LEFT3 , 2)
+        call this.CreateSub(120, TREE_POSITION_LEFT  , 2)
+        call this.CreateSub(121, TREE_POSITION_LEFT4 , 2)
+
+        call this.CreateSub(128, TREE_POSITION_CENTER, 4)
+        call this.CreateSub(127, TREE_POSITION_CENTER, 6)
+        call this.CreateSub(129, TREE_POSITION_CENTER, 8)
+
+        call this.CreateSub(122, TREE_POSITION_RIGHT , 1)
+        call this.CreateSub(123, TREE_POSITION_RIGHT , 2)
+        call this.CreateSub(124, TREE_POSITION_RIGHT , 4)
+        call this.CreateSub(125, TREE_POSITION_RIGHT , 6)
+        call this.CreateSub(126, TREE_POSITION_RIGHT , 8)
+      elseif ( characterId == ECharacter.RENJI ) then
+        call this.CreateSub(151, TREE_POSITION_LEFT  , 1)
+        call this.CreateSub(152, TREE_POSITION_LEFT  , 3)
+        call this.CreateSub(153, TREE_POSITION_LEFT  , 4)
+        call this.CreateSub(154, TREE_POSITION_LEFT  , 5)
+        call this.CreateSub(155, TREE_POSITION_LEFT  , 7)
+        call this.CreateSub(156, TREE_POSITION_LEFT  , 8)
+
+        call this.CreateSub(157, TREE_POSITION_CENTER, 0)
+        call this.CreateSub(158, TREE_POSITION_CENTER, 2)
+        call this.CreateSub(159, TREE_POSITION_CENTER, 4)
+        call this.CreateSub(160, TREE_POSITION_CENTER, 5)
+        call this.CreateSub(161, TREE_POSITION_CENTER, 6)
+        call this.CreateSub(162, TREE_POSITION_CENTER, 7)
+        call this.CreateSub(163, TREE_POSITION_CENTER, 9)
+
+        call this.CreateSub(164, TREE_POSITION_RIGHT , 1)
+        call this.CreateSub(165, TREE_POSITION_RIGHT , 4)
+        call this.CreateSub(166, TREE_POSITION_RIGHT , 7)
+        call this.CreateSub(167, TREE_POSITION_RIGHT , 9)
+      elseif ( characterId == ECharacter.SADO ) then
+        call this.CreateSub(185, TREE_POSITION_LEFT  , 0)
+        call this.CreateSub(186, TREE_POSITION_LEFT  , 2)
+        call this.CreateSub(187, TREE_POSITION_LEFT  , 4)
+        call this.CreateSub(188, TREE_POSITION_LEFT  , 6)
+        call this.CreateSub(189, TREE_POSITION_LEFT  , 8)
+
+        call this.CreateSub(190, TREE_POSITION_CENTER, 1)
+        call this.CreateSub(191, TREE_POSITION_CENTER, 3)
+        call this.CreateSub(192, TREE_POSITION_CENTER, 5)
+        call this.CreateSub(193, TREE_POSITION_CENTER, 7)
+        call this.CreateSub(194, TREE_POSITION_CENTER, 9)
+
+        call this.CreateSub(195, TREE_POSITION_RIGHT , 2)
+        call this.CreateSub(196, TREE_POSITION_RIGHT , 6)
+        call this.CreateSub(197, TREE_POSITION_RIGHT , 9)
       else
         call MsgAll("오류/TreeCore[" + I2S(characterId) + "]는 작성되지 않았습니다")
         return 0

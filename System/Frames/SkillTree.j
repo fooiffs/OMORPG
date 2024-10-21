@@ -60,7 +60,7 @@ scope SkillTree
         // 반투명 선 만들기
         set TreeFrameMain = DzCreateFrameByTagName("BACKDROP", "", DzGetGameUI(), "QuestButtonBaseTemplate", 0)
         call DzFrameSetAbsolutePoint(TreeFrameMain, JN_FRAMEPOINT_TOPLEFT, .14, .55)
-        call DzFrameSetSize(TreeFrameMain, .22, .45)
+        call DzFrameSetSize(TreeFrameMain, .22, .470)
         call DzFrameSetAlpha(TreeFrameMain, 204)
 
         call MakeLineY(TreeFrameMain, .06, -.01, .43, 128)
@@ -290,7 +290,7 @@ scope SkillTree
       call DzFrameSetFont(temp, "Fonts\\DFHeiMd.ttf", size, 0)
       call DzFrameSetTextAlignment(temp, 17)
       call DzFrameSetText(temp, contents)
-      debug call MsgAll("Height : " + R2S(DzFrameGetHeight(temp)) + "/" + DzFrameGetText(temp))
+      // debug call MsgAll("Height : " + R2S(DzFrameGetHeight(temp)) + "/" + DzFrameGetText(temp))
       return temp
     endmethod
     private static method MakeBack takes integer parent, real x, real y, real size, string texture returns integer
@@ -355,15 +355,17 @@ scope SkillTree
       set TreeTextMainTypeCenter   = MakeTextCenter(GetTreeFrameMain(), .135, -.07, "횡베기", .010)
       set TreeTextMainTypeRight    = MakeTextCenter(GetTreeFrameMain(), .185, -.07, "찌르기", .010)
 
-      call MakeTextCenter(GetTreeFrameMain(), .035, -.10, "기본", 0.010)
-      call MakeTextCenter(GetTreeFrameMain(), .035, -.14, "1단계", 0.010)
-      call MakeTextCenter(GetTreeFrameMain(), .035, -.18, "2단계", 0.010)
-      call MakeTextCenter(GetTreeFrameMain(), .035, -.22, "3단계", 0.010)
-      call MakeTextCenter(GetTreeFrameMain(), .035, -.26, "4단계", 0.010)
-      call MakeTextCenter(GetTreeFrameMain(), .035, -.30, "5단계", 0.010)
-      call MakeTextCenter(GetTreeFrameMain(), .035, -.34, "6단계", 0.010)
-      call MakeTextCenter(GetTreeFrameMain(), .035, -.38, "7단계", 0.010)
-      call MakeTextCenter(GetTreeFrameMain(), .035, -.42, "8단계", 0.010)
+      call MakeTextCenter(GetTreeFrameMain(), .035, -.100,  "기본",  0.010)
+      call MakeTextCenter(GetTreeFrameMain(), .035, -.135,  "1단계", 0.010)
+      call MakeTextCenter(GetTreeFrameMain(), .035, -.170,  "2단계", 0.010)
+      call MakeTextCenter(GetTreeFrameMain(), .035, -.205,  "3단계", 0.010)
+      call MakeTextCenter(GetTreeFrameMain(), .035, -.240,  "4단계", 0.010)
+      call MakeTextCenter(GetTreeFrameMain(), .035, -.275,  "5단계", 0.010)
+      call MakeTextCenter(GetTreeFrameMain(), .035, -.310,  "6단계", 0.010)
+      call MakeTextCenter(GetTreeFrameMain(), .035, -.345,  "7단계", 0.010)
+      call MakeTextCenter(GetTreeFrameMain(), .035, -.380,  "8단계", 0.010)
+      call MakeTextCenter(GetTreeFrameMain(), .035, -.415,  "9단계", 0.010)
+      call MakeTextCenter(GetTreeFrameMain(), .035, -.440, "10단계", 0.010)
       
       call DzFrameShow(GetTreeFrameMain(), false)
     endmethod
