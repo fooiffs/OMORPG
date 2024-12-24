@@ -87,7 +87,19 @@ native DzFrameGetName takes integer frame returns string
 // 좌우 : LEFT(+8), CENTER(+16), RIGHT(+32)
 // 하나만 설정할 수도, 여러개 동시에 설정할 수도 있음.
 native DzFrameSetTextAlignment takes integer frame, integer align returns nothing
+// 먹히는지 확인 필요 : 안먹히면 생성시에 JNCreateFrame()을 이용할 것.
 native DzFrameSetPriority takes integer frame, integer priority returns nothing
+static if false then
+function JNCreateFrame takes string name, integer owner, integer priority, integer createContext returns integer
+  static if REFORGED_MODE then
+      return F2I(BlzCreateFrame(name, I2F(owner), priority, createContext))
+  else
+      local integer i = DzCreateFrame(name, owner, createContext)
+      call DzFrameSetPriority(i, priority)
+      return i
+  endif
+  endfunction
+endif
 
 native DzSimpleTextureFindByName takes string name, integer id returns integer 
 native DzFrameSetModel takes integer frame, string modelFile, integer modelType, integer flag returns nothing 
