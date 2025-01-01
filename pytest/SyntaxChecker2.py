@@ -11,7 +11,7 @@ import signal
 is_print = False
 
 # 지도 시험 (F9) 유무 - 그냥 저장만 하고 컴파일 오류만 확인하려면 False로 두세요.
-is_map_test = True
+is_map_test = False
 
 # 컴파일 시간 후 대기 시간(초) - 각자 맵에 맞춰서 적당히 처리하세요.
 wait_time = 2
@@ -28,10 +28,10 @@ common_path = base_path + '\\Script\\api\\1.0.0\\common.j"'
 blizzard_path = base_path + '\\Script\\api\\1.0.0\\blizzard.j"'
 
 # Jass helper 경로 : 본인은 Vexorian Jass Helper 사용 (보통 JN Editor에 맵 저장할때 쓰는거)
-helper_path = '"C:\\Program Files\\Warcraft\\JassNative Editor v2.2\\jasshelper\\vexorianjasshelper.exe"'
+helper_path = '"c:\\Edit\\Warcraft\\Editor\\jasshelper\\vexorianjasshelper.exe"'
 
 # 지도 시험에 사용할 프로그램 경로
-program_path = '"C:\\Program Files\\Warcraft\\JNLoader.exe"'
+program_path = '"c:\\Edit\\Warcraft\\JNLoader.exe"'
 
 # 옵션 (참고/아는거만 쓰세요: --debug --nopreprocessor --nooptimize --scriptonly --warcity --zinconly --macromode --about --showerrors clijasshelper.exe)
 # 보통은 --debug만 추가/제거하면 될거에요.
@@ -66,7 +66,11 @@ else:
 
 # 생성된 임시 폴더 삭제 - 경로는 바뀔 수 있음.
 time.sleep(wait_time)
-command = 'Remove-Item –path ' + base_path + '\\Script\\backups\" -Recurse'
+command = 'Remove-Item –path ' + base_path + '\\backups\" -Recurse'
+if is_print: print(command)
+subprocess.run(["powershell", command])
+time.sleep(wait_time)
+command = 'Remove-Item –path ' + base_path + '\\logs\" -Recurse'
 if is_print: print(command)
 subprocess.run(["powershell", command])
 

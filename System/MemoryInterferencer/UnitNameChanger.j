@@ -7,6 +7,7 @@ native BitOr takes integer x, integer y returns integer
 scope UnitNameChanger
 
 /* Private 함수 */
+  // jUnitToCUnit
   private function sub_2217A0 takes integer this returns integer
     local Ptr pFunc = pGameDll + 0x2217A0
     call SaveStr(JNProc_ht, JNProc_key, 0, "(I)I")
@@ -17,6 +18,7 @@ scope UnitNameChanger
     return 0
   endfunction
   
+  // GetUnitUIData, GetWidgetUIDef
   private function sub_378720 takes integer this returns integer
     local Ptr pFunc = pGameDll + 0x378720
     call SaveStr(JNProc_ht, JNProc_key, 0, "(I)I")
@@ -26,9 +28,9 @@ scope UnitNameChanger
     endif
     return 0
   endfunction
-  
+
   // sub_3782B0의 변형
-  private function GetObjectNamePtr takes integer rawcode returns Ptr
+  private function GetObjectValuePtr takes integer rawcode, integer offset returns Ptr
     local integer a1 = rawcode
     local integer a2 = 0
     local Ptr result
@@ -45,7 +47,7 @@ scope UnitNameChanger
     if (v4 == 0) then
       return 0
     endif
-    set v5 = IntPtr[v3 + 0x2C]
+    set v5 = IntPtr[v3 + offset]
     set v6 = v4 - 1
     if (v6 < a2) then
       set a2 = v6
@@ -54,7 +56,7 @@ scope UnitNameChanger
 
     return result
   endfunction
-  
+
   // sub_376CA0의 변형
   private function GetHeroTypeProperNamePtr takes integer heroTypeId, integer index returns Ptr
     local Ptr pUnitTypeData = sub_378720(heroTypeId)
@@ -78,13 +80,57 @@ scope UnitNameChanger
 /* 변경할 이름이 최초 이름보다 길면 안 됨 / 한글 3바이트, 영/숫 1바이트 */
   /* 오브젝트의 이름 변경 */
   function SetObjectName takes integer rawcode, string newName returns nothing
-    local Ptr pName = GetObjectNamePtr(rawcode)
+    local Ptr pName = GetObjectValuePtr(rawcode, 0x2C)
     call JNMemorySetString(pName, newName)
   endfunction
 
   /* 유닛 타입의 이름 변경 */
   function SetUnitTypeName takes integer unitTypeId, string newName returns nothing
     call SetObjectName(unitTypeId, newName)
+  endfunction
+
+  /* 오브젝트의 툴팁 제목 변경 */
+  function SetObjectTooltip takes integer rawcode, string newName returns nothing
+    local Ptr pName = GetObjectValuePtr(rawcode, 0x260)
+    call JNMemorySetString(pName, newName)
+  endfunction
+
+  /* 유닛의 툴팁 제목 변경 */
+  function SetUnitTooltip takes unit u, string newName returns nothing
+    call SetObjectTooltip(GetUnitTypeId(u), newName)
+  endfunction
+
+  /* 오브젝트의 툴팁 제목 취득 */
+  function GetObjectTooltip takes integer rawcode returns string
+    local Ptr pName = GetObjectValuePtr(rawcode, 0x260)
+    return JNMemoryGetString(pName, 999)
+  endfunction
+
+  /* 유닛의 툴팁 제목 취득 */
+  function GetUnitTooltip takes unit u returns string
+    return GetObjectTooltip(GetUnitTypeId(u))
+  endfunction
+
+  /* 오브젝트의 툴팁 내용 변경 */
+  function SetObjectUbertip takes integer rawcode, string newName returns nothing
+    local Ptr pName = GetObjectValuePtr(rawcode, 0x26C)
+    call JNMemorySetString(pName, newName)
+  endfunction
+
+  /* 유닛의 툴팁 내용 변경 */
+  function SetUnitUbertip takes unit u, string newName returns nothing
+    call SetObjectUbertip(GetUnitTypeId(u), newName)
+  endfunction
+
+  /* 오브젝트의 툴팁 내용 취득 */
+  function GetObjectUbertip takes integer rawcode returns string
+    local Ptr pName = GetObjectValuePtr(rawcode, 0x26C)
+    return JNMemoryGetString(pName, 999)
+  endfunction
+
+  /* 유닛의 툴팁 내용 취득 */
+  function GetUnitUbertip takes unit u returns string
+    return GetObjectUbertip(GetUnitTypeId(u))
   endfunction
 
   /* 영웅의 게임 속 이름 번호 - 몇번째 번호를 쓰고 있는지 반환 */
