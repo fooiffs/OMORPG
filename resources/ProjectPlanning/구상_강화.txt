@@ -1,0 +1,74 @@
+    function JNGetItemExtendedTooltipById takes integer itemId returns string
+        return  - 설명
+    endfunction
+
+    function JNGetItemIconPathById takes integer itemId returns string
+        return EXGetItemDataString(itemId, 1) - 
+    endfunction
+
+
+
+아이템을 먹는다
+ - 인벤토리에 아이템이 들어간다
+ - 순서대로 차곡차곡 들어간다
+
+아이템에 마우스를 대면
+ - 해당 아이템이 가진 값이 표시된다
+
+DataBase
+  tp - 설명 - 앞 1줄: 설명\n로 구분
+  cs 종류(한글)
+  lv 렙제
+
+이하 '값의 예시'에서와 동일
+
+
+ *추가 사용 가능*
+  Lv
+  class
+  hp
+
+아이템 값의 예시
+ 영어 두글자후 _수치
+ s1 s2 s3 - 스텟
+ d1 d2 a1 a2 - 최소공 최대공 물방 마방
+ l1 l2 ed - 피해감소(물리), 피해감소(마법), 강인함
+ cp cx - 크확 크배
+ m1 m2 m3 - 회피 마방 상태이상방어
+ bs as ms - 피흡 공속 이속
+ g1 g2 피젠 마나젠 (이후 %까지?)
+ p1 p2 p3 - 확률-골드, 드랍, 경치
+ sd sl md c1 c2 - 스킬뎀 스킬레벨 마뎀 마법 선딜(시전시간) 후딜(쿨탐)
+
+  dp 공격력%
+
+구분기호: '로 종류 구분, _로 좌우 구분
+기타정보
+tt 획득정보(날짜시간_플탐_드랍유닛이름) // 0318_218m_아이언 메이든
+co 수량
+ec 강화수치
+ra 희귀등급 - 옵션 숫자, 추가옵션 숫자가 정해짐 // 한글로
+qu 품질등급 - F~S등급
+o0 옵션 변경횟수
+o1 추가옵션
+o2 추가옵션2...
+r1 랜덤옵션1..
+r2 랜덤옵션2..
+r3 랜덤옵션3..
+k0 소켓 수
+k1 소켓 데이터
+k2 소켓2 데이터..
+
+
+1강당 옵션 +8%, 이전의 90% 확률
+
+10강 : 옵션 2배 / 확률 38.7%
+20강 : 옵션 4배 / 확률 13%
+30강 : 옵션 8배 / 확률 4%
+
+
+1. 아이템 옵션 추출 - 해당 옵션을 추출하여 같은 종류/같은 등급에 부여가 가능하다
+└디아블로 이모탈 Essence Transfer'
+
+2. 랜덤옵션 관련 참고
+└그라비티 라그나로크 제로
