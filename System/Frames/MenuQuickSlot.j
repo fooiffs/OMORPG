@@ -9,6 +9,7 @@ scope MenuQuickSlot
     static method AddReg takes integer P, integer MenuNo, integer Hotkey, boolean showMessage returns nothing
       local string s = ""
       local integer i = 0
+      local integer tempFrame = 0
       if ( EHotkeys.I2H(Hotkey) == "" ) then
         call Msg(Player(P-1), "오류/단축키/등록할 수 없는 단축키입니다. -" +I2S(Hotkey) + "=" + EHotkeys.I2H(Hotkey))
       elseif ( MenuNo <= 0 or EHotkeyMenu.HOTKEY_MENU_END < MenuNo ) then
@@ -43,7 +44,10 @@ scope MenuQuickSlot
         call SaveInteger(hash, P, MenuNo, Hotkey)
         call SaveInteger(hash, P, Hotkey, MenuNo)
         if ( GetLocalPlayer() == Player(P-1) ) then
-          call DzFrameSetText(LoadInteger(hash, LoadInteger(hash, StringHash("FUI_HotKeyBase"), MenuNo), StringHash("FUI_HotKey")), EHotkeys.I2H(Hotkey))
+          set tempFrame = LoadInteger(hash, LoadInteger(hash, StringHash("FUI_HotKeyBase"), MenuNo), StringHash("FUI_HotKey"))
+          if tempFrame != 0 then
+            call DzFrameSetText(LoadInteger(hash, LoadInteger(hash, StringHash("FUI_HotKeyBase"), MenuNo), StringHash("FUI_HotKey")), EHotkeys.I2H(Hotkey))
+          endif
         endif
         if ( showMessage ) then
           call DisplayTimedTextToPlayer(Player(P-1),0,0,7.,s)
