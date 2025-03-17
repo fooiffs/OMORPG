@@ -127,12 +127,9 @@ struct ItemRandomEnchanter
     local integer i = 0
     local string tempStr = ""
 
-    call BJDebugMsg("치트/템설정 : " + GetItemName(it) + "/" + keys + "/" + I2S(level) + " // " + LoadStr(hash, GetHandleId(it), StringHash("ItemAddData")))
-
     if keys == "초기화" then
       call RemoveSavedString(hash, GetHandleId(it), StringHash("ItemAddData"))
     else
-
       if HaveSavedString(hash, GetHandleId(it), StringHash("ItemAddData")) then
         call RemoveSavedString(hash, GetHandleId(it), StringHash("ItemAddData"))
       endif
@@ -150,56 +147,50 @@ struct ItemRandomEnchanter
             exitwhen i >= level
             set i = i + 1
           endloop
-          set rand3 = rand3 + "'" + ItemProcess(level)
         endif
       elseif keys == "등급" then
-        if JNStringContains(rand3, "'ra_") then
-          set tempStr = GetRandGrade()
-          set rand3 = JNStringReplace(rand3, "'ra_" + JNStringSplit(JNStringSplit(rand3, "'ra_", 1), "'", 0), tempStr)
-        else
-          set rand3 = rand3 + tempStr
+        set tempStr = GetRandGrade()
+        set rand3 = rand3 + tempStr
+        if tempStr == "'ra_매직" then
+          set rand3 = rand3 + "'" + AddOption(1)
+        elseif tempStr == "'ra_레어" then
+          set rand3 = rand3 + "'" + AddOption(1)
+          set rand3 = rand3 + "'" + AddRandom(1)
+
+        elseif tempStr == "'ra_유니크" then
+          set rand3 = rand3 + "'" + AddOption(1)
+          set rand3 = rand3 + "'" + AddRandom(1)
+          set rand3 = rand3 + "'" + AddRandom(2)
+
+        elseif tempStr == "'ra_에픽" then
+          set rand3 = rand3 + "'" + AddOption(1)
+          set rand3 = rand3 + "'" + AddRandom(1)
+          set rand3 = rand3 + "'" + AddRandom(2)
+          set rand3 = rand3 + "'" + AddRandom(3)
+
+        elseif tempStr == "'ra_히든" then
+          set rand3 = rand3 + "'" + AddOption(1)
+          set rand3 = rand3 + "'" + AddOption(2)
+          set rand3 = rand3 + "'" + AddRandom(1)
+          set rand3 = rand3 + "'" + AddRandom(2)
+          set rand3 = rand3 + "'" + AddRandom(3)
+
+        elseif tempStr == "'ra_등급외" then
+          set rand3 = rand3 + "'" + AddOption(1)
+          set rand3 = rand3 + "'" + AddOption(2)
+          set rand3 = rand3 + "'" + AddOption(3)
+          set rand3 = rand3 + "'" + AddRandom(1)
+          set rand3 = rand3 + "'" + AddRandom(2)
+          set rand3 = rand3 + "'" + AddRandom(3)
+
         endif
-          if tempStr == "'ra_매직" then
-            set rand3 = rand3 + "'" + AddOption(1)
-          elseif tempStr == "'ra_레어" then
-            set rand3 = rand3 + "'" + AddOption(1)
-            set rand3 = rand3 + "'" + AddRandom(1)
-
-          elseif tempStr == "'ra_유니크" then
-            set rand3 = rand3 + "'" + AddOption(1)
-            set rand3 = rand3 + "'" + AddRandom(1)
-            set rand3 = rand3 + "'" + AddRandom(2)
-
-          elseif tempStr == "'ra_에픽" then
-            set rand3 = rand3 + "'" + AddOption(1)
-            set rand3 = rand3 + "'" + AddRandom(1)
-            set rand3 = rand3 + "'" + AddRandom(2)
-            set rand3 = rand3 + "'" + AddRandom(3)
-
-          elseif tempStr == "'ra_히든" then
-            set rand3 = rand3 + "'" + AddOption(1)
-            set rand3 = rand3 + "'" + AddOption(2)
-            set rand3 = rand3 + "'" + AddRandom(1)
-            set rand3 = rand3 + "'" + AddRandom(2)
-            set rand3 = rand3 + "'" + AddRandom(3)
-
-          elseif tempStr == "'ra_등급외" then
-            set rand3 = rand3 + "'" + AddOption(1)
-            set rand3 = rand3 + "'" + AddOption(2)
-            set rand3 = rand3 + "'" + AddOption(3)
-            set rand3 = rand3 + "'" + AddRandom(1)
-            set rand3 = rand3 + "'" + AddRandom(2)
-            set rand3 = rand3 + "'" + AddRandom(3)
-
-          endif
       elseif keys == "강화" then
         set rand3 = JNStringReplace(rand3, "'ec_" + JNStringSplit(JNStringSplit(rand3, "'ec_", 1), "'", 0), I2S(level))
       endif
-
       call SaveStr(hash, GetHandleId(it), StringHash("ItemAddData"), rand3)
     endif
-    debug call JNWriteLog("result : " + rand3)
-    debug call BJDebugMsg("result : " + rand3)
+
+    call BJDebugMsg("치트/인챈트 : " + GetItemName(it) + "/" + keys + "/" + I2S(level) + " // " + LoadStr(hash, GetHandleId(it), StringHash("ItemAddData")))
     return it
   endmethod
   private static method Trig_ItemGet_Actions takes nothing returns nothing
