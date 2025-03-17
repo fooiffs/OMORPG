@@ -115,6 +115,18 @@ scope IResources
       call SetHeroLevel(Unit, Level, true)
     endmethod
 
+    method Revive takes nothing returns nothing
+      if ( Unit == null ) then
+        call Msg(Player(playerId-1), "오류/부활/유닛 없음")
+        return
+      endif
+      call ReviveHero(Unit, Select.startCreateX, Select.startCreateY, false)
+      if GetLocalPlayer() == GetOwningPlayer(Unit) then
+        call PanCameraTo(Select.startCreateX, Select.startCreateY)
+      endif
+      call SelectUnitForPlayerSingle(Unit, GetOwningPlayer(Unit))
+    endmethod
+
     method Remove takes nothing returns nothing
       if ( Unit != null ) then
         call RemoveUnit(Unit)

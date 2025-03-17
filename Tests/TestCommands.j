@@ -11,7 +11,7 @@ scope TestCommands
     endmethod
 
     private static method reviveAction takes nothing returns nothing
-      call ReviveHero(udg_hero[GetPlayerId(GetTriggerPlayer())+1], Select.startCreateX, Select.startCreateY, false)
+      call PlayerResource[GetPlayerId(GetTriggerPlayer())+1].character.Revive()
     endmethod
 
     private static method onInit takes nothing returns nothing
@@ -40,7 +40,7 @@ scope TestCommands
         call TriggerRegisterPlayerChatEvent(trig, Player(loopA), "-부활", true)
         set loopA = loopA + 1
       endloop 
-      call TriggerAddAction(trig, function thistype.levelupAction)
+      call TriggerAddAction(trig, function thistype.reviveAction)
     endmethod
   endstruct
 endscope
