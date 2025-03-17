@@ -127,6 +127,18 @@ scope IResources
       call SelectUnitForPlayerSingle(Unit, GetOwningPlayer(Unit))
     endmethod
 
+    method Suicide takes nothing returns nothing
+      if ( Unit == null ) then
+        call Msg(Player(playerId-1), "오류/자살/유닛 없음")
+        return
+      endif
+      call KillUnit(Unit)
+      if GetLocalPlayer() == GetOwningPlayer(Unit) then
+        call PanCameraTo(GetWidgetX(Unit), GetWidgetY(Unit))
+      endif
+      call Msg(Player(playerId-1), "영웅 죽음, \"-부활\" 명령어로 부활가능.")
+    endmethod
+
     method Remove takes nothing returns nothing
       if ( Unit != null ) then
         call RemoveUnit(Unit)
