@@ -40,6 +40,48 @@ scope TestCommands
       call PlayerResource[GetPlayerId(GetTriggerPlayer())+1].character.Suicide()
     endmethod
 
+    private static method itemEndchantAction takes nothing returns nothing
+      local string chat = JNStringSplit(GetEventPlayerChatString(), " ", 1)
+      local integer level = S2I(JNStringSplit(GetEventPlayerChatString(), " ", 2))
+      local integer P = GetPlayerId(GetTriggerPlayer())+1
+      local unit hero = PlayerResource[GetPlayerId(GetTriggerPlayer())+1].character.Unit
+      local item it = null
+      
+      if chat == "종류" then
+        set it = CreateItem('azhr', GetWidgetX(hero), GetWidgetY(hero))
+        call ItemRandomEnchanter.AddEnchant(it, chat, level)
+        call UnitAddItem(hero, it)
+        set it = CreateItem('ckng', GetWidgetX(hero), GetWidgetY(hero))
+        call ItemRandomEnchanter.AddEnchant(it, chat, level)
+        call UnitAddItem(hero, it)
+        set it = CreateItem('desc', GetWidgetX(hero), GetWidgetY(hero))
+        call ItemRandomEnchanter.AddEnchant(it, chat, level)
+        call UnitAddItem(hero, it)
+        set it = CreateItem('modt', GetWidgetX(hero), GetWidgetY(hero))
+        call ItemRandomEnchanter.AddEnchant(it, chat, level)
+        call UnitAddItem(hero, it)
+        set it = CreateItem('ofro', GetWidgetX(hero), GetWidgetY(hero))
+        call ItemRandomEnchanter.AddEnchant(it, chat, level)
+        call UnitAddItem(hero, it)
+        set it = CreateItem('ratf', GetWidgetX(hero), GetWidgetY(hero))
+        call ItemRandomEnchanter.AddEnchant(it, chat, level)
+        call UnitAddItem(hero, it)
+        set it = CreateItem('rde4', GetWidgetX(hero), GetWidgetY(hero))
+        call ItemRandomEnchanter.AddEnchant(it, chat, level)
+        call UnitAddItem(hero, it)
+      else
+        set it = LoadItemHandle(hash, P, StringHash("ItemData1"))
+        if it == null then
+          debug call JNWriteLog("error! 1번칸에 아이템이 없습니다.")
+          debug call BJDebugMsg("error! 1번칸에 아이템이 없습니다.")
+          set it = null
+          return
+        endif
+        call ItemRandomEnchanter.AddEnchant(it, chat, level)
+      endif
+      set it = null
+    endmethod
+
     private static method onInit takes nothing returns nothing
       local integer loopA = 0
       local trigger trig = CreateTrigger()
@@ -88,6 +130,19 @@ scope TestCommands
         set loopA = loopA + 1
       endloop
       call TriggerAddAction(trig, function thistype.moveAction)
+
+      set loopA = 0
+      set trig = CreateTrigger()
+      loop
+        exitwhen MAX_PLAYER_COUNT-1 <= loopA
+        call TriggerRegisterPlayerChatEvent(trig, Player(loopA), "--아이템 종류 ", false)
+        call TriggerRegisterPlayerChatEvent(trig, Player(loopA), "--아이템 소켓 ", false)
+        call TriggerRegisterPlayerChatEvent(trig, Player(loopA), "--아이템 등급 ", false)
+        call TriggerRegisterPlayerChatEvent(trig, Player(loopA), "--아이템 강화 ", false)
+        call TriggerRegisterPlayerChatEvent(trig, Player(loopA), "--아이템 초기화", true)
+        set loopA = loopA + 1
+      endloop
+      call TriggerAddAction(trig, function thistype.itemEndchantAction)
     endmethod
   endstruct
 endscope
