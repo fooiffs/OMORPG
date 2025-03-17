@@ -44,6 +44,11 @@ scope PushKey initializer Init
     endif
     set p = null
   endfunction
+  
+  private function OnPressESCKey takes nothing returns nothing
+    call MenuQuickSlot.CloseAllMenues(DzGetTriggerKeyPlayer())
+  endfunction
+
   private function Init takes nothing returns nothing
     local trigger trig = CreateTrigger()
     local integer i = 0
@@ -115,6 +120,9 @@ scope PushKey initializer Init
     call DzTriggerRegisterKeyEventByCode(trig, JN_OSKEY_RCONTROL, 0, false, function AllKey)
          
     call DzTriggerRegisterKeyEventByCode(trig, JN_OSKEY_RETURN, 0, false, function AllKey)
+
+    // ESC 닫음
+    call DzTriggerRegisterKeyEventByCode(trig, JN_OSKEY_ESCAPE, 0, false, function OnPressESCKey)
          
     set trig = CreateTrigger()
     call DzTriggerRegisterSyncData(trig, "NowChat", false)

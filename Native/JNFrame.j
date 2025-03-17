@@ -40,6 +40,7 @@ globals
   constant integer JN_OSKEY_OEM_5 = $DC 
   constant integer JN_OSKEY_OEM_6 = $DD 
   constant integer JN_OSKEY_OEM_7 = $DE 
+  constant integer JN_OSKEY_ESCAPE = $1B
     
   constant integer JN_MOUSE_BUTTON_TYPE_RIGHT = 2 /* 마우스 우클 0x3은 제대로 못잡음 */
 endglobals 

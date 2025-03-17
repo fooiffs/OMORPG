@@ -187,6 +187,17 @@ scope MenuQuickSlot
         call Msg(GetLocalPlayer(), "스마트 모드는 준비중입니다.")
       endif
     endmethod
+    public static method CloseAllMenues takes player whichPlayer returns nothing
+      if GetLocalPlayer() == whichPlayer then
+        set EMenus.OX_Inven = false
+        call DzFrameShow(Frame_InvenButtonsBackDrop[0], EMenus.OX_Inven)
+        set EMenus.OX_Stats = false
+        call DzFrameShow(Frame_Info[0], EMenus.OX_Stats)
+        set EMenus.OX_Skills1 = false
+        call DzFrameShow(SkillTree.GetTreeFrameMain(), EMenus.OX_Skills1)
+      endif
+    endmethod
+
     static method TreeSkillUse takes nothing returns nothing
       local player p = DzGetTriggerSyncPlayer()
       local string data = DzGetTriggerSyncData()
