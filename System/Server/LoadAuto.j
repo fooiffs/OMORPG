@@ -110,7 +110,7 @@ scope LoadAuto initializer Init
     endif
   endfunction
   private function DataSync takes nothing returns nothing
-    call Select.GetSaveData(DzGetTriggerSyncPlayer(), DzGetTriggerSyncData())
+    call Select.ApplySlotContinue(DzGetTriggerSyncPlayer(), Select.GetLastClickCharacterSlotIndex())
   endfunction
   private function AfterLoad takes nothing returns nothing
     if ( udg_hero[GetPlayerId(GetTriggerPlayer())+1] != null ) then

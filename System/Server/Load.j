@@ -101,7 +101,7 @@ scope Load
       // call Msg(GetServerPlayer, "로드/플레이어["+I2S(JN_LoaderNow)+"], 슬롯["+I2S(receivedData)+"] 로드, Lv("+I2S(tempInteger)+") 진행중: " + tempString)
 
       // 생성
-      set udg_hero[currentPlayerId] = CreateUnit(GetServerPlayer, CharacterData[receivedData].UnitCode, Select.startCreateX, Select.startCreateY, bj_UNIT_FACING)
+      set udg_hero[currentPlayerId] = CreateUnit(GetServerPlayer, CharacterData[receivedData].UnitCode, Select.BASE_START_LOCATION_X, Select.BASE_START_LOCATION_Y, bj_UNIT_FACING)
 
       // 신규, 이어하기 알림
       if ( 0 == tempInteger ) then /* 신규 시작 */

@@ -216,7 +216,8 @@ scope MenuQuickSlot
         if ( GetLocalPlayer() == p ) then
           call StopSound(gg_snd_MouseClick1, false, false)
           call StartSound(gg_snd_MouseClick1)
-          call Select.ViewInfo(CharacterData[Select.NowSelect[playerId]].SelectDatas, ( 0 < S2I(JNStringSplit(JNStringSplit(LoadStr(hash, playerId, StringHash("Data")),"/",Select.NowSelect[playerId]),"'",1)) ))
+          call Select.OnUnitSelect(Select.NowSelect[playerId])
+          // call Select.ViewInfo(CharacterData[Select.NowSelect[playerId]].SelectDatas, ( 0 < S2I(JNStringSplit(JNStringSplit(LoadStr(hash, playerId, StringHash("Data")),"/",Select.NowSelect[playerId]),"'",1)) ))
         endif
       elseif ( EMenus.GetMainType(frame) == QUICK_MENU_MENU ) then
         if ( GetLocalPlayer() == p ) then

@@ -120,9 +120,9 @@ scope IResources
         call Msg(Player(playerId-1), "오류/부활/유닛 없음")
         return
       endif
-      call ReviveHero(Unit, Select.startCreateX, Select.startCreateY, false)
+      call ReviveHero(Unit, Select.BASE_START_LOCATION_X, Select.BASE_START_LOCATION_Y, false)
       if GetLocalPlayer() == GetOwningPlayer(Unit) then
-        call PanCameraTo(Select.startCreateX, Select.startCreateY)
+        call PanCameraTo(Select.BASE_START_LOCATION_X, Select.BASE_START_LOCATION_Y)
       endif
       call SelectUnitForPlayerSingle(Unit, GetOwningPlayer(Unit))
     endmethod

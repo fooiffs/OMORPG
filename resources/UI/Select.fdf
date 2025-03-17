@@ -1,0 +1,445 @@
+// 캐릭터 정보 배경
+Frame "BACKDROP" "Select_CharacterInformation_Backdrop" {
+    UseActiveContext,
+    Width 0.18,
+    Height 0.27,
+    BackdropBackground "UI\Select_CharacterInformation_Backdrop.tga",
+    BackdropBlendAll,
+        
+    // 캐릭터 정보 제목
+    Frame "TEXT" "Select_CharacterInformation_Title" {
+        DecorateFileNames,
+        UseActiveContext,
+        FrameFont "MasterFont", 0.016, "",
+        FontFlags "FIXEDSIZE",
+        FontShadowColor 0 0 0,
+        FontShadowOffset 0.001 -0.001,
+        SetPoint CENTER, "Select_CharacterInformation_Backdrop", TOP, 0.0, -0.0175,
+    }
+        
+    // 캐릭터 정보 이름
+    Frame "TEXT" "Select_CharacterInformation_CharacterName" {
+        DecorateFileNames,
+        UseActiveContext,
+        FrameFont "MasterFont", 0.012, "",
+        FontFlags "FIXEDSIZE",
+        FontShadowColor 0 0 0,
+        FontShadowOffset 0.001 -0.001,
+        SetPoint TOPRIGHT, "Select_CharacterInformation_Backdrop", TOPRIGHT, -0.01, -0.0325,
+    }
+        
+    // 캐릭터 정보 설명
+    Frame "TEXT" "Select_CharacterInformation_Description" {
+        DecorateFileNames,
+        UseActiveContext,
+        Width 0.16,
+        Height 0.03,
+        FrameFont "MasterFont", 0.01, "",
+        FontFlags "FIXEDSIZE",
+        FontShadowColor 0 0 0,
+        FontShadowOffset 0.001 -0.001,
+        SetPoint TOPLEFT, "Select_CharacterInformation_Backdrop", TOPLEFT, 0.01, -0.0475,
+    }
+    
+    // 캐릭터 정보 "공격" 배경
+    Frame "BACKDROP" "Select_CharacterInformation_AttackBackdrop" {
+        UseActiveContext,
+        Width 0.16,
+        Height 0.03,
+        BackdropBackground "UI\Select_CharacterInformation_SubTitleBackdropTypeA.tga",
+        BackdropBlendAll,
+        SetPoint CENTER, "Select_CharacterInformation_Backdrop", TOP, -0.0025, -0.126,
+    
+        // 캐릭터 정보 "공격" 제목
+        Frame "BACKDROP" "Select_CharacterInformation_AttackTitle" {
+            UseActiveContext,
+            Width 0.055,
+            Height 0.022,
+            BackdropBackground "UI\Select_CharacterInformation_AttackTitle.tga",
+            BackdropBlendAll,
+            SetPoint CENTER, "Select_CharacterInformation_AttackBackdrop", LEFT, 0.035, -0.0012,
+        }
+    }
+    
+    // 캐릭터 정보 "방어" 배경
+    Frame "BACKDROP" "Select_CharacterInformation_DefenceBackdrop" {
+        UseActiveContext,
+        Width 0.16,
+        Height 0.03,
+        BackdropBackground "UI\Select_CharacterInformation_SubTitleBackdropTypeA.tga",
+        BackdropBlendAll,
+        SetPoint CENTER, "Select_CharacterInformation_AttackBackdrop", CENTER, 0.0, -0.029,
+    
+        // 캐릭터 정보 "방어" 제목
+        Frame "BACKDROP" "Select_CharacterInformation_DefenceTitle" {
+            UseActiveContext,
+            Width 0.055,
+            Height 0.022,
+            BackdropBackground "UI\Select_CharacterInformation_DefenceTitle.tga",
+            BackdropBlendAll,
+            SetPoint CENTER, "Select_CharacterInformation_DefenceBackdrop", LEFT, 0.035, -0.0012,
+        }
+    }
+
+    // 캐릭터 정보 "보조" 배경
+    Frame "BACKDROP" "Select_CharacterInformation_SupportBackdrop" {
+        UseActiveContext,
+        Width 0.16,
+        Height 0.03,
+        BackdropBackground "UI\Select_CharacterInformation_SubTitleBackdropTypeA.tga",
+        BackdropBlendAll,
+        SetPoint CENTER, "Select_CharacterInformation_DefenceBackdrop", CENTER, 0.0, -0.029,
+    
+        // 캐릭터 정보 "보조" 제목
+        Frame "BACKDROP" "Select_CharacterInformation_SupportTitle" {
+            UseActiveContext,
+            Width 0.055,
+            Height 0.022,
+            BackdropBackground "UI\Select_CharacterInformation_SupportTitle.tga",
+            BackdropBlendAll,
+            SetPoint CENTER, "Select_CharacterInformation_SupportBackdrop", LEFT, 0.035, -0.0012,
+        }
+    }
+
+    // 캐릭터 정보 "방해" 배경
+    Frame "BACKDROP" "Select_CharacterInformation_DisturbBackdrop" {
+        UseActiveContext,
+        Width 0.16,
+        Height 0.03,
+        BackdropBackground "UI\Select_CharacterInformation_SubTitleBackdropTypeA.tga",
+        BackdropBlendAll,
+        SetPoint CENTER, "Select_CharacterInformation_SupportBackdrop", CENTER, 0.0, -0.029,
+    
+        // 캐릭터 정보 "방해" 제목
+        Frame "BACKDROP" "Select_CharacterInformation_DisturbTitle" {
+            UseActiveContext,
+            Width 0.055,
+            Height 0.022,
+            BackdropBackground "UI\Select_CharacterInformation_DisturbTitle.tga",
+            BackdropBlendAll,
+            SetPoint CENTER, "Select_CharacterInformation_DisturbBackdrop", LEFT, 0.035, -0.0012,
+        }
+    }
+
+    // 캐릭터 정보 "난이도" 배경
+    Frame "BACKDROP" "Select_CharacterInformation_DifficultBackdrop" {
+        UseActiveContext,
+        Width 0.16,
+        Height 0.03,
+        BackdropBackground "UI\Select_CharacterInformation_SubTitleBackdropTypeB.tga",
+        BackdropBlendAll,
+        SetPoint CENTER, "Select_CharacterInformation_DisturbBackdrop", CENTER, 0.0, -0.029,
+    
+        // 캐릭터 정보 "난이도" 제목
+        Frame "BACKDROP" "Select_CharacterInformation_DifficultTitle" {
+            UseActiveContext,
+            Width 0.055,
+            Height 0.022,
+            BackdropBackground "UI\Select_CharacterInformation_DifficultTitle.tga",
+            BackdropBlendAll,
+            SetPoint CENTER, "Select_CharacterInformation_DifficultBackdrop", LEFT, 0.035, -0.0012,
+        }
+    }
+}
+
+
+
+// 캐릭터 미리보기 배경
+Frame "BACKDROP" "Select_CharacterPreview_Backdrop" {
+    UseActiveContext,
+    Width 0.2,
+    Height 0.255,
+    BackdropBackground "UI\Transparent.tga",
+    BackdropBlendAll,
+    
+    // 캐릭터 미리보기 제목
+    Frame "BACKDROP" "Select_CharacterPreview_Title" {
+        UseActiveContext,
+        Width 0.155,
+        Height 0.03,
+        BackdropBackground "UI\Transparent.tga",
+        BackdropBlendAll,
+        SetPoint CENTER, "Select_CharacterPreview_Backdrop", TOP, 0.0, -0.02275,
+    }
+
+    // 피해 유형 배경
+    Frame "BACKDROP" "Select_CharacterPreview_DamageTypeBackdrop" {
+        UseActiveContext,
+        Width 0.18,
+        Height 0.025,
+        BackdropBackground "UI\Transparent.tga",
+        BackdropBlendAll,
+        SetPoint CENTER, "Select_CharacterPreview_Backdrop", TOP, 0.0, -0.055,
+        
+        // 피해 유형 아이콘
+        Frame "BACKDROP" "Select_CharacterPreview_DamageTypeIcon" {
+            UseActiveContext,
+            Width 0.018,
+            Height 0.018,
+            BackdropBackground "UI\Transparent.tga",
+            BackdropBlendAll,
+            SetPoint CENTER, "Select_CharacterPreview_DamageTypeBackdrop", LEFT, 0.015, 0.0,
+        }
+        
+        // 피해 유형 제목
+        Frame "BACKDROP" "Select_CharacterPreview_DamageTypeTitle" {
+            UseActiveContext,
+            Width 0.085,
+            Height 0.017,
+            BackdropBackground "UI\Transparent.tga",
+            BackdropBlendAll,
+            SetPoint LEFT, "Select_CharacterPreview_DamageTypeBackdrop", LEFT, 0.03, 0.0,
+        }
+        
+        // 피해 유형 텍스트
+        Frame "TEXT" "Select_CharacterPreview_DamageTypeText" {
+            DecorateFileNames,
+            UseActiveContext,
+            FrameFont "MasterFont", 0.012, "",
+            FontFlags "FIXEDSIZE",
+            FontShadowColor 0 0 0,
+            FontShadowOffset 0.001 -0.001,
+            SetPoint LEFT, "Select_CharacterPreview_DamageTypeBackdrop", BOTTOMLEFT, 0.015, -0.0065,
+        }
+    }
+
+    // 사용(전용) 무기 배경
+    Frame "BACKDROP" "Select_CharacterPreview_WeaponTypeBackdrop" {
+        UseActiveContext,
+        Width 0.18,
+        Height 0.025,
+        BackdropBackground "UI\Transparent.tga",
+        BackdropBlendAll,
+        SetPoint CENTER, "Select_CharacterPreview_DamageTypeBackdrop", CENTER, 0.0, -0.045,
+        
+        // 사용(전용) 무기 아이콘
+        Frame "BACKDROP" "Select_CharacterPreview_WeaponTypeIcon" {
+            UseActiveContext,
+            Width 0.018,
+            Height 0.018,
+            BackdropBackground "UI\Transparent.tga",
+            BackdropBlendAll,
+            SetPoint CENTER, "Select_CharacterPreview_WeaponTypeBackdrop", LEFT, 0.015, 0.0,
+        }
+        
+        // 사용(전용) 무기 제목
+        Frame "BACKDROP" "Select_CharacterPreview_WeaponTypeTitle" {
+            UseActiveContext,
+            Width 0.085,
+            Height 0.017,
+            BackdropBackground "UI\Transparent.tga",
+            BackdropBlendAll,
+            SetPoint LEFT, "Select_CharacterPreview_WeaponTypeBackdrop", LEFT, 0.03, 0.0,
+        }
+        
+        // 사용(전용) 무기 텍스트
+        Frame "TEXT" "Select_CharacterPreview_WeaponTypeText" {
+            DecorateFileNames,
+            UseActiveContext,
+            FrameFont "MasterFont", 0.012, "",
+            FontFlags "FIXEDSIZE",
+            FontShadowColor 0 0 0,
+            FontShadowOffset 0.001 -0.001,
+            SetPoint LEFT, "Select_CharacterPreview_WeaponTypeBackdrop", BOTTOMLEFT, 0.015, -0.0065,
+        }
+    }
+
+    // 주요 스킬 보기 배경
+    Frame "BACKDROP" "Select_CharacterPreview_SkillListBackdrop" {
+        UseActiveContext,
+        Width 0.18,
+        Height 0.025,
+        BackdropBackground "UI\Transparent.tga",
+        BackdropBlendAll,
+        SetPoint CENTER, "Select_CharacterPreview_WeaponTypeBackdrop", CENTER, 0.0, -0.045,
+        
+        // 주요 스킬 보기 아이콘
+        Frame "BACKDROP" "Select_CharacterPreview_SkillListIcon" {
+            UseActiveContext,
+            Width 0.02,
+            Height 0.02,
+            BackdropBackground "UI\Transparent.tga",
+            BackdropBlendAll,
+            SetPoint CENTER, "Select_CharacterPreview_SkillListBackdrop", LEFT, 0.015, 0.0,
+        }
+        
+        // 주요 스킬 보기 제목
+        Frame "BACKDROP" "Select_CharacterPreview_SkillListTitle" {
+            UseActiveContext,
+            Width 0.085,
+            Height 0.017,
+            BackdropBackground "UI\Transparent.tga",
+            BackdropBlendAll,
+            SetPoint LEFT, "Select_CharacterPreview_SkillListBackdrop", LEFT, 0.03, 0.0,
+        }
+        
+        // 주요 스킬 아이콘 마우스 나감 이벤트용 버튼
+        Frame "BUTTON" "Select_CharacterPreview_MouseLeaveEventCheckButton" {
+            UseActiveContext,
+            Width 0.185,
+            Height 0.05,
+            SetPoint CENTER, "Select_CharacterPreview_SkillListBackdrop", BOTTOM, 0.0, -0.0225,
+        }
+        
+        // 주요 스킬 보기 스킬 이름
+        Frame "TEXT" "Select_CharacterPreview_SkillListSkillName" {
+            DecorateFileNames,
+            UseActiveContext,
+            FrameFont "MasterFont", 0.012, "",
+            FontFlags "FIXEDSIZE",
+            FontShadowColor 0 0 0,
+            FontShadowOffset 0.001 -0.001,
+            SetPoint LEFT, "Select_CharacterPreview_SkillListBackdrop", BOTTOMLEFT, 0.015, -0.048,
+            
+            // 주요 스킬 보기 스킬 설명
+            Frame "TEXT" "Select_CharacterPreview_SkillListSkillDescription" {
+                DecorateFileNames,
+                UseActiveContext,
+                Width 0.1525,
+                Height 0.03,
+                FrameFont "MasterFont", 0.008, "",
+                FontFlags "FIXEDSIZE",
+                FontShadowColor 0 0 0,
+                FontShadowOffset 0.001 -0.001,
+                SetPoint TOPLEFT, "Select_CharacterPreview_SkillListSkillName", BOTTOMLEFT, 0.0, -0.003,
+            }
+        }
+
+        // 시작하기/이어하기 버튼
+        Frame "BUTTON" "Select_CharacterPreview_StartButton" {
+            UseActiveContext,
+            Width 0.09,
+            Height 0.039,
+            ControlStyle "AUTOTRACK|HIGHLIGHTONMOUSEOVER",
+            SetPoint CENTER, "Select_CharacterPreview_Backdrop", BOTTOM, 0.0, -0.005,
+            
+            ControlBackdrop "Select_CharacterPreview_StartButtonA",
+            Frame "BACKDROP" "Select_CharacterPreview_StartButtonA" {
+                UseActiveContext,
+                BackdropBackground "UI\Transparent.blp",
+                BackdropBlendAll,
+            }
+
+            ControlPushedBackdrop "Select_CharacterPreview_StartButtonB",
+            Frame "BACKDROP" "Select_CharacterPreview_StartButtonB" {
+                UseActiveContext,
+                BackdropBackground "UI\Transparent.blp",
+                BackdropBlendAll,
+                BackdropBackgroundInsets 0.001 0.001 0.001 0.001,
+            }
+
+            ControlMouseOverHighlight "Select_CharacterPreview_StartButtonC",
+            Frame "HIGHLIGHT" "Select_CharacterPreview_StartButtonC" {
+                UseActiveContext,
+                HighlightType "FILETEXTURE",
+                HighlightAlphaFile "UI\Widgets\EscMenu\Human\quest-button-highlight.blp",
+                HighlightAlphaMode "ADD",
+            }
+        }
+    }
+}
+
+//──────────────────────────────────────────────────이하 루프문으로 생성할 것들──────────────────────────────────────────────────
+
+// 캐릭터 정보 별
+Frame "BACKDROP" "Select_CharacterInformation_Stars" {
+    UseActiveContext,
+    Width 0.02,
+    Height 0.02,
+    BackdropBackground "UI\Select_CharacterInformation_Stars0.tga",
+    BackdropBlendAll,
+}
+
+// 캐릭터 미리보기 스킬 아이콘
+Frame "BUTTON" "Select_CharacterPreview_SkillListSkillIcon" {
+    UseActiveContext,
+    Width 0.035,
+    Height 0.035,
+    ControlStyle "AUTOTRACK|HIGHLIGHTONMOUSEOVER",
+    
+    ControlBackdrop "Select_CharacterPreview_SkillListSkillIconA",
+    Frame "BACKDROP" "Select_CharacterPreview_SkillListSkillIconA" {
+        UseActiveContext,
+        BackdropBackground "UI\Transparent.blp",
+        BackdropBlendAll,
+    }
+
+    ControlPushedBackdrop "Select_CharacterPreview_SkillListSkillIconB",
+    Frame "BACKDROP" "Select_CharacterPreview_SkillListSkillIconB" {
+        UseActiveContext,
+        BackdropBackground "UI\Transparent.blp",
+        BackdropBlendAll,
+        BackdropBackgroundInsets 0.001 0.001 0.001 0.001,
+    }
+
+    ControlMouseOverHighlight "Select_CharacterPreview_SkillListSkillIconC",
+    Frame "HIGHLIGHT" "Select_CharacterPreview_SkillListSkillIconC" {
+        UseActiveContext,
+        HighlightType "FILETEXTURE",
+        HighlightAlphaFile "UI\SkillTree_SkillIcon_MouseEnterHighlight.tga",
+        HighlightAlphaMode "ADD",
+    }
+}
+
+// 캐릭터 슬롯 배경
+Frame "BUTTON" "Select_CharacterSlot_Backdrop" {
+    UseActiveContext,
+    Width 0.12,
+    Height 0.046,
+    ControlStyle "AUTOTRACK|HIGHLIGHTONMOUSEOVER",
+    
+    ControlBackdrop "Select_CharacterSlot_BackdropA",
+    Frame "BACKDROP" "Select_CharacterSlot_BackdropA" {
+        UseActiveContext,
+        BackdropBackground "UI\Select_CharacterSlot_Backdrop.blp",
+        BackdropBlendAll,
+    }
+
+    ControlPushedBackdrop "Select_CharacterSlot_ButtonB",
+    Frame "BACKDROP" "Select_CharacterSlot_ButtonB" {
+        UseActiveContext,
+        BackdropBackground "UI\Select_CharacterSlot_Backdrop.blp",
+        BackdropBlendAll,
+        BackdropBackgroundInsets 0.001 0.001 0.001 0.001,
+    }
+
+    ControlMouseOverHighlight "Select_CharacterSlot_BackdropB",
+    Frame "HIGHLIGHT" "Select_CharacterSlot_BackdropB" {
+        UseActiveContext,
+        HighlightType "FILETEXTURE",
+        HighlightAlphaFile "UI\Widgets\EscMenu\Human\quest-button-highlight.blp",
+        HighlightAlphaMode "ADD",
+    }
+    
+    // 캐릭터 슬롯 체크 표시
+    Frame "BACKDROP" "Select_CharacterSlot_Check" {
+        UseActiveContext,
+        Width 0.035,
+        Height 0.035,
+        BackdropBackground "UI\Select_CharacterSlot_Check.tga",
+        BackdropBlendAll,
+        SetPoint CENTER, "Select_CharacterSlot_Backdrop", LEFT, 0.024, 0.003,
+    }
+
+    // 캐릭터 슬롯 캐릭터 이름
+    Frame "TEXT" "Select_CharacterSlot_CharacterName" {
+        DecorateFileNames,
+        UseActiveContext,
+        FrameFont "MasterFont", 0.01, "",
+        FontFlags "FIXEDSIZE",
+        FontShadowColor 0 0 0,
+        FontShadowOffset 0.001 -0.001,
+        SetPoint CENTER, "Select_CharacterSlot_Backdrop", CENTER, 0.015, 0.009,
+    }
+        
+    // 캐릭터 슬롯 캐릭터 상태
+    Frame "TEXT" "Select_CharacterSlot_CharacterStatus" {
+        DecorateFileNames,
+        UseActiveContext,
+        FrameFont "MasterFont", 0.01, "",
+        FontFlags "FIXEDSIZE",
+        FontShadowColor 0 0 0,
+        FontShadowOffset 0.001 -0.001,
+        SetPoint CENTER, "Select_CharacterSlot_Backdrop", CENTER, 0.015, -0.005,
+    }
+}

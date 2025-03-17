@@ -13,6 +13,7 @@ globals
   constant integer JN_FRAMEPOINT_BOTTOM = 7 
   constant integer JN_FRAMEPOINT_BOTTOMRIGHT = 8 
     
+	constant integer JN_FRAMEEVENT_CONTROL_CLICK = 1
   constant integer JN_FRAMEEVENT_MOUSE_ENTER = 2 
   constant integer JN_FRAMEEVENT_MOUSE_LEAVE = 3 
   constant integer JN_FRAMEEVENT_MOUSE_UP = 4 
