@@ -13,17 +13,17 @@ native JNMemoryGetString takes integer offset, integer length returns string
 native JNMemorySetByte takes integer offset, integer value returns nothing
 native JNProcCall takes integer callConv, integer address, hashtable params returns boolean
 
-library MemoryLib requires /*
-    */ MemoryLibBase, /*
-    */ optional MemoryLibCommandButton, /*
-    */ optional MemoryLibCommandButtonData, /*
-    */ optional MemoryLibGameUI, /*
-    */ optional MemoryLibMemoryBlock, /*
-    */ optional MemoryLibPrimitiveType, /*
-    */ MemoryLibEnd
-endlibrary
+// scope MemoryLib requires /*
+//     */ MemoryLibBase, /*
+//     */ optional MemoryLibCommandButton, /*
+//     */ optional MemoryLibCommandButtonData, /*
+//     */ optional MemoryLibGameUI, /*
+//     */ optional MemoryLibMemoryBlock, /*
+//     */ optional MemoryLibPrimitiveType, /*
+//     */ MemoryLibEnd
+// endscope
 
-library MemoryLibBase initializer Init /*requires JNMemory*/
+scope MemoryLibBase initializer Init /*requires JNMemory*/
     globals
         integer pGameDll
     endglobals
@@ -34,14 +34,15 @@ library MemoryLibBase initializer Init /*requires JNMemory*/
     private function Init takes nothing returns nothing
         set pGameDll = JNGetModuleHandle("Game.dll")
     endfunction
-endlibrary
+endscope
 
-library MemoryLibEnd
-endlibrary
+scope MemoryLibEnd
+endscope
 
 // source: src/MemoryLibCommandButton.j
 
-library MemoryLibCommandButton requires MemoryLibBase, MemoryLibPrimitiveType, MemoryLibCommandButtonData
+scope MemoryLibCommandButton
+    //  requires MemoryLibBase, MemoryLibPrimitiveType, MemoryLibCommandButtonData
 
     struct CommandButton extends Ptr
         public static method getCommandBarButton takes integer x, integer y returns thistype
@@ -53,10 +54,10 @@ library MemoryLibCommandButton requires MemoryLibBase, MemoryLibPrimitiveType, M
         endmethod
     endstruct
 
-endlibrary
+endscope
 
 // source: src/MemoryLibCommandButtonData.j
-library MemoryLibCommandButtonData requires MemoryLibBase, MemoryLibPrimitiveType
+scope MemoryLibCommandButtonData /* requires MemoryLibBase, MemoryLibPrimitiveType */
 
     struct CommandButtonData extends Ptr
         public method operator abilityId takes nothing returns integer
@@ -94,10 +95,10 @@ library MemoryLibCommandButtonData requires MemoryLibBase, MemoryLibPrimitiveTyp
         endmethod
     endstruct
 
-endlibrary
+endscope
 
 // source: src/MemoryLibGameUI.j
-library MemoryLibGameUI requires MemoryLibBase, MemoryLibPrimitiveType
+scope MemoryLibGameUI /* requires MemoryLibBase, MemoryLibPrimitiveType */
     globals
         constant hashtable JNProc_ht = InitHashtable()
         constant integer JNProc_key = StringHash("jass")
@@ -155,14 +156,14 @@ library MemoryLibGameUI requires MemoryLibBase, MemoryLibPrimitiveType
         endmethod
     endstruct
 
-endlibrary
+endscope
 
 // source: src/MemoryLibMemoryBlock.j
 /*
  * MemoryLibMemoryBlock
  * 빈 메모리 공간을 할당합니다.
  */
-library MemoryLibMemoryBlock requires MemoryLibBase, MemoryLibPrimitiveType
+scope MemoryLibMemoryBlock /* requires MemoryLibBase, MemoryLibPrimitiveType */
 
     globals
         /* 최대 할당 크기 */
@@ -208,10 +209,10 @@ library MemoryLibMemoryBlock requires MemoryLibBase, MemoryLibPrimitiveType
     endstruct
     //! endtextmacro
 
-endlibrary
+endscope
 
 // source: src/MemoryLibPrimitiveType.j
-library MemoryLibPrimitiveType requires MemoryLibBase
+scope MemoryLibPrimitiveType /* requires MemoryLibBase */
 
     struct BytePtr extends Ptr
         public static method operator [] takes integer address returns integer
@@ -317,4 +318,4 @@ library MemoryLibPrimitiveType requires MemoryLibBase
         endmethod
     endstruct
 
-endlibrary
+endscope
