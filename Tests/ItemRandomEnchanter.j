@@ -185,7 +185,12 @@ struct ItemRandomEnchanter
 
         endif
       elseif keys == "강화" then
-        set rand3 = JNStringReplace(rand3, "'ec_" + JNStringSplit(JNStringSplit(rand3, "'ec_", 1), "'", 0), I2S(level))
+        if JNStringContains(rand3, "'ec_") then
+          set rand3 = JNStringReplace(rand3, "'ec_" + JNStringSplit(JNStringSplit(rand3, "'ec_", 1), "'", 0), I2S(level))
+        else
+            set rand3 = rand3 + "'" + AddOption(1)
+            set rand3 = rand3 + "'ec_" + I2S(level)
+        endif
       endif
       call SaveStr(hash, GetHandleId(it), StringHash("ItemAddData"), rand3)
     endif
@@ -282,6 +287,8 @@ struct ItemRandomEnchanter
 
         if ( Slot > 0 ) then
           call SaveStr(hash, GetHandleId(GetManipulatedItem()), StringHash("ItemAddData"), rand3)
+          debug call JNWriteLog("최종 옵션 : " + rand3)
+          debug call BJDebugMsg("최종 옵션 : " + rand3)
         else
           call BJDebugMsg("인벤토리가 모두 찼습니다.")
           call UnitRemoveItem(GetTriggerUnit(), GetManipulatedItem())
